@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-1.1.0-blue">
+  <img src="https://img.shields.io/badge/Version-1.4.1-green">
   <img src="https://img.shields.io/badge/Python-3.11-blue?logo=python">
   <img src="https://img.shields.io/badge/Flask-Backend-black?logo=flask">
   <img src="https://img.shields.io/badge/ML-Linear_Regression-orange">
