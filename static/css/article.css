@@ -300,7 +300,7 @@
 .article__weight-item { display: flex; align-items: center; gap: 12px; }
 .article__weight-label { width: 36px; font-size: 13px; font-weight: 600; color: var(--muted); flex-shrink: 0; }
 .article__weight-bar { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
-.article__weight-fill { height: 100%; border-radius: 4px; }
+.article__weight-fill { height: 100%; border-radius: 4px; background: rgba(255,255,255,0.18); }
 .article__weight-pct { width: 36px; font-size: 13px; font-weight: 700; color: #e6edf3; text-align: right; flex-shrink: 0; }
 
 /* ── Читайте также ── */
@@ -581,4 +581,42 @@
     .article__weight-label { font-size: 10px; min-width: 24px; }
     .article__weight-pct   { font-size: 12px; min-width: 28px; }
     .article__weight-bar   { min-width: 20px; }
+}
+
+/* ── Веса — инлайн-строка ── */
+.article__weights-inline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+}
+.article__weight-chip {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e6edf3;
+    padding: 5px 14px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    white-space: nowrap;
+}
+.article__weight-chip--accent {
+    color: #3fb950;
+    background: rgba(46,160,67,0.12);
+}
+[data-theme="light"] .article__weights-inline {
+    background: rgba(0,0,0,0.02);
+    border-color: rgba(0,0,0,0.08);
+}
+[data-theme="light"] .article__weight-chip {
+    color: #0f172a;
+    background: rgba(0,0,0,0.05);
+}
+[data-theme="light"] .article__weight-chip--accent {
+    color: #16a34a;
+    background: rgba(22,163,74,0.08);
 }
