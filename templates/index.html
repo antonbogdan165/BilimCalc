@@ -4,13 +4,13 @@
     <meta name="robots" content="index, follow">
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.4.1">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.5.1">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="/static/css/style.css?v=1.5.0">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.0.0">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.5.1">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.5.1">
     <meta charset="utf-8">
     <title>BilimCalc — калькулятор СО, СОР и СОЧ онлайн</title>
     <meta name="language" content="ru">
@@ -124,6 +124,10 @@
     </button>
 </div>
 
+<div id="offlineBanner" class="offline-banner" style="display:none">
+    ⚠️ Нет подключения к интернету — калькулятор работает офлайн
+</div>
+
 <div class="container" style="padding-top: 72px">
     <div class="site-title">
         <div class="site-title__logo">
@@ -151,7 +155,9 @@
                     </form>
                     <button class="btn ghost" id="clearSoBtn">Очистить</button>
                 </div>
-                <div class="list" id="soList"></div>
+                <div class="list" id="soList">
+                    <div class="list-empty" id="soEmpty">Ещё нет оценок СО</div>
+                </div>
             </div>
 
             <!-- СОР -->
@@ -165,7 +171,9 @@
                     </form>
                     <button class="btn ghost" id="clearSorsBtn">Очистить</button>
                 </div>
-                <div class="list" id="sorList"></div>
+                <div class="list" id="sorList">
+                    <div class="list-empty" id="sorEmpty">Ещё нет оценок СОР</div>
+                </div>
             </div>
 
             <!-- СОЧ -->
@@ -179,6 +187,13 @@
                     <button class="btn ghost" id="clearSochBtn">Очистить</button>
                 </div>
             </div>
+
+            <!-- Сбросить всё -->
+            <div style="margin-top:12px">
+                <button class="btn ghost" id="resetAllBtn" style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.25);">
+                    🗑 Сбросить всё
+                </button>
+            </div>
         </div>
 
         <!-- правая колонка -->
@@ -186,64 +201,89 @@
             <div class="card">
                 <div class="result-big" id="finalResult">—</div>
                 <div class="grade-badge badge-empty" id="gradeBadge">Нет данных</div>
-                <div class="subtitle">Автоматический расчёт. Результат обновляется при изменении.</div>
+                <div class="subtitle">Автоматический расчёт.<br>Введите данные слева.</div>
+
+                <!-- Кнопка поделиться -->
+                <button id="shareBtn" class="btn ghost share-btn" style="display:none;width:100%;margin-bottom:10px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px">
+                        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                    Поделиться результатом
+                </button>
+
+                <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267"
+                   target="_blank" rel="noopener" class="official-link">
+                    <div class="bilim-logo">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
+                            <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
+                            <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648"/>
+                            <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-text-top">bilimland.kz</span>
+                        <span class="link-text-main">Официальная методика МОН РК</span>
+                    </div>
+                </a>
 
                 <div class="progress-wrap">
                     <div class="progress-bar">
                         <div class="progress-fill" id="progressFill"></div>
                     </div>
 
-                    <div class="trend-box">
+                    <div class="trend-box collapsed" id="trendBox">
                         <div class="trend-header">
                             <div class="trend-header-left">
-                                <span>AI анализ</span>
-                                <span class="t-legend">
-                                    <span class="t-legend-line solid"></span>оценки
-                                </span>
-                                <span class="t-legend">
-                                    <span class="t-legend-line dashed"></span>тренд
-                                </span>
+                                <span>AI-анализ</span>
+                                <span id="aiAccuracy">--%</span>
                             </div>
-                            <span id="aiAccuracy">--%</span>
+                            <div style="display:flex;gap:10px">
+                                <div class="t-legend"><div class="t-legend-line solid"></div><span>Оценки</span></div>
+                                <div class="t-legend"><div class="t-legend-line dashed"></div><span>Тренд</span></div>
+                            </div>
                         </div>
-                        <div id="trendContainer" style="height:145px;width:100%">
+                        <div id="trendContainer" style="height:145px">
                             <canvas id="trendChart"></canvas>
                         </div>
                         <div class="trend-label" id="trendLabel">—</div>
                     </div>
-                    <div class="trend-hint">Добавьте 2+ оценок СО для AI-анализа</div>
+
+                    <div class="trend-hint">Добавьте 2+ оценок СО для AI-анализа динамики</div>
 
                     <div class="breakdown">
                         <div class="break-card">
-                            <div class="break-title">СО</div>
-                            <div class="break-value" id="breakSo">—</div>
-                            <div class="small" id="breakSoDetails"></div>
+                            <span class="break-title">СО</span>
+                            <span class="break-value" id="breakSo">—</span>
+                            <span class="small" id="breakSoDetails"></span>
                         </div>
                         <div class="break-card">
-                            <div class="break-title">СОР</div>
-                            <div class="break-value" id="breakSors">—</div>
-                            <div class="small" id="breakSorsDetails"></div>
+                            <span class="break-title">СОР</span>
+                            <span class="break-value" id="breakSors">—</span>
+                            <span class="small" id="breakSorsDetails"></span>
                         </div>
                         <div class="break-card">
-                            <div class="break-title">СОЧ</div>
-                            <div class="break-value" id="breakSoch">—</div>
-                            <div class="small" id="breakSochDetails"></div>
+                            <span class="break-title">СОЧ</span>
+                            <span class="break-value" id="breakSoch">—</span>
+                            <span class="small" id="breakSochDetails"></span>
                         </div>
                     </div>
-                </div>
             </div>
-        </div>
+            </div>
+        </div>   
     </div>
 
-    <div class="card" style="margin-top:20px">
+    <div class="card" style="margin-top:16px">
         <h2>О проекте</h2>
-        <p class="small">BilimCalc — это быстрый и удобный онлайн-калькулятор для расчёта оценок по системе СО, СОР и СОЧ в школах Казахстана. Сервис создан для того, чтобы ученику не приходилось вручную выводить формулы и считать в обычном калькуляторе, а можно было за пару секунд узнать, какую оценку или процент нужно получить, чтобы выйти на желаемый итог по предмету.</p>
+        <p class="small" style="margin-top:7px">Сервис создан для того, чтобы ученику не приходилось вручную выводить формулы и считать в обычном калькуляторе, а можно было за пару секунд узнать, какую оценку или процент нужно получить, чтобы выйти на желаемый итог по предмету.</p>
         <p class="small" style="margin-top:7px">BilimCalc подходит для учеников 5–11 классов, а также для родителей и учителей, которые хотят наглядно оценить текущую успеваемость. Сайт работает бесплатно, без регистрации и доступен с любого устройства.</p>
         <p class="small" style="margin-top:7px">Проект открытый и учебный. Исходный код доступен на GitHub.</p>
     </div>
 
     <div class="card faq-card" style="margin-top:20px">
-        <h2>Часто задаваемые вопросы</h2>
+        <h2>Часто задаваемые вопросы</h2>   
         <div class="faq-list">
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
@@ -282,7 +322,7 @@
             </div>
         </div>
     </div>
-
+    
     <div class="card" style="margin-top:20px">
         <h2>Полезные статьи</h2>
         <p class="small" style="margin-bottom:16px">Подробные руководства по системе оценивания в школах Казахстана</p>
@@ -304,26 +344,26 @@
                 <span class="article-card__arrow">→</span>
             </a>
             <a href="/kak-rasschitat-soch" class="article-card">
-                <div class="article-card__icon" style="background:rgba(46,160,67,0.10);color:#56d364;border-color:rgba(46,160,67,0.25)">СОЧ</div>
+                <div class="article-card__icon" style="background:rgba(46,160,67,0.10);color:var(--success);border-color:rgba(46,160,67,0.25)">СОЧ</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Как рассчитать СОЧ</div>
-                    <div class="article-card__desc">Итоговая работа за четверть: формула, таблица, методика МОН РК</div>
+                    <div class="article-card__desc">Итоговая работа: формула, вес и как повлиять на результат</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
             <a href="/itogovaya-ocenka-za-chetvert" class="article-card">
-                <div class="article-card__icon" style="background:rgba(88,166,255,0.10);color:var(--accent);border-color:rgba(88,166,255,0.25)">ИТ</div>
+                <div class="article-card__icon" style="background:rgba(218,54,51,0.10);color:var(--danger);border-color:rgba(218,54,51,0.25)">ИО</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Итоговая оценка за четверть</div>
-                    <div class="article-card__desc">Полный расчёт СО + СОР + СОЧ и переводная шкала оценок</div>
+                    <div class="article-card__desc">Как рассчитывается и от чего зависит итог</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
             <a href="/metodika-rascheta-mon-rk" class="article-card">
-                <div class="article-card__icon" style="background:rgba(139,148,158,0.10);color:var(--muted);border-color:rgba(139,148,158,0.2)">МОН</div>
+                <div class="article-card__icon" style="background:rgba(88,166,255,0.10);color:var(--accent);border-color:rgba(88,166,255,0.25)">МОН</div>
                 <div class="article-card__body">
-                    <div class="article-card__title">Методика МОН РК</div>
-                    <div class="article-card__desc">Официальная система критериального оценивания и нормативная база</div>
+                    <div class="article-card__title">Методика расчёта МОН РК</div>
+                    <div class="article-card__desc">Официальные правила оценивания в казахстанских школах</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
@@ -332,7 +372,7 @@
 
     <footer>
         <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank">GitHub</a></div>
-        <div style="margin-top:5px;opacity:.6">© <span id="year"></span> BilimCalc · v1.4.1</div>
+        <div style="margin-top:5px;opacity:.6">© <span id="year"></span> BilimCalc · v1.5.1</div>
     </footer>
 </div>
 
@@ -367,13 +407,13 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
     integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF"
     crossorigin="anonymous"></script>
-<script src="/static/js/main.js?v=1.5.0"></script>
+<script src="/static/js/main.js?v=1.5.1"></script>
 
 <script>
 (function() {
-    // Splash
+    // Splash — уменьшен до 900ms
     var splash = document.getElementById('splash');
-    if (splash) setTimeout(function() { splash.classList.add('hidden'); }, 1600);
+    if (splash) setTimeout(function() { splash.classList.add('hidden'); }, 900);
 
     // Тема
     ThemeToggle.init();
@@ -408,6 +448,6 @@
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.4.1"></script>
+<script src="/static/js/pwa-install.js?v=1.5.1"></script>
 </body>
 </html>

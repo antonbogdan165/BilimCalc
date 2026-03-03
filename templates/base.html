@@ -9,7 +9,9 @@
 
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.4.1">
+
+    <!-- PWA-баннер нужен на всех страницах -->
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.0">
 
     <title>{% block meta_title %}BilimCalc — калькулятор СО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор СО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
@@ -35,9 +37,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.4.1">
-    <link rel="stylesheet" href="/static/css/article.css?v=1.2.1">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.1.0">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.6.0">
+    <link rel="stylesheet" href="/static/css/article.css?v=1.6.0">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.0">
     {% block extra_css %}{% endblock %}
 
     <script type="application/ld+json">
@@ -103,8 +105,8 @@
             <a href="/kak-rasschitat-so"            class="topbar-nav__link {% block nav_so %}{% endblock %}">СО</a>
             <a href="/kak-rasschitat-sor"           class="topbar-nav__link {% block nav_sor %}{% endblock %}">СОР</a>
             <a href="/kak-rasschitat-soch"          class="topbar-nav__link {% block nav_soch %}{% endblock %}">СОЧ</a>
-            <a href="/itogovaya-ocenka-za-chetvert" class="topbar-nav__link {% block nav_itog %}{% endblock %}">Итоговая</a>
-            <a href="/metodika-rascheta-mon-rk"     class="topbar-nav__link {% block nav_metodika %}{% endblock %}">МОН РК</a>
+            <a href="/itogovaya-ocenka-za-chetvert" class="topbar-nav__link {% block nav_itog %}{% endblock %}">Итог</a>
+            <a href="/metodika-rascheta-mon-rk"     class="topbar-nav__link {% block nav_mon %}{% endblock %}">МОН РК</a>
         </nav>
     </div>
 
@@ -113,35 +115,7 @@
     </button>
 </div>
 
-<main id="main-content">
-    {% block content %}{% endblock %}
-</main>
-
-<footer class="site-footer">
-    <div class="site-footer__inner">
-        <div class="site-footer__links">
-            <a href="/">Калькулятор</a>
-            <a href="/kak-rasschitat-so">Что такое СО</a>
-            <a href="/kak-rasschitat-sor">Что такое СОР</a>
-            <a href="/kak-rasschitat-soch">Что такое СОЧ</a>
-            <a href="/itogovaya-ocenka-za-chetvert">Итоговая оценка</a>
-            <a href="/metodika-rascheta-mon-rk">Методика МОН РК</a>
-        </div>
-        <div class="site-footer__copy">
-            Разработчик: Anton ·
-            <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener">GitHub</a>
-            <span style="opacity:.5; margin: 0 6px">·</span>
-            <span id="footer-year"></span> BilimCalc
-        </div>
-    </div>
-</footer>
-
-{% block extra_js %}{% endblock %}
-
-<script>
-    document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
-    ThemeToggle.init();
-</script>
+{% block content %}{% endblock %}
 
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item {% block mob_home %}{% endblock %}">
@@ -187,6 +161,6 @@
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.4.1"></script>
+<script src="/static/js/pwa-install.js?v=1.6.0"></script>
 </body>
 </html>

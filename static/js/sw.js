@@ -1,6 +1,6 @@
 const CACHE_NAME = "bilimcalc-__BUILD_TIME__";
 
-// Всё что нужно для работы офлайн
+// Кэшируем базовые URL без query-параметров — SW перехватывает их по pathname
 const STATIC_ASSETS = [
     "/",
     "/kak-rasschitat-so",
@@ -14,7 +14,7 @@ const STATIC_ASSETS = [
     "/static/css/page-loader.css",
     "/static/css/pwa-banner.css",
 
-    "/static/js/main.js",
+    "/static/js/main.js",   
     "/static/js/theme.js",
     "/static/js/page-loader.js",
     "/static/js/pwa-install.js",
@@ -25,8 +25,6 @@ const STATIC_ASSETS = [
     "/static/icons/web-app-manifest-512x512.png",
     "/static/icons/apple-touch-icon.png",
 ];
-
-const CDN_PATTERN = /cdn\.jsdelivr\.net/;
 
 /* ── Install: кэшируем всё статичное ── */
 self.addEventListener("install", event => {
@@ -87,29 +85,15 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // 2. API /trend — офлайн пропускаем
-    if (url.pathname === "/trend") {
+    // 2. Статика — ищем в кэше по pathname (без ?v=...)
+    if (url.pathname.startsWith("/static/") || STATIC_ASSETS.includes(url.pathname)) {
         event.respondWith(
-            fetch(event.request).catch(() =>
-                new Response(
-                    JSON.stringify({ error: "offline" }),
-                    { headers: { "Content-Type": "application/json" } }
-                )
-            )
-        );
-        return;
-    }
-
-    // 3. CDN (Chart.js) — Cache-first
-    if (CDN_PATTERN.test(url.hostname)) {
-        event.respondWith(
-            caches.match(event.request).then(cached => {
+            caches.match(url.pathname).then(cached => {
                 if (cached) return cached;
                 return fetch(event.request).then(response => {
                     if (response.ok) {
-                        const clone = response.clone();
                         caches.open(CACHE_NAME).then(cache =>
-                            cache.put(event.request, clone)
+                            cache.put(url.pathname, response.clone())
                         );
                     }
                     return response;
@@ -119,28 +103,13 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // 4. Статика и страницы — Cache-first с ignoreSearch
-    // ignoreSearch: true позволяет найти /static/css/style.css
-    // даже если в запросе есть ?v=1.4.1
-    if (event.request.method !== "GET") return;
-
-    event.respondWith(
-        caches.match(event.request, { ignoreSearch: true }).then(cached => {
-            if (cached) return cached;
-
-            return fetch(event.request).then(response => {
-                if (response.ok && url.origin === self.location.origin) {
-                    const clone = response.clone();
-                    // Сохраняем по пути БЕЗ query string — чтобы ignoreSearch работал
-                    const cacheKey = new Request(url.pathname);
-                    caches.open(CACHE_NAME).then(cache =>
-                        cache.put(cacheKey, clone)
-                    );
-                }
-                return response;
-            }).catch(() => {
-                return caches.match("/") || new Response("Offline", { status: 503 });
-            });
-        })
-    );
+    // 3. HTML-страницы — Network-first, fallback на кэш
+    if (event.request.mode === "navigate") {
+        event.respondWith(
+            fetch(event.request).catch(() =>
+                caches.match(url.pathname).then(c => c || caches.match("/"))
+            )
+        );
+        return;
+    }
 });

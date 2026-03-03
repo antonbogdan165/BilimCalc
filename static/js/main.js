@@ -1,8 +1,3 @@
-/* ═══════════════════════════════════════════════════════
-   BilimCalc — main.js
-   Вся логика расчёта и ML перенесена в JS (работает офлайн)
-   ═══════════════════════════════════════════════════════ */
-
 /* ---------- state ---------- */
 let so = [];
 let sors = [];
@@ -23,10 +18,27 @@ function makeListItem(text, onDelete) {
     return el;
 }
 
+/* ---------- empty state helpers ---------- */
+function updateEmptyState(listId, emptyId, items) {
+    const list  = document.getElementById(listId);
+    const empty = document.getElementById(emptyId);
+    if (!list || !empty) return;
+    // показываем placeholder только когда список пуст
+    if (items.length === 0) {
+        if (!document.getElementById(emptyId)) list.appendChild(empty);
+        empty.style.display = "block";
+    } else {
+        empty.style.display = "none";
+    }
+}
+
 /* ---------- renderers ---------- */
 function renderSO() {
     const container = document.getElementById("soList");
-    container.innerHTML = "";
+    const empty     = document.getElementById("soEmpty");
+    // убираем всё кроме placeholder
+    Array.from(container.children).forEach(c => { if (c.id !== "soEmpty") c.remove(); });
+
     so.forEach((val) => {
         const item = makeListItem(val, async () => {
             item.classList.add("removing");
@@ -38,8 +50,10 @@ function renderSO() {
             calculate();
             updateTrend();
         });
-        container.appendChild(item);
+        container.insertBefore(item, empty);
     });
+
+    if (empty) empty.style.display = so.length ? "none" : "block";
 
     if (so.length >= 2) {
         toggleTrendVisibility(true);
@@ -51,7 +65,9 @@ function renderSO() {
 
 function renderSORS() {
     const container = document.getElementById("sorList");
-    container.innerHTML = "";
+    const empty     = document.getElementById("sorEmpty");
+    Array.from(container.children).forEach(c => { if (c.id !== "sorEmpty") c.remove(); });
+
     sors.forEach((pair, idx) => {
         const [d, m] = pair;
         const item = makeListItem(`${d} / ${m}`, async () => {
@@ -62,8 +78,10 @@ function renderSORS() {
             renderSORS();
             calculate();
         });
-        container.appendChild(item);
+        container.insertBefore(item, empty);
     });
+
+    if (empty) empty.style.display = sors.length ? "none" : "block";
 }
 
 /* ---------- persistence ---------- */
@@ -240,6 +258,55 @@ document.getElementById("clearSochBtn").addEventListener("click", () => {
     calculate();
 });
 
+/* ---------- Reset All ---------- */
+document.getElementById("resetAllBtn").addEventListener("click", () => {
+    if (!so.length && !sors.length &&
+        !document.getElementById("sochDialed").value &&
+        !document.getElementById("sochMax").value) return;
+
+    so   = [];
+    sors = [];
+    ["sochDialed","sochMax","sorDialed","sorMax","soInput"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.value = ""; el.style.borderColor = ""; }
+    });
+    document.querySelectorAll(".input-error-banner").forEach(b => b.remove());
+    saveState();
+    renderSO();
+    renderSORS();
+    calculate();
+});
+
+/* ---------- Share ---------- */
+(function setupShare() {
+    const shareBtn = document.getElementById("shareBtn");
+    if (!shareBtn) return;
+
+    shareBtn.addEventListener("click", async () => {
+        const result = document.getElementById("finalResult").textContent;
+        const badge  = document.getElementById("gradeBadge").textContent;
+        const text   = `Мой результат в BilimCalc: ${result} — ${badge}\nhttps://bilimcalc.vercel.app`;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({ title: "BilimCalc", text });
+            } catch (e) {
+                if (e.name !== "AbortError") copyToClipboard(text, shareBtn);
+            }
+        } else {
+            copyToClipboard(text, shareBtn);
+        }
+    });
+
+    function copyToClipboard(text, btn) {
+        navigator.clipboard.writeText(text).then(() => {
+            const orig = btn.innerHTML;
+            btn.textContent = "✓ Скопировано!";
+            setTimeout(() => { btn.innerHTML = orig; }, 2000);
+        }).catch(() => {});
+    }
+})();
+
 const debouncedCalculate = debounce(calculate, 250);
 
 document.getElementById("sochDialed").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
@@ -261,9 +328,9 @@ function makeDigitsOnly(input, maxLen, maxVal, onFull) {
     });
 }
 
-const soInput        = document.getElementById("soInput");
-const sorDialedInput = document.getElementById("sorDialed");
-const sorMaxInput    = document.getElementById("sorMax");
+const soInput         = document.getElementById("soInput");
+const sorDialedInput  = document.getElementById("sorDialed");
+const sorMaxInput     = document.getElementById("sorMax");
 const sochDialedInput = document.getElementById("sochDialed");
 const sochMaxInput    = document.getElementById("sochMax");
 
@@ -305,18 +372,16 @@ function animatePercentage(element, start, end, duration = 500) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   ЛОГИКА РАСЧЁТА (порт из logics.py — работает офлайн)
+   ЛОГИКА РАСЧЁТА (офлайн)
    ═══════════════════════════════════════════════════════ */
 
 function calculateParts(so, sors, soch) {
-    // СО — среднее оценок / 10 * 25
     let total_so = null;
     if (so && so.length > 0) {
         const avg = so.reduce((a, b) => a + b, 0) / so.length;
         total_so = (avg / 10) * 25;
     }
 
-    // СОР — среднее процентов * 0.25
     let total_sor = null;
     if (sors && sors.length > 0) {
         const pcts = sors
@@ -328,7 +393,6 @@ function calculateParts(so, sors, soch) {
         }
     }
 
-    // СОЧ — процент * 0.50
     let total_soch = null;
     if (soch && soch[1] > 0) {
         total_soch = (soch[0] / soch[1]) * 50;
@@ -351,7 +415,7 @@ function calculateFinal(total_so, total_sor, total_soch) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   ML АНАЛИЗ (порт из ml/analyze.py и ml/model.py — офлайн)
+   ML АНАЛИЗ (офлайн)
    ═══════════════════════════════════════════════════════ */
 
 function linearRegression(scores) {
@@ -370,21 +434,14 @@ function linearRegression(scores) {
 
     const slope     = den === 0 ? 0 : num / den;
     const intercept = yMean - slope * xMean;
-
     const predictions = x.map(xi => xi * slope + intercept);
 
-    // RMSE → accuracy
     const rmse = Math.sqrt(
         predictions.reduce((sum, p, i) => sum + (y[i] - p) ** 2, 0) / n
     );
     const accuracy = Math.min(100, Math.max(0, 100 - (rmse / 10) * 100));
 
-    return {
-        scores,
-        predictions,
-        accuracy: Math.round(accuracy * 10) / 10,
-        slope,
-    };
+    return { scores, predictions, accuracy: Math.round(accuracy * 10) / 10, slope };
 }
 
 /* ---------- calculate ---------- */
@@ -403,13 +460,13 @@ function calculate() {
             ? [Number(sochDialed || 0), Number(sochMax)]
             : null;
 
-        // Считаем локально — без сервера
         const { total_so, total_sor, total_soch } = calculateParts(so, sors, soch);
         const final_result = calculateFinal(total_so, total_sor, total_soch);
 
-        const finalEl = document.getElementById("finalResult");
-        const fill    = document.getElementById("progressFill");
-        const badge   = document.getElementById("gradeBadge");
+        const finalEl  = document.getElementById("finalResult");
+        const fill     = document.getElementById("progressFill");
+        const badge    = document.getElementById("gradeBadge");
+        const shareBtn = document.getElementById("shareBtn");
 
         document.getElementById("breakSo").innerText    = total_so   !== null ? total_so.toFixed(2)   + "%" : "—";
         document.getElementById("breakSors").innerText  = total_sor  !== null ? total_sor.toFixed(2)  + "%" : "—";
@@ -451,12 +508,16 @@ function calculate() {
                 badge.className   = "grade-badge badge-excellent";
             }
 
+            // показываем кнопку поделиться
+            if (shareBtn) shareBtn.style.display = "flex";
+
             if (so.length >= 2) updateTrend();
         } else {
             finalEl.innerText = "—";
             fill.style.width  = "0%";
             badge.textContent = "Нет данных";
             badge.className   = "grade-badge badge-empty";
+            if (shareBtn) shareBtn.style.display = "none";
         }
 
         saveState();
@@ -489,9 +550,7 @@ function toggleTrendVisibility(show) {
 function updateTrend() {
     if (so.length < 2) { toggleTrendVisibility(false); return; }
     toggleTrendVisibility(true);
-
     try {
-        // ML считается локально — без сервера
         const data = linearRegression(so);
         drawTrend(data.scores, data.predictions, data.accuracy);
         if (trendChart?.resize) trendChart.resize();
@@ -570,7 +629,10 @@ function drawTrend(scores, predictions, accuracy) {
             layout: { padding: { top: 8, right: 6, bottom: 2, left: 2 } },
             animation: { duration: 550, easing: "easeOutCubic" },
             events: [],
-            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+            plugins: {
+                    legend: { display: false, labels: { generateLabels: () => [] } },
+                    tooltip: { enabled: false },
+                },
             scales: {
                 x: {
                     grid:   { color: "rgba(255,255,255,0.04)", drawBorder: false },

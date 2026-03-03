@@ -3,7 +3,6 @@ import os
 import time
 
 from logics import calculate_parts, calculate_final
-from ml.analyze import analyze_scores
 
 
 app = Flask(__name__)
@@ -79,25 +78,6 @@ def calculate():
         "total_soch":   parts[2],
         "final_result": final_result,
     })
-
-
-@app.route("/trend", methods=["POST"])
-def trend():
-    data = request.get_json(silent=True)
-    if not data:
-        return jsonify({"error": "Некорректный JSON"}), 400
-
-    scores = data.get("scores", [])
-    if not isinstance(scores, list):
-        return jsonify({"error": "Поле 'scores' должно быть массивом"}), 400
-
-    try:
-        result = analyze_scores(scores)
-    except Exception as e:
-        app.logger.error(f"Ошибка ML анализа: {e}")
-        return jsonify({"error": "ML анализ недоступен"}), 500
-
-    return jsonify(result)
 
 
 def _make_article_view(template):
