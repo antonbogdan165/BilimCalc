@@ -137,8 +137,6 @@
 
 /* ══════════════════════════════════════════════
    МОБИЛЬНАЯ CTA-ПОЛОСКА
-   Показывается только на мобиле, внутри <article>
-   прямо после мета-строки. На десктопе скрыта.
    ══════════════════════════════════════════════ */
 .mobile-cta { display: none; }
 
@@ -295,14 +293,6 @@
     border-bottom: none;
 }
 
-/* ── Веса ── */
-.article__weights { margin: 18px 0; display: flex; flex-direction: column; gap: 10px; }
-.article__weight-item { display: flex; align-items: center; gap: 12px; }
-.article__weight-label { width: 36px; font-size: 13px; font-weight: 600; color: var(--muted); flex-shrink: 0; }
-.article__weight-bar { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
-.article__weight-fill { height: 100%; border-radius: 4px; background: rgba(255,255,255,0.18); }
-.article__weight-pct { width: 36px; font-size: 13px; font-weight: 700; color: #e6edf3; text-align: right; flex-shrink: 0; }
-
 /* ── Читайте также ── */
 .article__related { margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
 .article__related-title {
@@ -400,6 +390,7 @@
     .site-header__inner { height: 52px; }
     .site-nav__link { font-size: 12px; padding: 4px 8px; }
 }
+
 /* ══════════════════════════════════════════════
    СВЕТЛАЯ ТЕМА — статейные страницы
    ══════════════════════════════════════════════ */
@@ -449,10 +440,6 @@
     border-top-color: rgba(22,163,74,0.2);
 }
 
-[data-theme="light"] .article__weight-bar { background: rgba(0,0,0,0.07); }
-[data-theme="light"] .article__weight-label { color: #64748b; }
-[data-theme="light"] .article__weight-pct { color: #1e293b; }
-
 [data-theme="light"] .article__related { border-top-color: rgba(0,0,0,0.07); }
 [data-theme="light"] .article__related-title { color: #94a3b8; }
 [data-theme="light"] .article__related-card {
@@ -490,133 +477,93 @@
 }
 [data-theme="light"] .mobile-cta__title { color: #0f172a; }
 
-/* Перезаписываем блок весов — делаем единую горизонтальную строку */
-.article__weights {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    padding: 14px 16px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 12px;
+/* ══════════════════════════════════════════════
+   ВЕСА — СЕГМЕНТИРОВАННЫЙ ПРОГРЕСС-БАР (v1.5.2)
+   Заменяет .article__weights-inline с чипами
+   ══════════════════════════════════════════════ */
+.article__weights-inline {
     margin: 20px 0;
+    padding: 0;
+    background: none;
+    border: none;
 }
 
-.article__weight-item {
+/* Подписи над баром */
+.article__weights-labels {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
-    padding: 0 12px;
-    border-right: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 6px;
 }
-
-.article__weight-item:first-child {
-    padding-left: 0;
-}
-
-.article__weight-item:last-child {
-    border-right: none;
-}
-
-.article__weight-label {
+.article__weights-label {
     font-size: 11px;
     font-weight: 700;
     color: var(--muted);
-    letter-spacing: 0.5px;
     text-transform: uppercase;
+    letter-spacing: 0.4px;
+    text-align: center;
     flex-shrink: 0;
-    min-width: 28px;
 }
+.article__weights-label--so  { width: 25%; color: #58a6ff; }
+.article__weights-label--sor { width: 25%; color: #e3b341; }
+.article__weights-label--soch{ width: 50%; color: #3fb950; }
 
-.article__weight-bar {
-    flex: 1;
-    height: 6px;
-    background: rgba(255,255,255,0.08);
+/* Сам бар */
+.article__weights-bar {
+    display: flex;
+    height: 10px;
     border-radius: 99px;
     overflow: hidden;
-    min-width: 30px;
+    background: rgba(255,255,255,0.05);
+    gap: 2px;
 }
-
-.article__weight-fill {
+.article__weights-seg {
     height: 100%;
-    border-radius: 99px;
     transition: width 0.6s cubic-bezier(.2,.9,.25,1);
+    position: relative;
+}
+.article__weights-seg--so {
+    width: 25%;
+    background: linear-gradient(90deg, #3a7bd5, #58a6ff);
+    border-radius: 99px 0 0 99px;
+}
+.article__weights-seg--sor {
+    width: 25%;
+    background: linear-gradient(90deg, #c5920a, #e3b341);
+}
+.article__weights-seg--soch {
+    width: 50%;
+    background: linear-gradient(90deg, #2ea043, #3fb950);
+    border-radius: 0 99px 99px 0;
 }
 
-.article__weight-pct {
-    font-size: 13px;
-    font-weight: 700;
-    color: #e6edf3;
-    flex-shrink: 0;
-    min-width: 34px;
-    text-align: right;
+/* Подписи под баром */
+.article__weights-pcts {
+    display: flex;
+    margin-top: 6px;
 }
+.article__weights-pct {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    flex-shrink: 0;
+}
+.article__weights-pct--so  { width: 25%; color: #58a6ff; }
+.article__weights-pct--sor { width: 25%; color: #e3b341; }
+.article__weights-pct--soch{ width: 50%; color: #3fb950; }
 
 /* Светлая тема */
-[data-theme="light"] .article__weights {
-    background: #f8fafc;
-    border-color: rgba(0,0,0,0.07);
-}
+[data-theme="light"] .article__weights-label--so  { color: #2563eb; }
+[data-theme="light"] .article__weights-label--sor { color: #d97706; }
+[data-theme="light"] .article__weights-label--soch{ color: #16a34a; }
+[data-theme="light"] .article__weights-seg--so    { background: linear-gradient(90deg, #1d4ed8, #3b82f6); }
+[data-theme="light"] .article__weights-seg--sor   { background: linear-gradient(90deg, #b45309, #f59e0b); }
+[data-theme="light"] .article__weights-seg--soch  { background: linear-gradient(90deg, #15803d, #22c55e); }
+[data-theme="light"] .article__weights-pct--so  { color: #2563eb; }
+[data-theme="light"] .article__weights-pct--sor { color: #d97706; }
+[data-theme="light"] .article__weights-pct--soch{ color: #16a34a; }
 
-[data-theme="light"] .article__weight-item {
-    border-right-color: rgba(0,0,0,0.06);
-}
-
-[data-theme="light"] .article__weight-label { color: #64748b; }
-[data-theme="light"] .article__weight-bar   { background: rgba(0,0,0,0.07); }
-[data-theme="light"] .article__weight-pct   { color: #0f172a; }
-
-/* Мобиле — компактнее */
+/* Мобиле */
 @media (max-width: 600px) {
-    .article__weights {
-        padding: 10px 12px;
-        gap: 0;
-    }
-    .article__weight-item {
-        padding: 0 8px;
-        gap: 6px;
-    }
-    .article__weight-label { font-size: 10px; min-width: 24px; }
-    .article__weight-pct   { font-size: 12px; min-width: 28px; }
-    .article__weight-bar   { min-width: 20px; }
-}
-
-/* ── Веса — инлайн-строка ── */
-.article__weights-inline {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 12px;
-}
-.article__weight-chip {
-    font-size: 14px;
-    font-weight: 700;
-    color: #e6edf3;
-    padding: 5px 14px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 8px;
-    white-space: nowrap;
-}
-.article__weight-chip--accent {
-    color: #3fb950;
-    background: rgba(46,160,67,0.12);
-}
-[data-theme="light"] .article__weights-inline {
-    background: rgba(0,0,0,0.02);
-    border-color: rgba(0,0,0,0.08);
-}
-[data-theme="light"] .article__weight-chip {
-    color: #0f172a;
-    background: rgba(0,0,0,0.05);
-}
-[data-theme="light"] .article__weight-chip--accent {
-    color: #16a34a;
-    background: rgba(22,163,74,0.08);
+    .article__weights-label { font-size: 10px; }
+    .article__weights-pct   { font-size: 11px; }
+    .article__weights-bar   { height: 8px; }
 }
