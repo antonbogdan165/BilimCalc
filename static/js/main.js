@@ -276,14 +276,13 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
 });
 
 /* ══════════════════════════════════════════════
-   SHARE — v1.5.2
-   Web Share API → кастомное модальное окно
+   SHARE — v1.6.1
    ══════════════════════════════════════════════ */
 (function setupShare() {
     const shareBtn = document.getElementById("shareBtn");
     if (!shareBtn) return;
 
-    const SITE_URL  = "https://bilimcalc.vercel.app/";
+    const SITE_URL = "https://bilimcalc.vercel.app/";
 
     function getShareText() {
         const result = document.getElementById("finalResult").textContent.trim();
@@ -291,19 +290,17 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
         return `Мой итоговый результат: ${result} — ${badge}. Посчитай свою оценку на BilimCalc!`;
     }
 
-    /* ── Модальное окно ── */
     function showShareModal() {
         if (document.getElementById("shareModal")) return;
 
-        const text    = getShareText();
-        const url     = SITE_URL;
-        const encoded = encodeURIComponent(text + " " + url);
+        const text        = getShareText();
+        const url         = SITE_URL;
         const encodedUrl  = encodeURIComponent(url);
         const encodedText = encodeURIComponent(text + "\n");
 
-        const tgLink  = `https://t.me/share/url?url=${encodedUrl}&text=${encodeURIComponent(text)}`;
-        const waLink  = `https://api.whatsapp.com/send?text=${encodedText}${encodedUrl}`;
-        const vkLink  = `https://vk.com/share.php?url=${encodedUrl}&title=${encodeURIComponent(text)}`;
+        const tgLink = `https://t.me/share/url?url=${encodedUrl}&text=${encodeURIComponent(text)}`;
+        const waLink = `https://api.whatsapp.com/send?text=${encodedText}${encodedUrl}`;
+        const vkLink = `https://vk.com/share.php?url=${encodedUrl}&title=${encodeURIComponent(text)}`;
 
         const modal = document.createElement("div");
         modal.id = "shareModal";
@@ -333,105 +330,38 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
                 <button class="share-modal__close" id="shareModalClose" aria-label="Закрыть">✕</button>
             </div>`;
 
-        /* Стили модального окна */
         if (!document.getElementById("shareModalStyles")) {
             const style = document.createElement("style");
             style.id = "shareModalStyles";
             style.textContent = `
-                #shareModal {
-                    position: fixed; inset: 0; z-index: 5000;
-                    display: flex; align-items: flex-end; justify-content: center;
-                    padding: 0 0 env(safe-area-inset-bottom, 0px);
-                }
-                .share-modal__overlay {
-                    position: absolute; inset: 0;
-                    background: rgba(0,0,0,0.55);
-                    backdrop-filter: blur(4px);
-                    -webkit-backdrop-filter: blur(4px);
-                    animation: smOverlayIn 0.25s ease;
-                }
-                .share-modal__box {
-                    position: relative; z-index: 1;
-                    width: 100%; max-width: 480px;
-                    background: #161b22;
-                    border: 1px solid rgba(255,255,255,0.08);
-                    border-radius: 20px 20px 0 0;
-                    padding: 24px 20px 32px;
-                    animation: smBoxIn 0.3s cubic-bezier(.34,1.56,.64,1);
-                }
-                [data-theme="light"] .share-modal__box {
-                    background: #ffffff;
-                    border-color: rgba(0,0,0,0.1);
-                }
-                .share-modal__title {
-                    font-size: 15px; font-weight: 700;
-                    color: #e6edf3; margin-bottom: 8px; text-align: center;
-                }
-                [data-theme="light"] .share-modal__title { color: #0f172a; }
-                .share-modal__text {
-                    font-size: 13px; color: #8b949e;
-                    text-align: center; margin-bottom: 20px; line-height: 1.5;
-                }
-                [data-theme="light"] .share-modal__text { color: #64748b; }
-                .share-modal__btns {
-                    display: grid; grid-template-columns: 1fr 1fr;
-                    gap: 10px;
-                }
-                .share-modal__btn {
-                    display: flex; align-items: center; justify-content: center;
-                    gap: 8px; padding: 12px 16px; border-radius: 12px;
-                    font-size: 14px; font-weight: 600; cursor: pointer;
-                    text-decoration: none; border: none;
-                    transition: opacity 0.15s, transform 0.1s;
-                    -webkit-tap-highlight-color: transparent;
-                }
-                .share-modal__btn:active { opacity: 0.8; transform: scale(0.97); }
-                .share-modal__btn--tg   { background: #2CA5E0; color: #fff; }
-                .share-modal__btn--wa   { background: #25D366; color: #fff; }
-                .share-modal__btn--vk   { background: #4C75A3; color: #fff; }
-                .share-modal__btn--copy {
-                    background: rgba(255,255,255,0.07);
-                    border: 1px solid rgba(255,255,255,0.1);
-                    color: #e6edf3;
-                }
-                [data-theme="light"] .share-modal__btn--copy {
-                    background: #f1f5f9;
-                    border-color: rgba(0,0,0,0.1);
-                    color: #0f172a;
-                }
-                .share-modal__close {
-                    position: absolute; top: 14px; right: 16px;
-                    background: rgba(255,255,255,0.07);
-                    border: 1px solid rgba(255,255,255,0.08);
-                    border-radius: 8px; color: #8b949e;
-                    width: 30px; height: 30px;
-                    display: flex; align-items: center; justify-content: center;
-                    font-size: 14px; cursor: pointer;
-                    transition: background 0.15s;
-                    -webkit-tap-highlight-color: transparent;
-                }
-                .share-modal__close:hover { background: rgba(255,255,255,0.12); color: #e6edf3; }
-                [data-theme="light"] .share-modal__close {
-                    background: rgba(0,0,0,0.05);
-                    border-color: rgba(0,0,0,0.1);
-                    color: #64748b;
-                }
-                @keyframes smOverlayIn { from { opacity: 0; } to { opacity: 1; } }
-                @keyframes smBoxIn {
-                    from { transform: translateY(40px); opacity: 0; }
-                    to   { transform: translateY(0);    opacity: 1; }
-                }
-                @media (min-width: 601px) {
-                    #shareModal { align-items: center; }
-                    .share-modal__box { border-radius: 20px; max-width: 400px; }
-                }
+                #shareModal{position:fixed;inset:0;z-index:5000;display:flex;align-items:flex-end;justify-content:center;padding:0 0 env(safe-area-inset-bottom,0px)}
+                .share-modal__overlay{position:absolute;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);animation:smOverlayIn 0.25s ease}
+                .share-modal__box{position:relative;z-index:1;width:100%;max-width:480px;background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:20px 20px 0 0;padding:24px 20px 32px;animation:smBoxIn 0.3s cubic-bezier(.34,1.56,.64,1)}
+                [data-theme="light"] .share-modal__box{background:#fff;border-color:rgba(0,0,0,0.1)}
+                .share-modal__title{font-size:15px;font-weight:700;color:#e6edf3;margin-bottom:8px;text-align:center}
+                [data-theme="light"] .share-modal__title{color:#0f172a}
+                .share-modal__text{font-size:13px;color:#8b949e;text-align:center;margin-bottom:20px;line-height:1.5}
+                [data-theme="light"] .share-modal__text{color:#64748b}
+                .share-modal__btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+                .share-modal__btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;border:none;transition:opacity 0.15s,transform 0.1s;-webkit-tap-highlight-color:transparent}
+                .share-modal__btn:active{opacity:0.8;transform:scale(0.97)}
+                .share-modal__btn--tg{background:#2CA5E0;color:#fff}
+                .share-modal__btn--wa{background:#25D366;color:#fff}
+                .share-modal__btn--vk{background:#4C75A3;color:#fff}
+                .share-modal__btn--copy{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:#e6edf3}
+                [data-theme="light"] .share-modal__btn--copy{background:#f1f5f9;border-color:rgba(0,0,0,0.1);color:#0f172a}
+                .share-modal__close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#8b949e;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:background 0.15s;-webkit-tap-highlight-color:transparent}
+                .share-modal__close:hover{background:rgba(255,255,255,0.12);color:#e6edf3}
+                [data-theme="light"] .share-modal__close{background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.1);color:#64748b}
+                @keyframes smOverlayIn{from{opacity:0}to{opacity:1}}
+                @keyframes smBoxIn{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+                @media(min-width:601px){#shareModal{align-items:center}.share-modal__box{border-radius:20px;max-width:400px}}
             `;
             document.head.appendChild(style);
         }
 
         document.body.appendChild(modal);
 
-        /* Закрытие */
         function closeModal() {
             const box = modal.querySelector(".share-modal__box");
             box.style.transition = "transform 0.2s ease, opacity 0.2s ease";
@@ -446,51 +376,35 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
         document.getElementById("shareModalClose").addEventListener("click", closeModal);
         modal.querySelector(".share-modal__overlay").addEventListener("click", closeModal);
 
-        /* Кнопка «Копировать ссылку» */
         document.getElementById("shareCopyBtn").addEventListener("click", () => {
-            const copyText = text + " " + url;
-            navigator.clipboard.writeText(copyText).then(() => {
+            navigator.clipboard.writeText(text + " " + url).then(() => {
                 const btn = document.getElementById("shareCopyBtn");
                 if (btn) {
                     const orig = btn.innerHTML;
                     btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Скопировано!`;
                     btn.style.background = "rgba(46,160,67,0.2)";
                     btn.style.color = "#3fb950";
-                    setTimeout(() => {
-                        btn.innerHTML = orig;
-                        btn.style.background = "";
-                        btn.style.color = "";
-                    }, 2000);
+                    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ""; btn.style.color = ""; }, 2000);
                 }
             }).catch(() => {});
         });
     }
 
-    /* ── Основной обработчик кнопки ── */
     shareBtn.addEventListener("click", async () => {
         const text = getShareText();
         const url  = SITE_URL;
-
-        /* На десктопе — Web Share API если есть, иначе просто копируем */
         const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
         if (navigator.share && !isDesktop) {
             try {
-                await navigator.share({
-                    title: "BilimCalc — результат расчёта",
-                    text,
-                    url,
-                });
+                await navigator.share({ title: "BilimCalc — результат расчёта", text, url });
                 return;
             } catch (e) {
                 if (e.name === "AbortError") return;
-                /* Если share упал — показываем модальное окно */
             }
         }
 
-        /* Мобиле без Web Share API или десктоп */
         if (isDesktop) {
-            /* На десктопе — просто копируем в буфер */
             navigator.clipboard.writeText(text + " " + url).then(() => {
                 const orig = shareBtn.innerHTML;
                 shareBtn.textContent = "✓ Скопировано!";
@@ -557,13 +471,47 @@ function debounce(fn, ms = 250) {
 function animatePercentage(element, start, end, duration = 500) {
     const startTime  = performance.now();
     const difference = end - start;
+    const isWhole    = Number.isInteger(end);
     function update(now) {
         const progress = Math.min((now - startTime) / duration, 1);
         const eased    = 1 - Math.pow(1 - progress, 3);
-        element.innerText = (start + difference * eased).toFixed(2) + "%";
+        const val      = start + difference * eased;
+        element.innerText = (isWhole ? Math.round(val) : val.toFixed(2)) + "%";
         if (progress < 1) requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
+}
+
+/* ═══════════════════════════════════════════════════════
+   ПОДСКАЗКА ТОЧНОГО ЗНАЧЕНИЯ
+   Всегда показывает точное число под итогом:
+     38.41%  → «= 38.41%»  (нет округления)
+     60.00%  → «= 60.00%»  (ровно целое, округления нет)
+     84.50%  → «84.50% → 85%»  (округлено вверх)
+     37.92%  → «37.92% → 38%»  (округлено вверх)
+   ═══════════════════════════════════════════════════════ */
+function updateRoundingHint(value) {
+    let hint = document.getElementById("roundingHint");
+    if (!hint) {
+        hint = document.createElement("div");
+        hint.id = "roundingHint";
+        hint.style.cssText = "font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-family:'Courier New',monospace;letter-spacing:0.2px;min-height:16px;";
+        const badge = document.getElementById("gradeBadge");
+        if (badge && badge.parentNode) {
+            badge.parentNode.insertBefore(hint, badge.nextSibling);
+        }
+    }
+
+    if (value === null) { hint.textContent = ""; return; }
+
+    const frac = value - Math.floor(value);
+    if (frac >= 0.5) {
+        // Округление вверх — показываем стрелку
+        hint.textContent = value.toFixed(2) + "% → " + Math.ceil(value) + "%";
+    } else {
+        // Нет округления — показываем точное значение
+        hint.textContent = "= " + value.toFixed(2) + "%";
+    }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -656,6 +604,7 @@ function calculate() {
             : null;
 
         const { total_so, total_sor, total_soch } = calculateParts(so, sors, soch);
+        // Сырой результат — точное число (38.41, 84.5 и т.д.), отображаем как есть
         const final_result = calculateFinal(total_so, total_sor, total_soch);
 
         const finalEl  = document.getElementById("finalResult");
@@ -673,23 +622,28 @@ function calculate() {
         finalEl.classList.remove("result-danger", "result-warning", "result-good", "result-excellent");
 
         if (final_result !== null) {
-            const pct = Number(final_result);
-            animatePercentage(finalEl, parseFloat(finalEl.innerText) || 0, pct);
-            fill.style.width = Math.min(Math.max(pct, 0), 100) + "%";
+            const pct  = Number(final_result);
+            const frac = pct - Math.floor(pct);
+            // Если дробная часть ≥ 0.5 — показываем округлённое целое
+            // Если < 0.5 — показываем точное значение
+            const display = frac >= 0.5 ? Math.ceil(pct) : pct;
 
-            if (pct < 40) {
+            animatePercentage(finalEl, parseFloat(finalEl.innerText) || 0, display);
+            fill.style.width = Math.min(Math.max(display, 0), 100) + "%";
+
+            if (display < 40) {
                 finalEl.classList.add("result-danger");
                 fill.style.background = "var(--danger)";
                 chartColor = "#da3633";
                 badge.textContent = "Неудовлетворительно";
                 badge.className   = "grade-badge badge-danger";
-            } else if (pct < 65) {
+            } else if (display < 65) {
                 finalEl.classList.add("result-warning");
                 fill.style.background = "var(--warning)";
                 chartColor = "#d29922";
                 badge.textContent = "Удовлетворительно";
                 badge.className   = "grade-badge badge-warning";
-            } else if (pct < 85) {
+            } else if (display < 85) {
                 finalEl.classList.add("result-good");
                 fill.style.background = "var(--success)";
                 chartColor = "#2ea043";
@@ -703,14 +657,17 @@ function calculate() {
                 badge.className   = "grade-badge badge-excellent";
             }
 
-            if (shareBtn) shareBtn.style.display = "flex";
+            // Подсказка: показываем сырое→округлённое только когда frac ≥ 0.5
+            updateRoundingHint(pct);
 
+            if (shareBtn) shareBtn.style.display = "flex";
             if (so.length >= 2) updateTrend();
         } else {
             finalEl.innerText = "—";
             fill.style.width  = "0%";
             badge.textContent = "Нет данных";
             badge.className   = "grade-badge badge-empty";
+            updateRoundingHint(null);
             if (shareBtn) shareBtn.style.display = "none";
         }
 
@@ -824,9 +781,9 @@ function drawTrend(scores, predictions, accuracy) {
             animation: { duration: 550, easing: "easeOutCubic" },
             events: [],
             plugins: {
-                    legend: { display: false, labels: { generateLabels: () => [] } },
-                    tooltip: { enabled: false },
-                },
+                legend: { display: false, labels: { generateLabels: () => [] } },
+                tooltip: { enabled: false },
+            },
             scales: {
                 x: {
                     grid:   { color: "rgba(255,255,255,0.04)", drawBorder: false },

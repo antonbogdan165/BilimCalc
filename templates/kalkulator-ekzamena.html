@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="robots" content="index, follow">
+    <script src="/static/js/theme.js"></script>
+    <script src="/static/js/page-loader.js"></script>
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.6.0">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.0">
+    <title>BilimExam — калькулятор итоговой оценки за год | 9 и 11 класс Казахстан</title>
+    <meta name="description" content="Рассчитайте итоговую оценку за год для 9 и 11 класса по формуле МОН РК: годовая × 70% + экзамен × 30%. Введите оценки за четверти и экзамен.">
+    <link rel="canonical" href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
+    <meta property="og:title" content="BilimExam — итоговая оценка за год (9 и 11 класс)">
+    <meta property="og:description" content="Калькулятор годовой оценки: четверти + экзамен по формуле 70/30. МОН РК.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bilimcalc.vercel.app/kalkulator-ekzamena">
+    <meta property="og:image" content="https://bilimcalc.vercel.app/static/icons/preview.png">
+    <meta name="theme-color" content="#0f1117">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7S9C0KT928"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date()); gtag('config', 'G-7S9C0KT928');
+    </script>
+
+    <style>
+    /* ══ BilimExam цветовой акцент ══ */
+    :root {
+        --ea: #a78bfa;
+        --ea-dim: rgba(167,139,250,0.10);
+        --ea-border: rgba(167,139,250,0.22);
+    }
+    [data-theme="light"] {
+        --ea: #7c3aed;
+        --ea-dim: rgba(124,58,237,0.06);
+        --ea-border: rgba(124,58,237,0.18);
+    }
+
+    /* ── Splash ── */
+    #examSplash {
+        position: fixed; inset: 0; z-index: 10000;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 24px;
+        background: #0d1117;
+        transition: opacity 400ms ease, transform 400ms ease;
+    }
+    [data-theme="light"] #examSplash { background: #f0f4f8; }
+    #examSplash.hidden { opacity: 0; transform: scale(1.03); pointer-events: none; }
+    #examSplash .sp-logo { display: flex; align-items: center; gap: 14px; animation: splash-pop 0.45s cubic-bezier(.34,1.56,.64,1) both; }
+    #examSplash .sp-icon {
+        width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(135deg, #6d28d9, #a78bfa); border-radius: 14px;
+        font-size: 26px; filter: drop-shadow(0 0 14px rgba(167,139,250,0.5));
+    }
+    #examSplash .sp-name { font-size: 2rem; font-weight: 800; letter-spacing: -1px; color: #fff; }
+    [data-theme="light"] #examSplash .sp-name { color: #0f172a; }
+    #examSplash .sp-name span { color: #a78bfa; }
+    [data-theme="light"] #examSplash .sp-name span { color: #7c3aed; }
+    #examSplash .sp-bar-wrap { width: 140px; height: 3px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    [data-theme="light"] #examSplash .sp-bar-wrap { background: rgba(0,0,0,0.08); }
+    #examSplash .sp-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #6d28d9, #a78bfa); border-radius: 99px; animation: splash-fill 1.4s 0.1s cubic-bezier(.2,.9,.25,1) forwards; }
+
+    /* ── Топбар ── */
+    #examTopbar {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 20px; height: 52px;
+        background: rgba(13,17,23,0.96);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        transform: translate3d(0,0,0);
+    }
+    @media (min-width: 601px) { #examTopbar { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); } }
+    [data-theme="light"] #examTopbar { background: rgba(240,244,248,0.96); border-bottom-color: rgba(0,0,0,0.08); }
+
+    .exam-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
+    .exam-logo__icon {
+        width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(135deg, #6d28d9, #a78bfa); border-radius: 8px; font-size: 14px;
+    }
+    .exam-logo__name { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .exam-logo__name span { color: #a78bfa; }
+    [data-theme="light"] .exam-logo__name { color: #0f172a; }
+    [data-theme="light"] .exam-logo__name span { color: #7c3aed; }
+
+    .exam-topbar-right { display: flex; align-items: center; gap: 6px; }
+    .topbar-app-btn {
+        display: flex; align-items: center; gap: 6px;
+        padding: 4px 9px 4px 5px; border-radius: 8px; text-decoration: none;
+        border: 1px solid transparent;
+        transition: background 0.15s, border-color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        white-space: nowrap;
+    }
+    .topbar-app-btn__icon {
+        width: 24px; height: 24px; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 7px; font-size: 13px;
+    }
+    .topbar-app-btn__name { font-size: 12px; font-weight: 600; letter-spacing: -0.2px; }
+    .topbar-app-btn__name b { font-weight: 800; }
+    /* BilimCalc variant */
+    .topbar-app-btn--calc .topbar-app-btn__icon { background: #3cb648; }
+    .topbar-app-btn--calc .topbar-app-btn__icon svg { width: 13px; height: 13px; }
+    .topbar-app-btn--calc .topbar-app-btn__name { color: #3cb648; }
+    .topbar-app-btn--calc:hover { background: rgba(60,182,72,0.1); border-color: rgba(60,182,72,0.25); }
+    [data-theme="light"] .topbar-app-btn--calc:hover { background: rgba(60,182,72,0.08); border-color: rgba(60,182,72,0.2); }
+    @media (max-width: 700px) { .topbar-app-btn__name { display: none; } }
+
+    /* ── Site title ── */
+    .exam-site-title { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; margin: 8px 0 26px; }
+    .exam-site-title__logo { display: flex; align-items: center; gap: 12px; }
+    .exam-site-title__bigicon {
+        width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(135deg, #6d28d9, #a78bfa); border-radius: 13px;
+        font-size: 22px; box-shadow: 0 4px 20px rgba(167,139,250,0.35);
+    }
+    .exam-site-title__name { font-size: clamp(1.6rem,5vw,2.2rem); font-weight: 800; color: #fff; letter-spacing: -0.03em; }
+    .exam-site-title__name span { color: #a78bfa; }
+    [data-theme="light"] .exam-site-title__name { color: #0f172a; }
+    [data-theme="light"] .exam-site-title__name span { color: #7c3aed; }
+    .exam-site-title__sub { font-size: clamp(0.8rem,2.5vw,0.95rem); color: var(--muted); font-weight: 500; }
+
+    /* ── Grade picker ── */
+    .quarter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px; }
+    .quarter-item { display: flex; flex-direction: column; gap: 5px; }
+    .q-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .grade-picker { display: flex; gap: 5px; }
+    .grade-btn {
+        flex: 1; padding: 10px 4px; border-radius: 10px;
+        border: 1.5px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+        color: var(--muted); font-size: 18px; font-weight: 800;
+        cursor: pointer; line-height: 1; min-height: 44px;
+        transition: border-color 0.14s, background 0.14s, color 0.14s;
+        -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    }
+    .grade-btn:hover { border-color: rgba(255,255,255,0.18); color: #e6edf3; background: rgba(255,255,255,0.06); }
+    .grade-btn.active-2 { border-color: rgba(218,54,51,0.6);  background: rgba(218,54,51,0.13);  color: #ff7070; }
+    .grade-btn.active-3 { border-color: rgba(210,153,34,0.6); background: rgba(210,153,34,0.13); color: #e3b341; }
+    .grade-btn.active-4 { border-color: rgba(88,166,255,0.6); background: rgba(88,166,255,0.13); color: #58a6ff; }
+    .grade-btn.active-5 { border-color: rgba(63,185,80,0.6);  background: rgba(63,185,80,0.13);  color: #3fb950; }
+
+    [data-theme="light"] .grade-btn { background: #f8fafc; border-color: #e2e8f0; color: #94a3b8; }
+    [data-theme="light"] .grade-btn:hover { border-color: #cbd5e1; color: #475569; background: #f1f5f9; }
+    [data-theme="light"] .grade-btn.active-2 { border-color: rgba(220,38,38,0.45);  background: rgba(220,38,38,0.07);  color: #dc2626; }
+    [data-theme="light"] .grade-btn.active-3 { border-color: rgba(217,119,6,0.45);  background: rgba(217,119,6,0.07);  color: #d97706; }
+    [data-theme="light"] .grade-btn.active-4 { border-color: rgba(37,99,235,0.45);  background: rgba(37,99,235,0.07);  color: #2563eb; }
+    [data-theme="light"] .grade-btn.active-5 { border-color: rgba(22,163,74,0.45);  background: rgba(22,163,74,0.07);  color: #16a34a; }
+
+    /* ── No-exam toggle ── */
+    .no-exam-toggle {
+        display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 10px; margin-bottom: 12px; cursor: pointer;
+        -webkit-tap-highlight-color: transparent; user-select: none;
+        transition: background 0.15s, border-color 0.15s;
+    }
+    .no-exam-toggle:hover { background: rgba(255,255,255,0.05); }
+    .no-exam-toggle input[type="checkbox"] { width: 16px; height: 16px; min-width: 16px; accent-color: var(--ea); cursor: pointer; margin-top: 2px; }
+    .no-exam-toggle__main { font-size: 13px; color: #e6edf3; font-weight: 500; display: block; }
+    .no-exam-toggle__sub  { font-size: 11px; color: var(--muted); margin-top: 2px; display: block; line-height: 1.4; }
+    [data-theme="light"] .no-exam-toggle { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.07); }
+    [data-theme="light"] .no-exam-toggle__main { color: #0f172a; }
+    .exam-input-section { transition: opacity 0.2s ease; }
+    .exam-input-section.disabled { opacity: 0.35; pointer-events: none; }
+
+    /* ── Большой результат — оценка ── */
+    .exam-result-grade {
+        text-align: center; font-size: 96px; font-weight: 900;
+        letter-spacing: -3px; line-height: 1; margin-bottom: 6px;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    .eg-dash { color: var(--muted); font-size: 60px; }
+    .eg-2    { color: var(--danger);  text-shadow: 0 0 28px rgba(218,54,51,0.45); }
+    .eg-3    { color: var(--warning); text-shadow: 0 0 28px rgba(210,153,34,0.45); }
+    .eg-4    { color: var(--accent);  text-shadow: 0 0 28px rgba(88,166,255,0.45); }
+    .eg-5    { color: #22c55e;        text-shadow: 0 0 24px rgba(22,197,94,0.55), 0 0 48px rgba(22,101,52,0.35); }
+
+    /* ── Info rows ── */
+    .info-row {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 7px 12px;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 9px; margin-bottom: 7px;
+    }
+    .info-row__label { font-size: 12px; color: var(--muted); }
+    .info-row__val   { font-size: 14px; font-weight: 700; color: #e6edf3; }
+    [data-theme="light"] .info-row { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.06); }
+    [data-theme="light"] .info-row__val { color: #0f172a; }
+
+    /* ── Need-box ── */
+    .need-box {
+        margin-top: 10px; padding: 12px;
+        background: var(--ea-dim); border: 1px solid var(--ea-border);
+        border-radius: 12px;
+    }
+    .need-box__title {
+        font-size: 10px; font-weight: 700; color: var(--ea);
+        text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px;
+    }
+    .need-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .need-item {
+        display: flex; flex-direction: column; align-items: center; gap: 2px;
+        padding: 8px 4px; border-radius: 9px;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04);
+    }
+    [data-theme="light"] .need-item { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.04); }
+    .need-item__for   { font-size: 9px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+    .need-item__grade { font-size: 26px; font-weight: 900; line-height: 1.1; }
+    .ng-5 { color: #22c55e; } .ng-4 { color: #58a6ff; } .ng-3 { color: var(--warning); }
+    .ng-ok { color: #3fb950; font-size: 13px; font-weight: 600; }
+    .ng-no { color: var(--danger); font-size: 13px; font-weight: 600; }
+
+    .formula-hint { font-size: 11px; color: var(--muted); text-align: center; margin-top: 8px; font-family: "Courier New", monospace; opacity: 0.8; min-height: 16px; }
+
+    /* ── Article teaser ── */
+    .art-teaser {
+        display: flex; align-items: center; gap: 12px; padding: 11px 14px; margin-top: 10px;
+        background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 11px; text-decoration: none;
+        transition: border-color 0.15s, background 0.15s;
+    }
+    .art-teaser:hover { border-color: var(--ea-border); background: var(--ea-dim); }
+    .art-teaser__icon {
+        width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+        border-radius: 9px; background: var(--ea-dim); border: 1px solid var(--ea-border);
+        color: var(--ea); font-size: 10px; font-weight: 800;
+    }
+    .art-teaser__title { flex: 1; font-size: 13px; font-weight: 600; color: #e6edf3; }
+    [data-theme="light"] .art-teaser { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.07); }
+    [data-theme="light"] .art-teaser__title { color: #0f172a; }
+    .art-teaser__arrow { color: var(--muted); font-size: 15px; }
+
+    @media (max-width: 600px) {
+        .exam-result-grade { font-size: 80px; }
+        .eg-dash { font-size: 52px; }
+        .grade-btn { font-size: 16px; padding: 8px 2px; }
+        .quarter-grid { gap: 10px; }
+    }
+    </style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="examSplash">
+    <div class="sp-logo">
+        <div class="sp-icon">🎓</div>
+        <div class="sp-name">Bilim<span>Exam</span></div>
+    </div>
+    <div class="sp-bar-wrap"><div class="sp-bar"></div></div>
+</div>
+
+<!-- ТОПБАР -->
+<div id="examTopbar">
+    <a href="/kalkulator-ekzamena" class="exam-logo">
+        <div class="exam-logo__icon">🎓</div>
+        <span class="exam-logo__name">Bilim<span>Exam</span></span>
+    </a>
+    <div class="exam-topbar-right">
+        <a href="/" class="topbar-app-btn topbar-app-btn--calc" title="BilimCalc — калькулятор четверти">
+            <div class="topbar-app-btn__icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="9" height="9" rx="2" fill="white"/>
+                    <rect x="13" y="2" width="9" height="9" rx="2" fill="white"/>
+                    <rect x="2" y="13" width="9" height="9" rx="2" fill="white"/>
+                    <path d="M15 18h4M17 16v4" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <span class="topbar-app-btn__name">Bilim<b>Calc</b></span>
+        </a>
+        <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
+            <span id="themeIcon">☀️</span>
+        </button>
+    </div>
+</div>
+
+<div id="offlineBanner" class="offline-banner" style="display:none">
+    ⚠️ Нет подключения к интернету — калькулятор работает офлайн
+</div>
+
+<div class="container" style="padding-top: 72px">
+
+    <div class="exam-site-title">
+        <div class="exam-site-title__logo">
+            <div class="exam-site-title__bigicon">🎓</div>
+            <h1 class="exam-site-title__name">Bilim<span>Exam</span></h1>
+        </div>
+        <div class="exam-site-title__sub">Итоговая оценка за год — 9 и 11 класс</div>
+    </div>
+
+    <div class="grid">
+
+        <!-- ══ ВВОД ══ -->
+        <div>
+
+            <div class="card reveal">
+                <div class="section-title">Оценки за четверти</div>
+                <div class="quarter-grid">
+                    <div class="quarter-item">
+                        <div class="q-label">1 четверть</div>
+                        <div class="grade-picker" data-q="q1">
+                            <button class="grade-btn" data-val="2">2</button>
+                            <button class="grade-btn" data-val="3">3</button>
+                            <button class="grade-btn" data-val="4">4</button>
+                            <button class="grade-btn" data-val="5">5</button>
+                        </div>
+                    </div>
+                    <div class="quarter-item">
+                        <div class="q-label">2 четверть</div>
+                        <div class="grade-picker" data-q="q2">
+                            <button class="grade-btn" data-val="2">2</button>
+                            <button class="grade-btn" data-val="3">3</button>
+                            <button class="grade-btn" data-val="4">4</button>
+                            <button class="grade-btn" data-val="5">5</button>
+                        </div>
+                    </div>
+                    <div class="quarter-item">
+                        <div class="q-label">3 четверть</div>
+                        <div class="grade-picker" data-q="q3">
+                            <button class="grade-btn" data-val="2">2</button>
+                            <button class="grade-btn" data-val="3">3</button>
+                            <button class="grade-btn" data-val="4">4</button>
+                            <button class="grade-btn" data-val="5">5</button>
+                        </div>
+                    </div>
+                    <div class="quarter-item">
+                        <div class="q-label">4 четверть</div>
+                        <div class="grade-picker" data-q="q4">
+                            <button class="grade-btn" data-val="2">2</button>
+                            <button class="grade-btn" data-val="3">3</button>
+                            <button class="grade-btn" data-val="4">4</button>
+                            <button class="grade-btn" data-val="5">5</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="small" style="margin-top:10px">Можно указать только прошедшие четверти — среднее рассчитается по ним</p>
+            </div>
+
+            <div class="card reveal" style="margin-top:16px">
+                <div class="section-title">Оценка за экзамен</div>
+                <label class="no-exam-toggle">
+                    <input type="checkbox" id="noExamToggle">
+                    <div class="no-exam-toggle__text">
+                        <span class="no-exam-toggle__main">Нет экзамена</span>
+                        <span class="no-exam-toggle__sub">Освобождён — итог считается только по годовой оценке</span>
+                    </div>
+                </label>
+                <div class="exam-input-section" id="examInputSection">
+                    <div class="grade-picker" data-q="exam">
+                        <button class="grade-btn" data-val="2">2</button>
+                        <button class="grade-btn" data-val="3">3</button>
+                        <button class="grade-btn" data-val="4">4</button>
+                        <button class="grade-btn" data-val="5">5</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:12px">
+                <button class="btn ghost" id="examResetBtn" style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.25);">
+                    🗑 Сбросить всё
+                </button>
+            </div>
+        </div>
+
+        <!-- ══ РЕЗУЛЬТАТ ══ -->
+        <div>
+            <div class="card">
+                <div class="exam-result-grade eg-dash" id="examResultGrade">—</div>
+                <div class="grade-badge badge-empty" id="examGradeBadge">Нет данных</div>
+
+                <div id="annualInfoRow" class="info-row" style="display:none;margin-top:12px">
+                    <span class="info-row__label">📅 Годовая оценка</span>
+                    <span class="info-row__val" id="annualInfoVal">—</span>
+                </div>
+                <div id="examInfoRow" class="info-row" style="display:none">
+                    <span class="info-row__label">📝 Экзамен</span>
+                    <span class="info-row__val" id="examInfoVal">—</span>
+                </div>
+
+                <div class="progress-wrap" style="margin-top:12px">
+                    <div class="progress-bar"><div class="progress-fill" id="examProgressFill"></div></div>
+                    <div class="breakdown">
+                        <div class="break-card">
+                            <span class="break-title">Годовая</span>
+                            <span class="break-value" id="bAnnual">—</span>
+                        </div>
+                        <div class="break-card">
+                            <span class="break-title">Экзамен</span>
+                            <span class="break-value" id="bExam">—</span>
+                        </div>
+                        <div class="break-card">
+                            <span class="break-title">Итог</span>
+                            <span class="break-value" id="bFinal">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="need-box" id="needBox" style="display:none">
+                    <div class="need-box__title">Нужная оценка за экзамен</div>
+                    <div class="need-grid">
+                        <div class="need-item">
+                            <span class="need-item__for">Для «5»</span>
+                            <span class="need-item__grade ng-5" id="need5">—</span>
+                        </div>
+                        <div class="need-item">
+                            <span class="need-item__for">Для «4»</span>
+                            <span class="need-item__grade ng-4" id="need4">—</span>
+                        </div>
+                        <div class="need-item">
+                            <span class="need-item__for">Для «3»</span>
+                            <span class="need-item__grade ng-3" id="need3">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-hint" id="formulaHint"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card" style="margin-top:16px">
+        <h2 style="color:var(--ea)">Как работает расчёт</h2>
+        <p class="small" style="margin-top:7px">Итоговая оценка в <strong>9 и 11 классах</strong> по методике МОН РК: <strong>Годовая × 70% + Экзамен × 30%</strong>. Годовая оценка — среднее арифметическое по четвертям. Результат округляется (≥ 0.5 → вверх).</p>
+        <p class="small" style="margin-top:7px">Блок «Нужная оценка» показывает, какой балл (2–5) надо получить на экзамене, чтобы выйти на нужный итог.</p>
+        <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="art-teaser">
+            <div class="art-teaser__icon">70/30</div>
+            <span class="art-teaser__title">Подробная статья — как рассчитать итоговую оценку за год</span>
+            <span class="art-teaser__arrow">→</span>
+        </a>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+        <h2>Нужна оценка за четверть?</h2>
+        <p class="small" style="margin-top:7px;margin-bottom:14px">BilimCalc считает итог за четверть по СО, СОР и СОЧ. Готовую оценку можно сразу использовать здесь.</p>
+        <a href="/" class="official-link" style="text-decoration:none">
+            <div class="bilim-logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
+                    <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
+                    <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648"/>
+                    <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="link-text">
+                <span class="link-text-top">bilimcalc.vercel.app</span>
+                <span class="link-text-main">BilimCalc — калькулятор СО, СОР, СОЧ →</span>
+            </div>
+        </a>
+    </div>
+
+    <footer>
+        <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank">GitHub</a></div>
+        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.6.0</div>
+    </footer>
+</div>
+
+<nav id="mobile-nav" aria-label="Мобильная навигация">
+    <a href="/" class="mobile-nav__item">
+        <span class="mobile-nav__icon">🧮</span>
+        <span>BilimCalc</span>
+    </a>
+    <a href="/kalkulator-ekzamena" class="mobile-nav__item active">
+        <span class="mobile-nav__icon">🎓</span>
+        <span>BilimExam</span>
+    </a>
+    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="mobile-nav__item">
+        <span class="mobile-nav__icon">📖</span>
+        <span>Статья</span>
+    </a>
+    <a href="/itogovaya-ocenka-za-chetvert" class="mobile-nav__item">
+        <span class="mobile-nav__icon">🏆</span>
+        <span>Четверть</span>
+    </a>
+    <a href="/metodika-rascheta-mon-rk" class="mobile-nav__item">
+        <span class="mobile-nav__icon">📋</span>
+        <span>МОН РК</span>
+    </a>
+</nav>
+
+<script>
+(function () {
+    'use strict';
+    ThemeToggle.init();
+    document.getElementById('yearExam').textContent = new Date().getFullYear();
+
+    var splash = document.getElementById('examSplash');
+    if (splash) setTimeout(function () { splash.classList.add('hidden'); }, 900);
+
+    var ob = document.getElementById('offlineBanner');
+    if (ob) {
+        if (!navigator.onLine) ob.style.display = 'block';
+        window.addEventListener('offline', function () { ob.style.display = 'block'; });
+        window.addEventListener('online',  function () { ob.style.display = 'none'; });
+    }
+
+    var revItems = document.querySelectorAll('.reveal');
+    if (revItems.length) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.08 });
+        revItems.forEach(function (el, i) { el.style.transitionDelay = (i * 0.06) + 's'; io.observe(el); });
+    }
+
+    document.addEventListener('click', function (e) {
+        var t = e.target.closest('.mobile-nav__item, .btn, .grade-btn');
+        if (!t) return;
+        var r = t.getBoundingClientRect();
+        var rip = document.createElement('span'); rip.className = 'ripple';
+        rip.style.left = (e.clientX - r.left) + 'px'; rip.style.top = (e.clientY - r.top) + 'px';
+        t.style.position = t.style.position || 'relative'; t.style.overflow = 'hidden';
+        t.appendChild(rip); rip.addEventListener('animationend', function () { rip.remove(); });
+    });
+
+    /* ══ ЛОГИКА ══ */
+    var SAVE_KEY = 'bilimexam_v1';
+    var state = { q1: null, q2: null, q3: null, q4: null, exam: null, noExam: false };
+
+    function setPickerActive(picker, val) {
+        if (!picker) return;
+        picker.querySelectorAll('.grade-btn').forEach(function (b) {
+            b.classList.remove('active-2', 'active-3', 'active-4', 'active-5');
+        });
+        if (val !== null) {
+            var btn = picker.querySelector('[data-val="' + val + '"]');
+            if (btn) btn.classList.add('active-' + val);
+        }
+    }
+
+    document.querySelectorAll('.grade-picker').forEach(function (picker) {
+        var qKey = picker.dataset.q;
+        picker.querySelectorAll('.grade-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var val = parseInt(btn.dataset.val, 10);
+                state[qKey] = (state[qKey] === val) ? null : val;
+                setPickerActive(picker, state[qKey]);
+                saveState(); calculate();
+            });
+        });
+    });
+
+    document.getElementById('noExamToggle').addEventListener('change', function () {
+        state.noExam = this.checked;
+        document.getElementById('examInputSection').classList.toggle('disabled', this.checked);
+        if (this.checked) { state.exam = null; setPickerActive(document.querySelector('[data-q="exam"]'), null); }
+        saveState(); calculate();
+    });
+
+    function gradeInfo(g) {
+        if (g === 5) return { label: 'Отлично 🎉', badgeCls: 'badge-excellent', resCls: 'eg-5', fill: '#166534' };
+        if (g === 4) return { label: 'Хорошо',     badgeCls: 'badge-good',      resCls: 'eg-4', fill: 'var(--accent)' };
+        if (g === 3) return { label: 'Удовлетворительно', badgeCls: 'badge-warning', resCls: 'eg-3', fill: 'var(--warning)' };
+        return               { label: 'Неудовлетворительно', badgeCls: 'badge-danger', resCls: 'eg-2', fill: 'var(--danger)' };
+    }
+
+    function renderNeed(elId, annual, threshold, cls) {
+        var el = document.getElementById(elId);
+        var needed = (threshold - annual * 0.7) / 0.3;
+        if (needed <= 2) {
+            el.textContent = 'любая'; el.className = 'need-item__grade ng-ok';
+        } else if (needed > 5) {
+            el.textContent = '✗ нельзя'; el.className = 'need-item__grade ng-no';
+        } else {
+            el.textContent = Math.ceil(needed);
+            el.className = 'need-item__grade ' + cls;
+        }
+    }
+
+    function calculate() {
+        var qs = [state.q1, state.q2, state.q3, state.q4].filter(function (v) { return v !== null; });
+        var resultEl  = document.getElementById('examResultGrade');
+        var badge     = document.getElementById('examGradeBadge');
+        var fillEl    = document.getElementById('examProgressFill');
+        var aRow      = document.getElementById('annualInfoRow');
+        var eRow      = document.getElementById('examInfoRow');
+        var aVal      = document.getElementById('annualInfoVal');
+        var eVal      = document.getElementById('examInfoVal');
+        var bA        = document.getElementById('bAnnual');
+        var bE        = document.getElementById('bExam');
+        var bF        = document.getElementById('bFinal');
+        var needBox   = document.getElementById('needBox');
+        var hint      = document.getElementById('formulaHint');
+
+        if (qs.length === 0) {
+            resultEl.textContent = '—'; resultEl.className = 'exam-result-grade eg-dash';
+            badge.textContent = 'Нет данных'; badge.className = 'grade-badge badge-empty';
+            fillEl.style.width = '0%'; aRow.style.display = 'none'; eRow.style.display = 'none';
+            bA.textContent = '—'; bE.textContent = '—'; bF.textContent = '—';
+            needBox.style.display = 'none'; hint.textContent = ''; return;
+        }
+
+        var annual = qs.reduce(function (a, b) { return a + b; }, 0) / qs.length;
+        var hasExam = !state.noExam && state.exam !== null;
+        var raw = hasExam ? (annual * 0.7 + state.exam * 0.3) : annual;
+        var finalG = Math.round(raw);
+        var info = gradeInfo(finalG);
+
+        resultEl.textContent = finalG; resultEl.className = 'exam-result-grade ' + info.resCls;
+        badge.textContent = info.label; badge.className = 'grade-badge ' + info.badgeCls;
+
+        var pct = ((finalG - 2) / 3) * 100;
+        fillEl.style.width = Math.min(Math.max(pct, 0), 100) + '%';
+        fillEl.style.background = info.fill;
+
+        aRow.style.display = 'flex';
+        aVal.textContent = (annual % 1 === 0) ? annual : annual.toFixed(2);
+
+        if (hasExam) {
+            eRow.style.display = 'flex'; eVal.textContent = state.exam;
+            bA.textContent = (annual * 0.7).toFixed(2);
+            bE.textContent = (state.exam * 0.3).toFixed(2);
+            bF.textContent = raw.toFixed(2);
+            hint.textContent = annual.toFixed(2) + ' × 0.7 + ' + state.exam + ' × 0.3 = ' + raw.toFixed(2) + ' → ' + finalG;
+        } else {
+            eRow.style.display = 'none';
+            bA.textContent = annual.toFixed(2);
+            bE.textContent = state.noExam ? 'нет' : '?';
+            bF.textContent = raw.toFixed(2);
+            hint.textContent = state.noExam ? 'Итог = годовая оценка (экзамена нет)' : 'Выберите оценку за экзамен';
+        }
+
+        if (!state.noExam) {
+            needBox.style.display = 'block';
+            renderNeed('need5', annual, 4.5, 'ng-5');
+            renderNeed('need4', annual, 3.5, 'ng-4');
+            renderNeed('need3', annual, 2.5, 'ng-3');
+        } else {
+            needBox.style.display = 'none';
+        }
+    }
+
+    document.getElementById('examResetBtn').addEventListener('click', function () {
+        state = { q1: null, q2: null, q3: null, q4: null, exam: null, noExam: false };
+        document.querySelectorAll('.grade-picker').forEach(function (p) { setPickerActive(p, null); });
+        document.getElementById('noExamToggle').checked = false;
+        document.getElementById('examInputSection').classList.remove('disabled');
+        try { localStorage.removeItem(SAVE_KEY); } catch (ex) {}
+        calculate();
+    });
+
+    function saveState() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (ex) {} }
+
+    function loadState() {
+        try {
+            var raw = localStorage.getItem(SAVE_KEY); if (!raw) return;
+            var s = JSON.parse(raw);
+            ['q1','q2','q3','q4','exam'].forEach(function (k) { if (s[k] !== undefined) state[k] = s[k]; });
+            if (s.noExam) { state.noExam = true; document.getElementById('noExamToggle').checked = true; document.getElementById('examInputSection').classList.add('disabled'); }
+            ['q1','q2','q3','q4'].forEach(function (k) {
+                if (state[k] !== null) { var p = document.querySelector('[data-q="' + k + '"]'); if (p) setPickerActive(p, state[k]); }
+            });
+            if (state.exam !== null) { var ep = document.querySelector('[data-q="exam"]'); if (ep) setPickerActive(ep, state.exam); }
+        } catch (ex) {}
+    }
+
+    loadState(); calculate();
+})();
+</script>
+<script src="/static/js/pwa-install.js?v=1.6.0"></script>
+</body>
+</html>

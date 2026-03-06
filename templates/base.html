@@ -41,6 +41,57 @@
     <link rel="stylesheet" href="/static/css/article.css?v=1.6.0">
     <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.0">
     {% block extra_css %}{% endblock %}
+    <style>
+    /* BilimExam nav link accent */
+    .topbar-nav__link--exam {
+        color: #a78bfa !important;
+        border: 1px solid rgba(167,139,250,0.25);
+        border-radius: 7px;
+        padding: 3px 8px !important;
+        background: rgba(167,139,250,0.08);
+        transition: background 0.15s, border-color 0.15s !important;
+    }
+    .topbar-nav__link--exam:hover {
+        background: rgba(167,139,250,0.16) !important;
+        border-color: rgba(167,139,250,0.45) !important;
+        color: #c4b5fd !important;
+    }
+    [data-theme="light"] .topbar-nav__link--exam {
+        color: #7c3aed !important;
+        border-color: rgba(124,58,237,0.2);
+        background: rgba(124,58,237,0.06);
+    }
+    [data-theme="light"] .topbar-nav__link--exam:hover {
+        background: rgba(124,58,237,0.12) !important;
+        border-color: rgba(124,58,237,0.35) !important;
+    }
+    /* BilimExam icon button in topbar */
+    .topbar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .topbar-app-btn {
+        display: flex; align-items: center; gap: 6px;
+        padding: 4px 9px 4px 5px; border-radius: 8px; text-decoration: none;
+        border: 1px solid transparent;
+        transition: background 0.15s, border-color 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        white-space: nowrap;
+    }
+    .topbar-app-btn__icon {
+        width: 24px; height: 24px; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 7px; font-size: 13px;
+    }
+    .topbar-app-btn__name {
+        font-size: 12px; font-weight: 600; letter-spacing: -0.2px;
+    }
+    .topbar-app-btn__name b { font-weight: 800; }
+    /* BilimExam variant */
+    .topbar-app-btn--exam .topbar-app-btn__icon { background: linear-gradient(135deg, #6d28d9, #a78bfa); }
+    .topbar-app-btn--exam .topbar-app-btn__name { color: #a78bfa; }
+    .topbar-app-btn--exam:hover { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.25); }
+    [data-theme="light"] .topbar-app-btn--exam .topbar-app-btn__name { color: #7c3aed; }
+    [data-theme="light"] .topbar-app-btn--exam:hover { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.2); }
+    @media (max-width: 700px) { .topbar-app-btn__name { display: none; } }
+    </style>
 
     <script type="application/ld+json">
     {
@@ -102,17 +153,23 @@
         </a>
 
         <nav class="topbar-nav" aria-label="Основная навигация">
-            <a href="/kak-rasschitat-so"            class="topbar-nav__link {% block nav_so %}{% endblock %}">СО</a>
-            <a href="/kak-rasschitat-sor"           class="topbar-nav__link {% block nav_sor %}{% endblock %}">СОР</a>
-            <a href="/kak-rasschitat-soch"          class="topbar-nav__link {% block nav_soch %}{% endblock %}">СОЧ</a>
-            <a href="/itogovaya-ocenka-za-chetvert" class="topbar-nav__link {% block nav_itog %}{% endblock %}">Итог</a>
-            <a href="/metodika-rascheta-mon-rk"     class="topbar-nav__link {% block nav_mon %}{% endblock %}">МОН РК</a>
+            <a href="/kak-rasschitat-so"              class="topbar-nav__link {% block nav_so %}{% endblock %}">СО</a>
+            <a href="/kak-rasschitat-sor"             class="topbar-nav__link {% block nav_sor %}{% endblock %}">СОР</a>
+            <a href="/kak-rasschitat-soch"            class="topbar-nav__link {% block nav_soch %}{% endblock %}">СОЧ</a>
+            <a href="/itogovaya-ocenka-za-chetvert"   class="topbar-nav__link {% block nav_itog %}{% endblock %}">Итог</a>
+            <a href="/metodika-rascheta-mon-rk"       class="topbar-nav__link {% block nav_mon %}{% endblock %}">МОН РК</a>
         </nav>
     </div>
 
-    <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
-        <span id="themeIcon">☀️</span>
-    </button>
+    <div class="topbar-right">
+        <a href="/kalkulator-ekzamena" class="topbar-app-btn topbar-app-btn--exam" title="BilimExam — итоговая оценка за год">
+            <div class="topbar-app-btn__icon">🎓</div>
+            <span class="topbar-app-btn__name">Bilim<b>Exam</b></span>
+        </a>
+        <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
+            <span id="themeIcon">☀️</span>
+        </button>
+    </div>
 </div>
 
 {% block content %}{% endblock %}
@@ -138,9 +195,9 @@
         <span class="mobile-nav__icon">🏆</span>
         <span>Итоговая</span>
     </a>
-    <a href="/metodika-rascheta-mon-rk" class="mobile-nav__item {% block mob_metodika %}{% endblock %}">
-        <span class="mobile-nav__icon">📋</span>
-        <span>МОН РК</span>
+    <a href="/kalkulator-ekzamena" class="mobile-nav__item mobile-nav__item--exam {% block mob_exam %}{% endblock %}">
+        <span class="mobile-nav__icon">🎓</span>
+        <span>BilimExam</span>
     </a>
 </nav>
 
@@ -162,5 +219,6 @@
 })();
 </script>
 <script src="/static/js/pwa-install.js?v=1.6.0"></script>
+{% block extra_js %}{% endblock %}
 </body>
 </html>

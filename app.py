@@ -11,11 +11,13 @@ BUILD_TIME = str(int(time.time()))
 
 
 ARTICLE_ROUTES = {
-    "/kak-rasschitat-soch":           "kak-rasschitat-soch.html",
-    "/kak-rasschitat-sor":            "kak-rasschitat-sor.html",
-    "/kak-rasschitat-so":             "kak-rasschitat-so.html",
-    "/itogovaya-ocenka-za-chetvert":  "itogovaya-ocenka-za-chetvert.html",
-    "/metodika-rascheta-mon-rk":      "metodika-rascheta-mon-rk.html",
+    "/kak-rasschitat-soch":                          "kak-rasschitat-soch.html",
+    "/kak-rasschitat-sor":                           "kak-rasschitat-sor.html",
+    "/kak-rasschitat-so":                            "kak-rasschitat-so.html",
+    "/itogovaya-ocenka-za-chetvert":                 "itogovaya-ocenka-za-chetvert.html",
+    "/metodika-rascheta-mon-rk":                     "metodika-rascheta-mon-rk.html",
+    "/kalkulator-ekzamena":                          "kalkulator-ekzamena.html",
+    "/kak-rasschitat-itogovuyu-otsenku-za-god":      "kak-rasschitat-itogovuyu-otsenku-za-god.html",
 }
 
 
