@@ -96,17 +96,11 @@
         padding: 4px 9px 4px 5px; border-radius: 8px; text-decoration: none;
         border: 1px solid transparent;
         transition: background 0.15s, border-color 0.15s;
-        -webkit-tap-highlight-color: transparent;
-        white-space: nowrap;
+        -webkit-tap-highlight-color: transparent; white-space: nowrap;
     }
-    .topbar-app-btn__icon {
-        width: 24px; height: 24px; flex-shrink: 0;
-        display: flex; align-items: center; justify-content: center;
-        border-radius: 7px; font-size: 13px;
-    }
+    .topbar-app-btn__icon { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 7px; font-size: 13px; }
     .topbar-app-btn__name { font-size: 12px; font-weight: 600; letter-spacing: -0.2px; }
     .topbar-app-btn__name b { font-weight: 800; }
-    /* BilimCalc variant */
     .topbar-app-btn--calc .topbar-app-btn__icon { background: #3cb648; }
     .topbar-app-btn--calc .topbar-app-btn__icon svg { width: 13px; height: 13px; }
     .topbar-app-btn--calc .topbar-app-btn__name { color: #3cb648; }
@@ -128,67 +122,88 @@
     [data-theme="light"] .exam-site-title__name span { color: #7c3aed; }
     .exam-site-title__sub { font-size: clamp(0.8rem,2.5vw,0.95rem); color: var(--muted); font-weight: 500; }
 
-    /* ── Grade picker ── */
-    .quarter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px; }
-    .quarter-item { display: flex; flex-direction: column; gap: 5px; }
-    .q-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    /* ══ GRADE PICKER — улучшенный мобильный вид ══ */
+    .quarters-section { margin-bottom: 16px; }
+    .quarters-label {
+        font-size: 11px; font-weight: 700; color: var(--muted);
+        text-transform: uppercase; letter-spacing: 0.5px;
+        margin-bottom: 12px;
+    }
+    .quarter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .quarter-item { display: flex; flex-direction: column; gap: 6px; }
+    .q-label {
+        font-size: 11px; font-weight: 700; color: var(--muted);
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
 
-    .grade-picker { display: flex; gap: 5px; }
+    .grade-picker { display: flex; gap: 6px; }
     .grade-btn {
-        flex: 1; padding: 10px 4px; border-radius: 10px;
+        flex: 1;
+        padding: 12px 4px;
+        border-radius: 12px;
         border: 1.5px solid rgba(255,255,255,0.08);
         background: rgba(255,255,255,0.03);
-        color: var(--muted); font-size: 18px; font-weight: 800;
-        cursor: pointer; line-height: 1; min-height: 44px;
-        transition: border-color 0.14s, background 0.14s, color 0.14s;
-        -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        color: var(--muted);
+        font-size: 20px;
+        font-weight: 800;
+        cursor: pointer;
+        line-height: 1;
+        min-height: 50px;
+        transition: border-color 0.14s, background 0.14s, color 0.14s, transform 0.1s;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        position: relative;
+        overflow: hidden;
     }
     .grade-btn:hover { border-color: rgba(255,255,255,0.18); color: #e6edf3; background: rgba(255,255,255,0.06); }
-    .grade-btn.active-2 { border-color: rgba(218,54,51,0.6);  background: rgba(218,54,51,0.13);  color: #ff7070; }
-    .grade-btn.active-3 { border-color: rgba(210,153,34,0.6); background: rgba(210,153,34,0.13); color: #e3b341; }
-    .grade-btn.active-4 { border-color: rgba(88,166,255,0.6); background: rgba(88,166,255,0.13); color: #58a6ff; }
-    .grade-btn.active-5 { border-color: rgba(63,185,80,0.6);  background: rgba(63,185,80,0.13);  color: #3fb950; }
+    .grade-btn:active { transform: scale(0.94); }
+    .grade-btn.active-2 { border-color: rgba(218,54,51,0.6);  background: rgba(218,54,51,0.13);  color: #ff7070; box-shadow: 0 2px 12px rgba(218,54,51,0.2); }
+    .grade-btn.active-3 { border-color: rgba(210,153,34,0.6); background: rgba(210,153,34,0.13); color: #e3b341; box-shadow: 0 2px 12px rgba(210,153,34,0.2); }
+    .grade-btn.active-4 { border-color: rgba(88,166,255,0.6); background: rgba(88,166,255,0.13); color: #58a6ff; box-shadow: 0 2px 12px rgba(88,166,255,0.2); }
+    .grade-btn.active-5 { border-color: rgba(63,185,80,0.6);  background: rgba(63,185,80,0.13);  color: #3fb950; box-shadow: 0 2px 12px rgba(63,185,80,0.2); }
 
     [data-theme="light"] .grade-btn { background: #f8fafc; border-color: #e2e8f0; color: #94a3b8; }
     [data-theme="light"] .grade-btn:hover { border-color: #cbd5e1; color: #475569; background: #f1f5f9; }
-    [data-theme="light"] .grade-btn.active-2 { border-color: rgba(220,38,38,0.45);  background: rgba(220,38,38,0.07);  color: #dc2626; }
-    [data-theme="light"] .grade-btn.active-3 { border-color: rgba(217,119,6,0.45);  background: rgba(217,119,6,0.07);  color: #d97706; }
-    [data-theme="light"] .grade-btn.active-4 { border-color: rgba(37,99,235,0.45);  background: rgba(37,99,235,0.07);  color: #2563eb; }
-    [data-theme="light"] .grade-btn.active-5 { border-color: rgba(22,163,74,0.45);  background: rgba(22,163,74,0.07);  color: #16a34a; }
+    [data-theme="light"] .grade-btn.active-2 { border-color: rgba(220,38,38,0.45);  background: rgba(220,38,38,0.07);  color: #dc2626; box-shadow: 0 2px 8px rgba(220,38,38,0.12); }
+    [data-theme="light"] .grade-btn.active-3 { border-color: rgba(217,119,6,0.45);  background: rgba(217,119,6,0.07);  color: #d97706; box-shadow: 0 2px 8px rgba(217,119,6,0.12); }
+    [data-theme="light"] .grade-btn.active-4 { border-color: rgba(37,99,235,0.45);  background: rgba(37,99,235,0.07);  color: #2563eb; box-shadow: 0 2px 8px rgba(37,99,235,0.12); }
+    [data-theme="light"] .grade-btn.active-5 { border-color: rgba(22,163,74,0.45);  background: rgba(22,163,74,0.07);  color: #16a34a; box-shadow: 0 2px 8px rgba(22,163,74,0.12); }
 
-    /* ── No-exam toggle ── */
-    .no-exam-toggle {
-        display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px;
-        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 10px; margin-bottom: 12px; cursor: pointer;
-        -webkit-tap-highlight-color: transparent; user-select: none;
-        transition: background 0.15s, border-color 0.15s;
+    /* Разделитель между четвертями и экзаменом */
+    .exam-divider {
+        display: flex; align-items: center; gap: 10px; margin: 4px 0 14px;
     }
-    .no-exam-toggle:hover { background: rgba(255,255,255,0.05); }
-    .no-exam-toggle input[type="checkbox"] { width: 16px; height: 16px; min-width: 16px; accent-color: var(--ea); cursor: pointer; margin-top: 2px; }
-    .no-exam-toggle__main { font-size: 13px; color: #e6edf3; font-weight: 500; display: block; }
-    .no-exam-toggle__sub  { font-size: 11px; color: var(--muted); margin-top: 2px; display: block; line-height: 1.4; }
-    [data-theme="light"] .no-exam-toggle { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.07); }
-    [data-theme="light"] .no-exam-toggle__main { color: #0f172a; }
-    .exam-input-section { transition: opacity 0.2s ease; }
-    .exam-input-section.disabled { opacity: 0.35; pointer-events: none; }
+    .exam-divider__line { flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+    .exam-divider__label {
+        font-size: 10px; font-weight: 700; color: var(--muted);
+        text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap;
+    }
+    [data-theme="light"] .exam-divider__line { background: rgba(0,0,0,0.07); }
+
+    /* Секция экзамена */
+    .exam-grade-section { }
+    .exam-grade-section .q-label { margin-bottom: 6px; }
 
     /* ── Большой результат — оценка ── */
     .exam-result-grade {
-        text-align: center; font-size: 96px; font-weight: 900;
-        letter-spacing: -3px; line-height: 1; margin-bottom: 6px;
+        text-align: center;
+        font-size: 108px;
+        font-weight: 900;
+        letter-spacing: -4px;
+        line-height: 0.95;
+        margin-bottom: 8px;
         transition: color 0.3s ease, text-shadow 0.3s ease;
     }
-    .eg-dash { color: var(--muted); font-size: 60px; }
-    .eg-2    { color: var(--danger);  text-shadow: 0 0 28px rgba(218,54,51,0.45); }
-    .eg-3    { color: var(--warning); text-shadow: 0 0 28px rgba(210,153,34,0.45); }
-    .eg-4    { color: var(--accent);  text-shadow: 0 0 28px rgba(88,166,255,0.45); }
-    .eg-5    { color: #22c55e;        text-shadow: 0 0 24px rgba(22,197,94,0.55), 0 0 48px rgba(22,101,52,0.35); }
+    .eg-dash { color: var(--muted); font-size: 64px; letter-spacing: 0; }
+    .eg-2    { color: var(--danger);  text-shadow: 0 0 32px rgba(218,54,51,0.45); }
+    .eg-3    { color: var(--warning); text-shadow: 0 0 32px rgba(210,153,34,0.45); }
+    .eg-4    { color: var(--accent);  text-shadow: 0 0 32px rgba(88,166,255,0.45); }
+    .eg-5    { color: #22c55e;        text-shadow: 0 0 28px rgba(22,197,94,0.6), 0 0 56px rgba(22,101,52,0.35); }
 
     /* ── Info rows ── */
     .info-row {
         display: flex; align-items: center; justify-content: space-between;
-        padding: 7px 12px;
+        padding: 8px 12px;
         background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
         border-radius: 9px; margin-bottom: 7px;
     }
@@ -209,18 +224,22 @@
     }
     .need-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
     .need-item {
-        display: flex; flex-direction: column; align-items: center; gap: 2px;
-        padding: 8px 4px; border-radius: 9px;
+        display: flex; flex-direction: column; align-items: center; gap: 3px;
+        padding: 10px 4px; border-radius: 10px;
         background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04);
     }
     [data-theme="light"] .need-item { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.04); }
     .need-item__for   { font-size: 9px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
-    .need-item__grade { font-size: 26px; font-weight: 900; line-height: 1.1; }
+    .need-item__grade { font-size: 28px; font-weight: 900; line-height: 1.1; }
     .ng-5 { color: #22c55e; } .ng-4 { color: #58a6ff; } .ng-3 { color: var(--warning); }
-    .ng-ok { color: #3fb950; font-size: 13px; font-weight: 600; }
-    .ng-no { color: var(--danger); font-size: 13px; font-weight: 600; }
+    .ng-ok { color: #3fb950; font-size: 12px; font-weight: 700; text-align: center; line-height: 1.3; }
+    .ng-no { color: var(--danger); font-size: 12px; font-weight: 700; text-align: center; line-height: 1.3; }
 
-    .formula-hint { font-size: 11px; color: var(--muted); text-align: center; margin-top: 8px; font-family: "Courier New", monospace; opacity: 0.8; min-height: 16px; }
+    .formula-hint {
+        font-size: 11px; color: var(--muted); text-align: center;
+        margin-top: 8px; font-family: "Courier New", monospace;
+        opacity: 0.8; min-height: 16px; line-height: 1.5;
+    }
 
     /* ── Article teaser ── */
     .art-teaser {
@@ -240,11 +259,32 @@
     [data-theme="light"] .art-teaser__title { color: #0f172a; }
     .art-teaser__arrow { color: var(--muted); font-size: 15px; }
 
+    /* ══ МОБИЛЬНЫЙ РЕЗУЛЬТАТ ВВЕРХУ (≤900px) ══ */
+    @media (max-width: 900px) {
+        /* На мобиле/планшете меняем порядок: результат → ввод */
+        .grid { display: flex !important; flex-direction: column; gap: 14px; }
+        .exam-result-col { order: -1; }
+
+        .exam-result-grade { font-size: 88px; letter-spacing: -3px; }
+        .eg-dash { font-size: 56px; }
+    }
+
     @media (max-width: 600px) {
-        .exam-result-grade { font-size: 80px; }
-        .eg-dash { font-size: 52px; }
-        .grade-btn { font-size: 16px; padding: 8px 2px; }
+        .exam-result-grade { font-size: 76px; letter-spacing: -2px; }
+        .eg-dash { font-size: 48px; }
+
+        .grade-btn { font-size: 18px; min-height: 48px; padding: 10px 4px; border-radius: 10px; }
         .quarter-grid { gap: 10px; }
+
+        /* Карточка ввода компактнее */
+        .card { padding: 14px 14px; }
+
+        .need-item__grade { font-size: 24px; }
+    }
+
+    @media (max-width: 380px) {
+        .grade-btn { font-size: 16px; min-height: 44px; }
+        .exam-result-grade { font-size: 64px; }
     }
     </style>
 </head>
@@ -301,9 +341,9 @@
 
         <!-- ══ ВВОД ══ -->
         <div>
-
             <div class="card reveal">
-                <div class="section-title">Оценки за четверти</div>
+                <!-- Четверти -->
+                <div class="section-title" style="margin-bottom:14px">Оценки за четверти</div>
                 <div class="quarter-grid">
                     <div class="quarter-item">
                         <div class="q-label">1 четверть</div>
@@ -342,25 +382,29 @@
                         </div>
                     </div>
                 </div>
-                <p class="small" style="margin-top:10px">Можно указать только прошедшие четверти — среднее рассчитается по ним</p>
-            </div>
+                <p class="small" style="margin-top:10px;color:var(--muted)">
+                    Можно выбрать только прошедшие четверти — среднее считается по ним
+                </p>
 
-            <div class="card reveal" style="margin-top:16px">
-                <div class="section-title">Оценка за экзамен</div>
-                <label class="no-exam-toggle">
-                    <input type="checkbox" id="noExamToggle">
-                    <div class="no-exam-toggle__text">
-                        <span class="no-exam-toggle__main">Нет экзамена</span>
-                        <span class="no-exam-toggle__sub">Освобождён — итог считается только по годовой оценке</span>
-                    </div>
-                </label>
-                <div class="exam-input-section" id="examInputSection">
-                    <div class="grade-picker" data-q="exam">
+                <!-- Разделитель -->
+                <div class="exam-divider" style="margin-top:16px">
+                    <div class="exam-divider__line"></div>
+                    <div class="exam-divider__label">Экзамен</div>
+                    <div class="exam-divider__line"></div>
+                </div>
+
+                <!-- Экзамен — прямо в той же карточке -->
+                <div class="exam-grade-section">
+                    <div class="q-label">Оценка за экзамен</div>
+                    <div class="grade-picker" data-q="exam" style="margin-top:6px">
                         <button class="grade-btn" data-val="2">2</button>
                         <button class="grade-btn" data-val="3">3</button>
                         <button class="grade-btn" data-val="4">4</button>
                         <button class="grade-btn" data-val="5">5</button>
                     </div>
+                    <p class="small" style="margin-top:8px;color:var(--muted)">
+                        Не знаешь экзамен? Оставь пустым — внизу появятся нужные баллы
+                    </p>
                 </div>
             </div>
 
@@ -372,7 +416,7 @@
         </div>
 
         <!-- ══ РЕЗУЛЬТАТ ══ -->
-        <div>
+        <div class="exam-result-col">
             <div class="card">
                 <div class="exam-result-grade eg-dash" id="examResultGrade">—</div>
                 <div class="grade-badge badge-empty" id="examGradeBadge">Нет данных</div>
@@ -460,7 +504,7 @@
 
     <footer>
         <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank">GitHub</a></div>
-        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.6.0</div>
+        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.6.1</div>
     </footer>
 </div>
 
@@ -522,8 +566,8 @@
     });
 
     /* ══ ЛОГИКА ══ */
-    var SAVE_KEY = 'bilimexam_v1';
-    var state = { q1: null, q2: null, q3: null, q4: null, exam: null, noExam: false };
+    var SAVE_KEY = 'bilimexam_v2';
+    var state = { q1: null, q2: null, q3: null, q4: null, exam: null };
 
     function setPickerActive(picker, val) {
         if (!picker) return;
@@ -548,13 +592,6 @@
         });
     });
 
-    document.getElementById('noExamToggle').addEventListener('change', function () {
-        state.noExam = this.checked;
-        document.getElementById('examInputSection').classList.toggle('disabled', this.checked);
-        if (this.checked) { state.exam = null; setPickerActive(document.querySelector('[data-q="exam"]'), null); }
-        saveState(); calculate();
-    });
-
     function gradeInfo(g) {
         if (g === 5) return { label: 'Отлично 🎉', badgeCls: 'badge-excellent', resCls: 'eg-5', fill: '#166534' };
         if (g === 4) return { label: 'Хорошо',     badgeCls: 'badge-good',      resCls: 'eg-4', fill: 'var(--accent)' };
@@ -568,7 +605,7 @@
         if (needed <= 2) {
             el.textContent = 'любая'; el.className = 'need-item__grade ng-ok';
         } else if (needed > 5) {
-            el.textContent = '✗ нельзя'; el.className = 'need-item__grade ng-no';
+            el.textContent = '✗'; el.className = 'need-item__grade ng-no';
         } else {
             el.textContent = Math.ceil(needed);
             el.className = 'need-item__grade ' + cls;
@@ -593,13 +630,14 @@
         if (qs.length === 0) {
             resultEl.textContent = '—'; resultEl.className = 'exam-result-grade eg-dash';
             badge.textContent = 'Нет данных'; badge.className = 'grade-badge badge-empty';
-            fillEl.style.width = '0%'; aRow.style.display = 'none'; eRow.style.display = 'none';
+            fillEl.style.width = '0%';
+            aRow.style.display = 'none'; eRow.style.display = 'none';
             bA.textContent = '—'; bE.textContent = '—'; bF.textContent = '—';
             needBox.style.display = 'none'; hint.textContent = ''; return;
         }
 
         var annual = qs.reduce(function (a, b) { return a + b; }, 0) / qs.length;
-        var hasExam = !state.noExam && state.exam !== null;
+        var hasExam = state.exam !== null;
         var raw = hasExam ? (annual * 0.7 + state.exam * 0.3) : annual;
         var finalG = Math.round(raw);
         var info = gradeInfo(finalG);
@@ -620,29 +658,23 @@
             bE.textContent = (state.exam * 0.3).toFixed(2);
             bF.textContent = raw.toFixed(2);
             hint.textContent = annual.toFixed(2) + ' × 0.7 + ' + state.exam + ' × 0.3 = ' + raw.toFixed(2) + ' → ' + finalG;
+            needBox.style.display = 'none';
         } else {
             eRow.style.display = 'none';
             bA.textContent = annual.toFixed(2);
-            bE.textContent = state.noExam ? 'нет' : '?';
+            bE.textContent = '?';
             bF.textContent = raw.toFixed(2);
-            hint.textContent = state.noExam ? 'Итог = годовая оценка (экзамена нет)' : 'Выберите оценку за экзамен';
-        }
-
-        if (!state.noExam) {
+            hint.textContent = 'Выбери оценку за экзамен для точного результата';
             needBox.style.display = 'block';
             renderNeed('need5', annual, 4.5, 'ng-5');
             renderNeed('need4', annual, 3.5, 'ng-4');
             renderNeed('need3', annual, 2.5, 'ng-3');
-        } else {
-            needBox.style.display = 'none';
         }
     }
 
     document.getElementById('examResetBtn').addEventListener('click', function () {
-        state = { q1: null, q2: null, q3: null, q4: null, exam: null, noExam: false };
+        state = { q1: null, q2: null, q3: null, q4: null, exam: null };
         document.querySelectorAll('.grade-picker').forEach(function (p) { setPickerActive(p, null); });
-        document.getElementById('noExamToggle').checked = false;
-        document.getElementById('examInputSection').classList.remove('disabled');
         try { localStorage.removeItem(SAVE_KEY); } catch (ex) {}
         calculate();
     });
@@ -654,7 +686,6 @@
             var raw = localStorage.getItem(SAVE_KEY); if (!raw) return;
             var s = JSON.parse(raw);
             ['q1','q2','q3','q4','exam'].forEach(function (k) { if (s[k] !== undefined) state[k] = s[k]; });
-            if (s.noExam) { state.noExam = true; document.getElementById('noExamToggle').checked = true; document.getElementById('examInputSection').classList.add('disabled'); }
             ['q1','q2','q3','q4'].forEach(function (k) {
                 if (state[k] !== null) { var p = document.querySelector('[data-q="' + k + '"]'); if (p) setPickerActive(p, state[k]); }
             });
