@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="ru">
+    <meta http-equiv="content-language" content="ru">
+
+    <script src="/static/js/theme.js"></script>
+    <script src="/static/js/page-loader.js"></script>
+
+    <!-- SEO -->
+    <title>Как перевести проценты в оценку — таблица и формула | BilimCalc</title>
+    <meta name="description" content="Таблица перевода процентов в оценку по казахстанской шкале: 0–39% = 2, 40–64% = 3, 65–84% = 4, 85–100% = 5. Пример округления: 84.5% → 85% → оценка «5». Бесплатно, без рекламы.">
+    <meta name="keywords" content="перевести проценты в оценку, таблица процентов оценок казахстан, 85 процентов какая оценка, формула перевода баллов, шкала оценок школа казахстан, округление оценки">
+    <link rel="canonical" href="https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku">
+
+    <!-- Open Graph -->
+    <meta property="og:title"       content="Как перевести проценты в оценку — таблица и примеры">
+    <meta property="og:description" content="Таблица перевода процентов в оценку по шкале МОН РК с примерами и правилом округления.">
+    <meta property="og:type"        content="article">
+    <meta property="og:url"         content="https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku">
+    <meta property="og:image"       content="https://bilimcalc.vercel.app/static/icons/preview.png">
+    <meta property="og:locale"      content="ru_RU">
+    <meta property="og:site_name"   content="BilimCalc">
+    <meta name="twitter:card"       content="summary_large_image">
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Как перевести проценты в оценку — таблица и формула",
+        "description": "Таблица перевода процентов в оценку по казахстанской шкале с примерами округления.",
+        "url": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",
+        "inLanguage": "ru",
+        "author": { "@type": "Person", "name": "Anton Bogdan" },
+        "publisher": { "@type": "Organization", "name": "BilimCalc", "url": "https://bilimcalc.vercel.app" },
+        "datePublished": "2026-03-07",
+        "dateModified": "2026-03-07"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
+            { "@type": "ListItem", "position": 2, "name": "Как перевести проценты в оценку", "item": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku" }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "84.5% — это какая оценка?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "84.5% округляется до 85% (правило: ≥0.5 → вверх), что соответствует оценке «5» (85–100%). Без округления 84% — это «4»."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Какой процент нужен на «5» в казахстанской школе?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "85% и выше — оценка «5». От 65% до 84% — «4». От 40% до 64% — «3». Ниже 40% — «2»."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Как округляется процент при выставлении оценки?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "По правилам МОН РК: если дробная часть ≥ 0.5, округление вверх. Например: 84.5% → 85% → «5». 84.4% → 84% → «4»."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- PWA -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0f1117">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/style.css?v=1.6.2">
+    <link rel="stylesheet" href="/static/css/article.css?v=1.6.2">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.2">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.2">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7S9C0KT928"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date()); gtag('config', 'G-7S9C0KT928');
+    </script>
+
+    <style>
+        /* ── Таблица процентов ── */
+        .grade-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0 10px;
+            font-size: 15px;
+        }
+        .grade-table th,
+        .grade-table td {
+            padding: 11px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .grade-table th {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--muted);
+            background: rgba(255,255,255,0.02);
+        }
+        .grade-table td:first-child { color: var(--muted); font-size: 13px; }
+        .grade-table td:nth-child(2) { font-weight: 700; font-size: 18px; letter-spacing: -0.5px; }
+        .grade-table td:last-child { font-size: 13px; color: var(--muted); }
+
+        .grade-table .row-2 td:nth-child(2) { color: var(--danger); }
+        .grade-table .row-3 td:nth-child(2) { color: var(--warning); }
+        .grade-table .row-4 td:nth-child(2) { color: var(--success); }
+        .grade-table .row-5 td:nth-child(2) { color: #22c55e; }
+
+        [data-theme="light"] .grade-table th {
+            background: rgba(0,0,0,0.03);
+            color: #64748b;
+        }
+        [data-theme="light"] .grade-table th,
+        [data-theme="light"] .grade-table td {
+            border-bottom-color: rgba(0,0,0,0.07);
+        }
+        [data-theme="light"] .grade-table td:first-child,
+        [data-theme="light"] .grade-table td:last-child { color: #64748b; }
+
+        /* ── Блок с примером ── */
+        .example-box {
+            background: rgba(88,166,255,0.05);
+            border: 1px solid rgba(88,166,255,0.15);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin: 16px 0;
+        }
+        .example-box__title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .example-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .example-step:last-child { margin-bottom: 0; }
+        .step-num {
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            background: rgba(88,166,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 1px;
+        }
+        .step-text { color: #c9d1d9; }
+        .step-text strong { color: #e6edf3; }
+        .step-result {
+            display: inline-block;
+            background: rgba(34,197,94,0.15);
+            border: 1px solid rgba(34,197,94,0.3);
+            color: #4ade80;
+            border-radius: 8px;
+            padding: 2px 10px;
+            font-weight: 700;
+            font-size: 13px;
+            margin-left: 4px;
+        }
+
+        /* ── Пример "не хватает" ── */
+        .example-box--warning {
+            background: rgba(210,153,34,0.06);
+            border-color: rgba(210,153,34,0.2);
+        }
+        .example-box--warning .example-box__title { color: var(--warning); }
+        .example-box--warning .step-num { background: rgba(210,153,34,0.15); color: var(--warning); }
+
+        /* ── Интерактивный конвертер ── */
+        .converter-wrap {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 14px 0 6px;
+        }
+        .converter-wrap input {
+            width: 120px;
+            flex-shrink: 0;
+        }
+        .converter-result {
+            font-size: 28px;
+            font-weight: 800;
+            min-width: 40px;
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+        .converter-label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .c-grade-2 { color: var(--danger);  text-shadow: 0 0 20px rgba(218,54,51,0.4); }
+        .c-grade-3 { color: var(--warning); text-shadow: 0 0 20px rgba(210,153,34,0.4); }
+        .c-grade-4 { color: var(--success); text-shadow: 0 0 20px rgba(46,160,67,0.4); }
+        .c-grade-5 { color: #22c55e;        text-shadow: 0 0 20px rgba(34,197,94,0.5); }
+        .c-grade-empty { color: var(--muted); }
+
+        .converter-hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+            min-height: 18px;
+        }
+
+        [data-theme="light"] .step-text { color: #334155; }
+        [data-theme="light"] .step-text strong { color: #0f172a; }
+        [data-theme="light"] .example-box { background: rgba(37,99,235,0.04); border-color: rgba(37,99,235,0.15); }
+        [data-theme="light"] .example-box--warning { background: rgba(217,119,6,0.04); border-color: rgba(217,119,6,0.18); }
+    </style>
+</head>
+<body>
+
+<!-- ТОПБАР (из base.html) -->
+<div id="topbar">
+    <a href="/" class="topbar-logo" title="BilimCalc — главная">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2"  y="2"  width="9" height="9" rx="2" fill="#3cb648"/>
+            <rect x="13" y="2"  width="9" height="9" rx="2" fill="#3cb648"/>
+            <rect x="2"  y="13" width="9" height="9" rx="2" fill="#3cb648"/>
+            <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="topbar-logo__name">Bilim<span>Calc</span></span>
+    </a>
+
+    <div class="topbar-center">
+        <nav class="topbar-nav">
+            <a href="/"                      class="topbar-nav__link">Калькулятор</a>
+            <a href="/kalkulator-ekzamena"   class="topbar-nav__link topbar-nav__link--exam">BilimExam</a>
+            <a href="/metodika-rascheta-mon-rk" class="topbar-nav__link">Методика</a>
+        </nav>
+    </div>
+
+    <div class="topbar-right">
+        <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
+            <span id="themeIcon">☀️</span>
+        </button>
+    </div>
+</div>
+
+<div class="container" style="padding-top: 72px; max-width: 740px;">
+
+    <!-- Хлебные крошки -->
+    <nav style="font-size:12px;color:var(--muted);margin-bottom:18px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+        <a href="/" style="color:var(--accent);text-decoration:none;">BilimCalc</a>
+        <span>›</span>
+        <span>Как перевести проценты в оценку</span>
+    </nav>
+
+    <!-- Заголовок -->
+    <h1 style="text-align:left;color:#e6edf3;margin-bottom:6px;font-size:clamp(1.3rem,4vw,1.85rem);">
+        Как перевести проценты в оценку
+    </h1>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:24px;">
+        Таблица перевода · правило округления · примеры · онлайн-конвертер
+    </p>
+
+    <!-- Таблица -->
+    <div class="card reveal">
+        <div class="section-title">Шкала оценок — Казахстан</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:4px;">
+            Действует по приказу МОН РК. Применяется при выставлении оценок за четверть, год и экзамен.
+        </p>
+        <table class="grade-table">
+            <thead>
+                <tr>
+                    <th>Процент (%)</th>
+                    <th>Оценка</th>
+                    <th>Словесная</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row-5">
+                    <td>85 – 100</td>
+                    <td>5</td>
+                    <td>«Отлично»</td>
+                </tr>
+                <tr class="row-4">
+                    <td>65 – 84</td>
+                    <td>4</td>
+                    <td>«Хорошо»</td>
+                </tr>
+                <tr class="row-3">
+                    <td>40 – 64</td>
+                    <td>3</td>
+                    <td>«Удовлетворительно»</td>
+                </tr>
+                <tr class="row-2">
+                    <td>0 – 39</td>
+                    <td>2</td>
+                    <td>«Неудовлетворительно»</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;">
+            Граничные значения включительно: 85% → «5», 65% → «4», 40% → «3».
+        </p>
+    </div>
+
+    <!-- Правило округления -->
+    <div class="card reveal" style="margin-top:14px;">
+        <div class="section-title">Правило округления</div>
+        <p style="font-size:14px;line-height:1.7;color:#c9d1d9;margin-bottom:12px;">
+            Если итоговый процент получается дробным — он округляется по стандартному математическому правилу:
+            <strong style="color:#e6edf3;">дробная часть ≥ 0.5 → вверх, &lt; 0.5 → вниз.</strong>
+        </p>
+
+        <!-- Пример 1: граничный случай вверх -->
+        <div class="example-box">
+            <div class="example-box__title">📈 Пример — граница «4»/«5»</div>
+            <div class="example-step">
+                <div class="step-num">1</div>
+                <div class="step-text">Итоговый процент равен <strong>84.5%</strong></div>
+            </div>
+            <div class="example-step">
+                <div class="step-num">2</div>
+                <div class="step-text">Дробная часть: <strong>0.5 ≥ 0.5</strong> → округляем <strong>вверх</strong> → <strong>85%</strong></div>
+            </div>
+            <div class="example-step">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    85% попадает в диапазон 85–100% →
+                    <span class="step-result">Оценка «5»</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пример 2: не хватает -->
+        <div class="example-box example-box--warning" style="margin-top:10px;">
+            <div class="example-box__title">⚠️ Пример — не хватило до «5»</div>
+            <div class="example-step">
+                <div class="step-num">1</div>
+                <div class="step-text">Итоговый процент равен <strong>84.4%</strong></div>
+            </div>
+            <div class="example-step">
+                <div class="step-num">2</div>
+                <div class="step-text">Дробная часть: <strong>0.4 &lt; 0.5</strong> → округляем <strong>вниз</strong> → <strong>84%</strong></div>
+            </div>
+            <div class="example-step">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    84% попадает в диапазон 65–84% →
+                    <span class="step-result" style="background:rgba(210,153,34,0.15);border-color:rgba(210,153,34,0.3);color:#e3b341;">Оценка «4»</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Онлайн-конвертер -->
+    <div class="card reveal" style="margin-top:14px;">
+        <div class="section-title">Онлайн-конвертер</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:4px;">Введите любой процент — получите оценку мгновенно:</p>
+        <div class="converter-wrap">
+            <input type="number" id="pctInput" min="0" max="100" step="0.1"
+                   placeholder="Введите %" oninput="convertPct(this.value)">
+            <span style="color:var(--muted);font-size:18px;">%</span>
+            <span style="color:var(--muted);font-size:18px;">→</span>
+            <span class="converter-result c-grade-empty" id="convResult">—</span>
+            <span class="converter-label" id="convLabel"></span>
+        </div>
+        <div class="converter-hint" id="convHint"></div>
+    </div>
+
+    <!-- Часто задаваемые вопросы -->
+    <div class="card faq-card reveal" style="margin-top:14px;">
+        <h2>Часто задаваемые вопросы</h2>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    84.5% — это «4» или «5»?
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-a">
+                    <p>Это <strong>«5»</strong>. 84.5% округляется до 85% (дробная часть 0.5 ≥ 0.5 → вверх), а 85% уже входит в диапазон «отлично».</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    64.5% — это «3» или «4»?
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-a">
+                    <p>Это <strong>«4»</strong>. 64.5% → округляется до 65% → диапазон «хорошо» (65–84%).</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    Применяется ли эта шкала везде?
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-a">
+                    <p>Да — для ЕНТ, итоговых оценок за год (формула 70/30), оценок за четверть. Некоторые школы используют критериальное оценивание — там шкала может отличаться, уточни у учителя.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    Как связаны проценты и оценка за год?
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-a">
+                    <p>В формуле <strong>70/30</strong> итоговый балл = годовая оценка × 0.7 + экзамен × 0.3. Результат — это балл (2–5), а не процент. Но сами четвертные оценки могут выставляться в процентах — и переводятся по этой таблице.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CTA блок -->
+    <div class="card reveal" style="margin-top:14px;text-align:center;">
+        <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">
+            Нужно рассчитать итоговую оценку за год или четверть?
+        </p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+            <a href="/" style="
+                display:inline-flex;align-items:center;gap:8px;
+                padding:10px 20px;border-radius:10px;
+                background:linear-gradient(135deg,#3fb950,#2ea043);
+                color:#fff;text-decoration:none;font-weight:700;font-size:14px;
+                min-height:44px;
+            ">🧮 BilimCalc — оценка за четверть</a>
+            <a href="/kalkulator-ekzamena" style="
+                display:inline-flex;align-items:center;gap:8px;
+                padding:10px 20px;border-radius:10px;
+                background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);
+                color:#a78bfa;text-decoration:none;font-weight:700;font-size:14px;
+                min-height:44px;
+            ">🎓 BilimExam — итоговая за год</a>
+        </div>
+    </div>
+
+    <!-- Связанные статьи -->
+    <div class="card articles-card reveal" style="margin-top:14px;">
+        <h2>Читать дальше</h2>
+        <div class="articles-grid">
+            <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article-card">
+                <div class="article-card__icon">70/30</div>
+                <div class="article-card__body">
+                    <div class="article-card__title">Как рассчитать итоговую оценку за год</div>
+                    <div class="article-card__desc">Формула МОН РК для 9 и 11 класса, примеры</div>
+                </div>
+                <span class="article-card__arrow">›</span>
+            </a>
+            <a href="/itogovaya-ocenka-za-chetvert" class="article-card">
+                <div class="article-card__icon">ЧТВ</div>
+                <div class="article-card__body">
+                    <div class="article-card__title">Итоговая оценка за четверть</div>
+                    <div class="article-card__desc">СО, СОР, СОЧ — как считается</div>
+                </div>
+                <span class="article-card__arrow">›</span>
+            </a>
+            <a href="/metodika-rascheta-mon-rk" class="article-card">
+                <div class="article-card__icon">МОН</div>
+                <div class="article-card__body">
+                    <div class="article-card__title">Методика расчёта МОН РК</div>
+                    <div class="article-card__desc">Официальные правила оценивания</div>
+                </div>
+                <span class="article-card__arrow">›</span>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener">GitHub</a></div>
+        <div style="margin-top:5px;opacity:.6">© <span id="footerYear"></span> BilimCalc · v1.6.2</div>
+    </footer>
+</div>
+
+<!-- Мобильный таб-бар -->
+<nav id="mobile-nav" aria-label="Мобильная навигация">
+    <a href="/" class="mobile-nav__item">
+        <span class="mobile-nav__icon">🧮</span>
+        <span>BilimCalc</span>
+    </a>
+    <a href="/kalkulator-ekzamena" class="mobile-nav__item mobile-nav__item--exam">
+        <span class="mobile-nav__icon">🎓</span>
+        <span>BilimExam</span>
+    </a>
+    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="mobile-nav__item">
+        <span class="mobile-nav__icon">📖</span>
+        <span>Статья</span>
+    </a>
+    <a href="/itogovaya-ocenka-za-chetvert" class="mobile-nav__item">
+        <span class="mobile-nav__icon">🏆</span>
+        <span>Четверть</span>
+    </a>
+    <a href="/metodika-rascheta-mon-rk" class="mobile-nav__item">
+        <span class="mobile-nav__icon">📋</span>
+        <span>МОН РК</span>
+    </a>
+</nav>
+
+<script src="/static/js/main.js?v=1.6.2"></script>
+<script src="/static/js/pwa-install.js?v=1.6.2"></script>
+<script>
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    /* ── FAQ toggle ── */
+    function toggleFaq(btn) {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+
+    /* ── Конвертер процентов ── */
+    function convertPct(val) {
+        const resEl   = document.getElementById('convResult');
+        const labelEl = document.getElementById('convLabel');
+        const hintEl  = document.getElementById('convHint');
+
+        const raw = parseFloat(val);
+        if (isNaN(raw) || val === '') {
+            resEl.textContent  = '—';
+            resEl.className    = 'converter-result c-grade-empty';
+            labelEl.textContent = '';
+            hintEl.textContent  = '';
+            return;
+        }
+
+        const pct = Math.round(raw * 10) / 10; // одна цифра после запятой
+        const rounded = Math.round(raw);         // стандартное округление
+
+        let grade, label, cls;
+        if (rounded >= 85)      { grade = '5'; label = 'Отлично';             cls = 'c-grade-5'; }
+        else if (rounded >= 65) { grade = '4'; label = 'Хорошо';              cls = 'c-grade-4'; }
+        else if (rounded >= 40) { grade = '3'; label = 'Удовлетворительно';   cls = 'c-grade-3'; }
+        else                    { grade = '2'; label = 'Неудовлетворительно'; cls = 'c-grade-2'; }
+
+        resEl.textContent  = grade;
+        resEl.className    = 'converter-result ' + cls;
+        labelEl.textContent = '— ' + label;
+
+        // Подсказка об округлении
+        if (raw !== rounded) {
+            const dir = rounded > raw ? 'вверх' : 'вниз';
+            hintEl.textContent = `${pct}% → округление ${dir} → ${rounded}%`;
+        } else {
+            hintEl.textContent = `${pct}% → ${rounded}%`;
+        }
+    }
+
+    /* ── Reveal ── */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

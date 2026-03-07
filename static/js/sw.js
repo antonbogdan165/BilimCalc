@@ -10,6 +10,7 @@ const STATIC_ASSETS = [
     "/metodika-rascheta-mon-rk",
     "/kalkulator-ekzamena",                    
     "/kak-rasschitat-itogovuyu-otsenku-za-god",
+    "/kak-perevesti-procenty-v-otsenku",       
 
     "/static/css/style.css",
     "/static/css/article.css",
