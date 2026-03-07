@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-1.6.0-green">
+  <img src="https://img.shields.io/badge/Version-1.6.1-green">
   <img src="https://img.shields.io/badge/Python-3.11-blue?logo=python">
   <img src="https://img.shields.io/badge/Flask-Backend-black?logo=flask">
   <img src="https://img.shields.io/badge/ML-Linear_Regression-orange">
@@ -25,7 +25,7 @@
 
 ## 🌐 Live Demo
 
-👉 https://bilimcalc.vercel.app
+👉 **https://bilimcalc.vercel.app**
 
 ---
 
@@ -34,6 +34,7 @@
 - 📊 Расчёт СО (формативные оценки)
 - 🧮 Расчёт СОР (суммативные за раздел)
 - 🎯 Расчёт СОЧ (итоговая работа)
+- 🎓 **BilimExam** — итоговая оценка за год (9 и 11 класс, формула 70/30)
 - 🤖 График динамики с ML-анализом (линейная регрессия, офлайн)
 - ⚡ Автоматический пересчёт в реальном времени
 - 🎨 Динамическая цветовая индикация результата
@@ -52,6 +53,24 @@
 **СО × 25% + СОР × 25% + СОЧ × 50%**
 
 Если СОЧ не было — (СО + СОР) × 2. ML-анализ тренда работает полностью в браузере (без сервера).
+
+Для 9 и 11 класса применяется формула **Годовая × 70% + Экзамен × 30%**.
+
+---
+
+## 📚 Полезные материалы
+
+Подробные статьи об официальной системе оценивания МОН РК:
+
+| Тема | Ссылка |
+|------|--------|
+| Как рассчитать СО | [bilimcalc.vercel.app/kak-rasschitat-so](https://bilimcalc.vercel.app/kak-rasschitat-so) |
+| Как рассчитать СОР | [bilimcalc.vercel.app/kak-rasschitat-sor](https://bilimcalc.vercel.app/kak-rasschitat-sor) |
+| Как рассчитать СОЧ | [bilimcalc.vercel.app/kak-rasschitat-soch](https://bilimcalc.vercel.app/kak-rasschitat-soch) |
+| Итоговая оценка за четверть | [bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert](https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert) |
+| Итоговая оценка за год (70/30) | [bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god](https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god) |
+| Методика расчёта МОН РК | [bilimcalc.vercel.app/metodika-rascheta-mon-rk](https://bilimcalc.vercel.app/metodika-rascheta-mon-rk) |
+| Калькулятор итоговой оценки за год | [bilimcalc.vercel.app/kalkulator-ekzamena](https://bilimcalc.vercel.app/kalkulator-ekzamena) |
 
 ---
 
@@ -93,16 +112,7 @@ python app.py
 ├── requirements.txt
 ├── static/
 │   ├── css/
-│   │   ├── style.css
-│   │   ├── article.css
-│   │   ├── page-loader.css
-│   │   └── pwa-banner.css
 │   └── js/
-│       ├── main.js       # Вся логика + ML офлайн
-│       ├── theme.js
-│       ├── page-loader.js
-│       ├── pwa-install.js
-│       └── sw.js         # Service Worker
 └── templates/
     ├── index.html
     ├── base.html
