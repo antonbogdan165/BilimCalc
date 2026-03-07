@@ -18,7 +18,8 @@ ARTICLE_ROUTES = {
     "/metodika-rascheta-mon-rk":                     "metodika-rascheta-mon-rk.html",
     "/kalkulator-ekzamena":                          "kalkulator-ekzamena.html",
     "/kak-rasschitat-itogovuyu-otsenku-za-god":      "kak-rasschitat-itogovuyu-otsenku-za-god.html",
-    "/kak-perevesti-procenty-v-otsenku":              "kak-perevesti-procenty-v-otsenku.html",   
+    "/kak-perevesti-procenty-v-otsenku":             "kak-perevesti-procenty-v-otsenku.html",
+    "/articles":                                     "articles.html",
 }
 
 

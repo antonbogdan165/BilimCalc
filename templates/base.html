@@ -11,7 +11,7 @@
     <script src="/static/js/page-loader.js"></script>
 
     <!-- PWA-баннер нужен на всех страницах -->
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.0">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.3">
 
     <title>{% block meta_title %}BilimCalc — калькулятор СО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор СО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
@@ -37,61 +37,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.6.0">
-    <link rel="stylesheet" href="/static/css/article.css?v=1.6.0">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.0">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/article.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.3">
     {% block extra_css %}{% endblock %}
-    <style>
-    /* BilimExam nav link accent */
-    .topbar-nav__link--exam {
-        color: #a78bfa !important;
-        border: 1px solid rgba(167,139,250,0.25);
-        border-radius: 7px;
-        padding: 3px 8px !important;
-        background: rgba(167,139,250,0.08);
-        transition: background 0.15s, border-color 0.15s !important;
-    }
-    .topbar-nav__link--exam:hover {
-        background: rgba(167,139,250,0.16) !important;
-        border-color: rgba(167,139,250,0.45) !important;
-        color: #c4b5fd !important;
-    }
-    [data-theme="light"] .topbar-nav__link--exam {
-        color: #7c3aed !important;
-        border-color: rgba(124,58,237,0.2);
-        background: rgba(124,58,237,0.06);
-    }
-    [data-theme="light"] .topbar-nav__link--exam:hover {
-        background: rgba(124,58,237,0.12) !important;
-        border-color: rgba(124,58,237,0.35) !important;
-    }
-    /* BilimExam icon button in topbar */
-    .topbar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-    .topbar-app-btn {
-        display: flex; align-items: center; gap: 6px;
-        padding: 4px 9px 4px 5px; border-radius: 8px; text-decoration: none;
-        border: 1px solid transparent;
-        transition: background 0.15s, border-color 0.15s;
-        -webkit-tap-highlight-color: transparent;
-        white-space: nowrap;
-    }
-    .topbar-app-btn__icon {
-        width: 24px; height: 24px; flex-shrink: 0;
-        display: flex; align-items: center; justify-content: center;
-        border-radius: 7px; font-size: 13px;
-    }
-    .topbar-app-btn__name {
-        font-size: 12px; font-weight: 600; letter-spacing: -0.2px;
-    }
-    .topbar-app-btn__name b { font-weight: 800; }
-    /* BilimExam variant */
-    .topbar-app-btn--exam .topbar-app-btn__icon { background: linear-gradient(135deg, #6d28d9, #a78bfa); }
-    .topbar-app-btn--exam .topbar-app-btn__name { color: #a78bfa; }
-    .topbar-app-btn--exam:hover { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.25); }
-    [data-theme="light"] .topbar-app-btn--exam .topbar-app-btn__name { color: #7c3aed; }
-    [data-theme="light"] .topbar-app-btn--exam:hover { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.2); }
-    @media (max-width: 700px) { .topbar-app-btn__name { display: none; } }
-    </style>
 
     <script type="application/ld+json">
     {
@@ -129,7 +78,9 @@
 </head>
 <body>
 
+<!-- ══ DESKTOP / TABLET TOPBAR ══ -->
 <div id="topbar">
+    <!-- LEFT: Logo -->
     <a class="topbar-logo" href="/" title="BilimCalc">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
             <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
@@ -140,31 +91,33 @@
         <span class="topbar-logo__name">Bilim<span>Calc</span></span>
     </a>
 
+    <!-- CENTER: Official link + Articles -->
     <div class="topbar-center">
         <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267"
            target="_blank" rel="noopener noreferrer" class="topbar-official-link">
-            <span>Официальная методика</span>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/>
-                <line x1="10" y1="14" x2="21" y2="3"/>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
             </svg>
+            <span>Методика МОН</span>
         </a>
 
-        <nav class="topbar-nav" aria-label="Основная навигация">
-            <a href="/kak-rasschitat-so"              class="topbar-nav__link {% block nav_so %}{% endblock %}">СО</a>
-            <a href="/kak-rasschitat-sor"             class="topbar-nav__link {% block nav_sor %}{% endblock %}">СОР</a>
-            <a href="/kak-rasschitat-soch"            class="topbar-nav__link {% block nav_soch %}{% endblock %}">СОЧ</a>
-            <a href="/itogovaya-ocenka-za-chetvert"   class="topbar-nav__link {% block nav_itog %}{% endblock %}">Итог</a>
-            <a href="/metodika-rascheta-mon-rk"       class="topbar-nav__link {% block nav_mon %}{% endblock %}">МОН РК</a>
-        </nav>
+        <a href="/articles" class="topbar-articles-btn {% block nav_articles %}{% endblock %}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            <span>Статьи</span>
+        </a>
     </div>
 
+    <!-- RIGHT: BilimExam + Theme -->
     <div class="topbar-right">
-        <a href="/kalkulator-ekzamena" class="topbar-app-btn topbar-app-btn--exam" title="BilimExam — итоговая оценка за год">
-            <div class="topbar-app-btn__icon">🎓</div>
-            <span class="topbar-app-btn__name">Bilim<b>Exam</b></span>
+        <a href="/kalkulator-ekzamena" class="topbar-exam-btn" title="BilimExam — итоговая оценка за год">
+            <span class="topbar-exam-btn__icon">🎓</span>
+            <span class="topbar-exam-btn__text">Bilim<b>Exam</b></span>
         </a>
         <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
             <span id="themeIcon">☀️</span>
@@ -172,28 +125,207 @@
     </div>
 </div>
 
+<style>
+
+#topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    height: 52px;
+    padding: 0 16px;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: rgba(13,17,23,0.97);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+[data-theme="light"] #topbar {
+    background: rgba(240,244,248,0.97);
+    border-bottom-color: rgba(0,0,0,0.08);
+}
+
+/* Logo */
+.topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+.topbar-logo__name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #e6edf3;
+    letter-spacing: -0.3px;
+}
+.topbar-logo__name span { color: #3cb648; }
+[data-theme="light"] .topbar-logo__name { color: #0f172a; }
+
+/* Center group */
+.topbar-center {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+}
+
+/* Official link — subtle pill */
+.topbar-official-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.03);
+    color: #8b949e;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+}
+.topbar-official-link:hover {
+    color: #c9d1d9;
+    border-color: rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06);
+}
+[data-theme="light"] .topbar-official-link {
+    border-color: rgba(0,0,0,0.08);
+    background: rgba(0,0,0,0.03);
+    color: #64748b;
+}
+[data-theme="light"] .topbar-official-link:hover {
+    color: #334155;
+    border-color: rgba(0,0,0,0.14);
+    background: rgba(0,0,0,0.06);
+}
+
+/* Articles button — expressive, branded */
+.topbar-articles-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 13px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(88,166,255,0.3);
+    background: rgba(88,166,255,0.08);
+    color: #58a6ff;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: 0.1px;
+}
+.topbar-articles-btn:hover {
+    background: rgba(88,166,255,0.16);
+    border-color: rgba(88,166,255,0.5);
+    color: #79b8ff;
+    transform: translateY(-1px);
+}
+.topbar-articles-btn:active { transform: scale(0.97); }
+.topbar-articles-btn.active {
+    background: rgba(88,166,255,0.15);
+    border-color: rgba(88,166,255,0.55);
+    color: #79b8ff;
+}
+[data-theme="light"] .topbar-articles-btn {
+    border-color: rgba(37,99,235,0.3);
+    background: rgba(37,99,235,0.07);
+    color: #2563eb;
+}
+[data-theme="light"] .topbar-articles-btn:hover {
+    background: rgba(37,99,235,0.13);
+    border-color: rgba(37,99,235,0.5);
+    color: #1d4ed8;
+}
+[data-theme="light"] .topbar-articles-btn.active {
+    background: rgba(37,99,235,0.12);
+    border-color: rgba(37,99,235,0.5);
+    color: #1d4ed8;
+}
+
+/* Right group */
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+/* BilimExam button — purple accent */
+.topbar-exam-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px 5px 8px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(167,139,250,0.3);
+    background: rgba(167,139,250,0.08);
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    -webkit-tap-highlight-color: transparent;
+}
+.topbar-exam-btn:hover {
+    background: rgba(167,139,250,0.15);
+    border-color: rgba(167,139,250,0.5);
+    transform: translateY(-1px);
+}
+.topbar-exam-btn:active { transform: scale(0.97); }
+.topbar-exam-btn__icon {
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+.topbar-exam-btn__text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #a78bfa;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+}
+.topbar-exam-btn__text b { font-weight: 800; }
+[data-theme="light"] .topbar-exam-btn {
+    border-color: rgba(124,58,237,0.25);
+    background: rgba(124,58,237,0.06);
+}
+[data-theme="light"] .topbar-exam-btn:hover {
+    background: rgba(124,58,237,0.12);
+    border-color: rgba(124,58,237,0.45);
+}
+[data-theme="light"] .topbar-exam-btn__text { color: #7c3aed; }
+
+/* Hide center on very narrow desktops */
+@media (max-width: 480px) {
+    .topbar-center { display: none; }
+}
+@media (max-width: 680px) {
+    .topbar-official-link span { display: none; }
+    .topbar-official-link { padding: 5px 8px; }
+    .topbar-exam-btn__text { display: none; }
+    .topbar-exam-btn { padding: 5px 8px; }
+}
+</style>
+
 {% block content %}{% endblock %}
 
+<!-- ══ MOBILE TAB BAR (≤600px): BilimCalc | Статьи | BilimExam ══ -->
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item {% block mob_home %}{% endblock %}">
         <span class="mobile-nav__icon">🧮</span>
-        <span>Калькулятор</span>
+        <span>BilimCalc</span>
     </a>
-    <a href="/kak-rasschitat-so" class="mobile-nav__item {% block mob_so %}{% endblock %}">
-        <span class="mobile-nav__icon">📊</span>
-        <span>СО</span>
-    </a>
-    <a href="/kak-rasschitat-sor" class="mobile-nav__item {% block mob_sor %}{% endblock %}">
-        <span class="mobile-nav__icon">📝</span>
-        <span>СОР</span>
-    </a>
-    <a href="/kak-rasschitat-soch" class="mobile-nav__item {% block mob_soch %}{% endblock %}">
+    <a href="/articles" class="mobile-nav__item {% block mob_articles %}{% endblock %}">
         <span class="mobile-nav__icon">📚</span>
-        <span>СОЧ</span>
-    </a>
-    <a href="/itogovaya-ocenka-za-chetvert" class="mobile-nav__item {% block mob_itog %}{% endblock %}">
-        <span class="mobile-nav__icon">🏆</span>
-        <span>Итоговая</span>
+        <span>Статьи</span>
     </a>
     <a href="/kalkulator-ekzamena" class="mobile-nav__item mobile-nav__item--exam {% block mob_exam %}{% endblock %}">
         <span class="mobile-nav__icon">🎓</span>
@@ -204,21 +336,21 @@
 <script>
 (function(){
     document.addEventListener('click', function(e){
-        const target = e.target.closest('.mobile-nav__item, .btn, .topbar-official-link');
-        if(!target) return;
-        const rect = target.getBoundingClientRect();
-        const ripple = document.createElement('span');
+        var target = e.target.closest('.mobile-nav__item, .btn, .topbar-official-link');
+        if (!target) return;
+        var rect = target.getBoundingClientRect();
+        var ripple = document.createElement('span');
         ripple.className = 'ripple';
         ripple.style.left = (e.clientX - rect.left) + 'px';
         ripple.style.top  = (e.clientY - rect.top)  + 'px';
         target.style.position = target.style.position || 'relative';
         target.style.overflow = 'hidden';
         target.appendChild(ripple);
-        ripple.addEventListener('animationend', () => ripple.remove());
+        ripple.addEventListener('animationend', function() { ripple.remove(); });
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.6.0"></script>
+<script src="/static/js/pwa-install.js?v=1.6.3"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -623,27 +623,25 @@ function calculate() {
 
         if (final_result !== null) {
             const pct  = Number(final_result);
-            const frac = pct - Math.floor(pct);
-            // Если дробная часть ≥ 0.5 — показываем округлённое целое
-            // Если < 0.5 — показываем точное значение
-            const display = frac >= 0.5 ? Math.ceil(pct) : pct;
+            const display = pct;
+            const gradeCheck = Math.round(pct);
 
             animatePercentage(finalEl, parseFloat(finalEl.innerText) || 0, display);
             fill.style.width = Math.min(Math.max(display, 0), 100) + "%";
 
-            if (display < 40) {
+            if (gradeCheck < 40) {
                 finalEl.classList.add("result-danger");
                 fill.style.background = "var(--danger)";
                 chartColor = "#da3633";
                 badge.textContent = "Неудовлетворительно";
                 badge.className   = "grade-badge badge-danger";
-            } else if (display < 65) {
+            } else if (gradeCheck < 65) {
                 finalEl.classList.add("result-warning");
                 fill.style.background = "var(--warning)";
                 chartColor = "#d29922";
                 badge.textContent = "Удовлетворительно";
                 badge.className   = "grade-badge badge-warning";
-            } else if (display < 85) {
+            } else if (gradeCheck < 85) {
                 finalEl.classList.add("result-good");
                 fill.style.background = "var(--success)";
                 chartColor = "#2ea043";
@@ -657,7 +655,7 @@ function calculate() {
                 badge.className   = "grade-badge badge-excellent";
             }
 
-            // Подсказка: показываем сырое→округлённое только когда frac ≥ 0.5
+            // Подсказка: показываем точное дробное значение и округление если оно есть
             updateRoundingHint(pct);
 
             // Формула-подсказка СО + СОР + СОЧ
