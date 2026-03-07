@@ -8,13 +8,15 @@ const STATIC_ASSETS = [
     "/kak-rasschitat-soch",
     "/itogovaya-ocenka-za-chetvert",
     "/metodika-rascheta-mon-rk",
+    "/kalkulator-ekzamena",                    
+    "/kak-rasschitat-itogovuyu-otsenku-za-god",
 
     "/static/css/style.css",
     "/static/css/article.css",
     "/static/css/page-loader.css",
     "/static/css/pwa-banner.css",
 
-    "/static/js/main.js",   
+    "/static/js/main.js",
     "/static/js/theme.js",
     "/static/js/page-loader.js",
     "/static/js/pwa-install.js",

@@ -4,7 +4,7 @@
   <!-- Главная страница — калькулятор -->
   <url>
     <loc>https://bilimcalc.vercel.app/</loc>
-    <lastmod>2026-03-01</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -12,7 +12,7 @@
   <!-- Калькулятор итоговой оценки за год (9 и 11 класс) -->
   <url>
     <loc>https://bilimcalc.vercel.app/kalkulator-ekzamena</loc>
-    <lastmod>2026-03-01</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
