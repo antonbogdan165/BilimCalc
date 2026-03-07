@@ -626,101 +626,123 @@ footer a { color: var(--accent); text-decoration: none; }
 /* ══════════════════════════════════════════════
    ТОПБАР
    ══════════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   UNIFIED TOPBAR v1.6.3
+   ══════════════════════════════════════════ */
 #topbar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 20px; height: 52px;
-    background: rgba(13,17,23,0.96);
+    padding: 0 16px; height: 52px; gap: 8px;
+    background: rgba(13,17,23,0.97);
     border-bottom: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
-@media (min-width: 601px) {
-    #topbar { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-}
-[data-theme="light"] #topbar { background: rgba(240,244,248,0.96); border-bottom-color: rgba(0,0,0,0.08); }
+[data-theme="light"] #topbar { background: rgba(240,244,248,0.97); border-bottom-color: rgba(0,0,0,0.08); }
 
+/* ── Logo ── */
 .topbar-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; }
 .topbar-logo svg { width: 22px; height: 22px; display: block; }
-.topbar-logo__name { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.3px; line-height: 1; white-space: nowrap; }
+.topbar-logo__name { font-size: 15px; font-weight: 800; color: #e6edf3; letter-spacing: -0.3px; line-height: 1; white-space: nowrap; }
 .topbar-logo__name span { color: #3cb648; }
 [data-theme="light"] .topbar-logo__name { color: #0f172a; }
 
-.topbar-center { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: center; overflow: hidden; }
+/* BilimExam logo variant */
+.topbar-logo--exam .topbar-logo__name { color: #a78bfa; }
+.topbar-logo--exam .topbar-logo__name span { color: #c4b5fd; }
+[data-theme="light"] .topbar-logo--exam .topbar-logo__name { color: #7c3aed; }
+[data-theme="light"] .topbar-logo--exam .topbar-logo__name span { color: #6d28d9; }
 
+/* ── Center ── */
+.topbar-center { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: center; }
+
+/* Методика МОН — subtle pill */
 .topbar-official-link {
-    display: flex; align-items: center; gap: 5px; padding: 6px 11px;
-    background: rgba(60,182,72,0.12); border: 1px solid rgba(60,182,72,0.25);
-    border-radius: 8px; text-decoration: none; color: #3fb950;
-    font-size: 12px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
-    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
-    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-    min-height: 34px; /* touch */
+    display: flex; align-items: center; gap: 5px; padding: 5px 10px;
+    border-radius: 8px; border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.03); color: #8b949e;
+    font-size: 12px; font-weight: 500; text-decoration: none; white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    -webkit-tap-highlight-color: transparent; min-height: 34px;
 }
-.topbar-official-link:hover { background: rgba(60,182,72,0.22); border-color: rgba(60,182,72,0.5); box-shadow: 0 0 12px rgba(60,182,72,0.18); }
-.topbar-official-link svg { flex-shrink: 0; opacity: 0.8; }
+.topbar-official-link:hover { color: #c9d1d9; border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.06); }
+[data-theme="light"] .topbar-official-link { border-color: rgba(0,0,0,0.08); background: rgba(0,0,0,0.03); color: #64748b; }
+[data-theme="light"] .topbar-official-link:hover { color: #334155; border-color: rgba(0,0,0,0.14); background: rgba(0,0,0,0.06); }
 
-.topbar-nav { display: flex; align-items: center; gap: 2px; }
-.topbar-nav__link {
-    position: relative; color: var(--muted); text-decoration: none;
-    font-size: 13px; font-weight: 500; padding: 6px 9px; border-radius: 8px;
-    transition: color 0.18s; white-space: nowrap;
-    -webkit-tap-highlight-color: transparent;
-    min-height: 34px; display: flex; align-items: center;
+/* Статьи — branded blue pill */
+.topbar-articles-btn {
+    display: flex; align-items: center; gap: 5px; padding: 5px 11px;
+    border-radius: 8px; border: 1.5px solid rgba(88,166,255,0.3);
+    background: rgba(88,166,255,0.08); color: #58a6ff;
+    font-size: 12px; font-weight: 700; text-decoration: none; white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+    -webkit-tap-highlight-color: transparent; min-height: 34px;
 }
-.topbar-nav__link::after {
-    content: ''; position: absolute; bottom: 0; left: 50%;
-    transform: translateX(-50%) scaleX(0); width: calc(100% - 18px);
-    height: 2px; background: #3cb648; border-radius: 99px;
-    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
-}
-.topbar-nav__link:hover { color: #e6edf3; }
-.topbar-nav__link:hover::after { transform: translateX(-50%) scaleX(1); }
-.topbar-nav__link.active { color: #3cb648; }
-.topbar-nav__link.active::after { transform: translateX(-50%) scaleX(1); }
-[data-theme="light"] .topbar-nav__link { color: #64748b; }
-[data-theme="light"] .topbar-nav__link:hover { color: #0f172a; }
-[data-theme="light"] .topbar-nav__link.active { color: var(--success); }
-[data-theme="light"] .topbar-nav__link::after { background: var(--success); }
+.topbar-articles-btn:hover { background: rgba(88,166,255,0.16); border-color: rgba(88,166,255,0.5); color: #79b8ff; transform: translateY(-1px); }
+.topbar-articles-btn:active { transform: scale(0.97); }
+.topbar-articles-btn.active { background: rgba(88,166,255,0.15); border-color: rgba(88,166,255,0.55); color: #79b8ff; }
+[data-theme="light"] .topbar-articles-btn { border-color: rgba(37,99,235,0.3); background: rgba(37,99,235,0.07); color: #2563eb; }
+[data-theme="light"] .topbar-articles-btn:hover { background: rgba(37,99,235,0.13); border-color: rgba(37,99,235,0.5); color: #1d4ed8; }
+[data-theme="light"] .topbar-articles-btn.active { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.5); color: #1d4ed8; }
 
-@media (max-width: 600px) {
-    #topbar { padding: 0 14px; }
-    .topbar-logo__name { display: none; }
-    .topbar-official-link span { display: none; }
-    .topbar-official-link svg:last-child { display: none; }
-    .topbar-official-link { padding: 6px 9px; min-height: 36px; }
-    .topbar-nav { display: none; }
+/* ── Right ── */
+.topbar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+/* BilimExam button — purple */
+.topbar-exam-btn {
+    display: flex; align-items: center; gap: 6px; padding: 5px 10px 5px 7px;
+    border-radius: 8px; border: 1.5px solid rgba(167,139,250,0.3);
+    background: rgba(167,139,250,0.08); text-decoration: none;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    -webkit-tap-highlight-color: transparent; min-height: 34px;
 }
+.topbar-exam-btn:hover { background: rgba(167,139,250,0.15); border-color: rgba(167,139,250,0.5); transform: translateY(-1px); }
+.topbar-exam-btn:active { transform: scale(0.97); }
+.topbar-exam-btn__icon { font-size: 14px; line-height: 1; display: flex; align-items: center; }
+.topbar-exam-btn__text { font-size: 12px; font-weight: 600; color: #a78bfa; letter-spacing: -0.2px; white-space: nowrap; }
+.topbar-exam-btn__text b { font-weight: 800; }
+[data-theme="light"] .topbar-exam-btn { border-color: rgba(124,58,237,0.25); background: rgba(124,58,237,0.06); }
+[data-theme="light"] .topbar-exam-btn:hover { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.45); }
+[data-theme="light"] .topbar-exam-btn__text { color: #7c3aed; }
+
+/* BilimCalc button — green */
+.topbar-calc-btn {
+    display: flex; align-items: center; gap: 6px; padding: 5px 10px 5px 7px;
+    border-radius: 8px; border: 1.5px solid rgba(60,182,72,0.3);
+    background: rgba(60,182,72,0.08); text-decoration: none;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    -webkit-tap-highlight-color: transparent; min-height: 34px;
+}
+.topbar-calc-btn:hover { background: rgba(60,182,72,0.15); border-color: rgba(60,182,72,0.5); transform: translateY(-1px); }
+.topbar-calc-btn:active { transform: scale(0.97); }
+.topbar-calc-btn__icon { display: flex; align-items: center; line-height: 1; }
+.topbar-calc-btn__text { font-size: 12px; font-weight: 600; color: #3cb648; letter-spacing: -0.2px; white-space: nowrap; }
+.topbar-calc-btn__text b { font-weight: 800; }
+[data-theme="light"] .topbar-calc-btn { border-color: rgba(22,163,74,0.28); background: rgba(22,163,74,0.06); }
+[data-theme="light"] .topbar-calc-btn:hover { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.45); }
+[data-theme="light"] .topbar-calc-btn__text { color: #16a34a; }
 
 /* ── Убрать выделение при тапе ── */
 *, button, a, input, .btn, .ghost, .faq-q,
 .article-card, .mobile-nav__item,
-.topbar-official-link, .topbar-logo, .topbar-nav__link, [role="button"] {
+.topbar-official-link, .topbar-logo, .topbar-articles-btn, [role="button"] {
     -webkit-tap-highlight-color: transparent !important;
 }
 
-/* ── Кнопки topbar-app-btn ── */
-.topbar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-.topbar-app-btn {
-    display: flex; align-items: center; gap: 6px;
-    padding: 4px 9px 4px 5px; border-radius: 8px; text-decoration: none;
-    border: 1px solid transparent;
-    transition: background 0.15s, border-color 0.15s;
-    -webkit-tap-highlight-color: transparent; white-space: nowrap;
-    min-height: 36px;
+/* ── Адаптивность ──
+   Десктоп: всё видно с текстом
+   Мобайл (<600px): логотип без текста, центр виден, кнопка приложения без текста
+────────────────────────────────── */
+@media (max-width: 600px) {
+    #topbar { padding: 0 12px; gap: 6px; }
+    .topbar-logo__name { display: none; }
+    .topbar-exam-btn__text { display: none; }
+    .topbar-exam-btn { padding: 5px 7px; }
+    .topbar-calc-btn__text { display: none; }
+    .topbar-calc-btn { padding: 5px 7px; }
+    .topbar-official-link { padding: 5px 7px; font-size: 11px; gap: 4px; }
+    .topbar-articles-btn { padding: 5px 9px; font-size: 11px; gap: 4px; }
+    .topbar-center { gap: 5px; }
 }
-.topbar-app-btn__icon {
-    width: 24px; height: 24px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 7px; font-size: 13px;
-}
-.topbar-app-btn__name { font-size: 12px; font-weight: 600; letter-spacing: -0.2px; }
-.topbar-app-btn__name b { font-weight: 800; }
-/* BilimExam variant */
-.topbar-app-btn--exam .topbar-app-btn__icon { background: linear-gradient(135deg, #6d28d9, #a78bfa); }
-.topbar-app-btn--exam .topbar-app-btn__name { color: #a78bfa; }
-.topbar-app-btn--exam:hover { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.25); }
-[data-theme="light"] .topbar-app-btn--exam .topbar-app-btn__name { color: #7c3aed; }
-[data-theme="light"] .topbar-app-btn--exam:hover { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.2); }
-@media (max-width: 700px) { .topbar-app-btn__name { display: none; } }
 
 /* ── Кнопка Поделиться ── */
 .share-btn {
@@ -754,42 +776,10 @@ footer a { color: var(--accent); text-decoration: none; }
 
 html { touch-action: pan-x pan-y; }
 
-/* ── Кнопка методики на мобиле ── */
-@media (max-width: 600px) {
-    .topbar-official-link { padding: 5px 9px; font-size: 11px; gap: 4px; flex-shrink: 1; min-width: 0; }
-    .topbar-official-link span { display: inline !important; white-space: nowrap; font-size: 11px; }
-    .topbar-official-link svg:last-child { display: inline !important; width: 9px; height: 9px; flex-shrink: 0; }
-    .topbar-center { gap: 6px; overflow: hidden; min-width: 0; flex: 1; }
-}
-
 .list-empty {
     width: 100%; text-align: center; font-size: 12px; color: var(--muted);
     padding: 10px 0 4px; opacity: 0.65; pointer-events: none;
     font-style: italic; letter-spacing: 0.1px;
-}
-
-/* BilimExam nav link accent */
-.topbar-nav__link--exam {
-    color: #a78bfa !important;
-    border: 1px solid rgba(167,139,250,0.25);
-    border-radius: 7px;
-    padding: 3px 8px !important;
-    background: rgba(167,139,250,0.08);
-    transition: background 0.15s, border-color 0.15s !important;
-}
-.topbar-nav__link--exam:hover {
-    background: rgba(167,139,250,0.16) !important;
-    border-color: rgba(167,139,250,0.45) !important;
-    color: #c4b5fd !important;
-}
-[data-theme="light"] .topbar-nav__link--exam {
-    color: #7c3aed !important;
-    border-color: rgba(124,58,237,0.2);
-    background: rgba(124,58,237,0.06);
-}
-[data-theme="light"] .topbar-nav__link--exam:hover {
-    background: rgba(124,58,237,0.12) !important;
-    border-color: rgba(124,58,237,0.35) !important;
 }
 
 /* ── mobile-nav item exam accent ── */

@@ -116,15 +116,15 @@
 </div>
 
 <!-- ТОПБАР -->
-<div id="examTopbar">
+<div id="topbar">
     <!-- LEFT: BilimExam Logo -->
-    <a href="/kalkulator-ekzamena" class="exam-logo" title="BilimExam">
-        <div class="exam-logo__icon">🎓</div>
-        <span class="exam-logo__name">Bilim<span>Exam</span></span>
+    <a href="/kalkulator-ekzamena" class="topbar-logo topbar-logo--exam" title="BilimExam">
+        <span style="font-size:20px;line-height:1">🎓</span>
+        <span class="topbar-logo__name">Bilim<span>Exam</span></span>
     </a>
 
     <!-- CENTER: Official link + Articles -->
-    <div class="exam-topbar-center">
+    <div class="topbar-center">
         <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267"
            target="_blank" rel="noopener noreferrer" class="topbar-official-link">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -146,7 +146,7 @@
     </div>
 
     <!-- RIGHT: BilimCalc + Theme -->
-    <div class="exam-topbar-right">
+    <div class="topbar-right">
         <a href="/" class="topbar-calc-btn" title="BilimCalc — калькулятор четверти">
             <span class="topbar-calc-btn__icon">
                 <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
@@ -164,157 +164,6 @@
     </div>
 </div>
 
-<style>
-/* ══════════════════════════════════════════
-   BilimExam — UNIFIED TOPBAR v1.6.3
-   ══════════════════════════════════════════ */
-#examTopbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    height: 52px;
-    padding: 0 16px;
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(13,17,23,0.97);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-@media (min-width: 601px) {
-    #examTopbar { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-}
-[data-theme="light"] #examTopbar {
-    background: rgba(240,244,248,0.97);
-    border-bottom-color: rgba(0,0,0,0.08);
-}
-
-/* Center group */
-.exam-topbar-center {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex: 1;
-    justify-content: center;
-}
-
-/* Official link — shared style */
-.topbar-official-link {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 11px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.07);
-    background: rgba(255,255,255,0.03);
-    color: #8b949e;
-    font-size: 12px;
-    font-weight: 500;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.15s, border-color 0.15s, background 0.15s;
-    -webkit-tap-highlight-color: transparent;
-}
-.topbar-official-link:hover {
-    color: #c9d1d9;
-    border-color: rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.06);
-}
-[data-theme="light"] .topbar-official-link {
-    border-color: rgba(0,0,0,0.08);
-    background: rgba(0,0,0,0.03);
-    color: #64748b;
-}
-[data-theme="light"] .topbar-official-link:hover {
-    color: #334155;
-    border-color: rgba(0,0,0,0.14);
-    background: rgba(0,0,0,0.06);
-}
-
-/* Articles button — shared style */
-.topbar-articles-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 13px;
-    border-radius: 8px;
-    border: 1.5px solid rgba(88,166,255,0.3);
-    background: rgba(88,166,255,0.08);
-    color: #58a6ff;
-    font-size: 12px;
-    font-weight: 700;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
-    -webkit-tap-highlight-color: transparent;
-    letter-spacing: 0.1px;
-}
-.topbar-articles-btn:hover {
-    background: rgba(88,166,255,0.16);
-    border-color: rgba(88,166,255,0.5);
-    color: #79b8ff;
-    transform: translateY(-1px);
-}
-.topbar-articles-btn:active { transform: scale(0.97); }
-[data-theme="light"] .topbar-articles-btn {
-    border-color: rgba(37,99,235,0.3);
-    background: rgba(37,99,235,0.07);
-    color: #2563eb;
-}
-[data-theme="light"] .topbar-articles-btn:hover {
-    background: rgba(37,99,235,0.13);
-    border-color: rgba(37,99,235,0.5);
-    color: #1d4ed8;
-}
-
-/* BilimCalc button — green accent */
-.topbar-calc-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px 5px 8px;
-    border-radius: 8px;
-    border: 1.5px solid rgba(60,182,72,0.3);
-    background: rgba(60,182,72,0.08);
-    text-decoration: none;
-    transition: background 0.15s, border-color 0.15s, transform 0.1s;
-    -webkit-tap-highlight-color: transparent;
-}
-.topbar-calc-btn:hover {
-    background: rgba(60,182,72,0.15);
-    border-color: rgba(60,182,72,0.5);
-    transform: translateY(-1px);
-}
-.topbar-calc-btn:active { transform: scale(0.97); }
-.topbar-calc-btn__icon {
-    display: flex;
-    align-items: center;
-    line-height: 1;
-}
-.topbar-calc-btn__text {
-    font-size: 12px;
-    font-weight: 600;
-    color: #3cb648;
-    letter-spacing: -0.2px;
-    white-space: nowrap;
-}
-.topbar-calc-btn__text b { font-weight: 800; }
-[data-theme="light"] .topbar-calc-btn {
-    border-color: rgba(22,163,74,0.28);
-    background: rgba(22,163,74,0.06);
-}
-[data-theme="light"] .topbar-calc-btn:hover {
-    background: rgba(22,163,74,0.12);
-    border-color: rgba(22,163,74,0.45);
-}
-[data-theme="light"] .topbar-calc-btn__text { color: #16a34a; }
-
-@media (max-width: 680px) {
-    .exam-topbar-center { display: none; }
-    .topbar-calc-btn__text { display: none; }
-    .topbar-calc-btn { padding: 5px 8px; }
-}
-</style>
 
 <div id="offlineBanner" class="offline-banner" style="display:none">
     ⚠️ Нет подключения к интернету — калькулятор работает офлайн
