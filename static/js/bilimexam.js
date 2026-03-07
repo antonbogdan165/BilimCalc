@@ -7,9 +7,12 @@
     var yearEl = document.getElementById('yearExam');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    /* ── Splash ── */
+    /* ── Splash / Loader ── */
+    // page-loader.js показывает BilimExam-брендованный оверлей (window.__BRAND__)
+    // и скрывает его сам. Дополнительно скрываем старый #examSplash если он есть.
     var splash = document.getElementById('examSplash');
-    if (splash) setTimeout(function () { splash.classList.add('hidden'); }, 900);
+    if (splash) setTimeout(function () { splash.classList.add('hidden'); }, 800);
+    if (window.PageLoader) window.PageLoader.hide();
 
     /* ── Offline banner ── */
     var ob = document.getElementById('offlineBanner');

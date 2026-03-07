@@ -1,148 +1,123 @@
 (function () {
+    'use strict';
 
-    /* ────────── Прогресс-бар ────────── */
-    let _raf = null;
+    var brand = (window.__BRAND__) || { name: 'BilimCalc', icon: null };
+    var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
 
-    const Progress = {
-        _fill() { return document.getElementById('page-progress-fill'); },
+    /* ── Создаём оверлей прелоадера ── */
+    var overlay = document.createElement('div');
+    overlay.id = 'pageLoader';
+    overlay.style.cssText = [
+        'position:fixed',
+        'inset:0',
+        'z-index:9999',
+        'display:flex',
+        'flex-direction:column',
+        'align-items:center',
+        'justify-content:center',
+        'gap:16px',
+        'background:' + (isDark ? '#0d1117' : '#f0f4f8'),
+        'transition:opacity 0.3s ease,transform 0.3s ease',
+        'pointer-events:all'
+    ].join(';');
 
-        start() {
-            const fill = this._fill();
-            if (!fill) return;
-            clearTimeout(_raf);
-            fill.style.transition = 'none';
-            fill.style.width = '0%';
-            fill.style.opacity = '1';
-            void fill.offsetWidth; // форсируем reflow
-            this._animate(10);
-        },
+    /* Логотип */
+    var logo = document.createElement('div');
+    logo.style.cssText = 'display:flex;align-items:center;gap:10px;animation:ld-pop 0.4s cubic-bezier(.34,1.56,.64,1) both';
 
-        _animate(target) {
-            const fill = this._fill();
-            if (!fill) return;
-            const speed = target < 30 ? 800 : target < 60 ? 1200 : 2000;
-            fill.style.transition = `width ${speed}ms cubic-bezier(.2,.9,.25,1)`;
-            fill.style.width = target + '%';
-            if (target < 85) {
-                const next = Math.min(target + Math.random() * 12 + 5, 85);
-                _raf = setTimeout(() => this._animate(next), speed * 0.7);
+    /* Иконка — если это BilimExam показываем emoji, иначе SVG */
+    if (brand.icon) {
+        var iconEl = document.createElement('span');
+        iconEl.style.cssText = 'font-size:36px;line-height:1';
+        iconEl.textContent = brand.icon;
+        logo.appendChild(iconEl);
+    } else {
+        /* BilimCalc SVG иконка */
+        var svgNs = 'http://www.w3.org/2000/svg';
+        var svg = document.createElementNS(svgNs, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('width', '36');
+        svg.setAttribute('height', '36');
+        svg.setAttribute('fill', 'none');
+        [
+            { tag: 'rect', attrs: { x:'2',y:'2',width:'9',height:'9',rx:'2',fill:'#3cb648' } },
+            { tag: 'rect', attrs: { x:'13',y:'2',width:'9',height:'9',rx:'2',fill:'#3cb648' } },
+            { tag: 'rect', attrs: { x:'2',y:'13',width:'9',height:'9',rx:'2',fill:'#3cb648' } },
+        ].forEach(function(s) {
+            var el = document.createElementNS(svgNs, s.tag);
+            Object.keys(s.attrs).forEach(function(k){ el.setAttribute(k, s.attrs[k]); });
+            svg.appendChild(el);
+        });
+        var path = document.createElementNS(svgNs, 'path');
+        path.setAttribute('d', 'M15 18h4M17 16v4');
+        path.setAttribute('stroke', '#3cb648');
+        path.setAttribute('stroke-width', '2.2');
+        path.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(path);
+        logo.appendChild(svg);
+    }
+
+    /* Название */
+    var nameEl = document.createElement('span');
+    nameEl.style.cssText = 'font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;font-size:1.75rem;font-weight:800;letter-spacing:-0.03em;color:' + (isDark ? '#fff' : '#0f172a');
+
+    /* BilimCalc → «Bilim» белый + «Calc» зелёный */
+    /* BilimExam → «Bilim» белый + «Exam» фиолетовый */
+    var mainText = brand.name.replace(/^Bilim/, '');
+    var accentColor = (brand.name === 'BilimExam') ? '#a78bfa' : '#3cb648';
+    nameEl.innerHTML = '<span>Bilim</span><span style="color:' + accentColor + '">' + mainText + '</span>';
+
+    logo.appendChild(nameEl);
+    overlay.appendChild(logo);
+
+    /* Прогресс-бар */
+    var barWrap = document.createElement('div');
+    barWrap.style.cssText = 'width:120px;height:3px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden';
+    if (!isDark) barWrap.style.background = 'rgba(0,0,0,0.08)';
+
+    var bar = document.createElement('div');
+    bar.style.cssText = 'width:0%;height:100%;border-radius:99px;background:linear-gradient(90deg,#3cb648,#58a6ff);animation:ld-fill 1.2s 0.1s cubic-bezier(.2,.9,.25,1) forwards';
+    if (brand.name === 'BilimExam') {
+        bar.style.background = 'linear-gradient(90deg,#7c3aed,#a78bfa)';
+    }
+
+    barWrap.appendChild(bar);
+    overlay.appendChild(barWrap);
+
+    /* Инжектим стили */
+    var style = document.createElement('style');
+    style.textContent = [
+        '@keyframes ld-pop{from{opacity:0;transform:scale(.75) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}',
+        '@keyframes ld-fill{from{width:0%}to{width:100%}}',
+        '#pageLoader.hidden{opacity:0;transform:scale(1.02);pointer-events:none}'
+    ].join('');
+    document.head.appendChild(style);
+
+    /* Добавляем в DOM до DOMContentLoaded */
+    document.addEventListener('DOMContentLoaded', function () {
+        document.body.insertBefore(overlay, document.body.firstChild);
+    });
+    /* Либо сразу если body уже есть */
+    if (document.body) document.body.insertBefore(overlay, document.body.firstChild);
+
+    /* ── Скрываем когда страница готова ── */
+    window.PageLoader = {
+        hide: function () {
+            if (overlay) {
+                overlay.classList.add('hidden');
+                setTimeout(function () {
+                    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                }, 350);
             }
-        },
-
-        finish() {
-            clearTimeout(_raf);
-            const fill = this._fill();
-            if (!fill) return;
-            fill.style.transition = 'width 220ms ease, opacity 300ms ease 220ms';
-            fill.style.width = '100%';
-            setTimeout(() => { fill.style.opacity = '0'; }, 260);
-            setTimeout(() => {
-                fill.style.transition = 'none';
-                fill.style.width = '0%';
-                fill.style.opacity = '1';
-            }, 620);
         }
     };
 
-    /* ────────── Создаём прогресс-бар ────────── */
-    function createProgressBar() {
-        if (document.getElementById('page-progress-bar')) return;
-        const bar = document.createElement('div');
-        bar.id = 'page-progress-bar';
-        bar.innerHTML = '<div id="page-progress-fill"></div>';
-        document.body.prepend(bar);
-    }
-
-    /* ────────── Splash — только если нет родного #splash ────────── */
-    function createSplashIfNeeded() {
-        // index.html уже имеет свой #splash — не создаём второй
-        if (document.getElementById('splash')) return;
-        // Остальные страницы — показываем только 1 раз за сессию
-        if (sessionStorage.getItem('splash_shown')) return;
-        sessionStorage.setItem('splash_shown', '1');
-
-        const splash = document.createElement('div');
-        splash.id = 'page-splash';
-        splash.innerHTML = `
-            <div class="splash-logo">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
-                    <rect x="2"  y="2"  width="9" height="9" rx="2" fill="#3cb648"/>
-                    <rect x="13" y="2"  width="9" height="9" rx="2" fill="#3cb648"/>
-                    <rect x="2"  y="13" width="9" height="9" rx="2" fill="#3cb648"/>
-                    <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/>
-                </svg>
-                <span class="splash-name">Bilim<span>Calc</span></span>
-            </div>
-            <div class="splash-bar-wrap"><div class="splash-bar-fill"></div></div>
-        `;
-        document.body.prepend(splash);
-
-        setTimeout(() => {
-            const fill = splash.querySelector('.splash-bar-fill');
-            if (fill) fill.style.width = '100%';
-        }, 100);
-
-        setTimeout(() => {
-            splash.classList.add('splash--hide');
-            setTimeout(() => splash.remove(), 500);
-        }, 900);
-    }
-
-    /* ────────── Fade-in контента ────────── */
-    function fadeInContent() {
-        // #main-content — article-страницы через base.html
-        // .container — index.html (самостоятельная страница)
-        const main = document.getElementById('main-content') || document.querySelector('.container');
-        if (!main) return;
-
-        main.style.opacity = '0';
-        main.style.transform = 'translateY(8px)';
-        main.style.transition = 'none';
-
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                main.style.transition = 'opacity 320ms ease, transform 320ms ease';
-                main.style.opacity = '1';
-                main.style.transform = 'translateY(0)';
-            });
-        });
-    }
-
-    /* ────────── Перехват переходов по ссылкам ────────── */
-    function interceptLinks() {
-        document.addEventListener('click', function (e) {
-            const a = e.target.closest('a[href]');
-            if (!a) return;
-            const href = a.getAttribute('href');
-            if (!href || href.startsWith('http') || href.startsWith('#') ||
-                href.startsWith('mailto') || a.target === '_blank') return;
-            if (href === window.location.pathname) return;
-
-            Progress.start();
-
-            const main = document.getElementById('main-content') || document.querySelector('.container');
-            if (main) {
-                main.style.transition = 'opacity 160ms ease, transform 160ms ease';
-                main.style.opacity = '0';
-                main.style.transform = 'translateY(6px)';
-            }
-        });
-    }
-
-    /* ────────── Init ────────── */
-    document.addEventListener('DOMContentLoaded', () => {
-        createProgressBar();
-        createSplashIfNeeded();
-        interceptLinks();
-
-        setTimeout(() => {
-            Progress.start();
-            Progress.finish();
-        }, 50);
-
-        fadeInContent();
+    /* Автоскрытие через 1.4с если никто явно не вызвал hide() */
+    window.addEventListener('load', function () {
+        setTimeout(function () { window.PageLoader.hide(); }, 300);
     });
 
-    window.addEventListener('load', () => Progress.finish());
+    /* Fallback — скрыть через 2с в любом случае */
+    setTimeout(function () { window.PageLoader.hide(); }, 2000);
 
 })();

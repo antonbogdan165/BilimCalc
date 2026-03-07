@@ -231,6 +231,16 @@
                 <div class="result-big" id="finalResult">—</div>
                 <div class="grade-badge badge-empty" id="gradeBadge">Нет данных</div>
 
+                <!-- FORMULA HINT — расшифровка расчёта -->
+                <div class="formula-hint" id="formulaHint" style="
+                    text-align:center;
+                    font-size:13px;
+                    color:var(--muted);
+                    margin: 8px 0 4px;
+                    min-height: 18px;
+                    line-height: 1.5;
+                "></div>
+
                 <!-- Кнопка поделиться -->
                 <button id="shareBtn" class="btn ghost share-btn" style="display:none;width:100%;margin-bottom:10px;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px">
@@ -397,6 +407,14 @@
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
+            <a href="/kak-perevesti-procenty-v-otsenku" class="article-card">
+                <div class="article-card__icon">%→5</div>
+                <div class="article-card__body">
+                    <div class="article-card__title">Как перевести проценты в оценку</div>
+                    <div class="article-card__desc">Таблица 85%=5, 65%=4 + пример округления 84.5%→5</div>
+                </div>
+                <span class="article-card__arrow">›</span>
+            </a>
         </div>
     </div>
 
@@ -410,27 +428,23 @@
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item active">
         <span class="mobile-nav__icon">🧮</span>
-        <span>Калькулятор</span>
-    </a>
-    <a href="/kak-rasschitat-so" class="mobile-nav__item">
-        <span class="mobile-nav__icon">📊</span>
-        <span>СО</span>
-    </a>
-    <a href="/kak-rasschitat-sor" class="mobile-nav__item">
-        <span class="mobile-nav__icon">📝</span>
-        <span>СОР</span>
-    </a>
-    <a href="/kak-rasschitat-soch" class="mobile-nav__item">
-        <span class="mobile-nav__icon">📚</span>
-        <span>СОЧ</span>
-    </a>
-    <a href="/itogovaya-ocenka-za-chetvert" class="mobile-nav__item">
-        <span class="mobile-nav__icon">🏆</span>
-        <span>Итоговая</span>
+        <span>BilimCalc</span>
     </a>
     <a href="/kalkulator-ekzamena" class="mobile-nav__item mobile-nav__item--exam">
         <span class="mobile-nav__icon">🎓</span>
         <span>BilimExam</span>
+    </a>
+    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="mobile-nav__item">
+        <span class="mobile-nav__icon">📖</span>
+        <span>Статья</span>
+    </a>
+    <a href="/itogovaya-ocenka-za-chetvert" class="mobile-nav__item">
+        <span class="mobile-nav__icon">🏆</span>
+        <span>Четверть</span>
+    </a>
+    <a href="/metodika-rascheta-mon-rk" class="mobile-nav__item">
+        <span class="mobile-nav__icon">📋</span>
+        <span>МОН РК</span>
     </a>
 </nav>
 

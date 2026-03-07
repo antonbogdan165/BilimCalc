@@ -660,6 +660,24 @@ function calculate() {
             // Подсказка: показываем сырое→округлённое только когда frac ≥ 0.5
             updateRoundingHint(pct);
 
+            // Формула-подсказка СО + СОР + СОЧ
+            var hintEl = document.getElementById('formulaHint');
+            if (hintEl) {
+                var so_v  = total_so   !== null ? total_so.toFixed(2)   : null;
+                var sor_v = total_sor  !== null ? total_sor.toFixed(2)  : null;
+                var soch_v= total_soch !== null ? total_soch.toFixed(2) : null;
+                var parts = [];
+                if (so_v  !== null) parts.push('СО: '  + so_v);
+                if (sor_v !== null) parts.push('СОР: ' + sor_v);
+                if (soch_v!== null) parts.push('СОЧ: ' + soch_v);
+                if (parts.length > 0) {
+                    var rawSum = (total_so || 0) + (total_sor || 0) + (total_soch || 0);
+                    hintEl.textContent = parts.join(' + ') + ' = ' + rawSum.toFixed(2) + '%';
+                } else {
+                    hintEl.textContent = '';
+                }
+            }
+
             if (shareBtn) shareBtn.style.display = "flex";
             if (so.length >= 2) updateTrend();
         } else {
@@ -669,6 +687,8 @@ function calculate() {
             badge.className   = "grade-badge badge-empty";
             updateRoundingHint(null);
             if (shareBtn) shareBtn.style.display = "none";
+            var hintEl = document.getElementById('formulaHint');
+            if (hintEl) hintEl.textContent = '';
         }
 
         saveState();
