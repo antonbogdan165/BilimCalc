@@ -10,8 +10,7 @@
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
 
-    <!-- PWA-баннер нужен на всех страницах -->
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.0">
 
     <title>{% block meta_title %}BilimCalc — калькулятор СО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор СО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
@@ -37,9 +36,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.6.3">
-    <link rel="stylesheet" href="/static/css/article.css?v=1.6.3">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/article.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.0">
     {% block extra_css %}{% endblock %}
 
     <script type="application/ld+json">
@@ -78,9 +77,8 @@
 </head>
 <body>
 
-<!-- ══ DESKTOP / TABLET TOPBAR ══ -->
+<!-- ══ TOPBAR ══ -->
 <div id="topbar">
-    <!-- LEFT: Logo -->
     <a class="topbar-logo" href="/" title="BilimCalc">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
             <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
@@ -91,7 +89,6 @@
         <span class="topbar-logo__name">Bilim<span>Calc</span></span>
     </a>
 
-    <!-- CENTER: Official link + Articles -->
     <div class="topbar-center">
         <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267"
            target="_blank" rel="noopener noreferrer" class="topbar-official-link">
@@ -113,7 +110,6 @@
         </a>
     </div>
 
-    <!-- RIGHT: BilimExam + Theme -->
     <div class="topbar-right">
         <a href="/kalkulator-ekzamena" class="topbar-exam-btn" title="BilimExam — итоговая оценка за год">
             <span class="topbar-exam-btn__icon">🎓</span>
@@ -125,10 +121,9 @@
     </div>
 </div>
 
-
 {% block content %}{% endblock %}
 
-<!-- ══ MOBILE TAB BAR (≤600px): BilimCalc | Статьи | BilimExam ══ -->
+<!-- ══ MOBILE TAB BAR ══ -->
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item {% block mob_home %}{% endblock %}">
         <span class="mobile-nav__icon">🧮</span>
@@ -161,7 +156,7 @@
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.6.3"></script>
+<script src="/static/js/pwa-install.js?v=1.7.0"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

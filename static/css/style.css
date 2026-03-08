@@ -55,7 +55,7 @@ h1 {
 .card {
     background: rgba(22, 27, 34, 0.90);
     padding: 20px;
-    border-radius: 16px;
+    border-radius: 15px;
     border: 1px solid var(--border);
     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -67,7 +67,7 @@ h1 {
     .card { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 }
 @media (hover: hover) {
-    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.45); }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.45); }
 }
 
 .section-title { color: var(--accent); margin: 0 0 13px; font-size: 13px; font-weight: 600; }
@@ -180,7 +180,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     letter-spacing: 0.1px; min-height: 48px;
     box-shadow: 0 2px 12px rgba(60,182,72,0.22);
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    position: relative; overflow: hidden;
     border: 1.5px solid rgba(255,255,255,0.12);
     -webkit-tap-highlight-color: transparent;
 }

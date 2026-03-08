@@ -36,10 +36,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.6.3">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.3">
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.3">
-    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.7.0">
 
     <script type="application/ld+json">
     {
@@ -173,7 +173,7 @@
         <!-- ══ ВВОД ══ -->
         <div>
             <div class="card reveal">
-                <div class="section-title" style="margin-bottom:14px">Оценки за четверти</div>
+                <div class="section-title" style="margin-bottom:13px">Оценки за четверти</div>
                 <div class="quarter-grid">
                     <div class="quarter-item">
                         <div class="q-label">1 четверть</div>
@@ -212,7 +212,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="small" style="margin-top:10px;color:var(--muted)">
+                <p class="small" style="margin-top:9px;color:var(--muted)">
                     Можно выбрать только прошедшие четверти — среднее считается по ним
                 </p>
 
@@ -230,14 +230,14 @@
                         <button class="grade-btn" data-val="4">4</button>
                         <button class="grade-btn" data-val="5">5</button>
                     </div>
-                    <p class="small" style="margin-top:8px;color:var(--muted)">
+                    <p class="small" style="margin-top:7px;color:var(--muted)">
                         Не знаешь экзамен? Оставь пустым — внизу появятся нужные баллы
                     </p>
                 </div>
             </div>
 
-            <div style="margin-top:12px">
-                <button class="btn ghost" id="examResetBtn" style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.25);">
+            <div style="margin-top:10px">
+                <button class="btn ghost" id="examResetBtn" style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.22);">
                     🗑 Сбросить всё
                 </button>
             </div>
@@ -249,7 +249,7 @@
                 <div class="exam-result-grade eg-dash" id="examResultGrade">—</div>
                 <div class="grade-badge badge-empty" id="examGradeBadge">Нет данных</div>
 
-                <div id="annualInfoRow" class="info-row" style="display:none;margin-top:12px">
+                <div id="annualInfoRow" class="info-row" style="display:none;margin-top:11px">
                     <span class="info-row__label">📅 Годовая оценка</span>
                     <span class="info-row__val" id="annualInfoVal">—</span>
                 </div>
@@ -258,20 +258,20 @@
                     <span class="info-row__val" id="examInfoVal">—</span>
                 </div>
 
-                <div class="progress-wrap" style="margin-top:12px">
+                <div class="progress-wrap" style="margin-top:11px">
                     <div class="progress-bar">
                         <div class="progress-fill" id="examProgressFill"></div>
                     </div>
                     <div class="breakdown">
-                        <div class="break-card">
+                        <div class="break-card" style="border-left:2px solid rgba(167,139,250,0.45)">
                             <span class="break-title">Годовая</span>
                             <span class="break-value" id="bAnnual">—</span>
                         </div>
-                        <div class="break-card">
+                        <div class="break-card" style="border-left:2px solid rgba(210,153,34,0.45)">
                             <span class="break-title">Экзамен</span>
                             <span class="break-value" id="bExam">—</span>
                         </div>
-                        <div class="break-card">
+                        <div class="break-card" style="border-left:2px solid rgba(46,160,67,0.45)">
                             <span class="break-title">Итог</span>
                             <span class="break-value" id="bFinal">—</span>
                         </div>
@@ -303,15 +303,15 @@
     </div>
 
     <!-- О расчёте -->
-    <div class="card" style="margin-top:16px">
-        <h2 style="color:var(--ea)">Как работает расчёт</h2>
-        <p class="small" style="margin-top:7px">
+    <div class="card" style="margin-top:15px">
+        <h2 style="color:var(--ea);font-size:14px;font-weight:700;margin-bottom:8px;letter-spacing:-0.1px">Как работает расчёт</h2>
+        <p class="small">
             Итоговая оценка в <strong>9 и 11 классах</strong> по методике МОН РК:
             <strong>Годовая × 70% + Экзамен × 30%</strong>.
             Годовая оценка — среднее арифметическое по четвертям.
             Результат округляется (≥ 0.5 → вверх).
         </p>
-        <p class="small" style="margin-top:7px">
+        <p class="small" style="margin-top:6px">
             Блок «Нужная оценка» показывает, какой балл надо получить на экзамене для «3», «4» или «5».
         </p>
         <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="art-teaser">
@@ -319,7 +319,7 @@
             <span class="art-teaser__title">Подробная статья — как рассчитать итоговую оценку за год</span>
             <span class="art-teaser__arrow">→</span>
         </a>
-        <a href="/kak-perevesti-procenty-v-otsenku" class="art-teaser" style="margin-top:8px">
+        <a href="/kak-perevesti-procenty-v-otsenku" class="art-teaser" style="margin-top:7px">
             <div class="art-teaser__icon">%→5</div>
             <span class="art-teaser__title">Таблица перевода процентов в оценку + пример округления</span>
             <span class="art-teaser__arrow">→</span>
@@ -327,9 +327,9 @@
     </div>
 
     <!-- Переход на BilimCalc -->
-    <div class="card" style="margin-top:14px">
-        <h2>Нужна оценка за четверть?</h2>
-        <p class="small" style="margin-top:7px;margin-bottom:14px">
+    <div class="card" style="margin-top:13px">
+        <h2 style="font-size:14px;font-weight:700;margin-bottom:7px">Нужна оценка за четверть?</h2>
+        <p class="small" style="margin-bottom:13px">
             BilimCalc считает итог за четверть по СО, СОР и СОЧ.
             Готовую оценку можно сразу использовать здесь.
         </p>
@@ -351,7 +351,7 @@
 
     <footer>
         <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener">GitHub</a></div>
-        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.6.3</div>
+        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.7.0</div>
     </footer>
 </div>
 
@@ -371,7 +371,7 @@
     </a>
 </nav>
 
-<script src="/static/js/bilimexam.js?v=1.6.3"></script>
-<script src="/static/js/pwa-install.js?v=1.6.3"></script>
+<script src="/static/js/bilimexam.js?v=1.7.0"></script>
+<script src="/static/js/pwa-install.js?v=1.7.0"></script>
 </body>
 </html>

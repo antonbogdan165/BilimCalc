@@ -1,17 +1,21 @@
-let so = [];
+let so   = [];
 let sors = [];
-const LOCAL_KEY = "grade_calculator_v1";
+const SAVE_KEY = "bilimcalc_v1";
 
-function makeListItem(text, onDelete) {
-    const el = document.createElement("div");
+// ─── UI: чипы со значениями ───────────────────────────────────────────────
+
+function createChip(text, onDelete) {
+    const el  = document.createElement("div");
     el.className = "list-item";
     el.innerHTML = `<span>${text}</span>`;
+
     const btn = document.createElement("button");
     btn.className = "btn delete";
     btn.innerText = "×";
     btn.style.marginLeft = "6px";
     btn.addEventListener("click", onDelete);
     el.appendChild(btn);
+
     requestAnimationFrame(() => el.classList.add("enter"));
     return el;
 }
@@ -19,11 +23,15 @@ function makeListItem(text, onDelete) {
 function renderSO() {
     const container = document.getElementById("soList");
     const empty     = document.getElementById("soEmpty");
-    Array.from(container.children).forEach(c => { if (c.id !== "soEmpty") c.remove(); });
 
-    so.forEach((val) => {
-        const item = makeListItem(val, async () => {
-            item.classList.add("removing");
+    // убираем старые чипы, оставляем только #soEmpty
+    Array.from(container.children).forEach(c => {
+        if (c.id !== "soEmpty") c.remove();
+    });
+
+    so.forEach(val => {
+        const chip = createChip(val, async () => {
+            chip.classList.add("removing");
             await new Promise(r => setTimeout(r, 260));
             const idx = so.lastIndexOf(val);
             if (idx !== -1) so.splice(idx, 1);
@@ -32,39 +40,44 @@ function renderSO() {
             calculate();
             updateTrend();
         });
-        container.insertBefore(item, empty);
+        container.insertBefore(chip, empty);
     });
 
     if (empty) empty.style.display = so.length ? "none" : "block";
 
     if (so.length >= 2) {
-        toggleTrendVisibility(true);
+        showTrend(true);
         if (typeof Chart !== "undefined") updateTrend();
     } else {
-        toggleTrendVisibility(false);
+        showTrend(false);
     }
 }
 
 function renderSORS() {
     const container = document.getElementById("sorList");
     const empty     = document.getElementById("sorEmpty");
-    Array.from(container.children).forEach(c => { if (c.id !== "sorEmpty") c.remove(); });
+
+    Array.from(container.children).forEach(c => {
+        if (c.id !== "sorEmpty") c.remove();
+    });
 
     sors.forEach((pair, idx) => {
         const [d, m] = pair;
-        const item = makeListItem(`${d} / ${m}`, async () => {
-            item.classList.add("removing");
+        const chip = createChip(`${d} / ${m}`, async () => {
+            chip.classList.add("removing");
             await new Promise(r => setTimeout(r, 260));
             sors.splice(idx, 1);
             saveState();
             renderSORS();
             calculate();
         });
-        container.insertBefore(item, empty);
+        container.insertBefore(chip, empty);
     });
 
     if (empty) empty.style.display = sors.length ? "none" : "block";
 }
+
+// ─── Сохранение / восстановление ─────────────────────────────────────────
 
 function saveState() {
     const sochDialed = document.getElementById("sochDialed").value;
@@ -73,7 +86,7 @@ function saveState() {
         ? [Number(sochDialed || 0), Number(sochMax)]
         : null;
     try {
-        localStorage.setItem(LOCAL_KEY, JSON.stringify({ so, sors, soch }));
+        localStorage.setItem(SAVE_KEY, JSON.stringify({ so, sors, soch }));
     } catch (e) {
         console.warn("localStorage save failed", e);
     }
@@ -81,24 +94,27 @@ function saveState() {
 
 function loadState() {
     try {
-        const raw = localStorage.getItem(LOCAL_KEY);
+        const raw = localStorage.getItem(SAVE_KEY);
         if (!raw) return;
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed.so))   so   = parsed.so.map(Number);
-        if (Array.isArray(parsed.sors)) sors = parsed.sors.map(p => [Number(p[0]), Number(p[1])]);
-        if (Array.isArray(parsed.soch)) {
-            document.getElementById("sochDialed").value = parsed.soch[0];
-            document.getElementById("sochMax").value    = parsed.soch[1];
+        const saved = JSON.parse(raw);
+        if (Array.isArray(saved.so))   so   = saved.so.map(Number);
+        if (Array.isArray(saved.sors)) sors = saved.sors.map(p => [Number(p[0]), Number(p[1])]);
+        if (Array.isArray(saved.soch)) {
+            document.getElementById("sochDialed").value = saved.soch[0];
+            document.getElementById("sochMax").value    = saved.soch[1];
         }
     } catch (e) {
         console.warn("localStorage load failed", e);
     }
 }
 
+// ─── Валидация и ошибки ───────────────────────────────────────────────────
+
 function showInputError(anchorEl, message) {
     const card = anchorEl.closest(".card");
     if (!card) return;
 
+    // сначала убираем предыдущие баннеры в этой карточке
     card.querySelectorAll(".input-error-banner").forEach(b => {
         clearTimeout(b._timer);
         b.classList.add("input-error-banner--hide");
@@ -116,8 +132,6 @@ function showInputError(anchorEl, message) {
     const row = anchorEl.closest(".so-row, .sor-row, .soch-row");
     if (row && row.parentNode) {
         row.parentNode.insertBefore(banner, row.nextSibling);
-    } else if (anchorEl.parentNode) {
-        anchorEl.parentNode.insertBefore(banner, anchorEl.nextSibling);
     } else {
         card.appendChild(banner);
     }
@@ -160,6 +174,8 @@ function validateSoch() {
     }
     return true;
 }
+
+// ─── Обработчики форм ─────────────────────────────────────────────────────
 
 document.getElementById("addForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -255,7 +271,8 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
     calculate();
 });
 
-// кнопка «поделиться»
+// ─── Кнопка «Поделиться» ─────────────────────────────────────────────────
+
 (function setupShare() {
     const shareBtn = document.getElementById("shareBtn");
     if (!shareBtn) return;
@@ -341,11 +358,11 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
         document.body.appendChild(modal);
 
         function closeModal() {
-            const box = modal.querySelector(".share-modal__box");
-            box.style.transition = "transform 0.2s ease, opacity 0.2s ease";
-            box.style.transform  = "translateY(30px)";
-            box.style.opacity    = "0";
+            const box     = modal.querySelector(".share-modal__box");
             const overlay = modal.querySelector(".share-modal__overlay");
+            box.style.transition     = "transform 0.2s ease, opacity 0.2s ease";
+            box.style.transform      = "translateY(30px)";
+            box.style.opacity        = "0";
             overlay.style.transition = "opacity 0.2s ease";
             overlay.style.opacity    = "0";
             setTimeout(() => modal.remove(), 220);
@@ -357,20 +374,19 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
         document.getElementById("shareCopyBtn").addEventListener("click", () => {
             navigator.clipboard.writeText(text + " " + url).then(() => {
                 const btn = document.getElementById("shareCopyBtn");
-                if (btn) {
-                    const orig = btn.innerHTML;
-                    btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Скопировано!`;
-                    btn.style.background = "rgba(46,160,67,0.2)";
-                    btn.style.color = "#3fb950";
-                    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ""; btn.style.color = ""; }, 2000);
-                }
+                if (!btn) return;
+                const orig = btn.innerHTML;
+                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Скопировано!`;
+                btn.style.background = "rgba(46,160,67,0.2)";
+                btn.style.color      = "#3fb950";
+                setTimeout(() => { btn.innerHTML = orig; btn.style.background = ""; btn.style.color = ""; }, 2000);
             }).catch(() => {});
         });
     }
 
     shareBtn.addEventListener("click", async () => {
-        const text = getShareText();
-        const url  = SITE_URL;
+        const text      = getShareText();
+        const url       = SITE_URL;
         const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
         if (navigator.share && !isDesktop) {
@@ -394,15 +410,14 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
     });
 })();
 
-const debouncedCalculate = debounce(calculate, 250);
+// ─── Инпуты: только цифры ─────────────────────────────────────────────────
 
-document.getElementById("sochDialed").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
-document.getElementById("sochMax").addEventListener("input",    () => { validateSoch(); saveState(); debouncedCalculate(); });
-
-function makeDigitsOnly(input, maxLen, maxVal, onFull) {
+// ограничиваем ввод: только цифры, не больше maxLen символов
+// onFull — колбэк когда поле заполнено (например, переход к следующему)
+function restrictToDigits(input, maxLen, maxVal, onFull) {
     input.addEventListener("keydown", function (e) {
-        const allowed = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter","Home","End"];
-        if (allowed.includes(e.key) || e.ctrlKey || e.metaKey) return;
+        const nav = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter","Home","End"];
+        if (nav.includes(e.key) || e.ctrlKey || e.metaKey) return;
         if (!/^\d$/.test(e.key)) { e.preventDefault(); return; }
         if (this.value.length >= maxLen && this.selectionStart === this.selectionEnd) e.preventDefault();
     });
@@ -420,12 +435,13 @@ const sorMaxInput     = document.getElementById("sorMax");
 const sochDialedInput = document.getElementById("sochDialed");
 const sochMaxInput    = document.getElementById("sochMax");
 
-makeDigitsOnly(soInput, 2, 10);
-makeDigitsOnly(sorDialedInput, 2, undefined, () => sorMaxInput.focus());
-makeDigitsOnly(sorMaxInput, 2);
-makeDigitsOnly(sochDialedInput, 2, undefined, () => sochMaxInput.focus());
-makeDigitsOnly(sochMaxInput, 2);
+restrictToDigits(soInput, 2, 10);
+restrictToDigits(sorDialedInput,  2, undefined, () => sorMaxInput.focus());
+restrictToDigits(sorMaxInput,     2);
+restrictToDigits(sochDialedInput, 2, undefined, () => sochMaxInput.focus());
+restrictToDigits(sochMaxInput,    2);
 
+// backspace в пустом правом поле → переходим в левое
 sorMaxInput.addEventListener("keydown", function (e) {
     if (e.key === "Backspace" && !this.value) {
         sorDialedInput.focus();
@@ -439,44 +455,31 @@ sochMaxInput.addEventListener("keydown", function (e) {
     }
 });
 
-function debounce(fn, ms = 250) {
+// debounce для инпутов СОЧ — пересчёт не на каждый символ
+function debounce(fn, ms) {
     let t;
-    return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+    return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms || 250); };
 }
 
-// показывает точное значение под итогом: 38.41% → «= 38.41%», 84.50% → «84.50% → 85%»
-function updateRoundingHint(value) {
-    let hint = document.getElementById("roundingHint");
-    if (!hint) {
-        hint = document.createElement("div");
-        hint.id = "roundingHint";
-        hint.style.cssText = "font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-family:'Courier New',monospace;letter-spacing:0.2px;min-height:16px;";
-        const badge = document.getElementById("gradeBadge");
-        if (badge && badge.parentNode) {
-            badge.parentNode.insertBefore(hint, badge.nextSibling);
-        }
-    }
+const debouncedCalculate = debounce(calculate, 250);
 
-    if (value === null) { hint.textContent = ""; return; }
+document.getElementById("sochDialed").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
+document.getElementById("sochMax").addEventListener("input",    () => { validateSoch(); saveState(); debouncedCalculate(); });
 
-    const frac = value - Math.floor(value);
-    if (frac >= 0.5) {
-        hint.textContent = value.toFixed(2) + "% → " + Math.ceil(value) + "%";
-    } else {
-        hint.textContent = "= " + value.toFixed(2) + "%";
-    }
-}
+// ─── Расчёт ───────────────────────────────────────────────────────────────
 
-function calculateParts(so, sors, soch) {
+// считаем вклад каждого компонента в процентах
+// СО и СОР — по 25%, СОЧ — 50%
+function computeParts(soArr, sorsArr, soch) {
     let total_so = null;
-    if (so && so.length > 0) {
-        const avg = so.reduce((a, b) => a + b, 0) / so.length;
+    if (soArr && soArr.length > 0) {
+        const avg = soArr.reduce((a, b) => a + b, 0) / soArr.length;
         total_so = (avg / 10) * 25;
     }
 
     let total_sor = null;
-    if (sors && sors.length > 0) {
-        const pcts = sors
+    if (sorsArr && sorsArr.length > 0) {
+        const pcts = sorsArr
             .filter(([, max]) => max > 0)
             .map(([d, m]) => (d / m) * 100);
         if (pcts.length > 0) {
@@ -493,7 +496,9 @@ function calculateParts(so, sors, soch) {
     return { total_so, total_sor, total_soch };
 }
 
-function calculateFinal(total_so, total_sor, total_soch) {
+// итоговый % с учётом того, какие компоненты есть
+// если только СО — масштабируем до 100%, если СО+СОР — тоже
+function computeFinalPct(total_so, total_sor, total_soch) {
     if (total_so !== null && total_sor !== null && total_soch !== null) {
         return Math.round((total_so + total_sor + total_soch) * 10000) / 10000;
     }
@@ -506,30 +511,25 @@ function calculateFinal(total_so, total_sor, total_soch) {
     return null;
 }
 
-function linearRegression(scores) {
-    const n = scores.length;
-    const x = Array.from({ length: n }, (_, i) => i + 1);
-    const y = scores;
-
-    const xMean = x.reduce((a, b) => a + b, 0) / n;
-    const yMean = y.reduce((a, b) => a + b, 0) / n;
-
-    let num = 0, den = 0;
-    for (let i = 0; i < n; i++) {
-        num += (x[i] - xMean) * (y[i] - yMean);
-        den += (x[i] - xMean) ** 2;
+// показывает точное значение под итогом: 84.50% → «84.50% → 85%»
+function updateRoundingHint(value) {
+    let hint = document.getElementById("roundingHint");
+    if (!hint) {
+        hint = document.createElement("div");
+        hint.id = "roundingHint";
+        hint.style.cssText = "font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-family:'Courier New',monospace;letter-spacing:0.2px;min-height:16px;";
+        const badge = document.getElementById("gradeBadge");
+        if (badge && badge.parentNode) badge.parentNode.insertBefore(hint, badge.nextSibling);
     }
 
-    const slope       = den === 0 ? 0 : num / den;
-    const intercept   = yMean - slope * xMean;
-    const predictions = x.map(xi => xi * slope + intercept);
+    if (value === null) { hint.textContent = ""; return; }
 
-    const rmse = Math.sqrt(
-        predictions.reduce((sum, p, i) => sum + (y[i] - p) ** 2, 0) / n
-    );
-    const accuracy = Math.min(100, Math.max(0, 100 - (rmse / 10) * 100));
-
-    return { scores, predictions, accuracy: Math.round(accuracy * 10) / 10, slope };
+    const frac = value - Math.floor(value);
+    if (frac >= 0.5) {
+        hint.textContent = value.toFixed(2) + "% → " + Math.ceil(value) + "%";
+    } else {
+        hint.textContent = "= " + value.toFixed(2) + "%";
+    }
 }
 
 let pending      = false;
@@ -547,8 +547,8 @@ function calculate() {
             ? [Number(sochDialed || 0), Number(sochMax)]
             : null;
 
-        const { total_so, total_sor, total_soch } = calculateParts(so, sors, soch);
-        const final_result = calculateFinal(total_so, total_sor, total_soch);
+        const { total_so, total_sor, total_soch } = computeParts(so, sors, soch);
+        const final_result = computeFinalPct(total_so, total_sor, total_soch);
 
         const finalEl  = document.getElementById("finalResult");
         const fill     = document.getElementById("progressFill");
@@ -568,15 +568,14 @@ function calculate() {
             const pct        = Number(final_result);
             const gradeCheck = Math.round(pct);
 
-            // анимируем число
+            // плавная анимация числа
             const startVal = parseFloat(finalEl.innerText) || 0;
-            const endVal   = pct;
-            const isWhole  = Number.isInteger(endVal);
             const t0       = performance.now();
+            const isWhole  = Number.isInteger(pct);
             (function tick(now) {
                 const progress = Math.min((now - t0) / 500, 1);
                 const eased    = 1 - Math.pow(1 - progress, 3);
-                const cur      = startVal + (endVal - startVal) * eased;
+                const cur      = startVal + (pct - startVal) * eased;
                 finalEl.innerText = (isWhole ? Math.round(cur) : cur.toFixed(2)) + "%";
                 if (progress < 1) requestAnimationFrame(tick);
             })(t0);
@@ -611,17 +610,17 @@ function calculate() {
 
             updateRoundingHint(pct);
 
-            var hintEl = document.getElementById('formulaHint');
+            const hintEl = document.getElementById("formulaHint");
             if (hintEl) {
-                var parts = [];
-                if (total_so   !== null) parts.push('СО: '  + total_so.toFixed(2));
-                if (total_sor  !== null) parts.push('СОР: ' + total_sor.toFixed(2));
-                if (total_soch !== null) parts.push('СОЧ: ' + total_soch.toFixed(2));
-                if (parts.length > 0) {
-                    var rawSum = (total_so || 0) + (total_sor || 0) + (total_soch || 0);
-                    hintEl.textContent = parts.join(' + ') + ' = ' + rawSum.toFixed(2) + '%';
+                const parts = [];
+                if (total_so   !== null) parts.push("СО: "  + total_so.toFixed(2));
+                if (total_sor  !== null) parts.push("СОР: " + total_sor.toFixed(2));
+                if (total_soch !== null) parts.push("СОЧ: " + total_soch.toFixed(2));
+                if (parts.length) {
+                    const rawSum = (total_so || 0) + (total_sor || 0) + (total_soch || 0);
+                    hintEl.textContent = parts.join(" + ") + " = " + rawSum.toFixed(2) + "%";
                 } else {
-                    hintEl.textContent = '';
+                    hintEl.textContent = "";
                 }
             }
 
@@ -634,8 +633,8 @@ function calculate() {
             badge.className   = "grade-badge badge-empty";
             updateRoundingHint(null);
             if (shareBtn) shareBtn.style.display = "none";
-            var hintEl = document.getElementById('formulaHint');
-            if (hintEl) hintEl.textContent = '';
+            const hintEl = document.getElementById("formulaHint");
+            if (hintEl) hintEl.textContent = "";
         }
 
         saveState();
@@ -647,33 +646,58 @@ function calculate() {
     }
 }
 
+// ─── График тренда СО ─────────────────────────────────────────────────────
+
 let trendChart;
 let chartColor = "#58a6ff";
 
-function toggleTrendVisibility(show) {
+function showTrend(visible) {
     const box = document.querySelector(".trend-box");
     if (!box) return;
-    box.classList.toggle("collapsed", !show);
-    if (!show && trendChart) {
+    box.classList.toggle("collapsed", !visible);
+    if (!visible && trendChart) {
         try { trendChart.destroy(); } catch (e) {}
         trendChart = null;
-        const acc = document.getElementById("aiAccuracy");
-        if (acc) acc.textContent = "--%";
+        const acc   = document.getElementById("aiAccuracy");
         const label = document.getElementById("trendLabel");
+        if (acc)   acc.textContent   = "--%";
         if (label) label.textContent = "—";
     }
 }
 
 function updateTrend() {
-    if (so.length < 2) { toggleTrendVisibility(false); return; }
-    toggleTrendVisibility(true);
+    if (so.length < 2) { showTrend(false); return; }
+    showTrend(true);
     try {
-        const data = linearRegression(so);
+        const data = calcTrendLine(so);
         drawTrend(data.scores, data.predictions, data.accuracy);
         if (trendChart?.resize) trendChart.resize();
     } catch (e) {
         console.error("trend error", e);
     }
+}
+
+// линейная регрессия по оценкам СО
+function calcTrendLine(scores) {
+    const n     = scores.length;
+    const x     = Array.from({ length: n }, (_, i) => i + 1);
+    const xMean = x.reduce((a, b) => a + b, 0) / n;
+    const yMean = scores.reduce((a, b) => a + b, 0) / n;
+
+    let num = 0, den = 0;
+    for (let i = 0; i < n; i++) {
+        num += (x[i] - xMean) * (scores[i] - yMean);
+        den += (x[i] - xMean) ** 2;
+    }
+
+    const slope       = den === 0 ? 0 : num / den;
+    const intercept   = yMean - slope * xMean;
+    const predictions = x.map(xi => xi * slope + intercept);
+
+    const rmse     = Math.sqrt(predictions.reduce((s, p, i) => s + (scores[i] - p) ** 2, 0) / n);
+    const accuracy = Math.min(100, Math.max(0, 100 - (rmse / 10) * 100));
+
+    return { scores, predictions, accuracy: Math.round(accuracy * 10) / 10, slope };
 }
 
 function hexToRgba(hex, a) {
@@ -696,9 +720,9 @@ function drawTrend(scores, predictions, accuracy) {
     scores      = scores.slice(0, len).map(v => Math.min(Math.max(Number(v) || 2, 2), 10));
     predictions = predictions.slice(0, len).map(v => Math.min(Math.max(Number(v) || 2, 2), 10));
 
-    const labels = Array.from({ length: len }, (_, i) => "Ур." + (i + 1));
-    const color  = chartColor;
-    const h      = canvas.offsetHeight || 145;
+    const labels    = Array.from({ length: len }, (_, i) => "Ур." + (i + 1));
+    const color     = chartColor;
+    const h         = canvas.offsetHeight || 145;
 
     const scoreGrad = ctx.createLinearGradient(0, 0, 0, h);
     scoreGrad.addColorStop(0,    hexToRgba(color, 0.30));
@@ -747,7 +771,7 @@ function drawTrend(scores, predictions, accuracy) {
             animation: { duration: 550, easing: "easeOutCubic" },
             events: [],
             plugins: {
-                legend: { display: false, labels: { generateLabels: () => [] } },
+                legend:  { display: false, labels: { generateLabels: () => [] } },
                 tooltip: { enabled: false },
             },
             scales: {
@@ -768,6 +792,7 @@ function drawTrend(scores, predictions, accuracy) {
 
     document.getElementById("aiAccuracy").textContent = accuracy + "%";
 
+    // текстовый вывод направления тренда
     const trend = predictions[predictions.length - 1] - predictions[0];
     let trendText;
     if      (trend >  0.6) trendText = "📈 Отличный рост! Продолжай в том же духе";
@@ -778,10 +803,13 @@ function drawTrend(scores, predictions, accuracy) {
     document.getElementById("trendLabel").textContent = trendText;
 }
 
+// ─── FAQ ──────────────────────────────────────────────────────────────────
+
 document.querySelectorAll(".faq-q").forEach(btn => {
     btn.addEventListener("click", function () {
         const item   = this.closest(".faq-item");
         const isOpen = item.classList.contains("open");
+        // закрываем все открытые
         document.querySelectorAll(".faq-item.open").forEach(i => {
             i.classList.remove("open");
             i.querySelector(".faq-q").setAttribute("aria-expanded", "false");
@@ -793,13 +821,7 @@ document.querySelectorAll(".faq-q").forEach(btn => {
     });
 });
 
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js")
-            .then(reg => console.log("SW registered", reg.scope))
-            .catch(err => console.warn("SW registration failed", err));
-    });
-}
+// ─── Офлайн-баннер ───────────────────────────────────────────────────────
 
 (function () {
     const banner = document.getElementById("offlineBanner");
@@ -809,14 +831,27 @@ if ("serviceWorker" in navigator) {
     window.addEventListener("online",  () => banner.style.display = "none");
 })();
 
+// ─── Service Worker ───────────────────────────────────────────────────────
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js")
+            .then(reg => console.log("SW registered", reg.scope))
+            .catch(err => console.warn("SW registration failed", err));
+    });
+}
+
+// ─── Инициализация ────────────────────────────────────────────────────────
+
 (function init() {
     loadState();
     renderSO();
     renderSORS();
+    // небольшая задержка чтобы DOM успел отрисоваться перед первым расчётом
     setTimeout(() => {
         calculate();
         if (so.length >= 2) updateTrend();
-        else toggleTrendVisibility(false);
+        else showTrend(false);
     }, 120);
     document.getElementById("year").textContent = new Date().getFullYear();
 })();

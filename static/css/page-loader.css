@@ -83,7 +83,7 @@
         align-items: center; justify-content: center;
         gap: 3px; padding: 8px 4px 10px;
         text-decoration: none;
-        color: #2a3a4a;
+        color: var(--muted);
         font-size: 10px; font-weight: 500;
         transition: color 0.12s;
         -webkit-tap-highlight-color: transparent;

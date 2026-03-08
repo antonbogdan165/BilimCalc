@@ -16,11 +16,13 @@
     logo.style.cssText = 'display:flex;align-items:center;gap:10px;animation:ld-pop 0.4s cubic-bezier(.34,1.56,.64,1) both';
 
     if (brand.icon) {
+        // BilimExam и другие страницы с кастомной иконкой
         var iconEl = document.createElement('span');
         iconEl.style.cssText = 'font-size:36px;line-height:1';
         iconEl.textContent = brand.icon;
         logo.appendChild(iconEl);
     } else {
+        // логотип BilimCalc (SVG)
         var ns  = 'http://www.w3.org/2000/svg';
         var svg = document.createElementNS(ns, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
@@ -96,10 +98,11 @@
         }
     };
 
+    // скрываем после загрузки страницы
     window.addEventListener('load', function () {
         setTimeout(function () { window.PageLoader.hide(); }, 300);
     });
 
-    // на всякий случай — если load не сработал
+    // страховка — если событие load почему-то не сработало
     setTimeout(function () { window.PageLoader.hide(); }, 2000);
 })();

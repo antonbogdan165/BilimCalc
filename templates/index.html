@@ -4,13 +4,13 @@
     <meta name="robots" content="index, follow">
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.0">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="/static/css/style.css?v=1.6.3">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.0">
     <meta charset="utf-8">
     <title>BilimCalc — калькулятор СО, СОР и СОЧ онлайн</title>
     <meta name="language" content="ru">
@@ -165,7 +165,7 @@
             </div>
 
             <!-- СОР -->
-            <div class="card reveal" style="margin-top:16px">
+            <div class="card reveal" style="margin-top:14px">
                 <div class="section-title">СОР</div>
                 <div class="sor-row">
                     <form id="sorForm">
@@ -181,7 +181,7 @@
             </div>
 
             <!-- СОЧ -->
-            <div class="card reveal" style="margin-top:16px">
+            <div class="card reveal" style="margin-top:14px">
                 <div class="section-title">СОЧ</div>
                 <div class="soch-row">
                     <div class="soch-inputs">
@@ -193,7 +193,7 @@
             </div>
 
             <!-- Сбросить всё -->
-            <div style="margin-top:12px">
+            <div style="margin-top:10px">
                 <button class="btn ghost" id="resetAllBtn" style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.25);">
                     🗑 Сбросить всё
                 </button>
@@ -249,17 +249,17 @@
                     <div class="trend-hint">Добавьте 2+ оценок СО для AI-анализа динамики</div>
 
                     <div class="breakdown">
-                        <div class="break-card">
+                        <div class="break-card" style="border-left:2px solid rgba(88,166,255,0.45)">
                             <span class="break-title">СО</span>
                             <span class="break-value" id="breakSo">—</span>
                             <span class="small" id="breakSoDetails"></span>
                         </div>
-                        <div class="break-card">
+                        <div class="break-card" style="border-left:2px solid rgba(210,153,34,0.45)">
                             <span class="break-title">СОР</span>
                             <span class="break-value" id="breakSors">—</span>
                             <span class="small" id="breakSorsDetails"></span>
                         </div>
-                        <div class="break-card">
+                        <div class="break-card" style="border-left:2px solid rgba(46,160,67,0.45)">
                             <span class="break-title">СОЧ</span>
                             <span class="break-value" id="breakSoch">—</span>
                             <span class="small" id="breakSochDetails"></span>
@@ -271,18 +271,18 @@
     </div>
 
     <!-- Баннер: BilimExam -->
-    <a href="/kalkulator-ekzamena" class="card bilimexam-banner" style="margin-top:16px;display:flex;align-items:center;gap:16px;text-decoration:none;padding:16px 20px;border-color:rgba(167,139,250,0.22);background:rgba(167,139,250,0.07);transition:border-color 0.15s,background 0.15s;" onmouseover="this.style.borderColor='rgba(167,139,250,0.45)';this.style.background='rgba(167,139,250,0.13)'" onmouseout="this.style.borderColor='rgba(167,139,250,0.22)';this.style.background='rgba(167,139,250,0.07)'">
-        <div style="width:46px;height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6d28d9,#a78bfa);border-radius:12px;font-size:22px;box-shadow:0 2px 12px rgba(167,139,250,0.35)">🎓</div>
+    <a href="/kalkulator-ekzamena" class="card bilimexam-banner" style="margin-top:20px;display:flex;align-items:center;gap:14px;text-decoration:none;padding:16px 20px;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.06);">
+        <div style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(167,139,250,0.15);border-radius:10px;font-size:20px">🎓</div>
         <div style="flex:1;min-width:0">
-            <div class="bilimexam-banner__title" style="font-size:15px;font-weight:800;margin-bottom:3px"><span style="color:#a78bfa">Bilim</span><span style="color:#c4b5fd">Exam</span></div>
+            <div class="bilimexam-banner__title" style="font-size:15px;font-weight:800;margin-bottom:2px"><span style="color:#a78bfa">Bilim</span><span style="color:#c4b5fd">Exam</span></div>
             <div style="font-size:13px;color:var(--muted)">9 и 11 класс · Формула 70/30 · Годовая + экзамен</div>
         </div>
-        <div style="color:#a78bfa;font-size:20px;flex-shrink:0">→</div>
+        <div style="color:#a78bfa;font-size:18px;flex-shrink:0;opacity:0.7">→</div>
     </a>
 
-    <div class="card" style="margin-top:16px">
+    <div class="card" style="margin-top:20px">
         <h2>О проекте</h2>
-        <p class="small" style="margin-top:7px">Сервис создан для того, чтобы ученику не приходилось вручную выводить формулы и считать в обычном калькуляторе, а можно было за пару секунд узнать, какую оценку или процент нужно получить, чтобы выйти на желаемый итог по предмету.</p>
+        <p class="small" style="margin-top:8px">Сервис создан для того, чтобы ученику не приходилось вручную выводить формулы и считать в обычном калькуляторе, а можно было за пару секунд узнать, какую оценку или процент нужно получить, чтобы выйти на желаемый итог по предмету.</p>
         <p class="small" style="margin-top:7px">BilimCalc подходит для учеников 5–11 классов, а также для родителей и учителей, которые хотят наглядно оценить текущую успеваемость. Сайт работает бесплатно, без регистрации и доступен с любого устройства.</p>
         <p class="small" style="margin-top:7px">Проект открытый и учебный. Исходный код доступен на GitHub.</p>
     </div>
@@ -330,70 +330,85 @@
 
     <div class="card" style="margin-top:20px">
         <h2>Полезные статьи</h2>
-        <p class="small" style="margin-bottom:16px">Подробные руководства по системе оценивания в школах Казахстана</p>
+        <p class="small" style="margin-bottom:14px">Подробные руководства по системе оценивания в школах Казахстана</p>
         <div class="articles-grid">
-            <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article-card">
-                <div class="article-card__icon" style="background:rgba(167,139,250,0.10);color:#a78bfa;border-color:rgba(167,139,250,0.25)">70/30</div>
+
+            <!-- 70/30 — выделенная карточка, чуть крупнее -->
+            <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article-card" style="grid-column:1/-1;padding:16px 20px;background:rgba(167,139,250,0.05);border-color:rgba(167,139,250,0.18)">
+                <div class="article-card__icon" style="width:50px;height:50px;border-radius:10px;background:rgba(167,139,250,0.12);color:#a78bfa;border-color:rgba(167,139,250,0.3);font-size:12px">70/30</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Итоговая оценка за год: формула 70/30</div>
                     <div class="article-card__desc">Как рассчитывается с учётом экзамена — разбор по шагам</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
+
+            <!-- СО — иконка без заливки, только обводка -->
             <a href="/kak-rasschitat-so" class="article-card">
-                <div class="article-card__icon">СО</div>
+                <div class="article-card__icon" style="background:none;border:1px solid rgba(88,166,255,0.35);color:var(--accent)">СО</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Как рассчитать СО</div>
                     <div class="article-card__desc">Формула, пример расчёта и советы по повышению среднего балла</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
+
+            <!-- СОР — немного другой border-radius -->
             <a href="/kak-rasschitat-sor" class="article-card">
-                <div class="article-card__icon" style="background:rgba(210,153,34,0.12);color:var(--warning);border-color:rgba(210,153,34,0.25)">СОР</div>
+                <div class="article-card__icon" style="background:rgba(210,153,34,0.10);color:var(--warning);border-color:rgba(210,153,34,0.25);border-radius:8px">СОР</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Как рассчитать СОР</div>
                     <div class="article-card__desc">Суммативное оценивание за раздел: формула и пример</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
+
+            <!-- СОЧ — чуть меньшая иконка -->
             <a href="/kak-rasschitat-soch" class="article-card">
-                <div class="article-card__icon" style="background:rgba(46,160,67,0.10);color:var(--success);border-color:rgba(46,160,67,0.25)">СОЧ</div>
+                <div class="article-card__icon" style="width:42px;height:42px;background:rgba(46,160,67,0.10);color:var(--success);border-color:rgba(46,160,67,0.25)">СОЧ</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Как рассчитать СОЧ</div>
                     <div class="article-card__desc">Итоговая работа: формула, вес и как повлиять на результат</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
+
+            <!-- ИО — без фона, только левый бордер цветом -->
             <a href="/itogovaya-ocenka-za-chetvert" class="article-card">
-                <div class="article-card__icon" style="background:rgba(218,54,51,0.10);color:var(--danger);border-color:rgba(218,54,51,0.25)">ИО</div>
+                <div class="article-card__icon" style="background:none;border:none;color:var(--danger);font-size:13px;font-weight:900;letter-spacing:0">ИО</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Итоговая оценка за четверть</div>
                     <div class="article-card__desc">Как рассчитывается и от чего зависит итог</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
+
+            <!-- МОН — мелкий текст, другой border-radius -->
             <a href="/metodika-rascheta-mon-rk" class="article-card">
-                <div class="article-card__icon" style="background:rgba(88,166,255,0.10);color:var(--accent);border-color:rgba(88,166,255,0.25)">МОН</div>
+                <div class="article-card__icon" style="background:rgba(88,166,255,0.07);color:var(--accent);border-color:rgba(88,166,255,0.2);border-radius:6px;font-size:10px;letter-spacing:0">МОН</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Методика расчёта МОН РК</div>
                     <div class="article-card__desc">Официальные правила оценивания в казахстанских школах</div>
                 </div>
                 <span class="article-card__arrow">→</span>
             </a>
+
+            <!-- %→5 — иконка вообще без рамки, просто цветной текст -->
             <a href="/kak-perevesti-procenty-v-otsenku" class="article-card">
-                <div class="article-card__icon">%→5</div>
+                <div class="article-card__icon" style="background:none;border:none;color:var(--muted);font-size:11px;font-weight:900">%→5</div>
                 <div class="article-card__body">
                     <div class="article-card__title">Как перевести проценты в оценку</div>
                     <div class="article-card__desc">Таблица 85%=5, 65%=4 + пример округления 84.5%→5</div>
                 </div>
                 <span class="article-card__arrow">›</span>
             </a>
+
         </div>
     </div>
 
     <footer>
         <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank">GitHub</a></div>
-        <div style="margin-top:5px;opacity:.6">© <span id="year"></span> BilimCalc · v1.6.3</div>
+        <div style="margin-top:5px;opacity:.6">© <span id="year"></span> BilimCalc · v1.7.0</div>
     </footer>
 </div>
 
@@ -416,7 +431,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
     integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF"
     crossorigin="anonymous"></script>
-<script src="/static/js/main.js?v=1.6.3"></script>
+<script src="/static/js/main.js?v=1.7.0"></script>
 
 <script>
 (function() {
@@ -453,6 +468,6 @@
     });
 })()
 </script>
-<script src="/static/js/pwa-install.js?v=1.6.3"></script>
+<script src="/static/js/pwa-install.js?v=1.7.0"></script>
 </body>
 </html>
