@@ -1,29 +1,29 @@
 (function () {
-    const KEY = 'bilimcalc_theme';
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const saved = localStorage.getItem(KEY);
-    const theme = saved || (prefersDark ? 'dark' : 'light');
+    var KEY = 'bilimcalc_theme';
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var saved = localStorage.getItem(KEY);
+    var theme = saved || (prefersDark ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
 
     window.ThemeToggle = {
-        get() {
+        get: function () {
             return document.documentElement.getAttribute('data-theme') || 'dark';
         },
-        set(t) {
+        set: function (t) {
             document.documentElement.setAttribute('data-theme', t);
             localStorage.setItem(KEY, t);
             this._updateBtn();
         },
-        toggle() {
+        toggle: function () {
             this.set(this.get() === 'dark' ? 'light' : 'dark');
         },
-        _updateBtn() {
-            const t = this.get();
-            const icon = document.getElementById('themeIcon');
-            const btn  = document.getElementById('themeBtn');
+        _updateBtn: function () {
+            var t    = this.get();
+            var icon = document.getElementById('themeIcon');
+            var btn  = document.getElementById('themeBtn');
             if (icon) icon.textContent = t === 'dark' ? '☀️' : '🌙';
             if (btn)  btn.title = t === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему';
         },
-        init() { this._updateBtn(); }
+        init: function () { this._updateBtn(); }
     };
 })();

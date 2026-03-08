@@ -1,6 +1,5 @@
 const CACHE_NAME = "bilimcalc-__BUILD_TIME__";
 
-// Кэшируем базовые URL без query-параметров — SW перехватывает их по pathname
 const STATIC_ASSETS = [
     "/",
     "/kak-rasschitat-so",
@@ -8,22 +7,22 @@ const STATIC_ASSETS = [
     "/kak-rasschitat-soch",
     "/itogovaya-ocenka-za-chetvert",
     "/metodika-rascheta-mon-rk",
-    "/kalkulator-ekzamena",                          
-    "/kak-rasschitat-itogovuyu-otsenku-za-god",      
-    "/kak-perevesti-procenty-v-otsenku",             
+    "/kalkulator-ekzamena",
+    "/kak-rasschitat-itogovuyu-otsenku-za-god",
+    "/kak-perevesti-procenty-v-otsenku",
 
     "/static/css/style.css",
     "/static/css/article.css",
     "/static/css/page-loader.css",
     "/static/css/pwa-banner.css",
-    "/static/css/bilimexam.css",              
+    "/static/css/bilimexam.css",
 
     "/static/js/main.js",
     "/static/js/theme.js",
     "/static/js/page-loader.js",
     "/static/js/pwa-install.js",
-    "/static/js/bilimexam.js",               
-    "/static/js/chart.min.js",               
+    "/static/js/bilimexam.js",
+    "/static/js/chart.min.js",
 
     "/site.webmanifest",
     "/static/icons/favicon-32x32.png",
@@ -32,14 +31,13 @@ const STATIC_ASSETS = [
     "/static/icons/apple-touch-icon.png",
 ];
 
-/* ── Install: кэшируем всё статичное ── */
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache =>
             Promise.allSettled(
                 STATIC_ASSETS.map(url =>
                     cache.add(url).catch(err =>
-                        console.warn("[SW] Не удалось закэшировать:", url, err)
+                        console.warn("[SW] не удалось закэшировать:", url, err)
                     )
                 )
             )
@@ -47,13 +45,12 @@ self.addEventListener("install", event => {
     );
 });
 
-/* ── Activate: удаляем старые кэши ── */
 self.addEventListener("activate", event => {
     event.waitUntil(
         caches.keys().then(keys =>
             Promise.all(
                 keys.filter(k => k !== CACHE_NAME).map(k => {
-                    console.log("[SW] Удаляем старый кэш:", k);
+                    console.log("[SW] удаляем старый кэш:", k);
                     return caches.delete(k);
                 })
             )
@@ -61,18 +58,16 @@ self.addEventListener("activate", event => {
     );
 });
 
-/* ── Fetch ── */
 self.addEventListener("fetch", event => {
     const url = new URL(event.request.url);
 
-    // 1. API /calculate — Network-first, офлайн-заглушка
+    // /calculate — сначала сеть, при офлайне отдаём последний кэшированный ответ
     if (url.pathname === "/calculate") {
         event.respondWith(
             fetch(event.request.clone()).then(response => {
                 if (response.ok) {
-                    const clone = response.clone();
                     caches.open(CACHE_NAME).then(cache =>
-                        cache.put("/calculate-last", clone)
+                        cache.put("/calculate-last", response.clone())
                     );
                 }
                 return response;
@@ -91,7 +86,7 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // 2. Статика — ищем в кэше по pathname (без ?v=...)
+    // статика — ищем по pathname без query-параметров
     if (url.pathname.startsWith("/static/") || STATIC_ASSETS.includes(url.pathname)) {
         event.respondWith(
             caches.match(url.pathname).then(cached => {
@@ -109,7 +104,7 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // 3. HTML-страницы — Network-first, fallback на кэш
+    // навигация — сначала сеть, fallback на кэш
     if (event.request.mode === "navigate") {
         event.respondWith(
             fetch(event.request).catch(() =>

@@ -9,7 +9,6 @@
     --ea-border: rgba(124,58,237,0.18);
 }
 
-/* ── Splash ── */
 #examSplash {
     position: fixed; inset: 0; z-index: 10000;
     display: flex; flex-direction: column;
@@ -47,7 +46,6 @@
     animation: splash-fill 1.4s 0.1s cubic-bezier(.2,.9,.25,1) forwards;
 }
 
-/* ── Топбар ── */
 #examTopbar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -71,8 +69,11 @@
     background: linear-gradient(135deg, #6d28d9, #a78bfa);
     border-radius: 8px; font-size: 14px;
 }
-.exam-logo__name { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
-.exam-logo__name span { color: #a78bfa; }
+.exam-logo__name {
+    font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.3px;
+    display: flex; align-items: baseline; line-height: 1;
+}
+.exam-logo__name span { color: #a78bfa; font-weight: 800; line-height: inherit; }
 [data-theme="light"] .exam-logo__name { color: #0f172a; }
 [data-theme="light"] .exam-logo__name span { color: #7c3aed; }
 
@@ -101,7 +102,6 @@
 
 @media (max-width: 700px) { .topbar-app-btn__name { display: none; } }
 
-/* ── Site title ── */
 .exam-site-title {
     display: flex; flex-direction: column;
     align-items: center; gap: 8px;
@@ -118,8 +118,9 @@
 .exam-site-title__name {
     font-size: clamp(1.6rem, 5vw, 2.2rem);
     font-weight: 800; color: #fff; letter-spacing: -0.03em;
+    display: flex; align-items: baseline; line-height: 1;
 }
-.exam-site-title__name span { color: #a78bfa; }
+.exam-site-title__name span { color: #a78bfa; font-weight: 800; line-height: inherit; }
 [data-theme="light"] .exam-site-title__name { color: #0f172a; }
 [data-theme="light"] .exam-site-title__name span { color: #7c3aed; }
 .exam-site-title__sub {
@@ -127,7 +128,6 @@
     color: var(--muted); font-weight: 500;
 }
 
-/* ══ GRADE PICKER ══ */
 .quarters-label {
     font-size: 11px; font-weight: 700; color: var(--muted);
     text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
@@ -154,7 +154,6 @@
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     position: relative; overflow: hidden;
-    /* Увеличенная область тапа */
     user-select: none;
     -webkit-user-select: none;
 }
@@ -177,7 +176,6 @@
 [data-theme="light"] .grade-btn.active-4 { border-color: rgba(37,99,235,0.45);  background: rgba(37,99,235,0.07);  color: #2563eb; }
 [data-theme="light"] .grade-btn.active-5 { border-color: rgba(22,163,74,0.45);  background: rgba(22,163,74,0.07);  color: #16a34a; }
 
-/* Разделитель */
 .exam-divider {
     display: flex; align-items: center; gap: 10px;
     margin: 16px 0 14px;
@@ -189,7 +187,6 @@
 }
 [data-theme="light"] .exam-divider__line { background: rgba(0,0,0,0.07); }
 
-/* ── Большой результат ── */
 .exam-result-grade {
     text-align: center;
     font-size: 108px; font-weight: 900;
@@ -203,7 +200,6 @@
 .eg-4    { color: var(--accent);  text-shadow: 0 0 32px rgba(88,166,255,0.45); }
 .eg-5    { color: #22c55e; text-shadow: 0 0 28px rgba(22,197,94,0.6), 0 0 56px rgba(22,101,52,0.35); }
 
-/* ── Info rows ── */
 .info-row {
     display: flex; align-items: center; justify-content: space-between;
     padding: 8px 12px;
@@ -216,7 +212,6 @@
 [data-theme="light"] .info-row { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.06); }
 [data-theme="light"] .info-row__val { color: #0f172a; }
 
-/* ── Need-box ── */
 .need-box {
     margin-top: 10px; padding: 12px;
     background: var(--ea-dim);
@@ -252,7 +247,6 @@
     opacity: 0.8; min-height: 16px; line-height: 1.5;
 }
 
-/* ── Article teaser ── */
 .art-teaser {
     display: flex; align-items: center; gap: 12px;
     padding: 11px 14px; margin-top: 10px;
@@ -275,7 +269,6 @@
 [data-theme="light"] .art-teaser__title { color: #0f172a; }
 .art-teaser__arrow { color: var(--muted); font-size: 15px; }
 
-/* ══ МОБИЛЬНЫЙ РЕЗУЛЬТАТ ВВЕРХУ ══ */
 @media (max-width: 900px) {
     .grid { display: flex !important; flex-direction: column; gap: 14px; }
     .exam-result-col { order: -1; }
@@ -286,10 +279,8 @@
 @media (max-width: 600px) {
     .exam-result-grade { font-size: 76px; letter-spacing: -2px; }
     .eg-dash { font-size: 48px; }
-
     .grade-btn { font-size: 18px; min-height: 52px; padding: 12px 4px; border-radius: 10px; }
     .quarter-grid { gap: 10px; }
-
     .need-item__grade { font-size: 24px; }
     .info-row__label { font-size: 11px; }
     .formula-hint { font-size: 10px; }
@@ -306,34 +297,7 @@
     .quarter-grid { gap: 6px; }
 }
 
-/* ══════════════════════════════════════════════
-   ФИКС v1.6.2 — выравнивание логотипа BilimExam
-   ══════════════════════════════════════════════ */
-
-/* Топбар: одинаковый font-weight для обеих частей */
-.exam-logo__name {
-    display: flex;
-    align-items: baseline;
-    line-height: 1;
-    letter-spacing: -0.3px;
-}
-.exam-logo__name span {
-    font-weight: 800;
-    line-height: inherit;
-}
-
-/* Заголовок страницы */
-.exam-site-title__name {
-    display: flex;
-    align-items: baseline;
-    line-height: 1;
-}
-.exam-site-title__name span {
-    font-weight: 800;
-    line-height: inherit;
-}
-
-/* Splash */
+/* splash */
 #examSplash .sp-name {
     display: flex;
     align-items: baseline;

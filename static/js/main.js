@@ -1,9 +1,7 @@
-/* ---------- state ---------- */
 let so = [];
 let sors = [];
 const LOCAL_KEY = "grade_calculator_v1";
 
-/* ---------- helpers ---------- */
 function makeListItem(text, onDelete) {
     const el = document.createElement("div");
     el.className = "list-item";
@@ -18,20 +16,6 @@ function makeListItem(text, onDelete) {
     return el;
 }
 
-/* ---------- empty state helpers ---------- */
-function updateEmptyState(listId, emptyId, items) {
-    const list  = document.getElementById(listId);
-    const empty = document.getElementById(emptyId);
-    if (!list || !empty) return;
-    if (items.length === 0) {
-        if (!document.getElementById(emptyId)) list.appendChild(empty);
-        empty.style.display = "block";
-    } else {
-        empty.style.display = "none";
-    }
-}
-
-/* ---------- renderers ---------- */
 function renderSO() {
     const container = document.getElementById("soList");
     const empty     = document.getElementById("soEmpty");
@@ -82,7 +66,6 @@ function renderSORS() {
     if (empty) empty.style.display = sors.length ? "none" : "block";
 }
 
-/* ---------- persistence ---------- */
 function saveState() {
     const sochDialed = document.getElementById("sochDialed").value;
     const sochMax    = document.getElementById("sochMax").value;
@@ -112,7 +95,6 @@ function loadState() {
     }
 }
 
-/* ---------- input validation ---------- */
 function showInputError(anchorEl, message) {
     const card = anchorEl.closest(".card");
     if (!card) return;
@@ -179,7 +161,6 @@ function validateSoch() {
     return true;
 }
 
-/* ---------- event listeners ---------- */
 document.getElementById("addForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const raw = soInput.value.trim();
@@ -256,7 +237,6 @@ document.getElementById("clearSochBtn").addEventListener("click", () => {
     calculate();
 });
 
-/* ---------- Reset All ---------- */
 document.getElementById("resetAllBtn").addEventListener("click", () => {
     if (!so.length && !sors.length &&
         !document.getElementById("sochDialed").value &&
@@ -275,9 +255,7 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
     calculate();
 });
 
-/* ══════════════════════════════════════════════
-   SHARE — v1.6.1
-   ══════════════════════════════════════════════ */
+// кнопка «поделиться»
 (function setupShare() {
     const shareBtn = document.getElementById("shareBtn");
     if (!shareBtn) return;
@@ -421,7 +399,6 @@ const debouncedCalculate = debounce(calculate, 250);
 document.getElementById("sochDialed").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
 document.getElementById("sochMax").addEventListener("input",    () => { validateSoch(); saveState(); debouncedCalculate(); });
 
-/* ---------- digits-only input ---------- */
 function makeDigitsOnly(input, maxLen, maxVal, onFull) {
     input.addEventListener("keydown", function (e) {
         const allowed = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter","Home","End"];
@@ -462,34 +439,12 @@ sochMaxInput.addEventListener("keydown", function (e) {
     }
 });
 
-/* ---------- utilities ---------- */
 function debounce(fn, ms = 250) {
     let t;
     return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
 }
 
-function animatePercentage(element, start, end, duration = 500) {
-    const startTime  = performance.now();
-    const difference = end - start;
-    const isWhole    = Number.isInteger(end);
-    function update(now) {
-        const progress = Math.min((now - startTime) / duration, 1);
-        const eased    = 1 - Math.pow(1 - progress, 3);
-        const val      = start + difference * eased;
-        element.innerText = (isWhole ? Math.round(val) : val.toFixed(2)) + "%";
-        if (progress < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-}
-
-/* ═══════════════════════════════════════════════════════
-   ПОДСКАЗКА ТОЧНОГО ЗНАЧЕНИЯ
-   Всегда показывает точное число под итогом:
-     38.41%  → «= 38.41%»  (нет округления)
-     60.00%  → «= 60.00%»  (ровно целое, округления нет)
-     84.50%  → «84.50% → 85%»  (округлено вверх)
-     37.92%  → «37.92% → 38%»  (округлено вверх)
-   ═══════════════════════════════════════════════════════ */
+// показывает точное значение под итогом: 38.41% → «= 38.41%», 84.50% → «84.50% → 85%»
 function updateRoundingHint(value) {
     let hint = document.getElementById("roundingHint");
     if (!hint) {
@@ -506,17 +461,11 @@ function updateRoundingHint(value) {
 
     const frac = value - Math.floor(value);
     if (frac >= 0.5) {
-        // Округление вверх — показываем стрелку
         hint.textContent = value.toFixed(2) + "% → " + Math.ceil(value) + "%";
     } else {
-        // Нет округления — показываем точное значение
         hint.textContent = "= " + value.toFixed(2) + "%";
     }
 }
-
-/* ═══════════════════════════════════════════════════════
-   ЛОГИКА РАСЧЁТА (офлайн)
-   ═══════════════════════════════════════════════════════ */
 
 function calculateParts(so, sors, soch) {
     let total_so = null;
@@ -557,10 +506,6 @@ function calculateFinal(total_so, total_sor, total_soch) {
     return null;
 }
 
-/* ═══════════════════════════════════════════════════════
-   ML АНАЛИЗ (офлайн)
-   ═══════════════════════════════════════════════════════ */
-
 function linearRegression(scores) {
     const n = scores.length;
     const x = Array.from({ length: n }, (_, i) => i + 1);
@@ -575,8 +520,8 @@ function linearRegression(scores) {
         den += (x[i] - xMean) ** 2;
     }
 
-    const slope     = den === 0 ? 0 : num / den;
-    const intercept = yMean - slope * xMean;
+    const slope       = den === 0 ? 0 : num / den;
+    const intercept   = yMean - slope * xMean;
     const predictions = x.map(xi => xi * slope + intercept);
 
     const rmse = Math.sqrt(
@@ -587,7 +532,6 @@ function linearRegression(scores) {
     return { scores, predictions, accuracy: Math.round(accuracy * 10) / 10, slope };
 }
 
-/* ---------- calculate ---------- */
 let pending      = false;
 let pendingAgain = false;
 
@@ -604,7 +548,6 @@ function calculate() {
             : null;
 
         const { total_so, total_sor, total_soch } = calculateParts(so, sors, soch);
-        // Сырой результат — точное число (38.41, 84.5 и т.д.), отображаем как есть
         const final_result = calculateFinal(total_so, total_sor, total_soch);
 
         const finalEl  = document.getElementById("finalResult");
@@ -622,12 +565,23 @@ function calculate() {
         finalEl.classList.remove("result-danger", "result-warning", "result-good", "result-excellent");
 
         if (final_result !== null) {
-            const pct  = Number(final_result);
-            const display = pct;
+            const pct        = Number(final_result);
             const gradeCheck = Math.round(pct);
 
-            animatePercentage(finalEl, parseFloat(finalEl.innerText) || 0, display);
-            fill.style.width = Math.min(Math.max(display, 0), 100) + "%";
+            // анимируем число
+            const startVal = parseFloat(finalEl.innerText) || 0;
+            const endVal   = pct;
+            const isWhole  = Number.isInteger(endVal);
+            const t0       = performance.now();
+            (function tick(now) {
+                const progress = Math.min((now - t0) / 500, 1);
+                const eased    = 1 - Math.pow(1 - progress, 3);
+                const cur      = startVal + (endVal - startVal) * eased;
+                finalEl.innerText = (isWhole ? Math.round(cur) : cur.toFixed(2)) + "%";
+                if (progress < 1) requestAnimationFrame(tick);
+            })(t0);
+
+            fill.style.width = Math.min(Math.max(pct, 0), 100) + "%";
 
             if (gradeCheck < 40) {
                 finalEl.classList.add("result-danger");
@@ -655,19 +609,14 @@ function calculate() {
                 badge.className   = "grade-badge badge-excellent";
             }
 
-            // Подсказка: показываем точное дробное значение и округление если оно есть
             updateRoundingHint(pct);
 
-            // Формула-подсказка СО + СОР + СОЧ
             var hintEl = document.getElementById('formulaHint');
             if (hintEl) {
-                var so_v  = total_so   !== null ? total_so.toFixed(2)   : null;
-                var sor_v = total_sor  !== null ? total_sor.toFixed(2)  : null;
-                var soch_v= total_soch !== null ? total_soch.toFixed(2) : null;
                 var parts = [];
-                if (so_v  !== null) parts.push('СО: '  + so_v);
-                if (sor_v !== null) parts.push('СОР: ' + sor_v);
-                if (soch_v!== null) parts.push('СОЧ: ' + soch_v);
+                if (total_so   !== null) parts.push('СО: '  + total_so.toFixed(2));
+                if (total_sor  !== null) parts.push('СОР: ' + total_sor.toFixed(2));
+                if (total_soch !== null) parts.push('СОЧ: ' + total_soch.toFixed(2));
                 if (parts.length > 0) {
                     var rawSum = (total_so || 0) + (total_sor || 0) + (total_soch || 0);
                     hintEl.textContent = parts.join(' + ') + ' = ' + rawSum.toFixed(2) + '%';
@@ -698,7 +647,6 @@ function calculate() {
     }
 }
 
-/* ---------- trend chart ---------- */
 let trendChart;
 let chartColor = "#58a6ff";
 
@@ -821,16 +769,15 @@ function drawTrend(scores, predictions, accuracy) {
     document.getElementById("aiAccuracy").textContent = accuracy + "%";
 
     const trend = predictions[predictions.length - 1] - predictions[0];
-    let text;
-    if      (trend >  0.6) text = "📈 Отличный рост! Продолжай в том же духе";
-    else if (trend >  0.2) text = "📈 Небольшой рост";
-    else if (trend < -0.6) text = "📉 Оценки снижаются — стоит уделить внимание";
-    else if (trend < -0.2) text = "📉 Лёгкое снижение";
-    else                   text = "📊 Стабильная динамика";
-    document.getElementById("trendLabel").textContent = text;
+    let trendText;
+    if      (trend >  0.6) trendText = "📈 Отличный рост! Продолжай в том же духе";
+    else if (trend >  0.2) trendText = "📈 Небольшой рост";
+    else if (trend < -0.6) trendText = "📉 Оценки снижаются — стоит уделить внимание";
+    else if (trend < -0.2) trendText = "📉 Лёгкое снижение";
+    else                   trendText = "📊 Стабильная динамика";
+    document.getElementById("trendLabel").textContent = trendText;
 }
 
-/* ---------- FAQ accordion ---------- */
 document.querySelectorAll(".faq-q").forEach(btn => {
     btn.addEventListener("click", function () {
         const item   = this.closest(".faq-item");
@@ -846,7 +793,6 @@ document.querySelectorAll(".faq-q").forEach(btn => {
     });
 });
 
-/* ---------- service worker ---------- */
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker.register("/sw.js")
@@ -855,18 +801,14 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-/* ---------- offline banner ---------- */
 (function () {
     const banner = document.getElementById("offlineBanner");
     if (!banner) return;
-    const show = () => banner.style.display = "block";
-    const hide = () => banner.style.display = "none";
-    if (!navigator.onLine) show();
-    window.addEventListener("offline", show);
-    window.addEventListener("online",  hide);
+    if (!navigator.onLine) banner.style.display = "block";
+    window.addEventListener("offline", () => banner.style.display = "block");
+    window.addEventListener("online",  () => banner.style.display = "none");
 })();
 
-/* ---------- init ---------- */
 (function init() {
     loadState();
     renderSO();

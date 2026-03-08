@@ -1,20 +1,16 @@
 (function () {
     'use strict';
 
-    /* ── Инициализация темы и UI ── */
     ThemeToggle.init();
 
     var yearEl = document.getElementById('yearExam');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    /* ── Splash / Loader ── */
-    // page-loader.js показывает BilimExam-брендованный оверлей (window.__BRAND__)
-    // и скрывает его сам. Дополнительно скрываем старый #examSplash если он есть.
+    // скрываем старый splash если вдруг есть, и запускаем page-loader
     var splash = document.getElementById('examSplash');
     if (splash) setTimeout(function () { splash.classList.add('hidden'); }, 800);
     if (window.PageLoader) window.PageLoader.hide();
 
-    /* ── Offline banner ── */
     var ob = document.getElementById('offlineBanner');
     if (ob) {
         if (!navigator.onLine) ob.style.display = 'block';
@@ -22,12 +18,15 @@
         window.addEventListener('online',  function () { ob.style.display = 'none'; });
     }
 
-    /* ── Reveal анимация ── */
+    // анимация появления карточек
     var revItems = document.querySelectorAll('.reveal');
     if (revItems.length) {
         var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {
-                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target);
+                }
             });
         }, { threshold: 0.08 });
         revItems.forEach(function (el, i) {
@@ -36,7 +35,7 @@
         });
     }
 
-    /* ── Ripple эффект ── */
+    // ripple на кнопках
     document.addEventListener('click', function (e) {
         var t = e.target.closest('.mobile-nav__item, .btn, .grade-btn');
         if (!t) return;
@@ -51,11 +50,9 @@
         rip.addEventListener('animationend', function () { rip.remove(); });
     });
 
-    /* ══ ЛОГИКА КАЛЬКУЛЯТОРА ══ */
     var SAVE_KEY = 'bilimexam_v2';
     var state = { q1: null, q2: null, q3: null, q4: null, exam: null };
 
-    /* Активация кнопки в пикере */
     function setPickerActive(picker, val) {
         if (!picker) return;
         picker.querySelectorAll('.grade-btn').forEach(function (b) {
@@ -67,13 +64,11 @@
         }
     }
 
-    /* Навешиваем обработчики на все пикеры */
     document.querySelectorAll('.grade-picker').forEach(function (picker) {
         var qKey = picker.dataset.q;
         picker.querySelectorAll('.grade-btn').forEach(function (btn) {
             btn.addEventListener('click', function () {
                 var val = parseInt(btn.dataset.val, 10);
-                /* Toggle: если уже выбрана та же оценка — снимаем */
                 state[qKey] = (state[qKey] === val) ? null : val;
                 setPickerActive(picker, state[qKey]);
                 saveState();
@@ -82,15 +77,13 @@
         });
     });
 
-    /* Информация об оценке */
     function gradeInfo(g) {
-        if (g === 5) return { label: 'Отлично 🎉', badgeCls: 'badge-excellent', resCls: 'eg-5', fill: '#166534' };
-        if (g === 4) return { label: 'Хорошо',     badgeCls: 'badge-good',      resCls: 'eg-4', fill: 'var(--accent)' };
-        if (g === 3) return { label: 'Удовлетворительно', badgeCls: 'badge-warning', resCls: 'eg-3', fill: 'var(--warning)' };
-        return               { label: 'Неудовлетворительно', badgeCls: 'badge-danger', resCls: 'eg-2', fill: 'var(--danger)' };
+        if (g === 5) return { label: 'Отлично 🎉',          badgeCls: 'badge-excellent', resCls: 'eg-5', fill: '#166534' };
+        if (g === 4) return { label: 'Хорошо',              badgeCls: 'badge-good',      resCls: 'eg-4', fill: 'var(--accent)' };
+        if (g === 3) return { label: 'Удовлетворительно',   badgeCls: 'badge-warning',   resCls: 'eg-3', fill: 'var(--warning)' };
+        return               { label: 'Неудовлетворительно',badgeCls: 'badge-danger',    resCls: 'eg-2', fill: 'var(--danger)' };
     }
 
-    /* Рендер "нужной оценки" */
     function renderNeed(elId, annual, threshold, cls) {
         var el = document.getElementById(elId);
         if (!el) return;
@@ -107,7 +100,6 @@
         }
     }
 
-    /* Основной расчёт */
     function calculate() {
         var qs = [state.q1, state.q2, state.q3, state.q4].filter(function (v) { return v !== null; });
 
@@ -143,9 +135,7 @@
         var annual = qs.reduce(function (a, b) { return a + b; }, 0) / qs.length;
         var hasExam = state.exam !== null;
         var raw = hasExam ? (annual * 0.7 + state.exam * 0.3) : annual;
-        var finalG = Math.round(raw);
-        /* Ограничиваем диапазон 2-5 */
-        finalG = Math.max(2, Math.min(5, finalG));
+        var finalG = Math.max(2, Math.min(5, Math.round(raw)));
         var info = gradeInfo(finalG);
 
         resultEl.textContent = finalG;
@@ -181,7 +171,6 @@
         }
     }
 
-    /* Сброс */
     var resetBtn = document.getElementById('examResetBtn');
     if (resetBtn) {
         resetBtn.addEventListener('click', function () {
@@ -194,12 +183,10 @@
         });
     }
 
-    /* Сохранение */
     function saveState() {
         try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (ex) {}
     }
 
-    /* Загрузка */
     function loadState() {
         try {
             var raw = localStorage.getItem(SAVE_KEY);
@@ -221,11 +208,9 @@
         } catch (ex) {}
     }
 
-    /* ── Старт ── */
     loadState();
     calculate();
 
-    /* ── Service Worker (офлайн) ── */
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
             navigator.serviceWorker.register('/sw.js')
