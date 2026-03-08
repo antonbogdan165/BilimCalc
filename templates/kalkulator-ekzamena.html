@@ -7,18 +7,15 @@
     <meta name="language" content="ru">
     <meta http-equiv="content-language" content="ru">
 
-    <!-- Тема — первой, до рендера -->
     <script>window.__BRAND__ = { name: 'BilimExam', icon: '🎓' };</script>
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
 
-    <!-- SEO -->
     <title>BilimExam — калькулятор итоговой оценки за год, 9 и 11 класс | Формула 70/30 МОН РК</title>
     <meta name="description" content="Рассчитайте итоговую оценку за год по формуле МОН РК: годовая × 70% + экзамен × 30%. Введите оценки за 4 четверти и экзамен — калькулятор покажет итог и нужный балл для «4» и «5». Бесплатно, 9 и 11 класс Казахстан.">
     <meta name="keywords" content="итоговая оценка за год казахстан, калькулятор 70 30, формула МОН РК, 9 класс итоговая оценка, 11 класс экзамен, BilimExam, годовая оценка калькулятор">
     <link rel="canonical" href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
 
-    <!-- Open Graph -->
     <meta property="og:title"       content="BilimExam — итоговая оценка за год (9 и 11 класс Казахстан)">
     <meta property="og:description" content="Калькулятор годовой оценки по формуле 70/30. Введи оценки за четверти и экзамен — получи итог мгновенно. МОН РК.">
     <meta property="og:type"        content="website">
@@ -31,7 +28,6 @@
     <meta name="twitter:card"       content="summary_large_image">
     <meta name="twitter:image"      content="https://bilimcalc.vercel.app/static/icons/preview.png">
 
-    <!-- PWA -->
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
@@ -40,13 +36,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/static/css/style.css?v=1.6.2">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.2">
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.2">
-    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.6.2">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.6.3">
+    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.6.3">
 
-    <!-- Schema.org — WebApplication -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -96,7 +90,6 @@
     }
     </script>
 
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7S9C0KT928"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -117,13 +110,11 @@
 
 <!-- ТОПБАР -->
 <div id="topbar">
-    <!-- LEFT: BilimExam Logo -->
     <a href="/kalkulator-ekzamena" class="topbar-logo topbar-logo--exam" title="BilimExam">
         <span style="font-size:20px;line-height:1">🎓</span>
         <span class="topbar-logo__name">Bilim<span>Exam</span></span>
     </a>
 
-    <!-- CENTER: Official link + Articles -->
     <div class="topbar-center">
         <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267"
            target="_blank" rel="noopener noreferrer" class="topbar-official-link">
@@ -145,7 +136,6 @@
         </a>
     </div>
 
-    <!-- RIGHT: BilimCalc + Theme -->
     <div class="topbar-right">
         <a href="/" class="topbar-calc-btn" title="BilimCalc — калькулятор четверти">
             <span class="topbar-calc-btn__icon">
@@ -164,14 +154,12 @@
     </div>
 </div>
 
-
 <div id="offlineBanner" class="offline-banner" style="display:none">
     ⚠️ Нет подключения к интернету — калькулятор работает офлайн
 </div>
 
 <div class="container" style="padding-top: 72px">
 
-    <!-- Заголовок -->
     <div class="exam-site-title">
         <div class="exam-site-title__logo">
             <div class="exam-site-title__bigicon">🎓</div>
@@ -228,14 +216,12 @@
                     Можно выбрать только прошедшие четверти — среднее считается по ним
                 </p>
 
-                <!-- Разделитель -->
                 <div class="exam-divider">
                     <div class="exam-divider__line"></div>
                     <div class="exam-divider__label">Экзамен</div>
                     <div class="exam-divider__line"></div>
                 </div>
 
-                <!-- Экзамен -->
                 <div class="exam-grade-section">
                     <div class="q-label">Оценка за экзамен</div>
                     <div class="grade-picker" data-q="exam" style="margin-top:6px">
@@ -365,36 +351,27 @@
 
     <footer>
         <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener">GitHub</a></div>
-        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.6.2</div>
+        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.6.3</div>
     </footer>
 </div>
 
-<!-- Мобильный таб-бар -->
+<!-- ══ МОБИЛЬНЫЙ ТАБ-БАР ══ -->
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item">
         <span class="mobile-nav__icon">🧮</span>
         <span>BilimCalc</span>
     </a>
+    <a href="/articles" class="mobile-nav__item">
+        <span class="mobile-nav__icon">📚</span>
+        <span>Статьи</span>
+    </a>
     <a href="/kalkulator-ekzamena" class="mobile-nav__item active mobile-nav__item--exam">
         <span class="mobile-nav__icon">🎓</span>
         <span>BilimExam</span>
     </a>
-    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="mobile-nav__item">
-        <span class="mobile-nav__icon">📖</span>
-        <span>Статья</span>
-    </a>
-    <a href="/itogovaya-ocenka-za-chetvert" class="mobile-nav__item">
-        <span class="mobile-nav__icon">🏆</span>
-        <span>Четверть</span>
-    </a>
-    <a href="/metodika-rascheta-mon-rk" class="mobile-nav__item">
-        <span class="mobile-nav__icon">📋</span>
-        <span>МОН РК</span>
-    </a>
 </nav>
 
-<!-- JS — локальный, офлайн-совместимый -->
-<script src="/static/js/bilimexam.js?v=1.6.2"></script>
-<script src="/static/js/pwa-install.js?v=1.6.2"></script>
+<script src="/static/js/bilimexam.js?v=1.6.3"></script>
+<script src="/static/js/pwa-install.js?v=1.6.3"></script>
 </body>
 </html>

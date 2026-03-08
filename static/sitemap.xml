@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Главная страница — калькулятор -->
+  <!-- Главная — BilimCalc -->
   <url>
     <loc>https://bilimcalc.vercel.app/</loc>
-    <lastmod>2026-03-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Калькулятор итоговой оценки за год (9 и 11 класс) -->
+  <!-- BilimExam — калькулятор итоговой оценки -->
   <url>
     <loc>https://bilimcalc.vercel.app/kalkulator-ekzamena</loc>
-    <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.9</priority>
   </url>
 
-  <!-- Статья: Как рассчитать итоговую оценку за год (70/30) -->
+  <!-- Список статей -->
+  <url>
+    <loc>https://bilimcalc.vercel.app/articles</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Статьи -->
   <url>
     <loc>https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god</loc>
-    <lastmod>2026-03-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
 
-  <!-- Статья: Итоговая оценка за четверть -->
-  <url>
-    <loc>https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert</loc>
-    <lastmod>2026-03-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Статья: Как рассчитать СОЧ -->
-  <url>
-    <loc>https://bilimcalc.vercel.app/kak-rasschitat-soch</loc>
-    <lastmod>2026-02-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Статья: Как рассчитать СОР -->
-  <url>
-    <loc>https://bilimcalc.vercel.app/kak-rasschitat-sor</loc>
-    <lastmod>2026-02-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Статья: Как рассчитать СО -->
   <url>
     <loc>https://bilimcalc.vercel.app/kak-rasschitat-so</loc>
-    <lastmod>2026-02-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
 
-  <!-- Статья: Методика расчёта МОН РК -->
+  <url>
+    <loc>https://bilimcalc.vercel.app/kak-rasschitat-sor</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://bilimcalc.vercel.app/kak-rasschitat-soch</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <url>
     <loc>https://bilimcalc.vercel.app/metodika-rascheta-mon-rk</loc>
-    <lastmod>2026-02-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
 
 </urlset>
