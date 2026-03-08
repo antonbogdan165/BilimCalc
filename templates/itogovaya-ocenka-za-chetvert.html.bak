@@ -20,7 +20,6 @@
     "url": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",
     "datePublished": "2025-09-01",
     "dateModified": "2026-02-01",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png" } },
@@ -34,45 +33,6 @@
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
         { "@type": "ListItem", "position": 2, "name": "Итоговая оценка за четверть", "item": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert" }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Как рассчитать итоговую оценку за четверть",
-    "description": "Пошаговый расчёт по формуле МОН РК: СО × 25% + СОР × 25% + СОЧ × 50%",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
-    "totalTime": "PT3M",
-    "step": [
-        { "@type": "HowToStep", "position": 1, "name": "Рассчитайте вклад СО", "text": "Среднее СО ÷ 10 × 25. Например: среднее 8 → 8 ÷ 10 × 25 = 20%." },
-        { "@type": "HowToStep", "position": 2, "name": "Рассчитайте вклад СОР", "text": "Средний процент по СОР × 0,25. Например: 70% × 0,25 = 17,5%." },
-        { "@type": "HowToStep", "position": 3, "name": "Рассчитайте вклад СОЧ", "text": "Набранные ÷ максимум × 50. Например: 18/25 × 50 = 36%." },
-        { "@type": "HowToStep", "position": 4, "name": "Сложите все компоненты", "text": "Итог = СО% + СОР% + СОЧ%. Например: 20 + 17,5 + 36 = 73,5% → оценка «4»." }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "Как рассчитывается итоговая оценка за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "По формуле МОН РК: СО × 25% + СОР × 25% + СОЧ × 50%. Если СОЧ не проводилось — (СО + СОР) × 2." }
-        },
-        {
-            "@type": "Question",
-            "name": "Что важнее для итоговой оценки — СОЧ или СОР?",
-            "acceptedAnswer": { "@type": "Answer", "text": "СОЧ важнее — он составляет 50% итога. СОР и СО — по 25%. Один слабый СОЧ может снизить оценку за четверть на целый балл." }
-        },
-        {
-            "@type": "Question",
-            "name": "Какой процент соответствует оценке 5 за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "85% и выше — оценка «5». 65–84% — «4». 40–64% — «3». Ниже 40% — «2»." }
-        }
     ]
 }
 </script>

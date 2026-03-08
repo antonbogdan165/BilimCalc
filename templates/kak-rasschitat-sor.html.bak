@@ -20,7 +20,6 @@
     "url": "https://bilimcalc.vercel.app/kak-rasschitat-sor",
     "datePublished": "2025-09-01",
     "dateModified": "2026-02-01",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png" } },
@@ -34,44 +33,6 @@
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
         { "@type": "ListItem", "position": 2, "name": "Как рассчитать СОР", "item": "https://bilimcalc.vercel.app/kak-rasschitat-sor" }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Как рассчитать СОР (суммативное оценивание за раздел)",
-    "description": "Пошаговый расчёт СОР по официальной методике МОН РК",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
-    "totalTime": "PT2M",
-    "step": [
-        { "@type": "HowToStep", "position": 1, "name": "Переведите каждый СОР в проценты", "text": "Для каждого СОР: набранные баллы ÷ максимум × 100. Например: 12 ÷ 15 × 100 = 80%." },
-        { "@type": "HowToStep", "position": 2, "name": "Найдите среднее по всем СОР", "text": "Сложите проценты всех СОР и разделите на количество. Например: (80% + 60%) ÷ 2 = 70%." },
-        { "@type": "HowToStep", "position": 3, "name": "Рассчитайте вклад СОР", "text": "Умножьте среднее на 0,25: 70% × 0,25 = 17,5 из 25 возможных баллов." }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "Когда проводится СОР в казахстанских школах?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Обычно два СОР за четверть — после завершения крупных разделов программы. Иногда больше, если тема большая." }
-        },
-        {
-            "@type": "Question",
-            "name": "Можно ли пересдать СОР?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Только с разрешения учителя. Обычно назначают индивидуальную сдачу или перенос при наличии уважительной причины." }
-        },
-        {
-            "@type": "Question",
-            "name": "Сколько весит СОР в итоговой оценке за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "СОР составляет 25% итоговой оценки за четверть. Формула: средний процент по всем СОР × 0,25." }
-        }
     ]
 }
 </script>

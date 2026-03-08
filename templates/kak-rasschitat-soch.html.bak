@@ -20,7 +20,6 @@
     "url": "https://bilimcalc.vercel.app/kak-rasschitat-soch",
     "datePublished": "2025-09-01",
     "dateModified": "2026-02-01",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png" } },
@@ -34,44 +33,6 @@
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
         { "@type": "ListItem", "position": 2, "name": "Как рассчитать СОЧ", "item": "https://bilimcalc.vercel.app/kak-rasschitat-soch" }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Как рассчитать СОЧ (суммативное оценивание за четверть)",
-    "description": "Пошаговый расчёт СОЧ по официальной методике МОН РК",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
-    "totalTime": "PT1M",
-    "step": [
-        { "@type": "HowToStep", "position": 1, "name": "Узнайте набранные и максимальные баллы", "text": "Запишите, сколько баллов набрано за СОЧ и каков максимум. Например: 18 из 25." },
-        { "@type": "HowToStep", "position": 2, "name": "Переведите в проценты", "text": "Набранные ÷ максимум × 100: 18 ÷ 25 × 100 = 72%." },
-        { "@type": "HowToStep", "position": 3, "name": "Рассчитайте вклад СОЧ", "text": "Умножьте процент на 0,5: 72% × 0,5 = 36 из 50 возможных баллов." }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "Можно ли пересдать СОЧ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Пересдача возможна только по правилам школы — как правило, с разрешения учителя при уважительной причине." }
-        },
-        {
-            "@type": "Question",
-            "name": "Когда проводится СОЧ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "СОЧ проходит в конце каждой четверти по всем основным предметам." }
-        },
-        {
-            "@type": "Question",
-            "name": "Сколько весит СОЧ в итоговой оценке?",
-            "acceptedAnswer": { "@type": "Answer", "text": "СОЧ составляет 50% итоговой оценки за четверть — это самый весомый компонент. Формула: (набранные ÷ максимум) × 50." }
-        }
     ]
 }
 </script>

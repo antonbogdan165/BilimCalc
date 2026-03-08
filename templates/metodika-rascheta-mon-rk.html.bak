@@ -20,7 +20,6 @@
     "url": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",
     "datePublished": "2025-09-01",
     "dateModified": "2026-02-01",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png" } },
@@ -34,29 +33,6 @@
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
         { "@type": "ListItem", "position": 2, "name": "Методика расчёта МОН РК", "item": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk" }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "С какого класса применяется критериальное оценивание в Казахстане?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Критериальное оценивание по методике МОН РК применяется с начальных классов. К средней школе (5–11 класс) система используется в полном объёме по всем основным предметам." }
-        },
-        {
-            "@type": "Question",
-            "name": "Чем критериальное оценивание отличается от традиционного?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Результат сравнивается с заранее установленными критериями, а не с другими учениками. Итоговая оценка рассчитывается по формуле: СО × 25% + СОР × 25% + СОЧ × 50% — прозрачно и проверяемо." }
-        },
-        {
-            "@type": "Question",
-            "name": "Одинакова ли методика МОН для всех школ Казахстана?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Методика МОН РК обязательна для государственных школ. Большинство частных школ также её придерживаются, что обеспечивает единый стандарт по всей стране." }
-        }
     ]
 }
 </script>

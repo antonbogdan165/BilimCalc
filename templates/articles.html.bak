@@ -20,25 +20,6 @@
     ]
 }
 </script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Статьи о системе оценивания в школах Казахстана",
-    "description": "Подробные руководства по расчёту СО, СОР, СОЧ и итоговых оценок по методике МОН РК",
-    "url": "https://bilimcalc.vercel.app/articles",
-    "numberOfItems": 7,
-    "itemListElement": [
-        { "@type": "ListItem", "position": 1, "url": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god", "name": "Итоговая оценка за год: формула 70/30" },
-        { "@type": "ListItem", "position": 2, "url": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert", "name": "Итоговая оценка за четверть" },
-        { "@type": "ListItem", "position": 3, "url": "https://bilimcalc.vercel.app/kak-rasschitat-soch", "name": "Как рассчитать СОЧ" },
-        { "@type": "ListItem", "position": 4, "url": "https://bilimcalc.vercel.app/kak-rasschitat-sor", "name": "Как рассчитать СОР" },
-        { "@type": "ListItem", "position": 5, "url": "https://bilimcalc.vercel.app/kak-rasschitat-so", "name": "Как рассчитать СО" },
-        { "@type": "ListItem", "position": 6, "url": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk", "name": "Методика расчёта МОН РК" },
-        { "@type": "ListItem", "position": 7, "url": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku", "name": "Как перевести проценты в оценку" }
-    ]
-}
-</script>
 {% endblock %}
 
 {% block content %}

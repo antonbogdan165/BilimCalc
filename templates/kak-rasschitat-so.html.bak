@@ -20,7 +20,6 @@
     "url": "https://bilimcalc.vercel.app/kak-rasschitat-so",
     "datePublished": "2025-09-01",
     "dateModified": "2026-02-01",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png" } },
@@ -34,44 +33,6 @@
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
         { "@type": "ListItem", "position": 2, "name": "Как рассчитать СО", "item": "https://bilimcalc.vercel.app/kak-rasschitat-so" }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Как рассчитать СО (суммативное оценивание)",
-    "description": "Пошаговый расчёт СО по официальной методике МОН РК для школ Казахстана",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
-    "totalTime": "PT2M",
-    "step": [
-        { "@type": "HowToStep", "position": 1, "name": "Запишите все оценки СО", "text": "Соберите все полученные оценки суммативного оценивания за четверть по шкале 1–10." },
-        { "@type": "HowToStep", "position": 2, "name": "Найдите среднее арифметическое", "text": "Сложите все оценки СО и разделите на их количество. Например: (7+8+9+6+8) ÷ 5 = 7,6." },
-        { "@type": "HowToStep", "position": 3, "name": "Рассчитайте вклад СО в итоговую оценку", "text": "Разделите среднее на 10 и умножьте на 25: 7,6 ÷ 10 × 25 = 19%. Это вклад СО в итоговую оценку за четверть." }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "Можно ли пересдать СО?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Чаще всего пересдача СО не предусмотрена. Формативные оценки в Казахстане используются как фиксация результата на конкретный момент. В редких случаях учитель может дать дополнительное задание." }
-        },
-        {
-            "@type": "Question",
-            "name": "Сколько СО ставится за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Точного количества нет — зависит от предмета и программы. Обычно это 12–16 СО за четверть. Все они учитываются при расчёте среднего балла." }
-        },
-        {
-            "@type": "Question",
-            "name": "Как СО влияет на итоговую оценку за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "СО составляет 25% итоговой оценки за четверть. Формула: (среднее всех СО ÷ 10) × 25. Даже при хорошем СОЧ слабые СО снижают итог." }
-        }
     ]
 }
 </script>

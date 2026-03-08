@@ -14,11 +14,10 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Как рассчитать итоговую оценку за год в Казахстане",
-    "description": "Формула 70/30 для 9 и 11 классов: годовая оценка × 70% + оценка за экзамен × 30%",
+    "description": "Формула 70/30 для 9 и 11 классов: годовая оценка × 70% + оценка за экзамен × 30%. Пошаговый расчёт по методике МОН РК.",
     "url": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",
     "datePublished": "2026-03-01",
     "dateModified": "2026-03-01",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png" } },
@@ -32,49 +31,6 @@
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
         { "@type": "ListItem", "position": 2, "name": "Как рассчитать итоговую оценку за год", "item": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god" }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Как рассчитать итоговую оценку за год — формула 70/30",
-    "description": "Пошаговый расчёт итоговой оценки за год для 9 и 11 классов Казахстана по формуле МОН РК",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
-    "totalTime": "PT3M",
-    "step": [
-        { "@type": "HowToStep", "position": 1, "name": "Рассчитайте годовую оценку", "text": "(Q1 + Q2 + Q3 + Q4) ÷ 4. Например: (4+3+4+5) ÷ 4 = 4,0." },
-        { "@type": "HowToStep", "position": 2, "name": "Примените веса", "text": "Годовая × 0,70 + Экзамен × 0,30. Например: 4,0 × 0,70 + 4 × 0,30 = 2,80 + 1,20." },
-        { "@type": "HowToStep", "position": 3, "name": "Округлите результат", "text": "Сложите компоненты: 2,80 + 1,20 = 4,00. Округление: дробная часть ≥ 0,5 → вверх. Итог: 4." }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "Как рассчитывается итоговая оценка за год в 9 и 11 классе Казахстана?",
-            "acceptedAnswer": { "@type": "Answer", "text": "По формуле МОН РК: Итог = Годовая × 0,70 + Экзамен × 0,30. Годовая — среднее по четвертям. Результат округляется: ≥ 0,5 → вверх." }
-        },
-        {
-            "@type": "Question",
-            "name": "Что такое формула 70/30 в школах Казахстана?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Официальная методика МОН РК: 70% — годовая оценка (среднее за четверти), 30% — оценка за итоговый экзамен. Применяется в 9 и 11 классах." }
-        },
-        {
-            "@type": "Question",
-            "name": "Как рассчитать нужный балл на экзамене?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Нужный балл = (желаемый итог − годовая × 0,7) ÷ 0,3. Например, при годовой 4,0 для итоговой «5»: (4,5 − 2,8) ÷ 0,3 = 5,67 — недостижимо, «5» закрыта." }
-        },
-        {
-            "@type": "Question",
-            "name": "Чем отличается годовая оценка от итоговой за год?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Годовая — среднее за четыре четверти. Итоговая — результат формулы 70/30, включающий и годовую, и экзамен. В аттестат идёт именно итоговая." }
-        }
     ]
 }
 </script>
