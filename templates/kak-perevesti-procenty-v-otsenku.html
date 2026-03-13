@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block meta_title %}Как перевести проценты в оценку — таблица и формула | BilimCalc{% endblock %}
-{% block meta_desc %}Таблица перевода процентов в оценку по казахстанской шкале: 0–39% = 2, 40–64% = 3, 65–84% = 4, 85–100% = 5. Пример округления: 84.5% → 85% → оценка «5». Бесплатно, без рекламы.{% endblock %}
+{% block meta_title %}Как перевести проценты в оценку — таблица и конвертер | BilimCalc{% endblock %}
+{% block meta_desc %}Таблица перевода процентов в оценку по казахстанской шкале МОН РК: 85–100%=5, 65–84%=4, 40–64%=3. Правило округления: 84,5%→85%→«5». Конвертер онлайн.{% endblock %}
 {% block canonical %}https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}Как перевести проценты в оценку — таблица и примеры{% endblock %}
-{% block og_desc %}Таблица перевода процентов в оценку по шкале МОН РК с примерами и правилом округления.{% endblock %}
+{% block og_title %}Как перевести проценты в оценку — таблица, примеры, конвертер{% endblock %}
+{% block og_desc %}Шкала оценок Казахстан: 85%=5, 65%=4, 40%=3. Правило округления 84,5%→«5». Онлайн-конвертер и таблица граничных значений.{% endblock %}
 {% block og_url %}https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
@@ -15,14 +15,14 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Как перевести проценты в оценку — таблица и формула",
+    "headline": "Как перевести проценты в оценку — таблица и конвертер",
     "description": "Таблица перевода процентов в оценку по казахстанской шкале с примерами округления.",
     "url": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton Bogdan" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "url": "https://bilimcalc.vercel.app" },
     "datePublished": "2026-03-07",
-    "dateModified": "2026-03-07"
+    "dateModified": "2026-03-13"
 }
 </script>
 <script type="application/ld+json">
@@ -31,7 +31,8 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
-        { "@type": "ListItem", "position": 2, "name": "Как перевести проценты в оценку", "item": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku" }
+        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "https://bilimcalc.vercel.app/articles" },
+        { "@type": "ListItem", "position": 3, "name": "Как перевести проценты в оценку", "item": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku" }
     ]
 }
 </script>
@@ -63,6 +64,14 @@
                 "@type": "Answer",
                 "text": "По правилам МОН РК: если дробная часть ≥ 0.5, округление вверх. Например: 84.5% → 85% → «5». 84.4% → 84% → «4»."
             }
+        },
+        {
+            "@type": "Question",
+            "name": "Ровно 40% — это «2» или «3»?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "«3». Граница включительно: 40% попадает в диапазон «удовлетворительно» (40–64%)."
+            }
         }
     ]
 }
@@ -71,7 +80,6 @@
 
 {% block extra_css %}
 <style>
-/* ── Таблица процентов ── */
 .grade-table {
     width: 100%;
     border-collapse: collapse;
@@ -110,7 +118,6 @@
 [data-theme="light"] .grade-table td:first-child,
 [data-theme="light"] .grade-table td:last-child { color: #64748b; }
 
-/* ── Блок с примером ── */
 .example-box {
     background: rgba(88,166,255,0.05);
     border: 1px solid rgba(88,166,255,0.15);
@@ -169,7 +176,6 @@
 .example-box--warning .example-box__title { color: var(--warning); }
 .example-box--warning .step-num { background: rgba(210,153,34,0.15); color: var(--warning); }
 
-/* ── Конвертер ── */
 .converter-wrap {
     display: flex;
     gap: 10px;
@@ -198,24 +204,16 @@
 [data-theme="light"] .example-box--warning { background: rgba(217,119,6,0.04); border-color: rgba(217,119,6,0.18); }
 
 @media (max-width: 768px) {
-    .article-layout {
-        display: block !important;
-        grid-template-columns: none !important;
-    }
+    .article-layout { display: block !important; grid-template-columns: none !important; }
     .article-sidebar { display: none !important; }
-
     .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .grade-table { min-width: 320px; }
-    .grade-table th,
-    .grade-table td { padding: 9px 12px; font-size: 13px; }
+    .grade-table th, .grade-table td { padding: 9px 12px; font-size: 13px; }
     .grade-table td:nth-child(2) { font-size: 15px; }
-
     .converter-wrap { flex-direction: column; align-items: flex-start; gap: 6px; }
     .converter-wrap input { width: 100% !important; box-sizing: border-box; }
-
     .example-box { padding: 14px; }
     .example-step { font-size: 13px; }
-
     .article-wrap { padding-left: 16px; padding-right: 16px; box-sizing: border-box; }
     .article { min-width: 0; word-break: break-word; overflow-wrap: break-word; }
 }
@@ -235,12 +233,12 @@
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
             <h1 class="article__title" itemprop="headline">
-                Как перевести проценты в оценку
+                Как перевести проценты в оценку: таблица и конвертер
             </h1>
             <div class="article__meta">
-                <time datetime="2026-03-07" itemprop="dateModified">Март 2026</time>
+                <time datetime="2026-03-13" itemprop="dateModified">Март 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>Таблица · правило округления · примеры · онлайн-конвертер</span>
+                <span>Таблица · правило округления · примеры · конвертер</span>
             </div>
 
             <a href="/" class="mobile-cta">
@@ -252,41 +250,25 @@
                 <span class="mobile-cta__arrow">→</span>
             </a>
 
-            <!-- Таблица -->
+            <p class="article__lead">
+                Получил итоговый процент и не знаешь, какая это оценка? В казахстанских школах действует чёткая шкала по методике МОН РК. Разбираем таблицу перевода, правило округления и граничные случаи — когда 84,5% это уже «5», а не «4».
+            </p>
+
+            <!-- Таблица шкалы -->
             <div class="card reveal" style="margin-bottom: 24px;">
-                <div class="section-title">Шкала оценок — Казахстан</div>
+                <div class="section-title">Шкала оценок — Казахстан (2–11 класс)</div>
                 <p class="article__lead">
                     Действует по приказу МОН РК. Применяется при выставлении оценок за четверть, год и экзамен.
                 </p>
                 <table class="grade-table">
                     <thead>
-                        <tr>
-                            <th>Процент (%)</th>
-                            <th>Оценка</th>
-                            <th>Словесная</th>
-                        </tr>
+                        <tr><th>Процент (%)</th><th>Оценка</th><th>Словесная</th></tr>
                     </thead>
                     <tbody>
-                        <tr class="row-5">
-                            <td>85 – 100</td>
-                            <td>5</td>
-                            <td>«Отлично»</td>
-                        </tr>
-                        <tr class="row-4">
-                            <td>65 – 84</td>
-                            <td>4</td>
-                            <td>«Хорошо»</td>
-                        </tr>
-                        <tr class="row-3">
-                            <td>40 – 64</td>
-                            <td>3</td>
-                            <td>«Удовлетворительно»</td>
-                        </tr>
-                        <tr class="row-2">
-                            <td>0 – 39</td>
-                            <td>2</td>
-                            <td>«Неудовлетворительно»</td>
-                        </tr>
+                        <tr class="row-5"><td>85 – 100</td><td>5</td><td>«Отлично»</td></tr>
+                        <tr class="row-4"><td>65 – 84</td><td>4</td><td>«Хорошо»</td></tr>
+                        <tr class="row-3"><td>40 – 64</td><td>3</td><td>«Удовлетворительно»</td></tr>
+                        <tr class="row-2"><td>0 – 39</td><td>2</td><td>«Неудовлетворительно»</td></tr>
                     </tbody>
                 </table>
                 <p class="article__lead">
@@ -298,45 +280,55 @@
             <h2>Правило округления</h2>
             <p>
                 Если итоговый процент получается дробным — он округляется по стандартному математическому правилу:
-                <strong>дробная часть ≥ 0.5 → вверх.</strong>
+                <strong>дробная часть ≥ 0,5 → вверх.</strong> Именно поэтому граница — не жёсткие 85%, а <strong>84,5%</strong> тоже даёт «5».
             </p>
 
             <div class="example-box">
-                <div class="example-box__title">📈 Пример — граница «4»/«5»</div>
+                <div class="example-box__title">📈 Пример — граница «4»/«5»: 84,5%</div>
                 <div class="example-step">
                     <div class="step-num">1</div>
-                    <div class="step-text">Итоговый процент равен <strong>84.5%</strong></div>
+                    <div class="step-text">Исходный процент: <strong>84,5%</strong></div>
                 </div>
                 <div class="example-step">
                     <div class="step-num">2</div>
-                    <div class="step-text">Дробная часть: <strong>0.5 ≥ 0.5</strong> → округляем <strong>вверх</strong> → <strong>85%</strong></div>
+                    <div class="step-text">Дробная часть: <strong>0,5 ≥ 0,5</strong> → округляем <strong>вверх</strong> → <strong>85%</strong></div>
                 </div>
                 <div class="example-step">
                     <div class="step-num">3</div>
-                    <div class="step-text">
-                        85% попадает в диапазон 85–100% →
-                        <span class="step-result">Оценка «5»</span>
-                    </div>
+                    <div class="step-text">85% попадает в диапазон 85–100% → <span class="step-result">Оценка «5»</span></div>
                 </div>
             </div>
 
             <div class="example-box example-box--warning" style="margin-top:10px;">
-                <div class="example-box__title">⚠️ Пример — не хватило до «5»</div>
+                <div class="example-box__title">⚠️ Пример — не хватило: 84,4%</div>
                 <div class="example-step">
                     <div class="step-num">1</div>
-                    <div class="step-text">Итоговый процент равен <strong>84.4%</strong></div>
+                    <div class="step-text">Исходный процент: <strong>84,4%</strong></div>
                 </div>
                 <div class="example-step">
                     <div class="step-num">2</div>
-                    <div class="step-text">Дробная часть: <strong>0.4</strong> → остается → <strong>84.4%</strong></div>
+                    <div class="step-text">Дробная часть: <strong>0,4 &lt; 0,5</strong> → остаётся → <strong>84%</strong></div>
                 </div>
                 <div class="example-step">
                     <div class="step-num">3</div>
-                    <div class="step-text">
-                        84.4% попадает в диапазон 65–84% →
-                        <span class="step-result" style="background:rgba(210,153,34,0.15);border-color:rgba(210,153,34,0.3);color:#e3b341;">Оценка «4»</span>
-                    </div>
+                    <div class="step-text">84% попадает в диапазон 65–84% → <span class="step-result" style="background:rgba(210,153,34,0.15);border-color:rgba(210,153,34,0.3);color:#e3b341;">Оценка «4»</span></div>
                 </div>
+            </div>
+
+            <!-- Ещё примеры -->
+            <h2>Пошаговые примеры</h2>
+            <div class="article__example">
+                <table class="article__table">
+                    <thead><tr><th>Исходный %</th><th>После округления</th><th>Оценка</th></tr></thead>
+                    <tbody>
+                        <tr><td>84,5%</td><td>85%</td><td><strong style="color:#22c55e">5</strong></td></tr>
+                        <tr><td>84,4%</td><td>84%</td><td><strong style="color:var(--success)">4</strong></td></tr>
+                        <tr><td>64,5%</td><td>65%</td><td><strong style="color:var(--success)">4</strong></td></tr>
+                        <tr><td>64,4%</td><td>64%</td><td><strong style="color:var(--warning)">3</strong></td></tr>
+                        <tr><td>39,5%</td><td>40%</td><td><strong style="color:var(--warning)">3</strong></td></tr>
+                        <tr><td>39,4%</td><td>39%</td><td><strong style="color:var(--danger)">2</strong></td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Конвертер -->
@@ -352,22 +344,75 @@
             </div>
             <div class="converter-hint" id="convHint"></div>
 
+            <!-- Как применяется шкала -->
+            <h2>Где применяется шкала</h2>
+            <p>Шкала используется в трёх основных ситуациях. Первая — <strong>итоговая оценка за четверть</strong>: формула СО × 25% + СОР × 25% + СОЧ × 50% даёт итоговый процент, который переводится по этой таблице. Вторая — <strong>итоговая оценка за год</strong> в 9 и 11 классах: четвертные оценки выставляются через проценты, а затем участвуют в формуле 70/30. Третья — <strong>школьные экзамены</strong>. Для ЕНТ действует своя шкала, но принцип тот же.</p>
+
+            <!-- Таблица граничных значений -->
+            <h2>Таблица граничных значений</h2>
+            <p>Быстрый справочник для самых важных пороговых процентов:</p>
+            <div class="card reveal" style="margin-bottom: 24px; overflow-x: auto;">
+                <table class="grade-table" style="min-width:320px">
+                    <thead><tr><th>Процент</th><th>Оценка</th><th>Комментарий</th></tr></thead>
+                    <tbody>
+                        <tr class="row-5"><td>100%</td><td>5</td><td>Максимум</td></tr>
+                        <tr class="row-5"><td>85%</td><td>5</td><td>Минимум для «5»</td></tr>
+                        <tr class="row-5"><td>84,5%</td><td>5</td><td>Округляется до 85%</td></tr>
+                        <tr class="row-4"><td>84,4%</td><td>4</td><td>Уже «4»</td></tr>
+                        <tr class="row-4"><td>65%</td><td>4</td><td>Минимум для «4»</td></tr>
+                        <tr class="row-4"><td>64,5%</td><td>4</td><td>Округляется до 65%</td></tr>
+                        <tr class="row-3"><td>64,4%</td><td>3</td><td>Уже «3»</td></tr>
+                        <tr class="row-3"><td>40%</td><td>3</td><td>Минимум для «3»</td></tr>
+                        <tr class="row-3"><td>39,5%</td><td>3</td><td>Округляется до 40%</td></tr>
+                        <tr class="row-2"><td>39,4%</td><td>2</td><td>Уже «2»</td></tr>
+                        <tr class="row-2"><td>0%</td><td>2</td><td>Не сдал</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Частые ошибки -->
+            <h2>Частые ошибки</h2>
+
+            <h3>Ошибка 1: Думать, что 84% и 84,5% — одно и то же</h3>
+            <p>Нет. 84% — это «4». 84,5% после округления становится 85% — и это уже «5». Разница в 0,5% может изменить оценку. Важно точно считать итоговый процент — не округлять его вручную до целых раньше времени.</p>
+
+            <h3>Ошибка 2: Игнорировать правило округления</h3>
+            <p>Многие ученики и родители не знают про округление. Если учитель выставил «4» при итоговом проценте 84,5% — это ошибка. Правило МОН РК чётко требует округлять вверх при дробной части ≥ 0,5. Ты имеешь право проверить расчёт.</p>
+
+            <h3>Ошибка 3: Путать с советской системой оценивания</h3>
+            <p>В советской системе: ≥ 90% → «5», ≥ 75% → «4», ≥ 60% → «3». В казахстанской: ≥ 85% → «5», ≥ 65% → «4», ≥ 40% → «3». Граница «3» значительно ниже — 40%, а не 60%. Не применяй старую шкалу к новой системе.</p>
+
+            <h3>Ошибка 4: Применять шкалу к сырым баллам</h3>
+            <p>Сначала баллы нужно перевести в проценты. 18 баллов из 25 — это 72%, а не «оценка 18». Только после перевода в проценты смотришь по таблице.</p>
+
+            <h3>Ошибка 5: Считать, что шкала ЕНТ и школьная — одинаковые</h3>
+            <p>У ЕНТ своя шкала и свои пороговые баллы. Таблица выше применяется к итоговым оценкам за четверть и год в обычной школе по методике МОН РК.</p>
+
+            <!-- Советы -->
+            <h2>Как использовать знание шкалы</h2>
+            <p><strong>1. Считай заранее, какой процент тебе нужен.</strong> Если хочешь «5» — нужно выйти хотя бы на 84,5%. Знай это до контрольной, а не после.</p>
+            <p><strong>2. Рассчитай минимальный балл за СОЧ.</strong> Если твои СО и СОР уже дают 40%, то для общей «4» (65%) тебе нужно от СОЧ минимум: (65 − 40) ÷ 0,5 = 50% — то есть половину баллов.</p>
+            <p><strong>3. Используй <a href="/">калькулятор BilimCalc</a>.</strong> Не считай вручную — вводи баллы и сразу видишь итоговый процент и оценку.</p>
+            <p><strong>4. Проверяй выставленные оценки.</strong> Если процент пограничный — попроси учителя показать расчёт. Ты имеешь право знать, как считалась твоя оценка.</p>
+
             <!-- FAQ -->
             <h2>Часто задаваемые вопросы</h2>
 
-            <h3>84.5% — это «4» или «5»?</h3>
-            <p>Это <strong>«5»</strong>. 84.5% округляется до 85% (дробная часть 0.5 ≥ 0.5 → вверх), а 85% уже входит в диапазон «отлично».</p>
+            <h3>84,5% — это «4» или «5»?</h3>
+            <p>Это <strong>«5»</strong>. 84,5% округляется до 85% (дробная часть 0,5 ≥ 0,5 → вверх), а 85% входит в диапазон «отлично».</p>
 
-            <h3>64.5% — это «3» или «4»?</h3>
-            <p>Это <strong>«4»</strong>. 64.5% → округляется до 65% → диапазон «хорошо» (65–84%).</p>
+            <h3>64,5% — это «3» или «4»?</h3>
+            <p>Это <strong>«4»</strong>. 64,5% → округляется до 65% → диапазон «хорошо» (65–84%).</p>
+
+            <h3>Ровно 40% — это «2» или «3»?</h3>
+            <p>Это <strong>«3»</strong>. Граница включительно: 40% попадает в диапазон «удовлетворительно» (40–64%).</p>
 
             <h3>Применяется ли эта шкала везде?</h3>
-            <p>Да — для ЕНТ, итоговых оценок за год (формула 70/30), оценок за четверть. Некоторые школы используют критериальное оценивание — там шкала может отличаться, уточни у учителя.</p>
+            <p>Да — для итоговых оценок за четверть и год по методике МОН РК. Некоторые школы используют критериальное оценивание — там шкала может отличаться, уточни у учителя. Для ЕНТ — своя отдельная шкала.</p>
 
             <h3>Как связаны проценты и оценка за год?</h3>
-            <p>В формуле <strong>70/30</strong> итоговый балл = годовая оценка × 0.7 + экзамен × 0.3. Результат — это балл (2–5), а не процент. Но сами четвертные оценки могут выставляться в процентах — и переводятся по этой таблице.</p>
+            <p>В формуле <strong>70/30</strong> итоговый балл = годовая оценка × 0,7 + экзамен × 0,3. Результат — это балл (2–5), а не процент. Но сами четвертные оценки выставляются через проценты — и переводятся именно по этой таблице.</p>
 
-            <!-- Читать также — только статьи -->
             <div class="article__related">
                 <div class="article__related-title">Читайте также</div>
                 <div class="article__related-links">
@@ -417,7 +462,7 @@
                 <div class="sidebar-widget__formula" style="color:var(--success);margin-top:6px">65–84% → 4</div>
                 <div class="sidebar-widget__formula" style="color:var(--warning);margin-top:6px">40–64% → 3</div>
                 <div class="sidebar-widget__formula" style="color:var(--danger);margin-top:6px">0–39% → 2</div>
-                <div class="sidebar-widget__note" style="margin-top:8px">≥ 0.5 → округление вверх</div>
+                <div class="sidebar-widget__note" style="margin-top:8px">≥ 0,5 → округление вверх</div>
             </div>
             <div class="sidebar-widget">
                 <div class="sidebar-widget__title">Другие статьи</div>
@@ -437,7 +482,6 @@
 
 {% block extra_js %}
 <script>
-    /* ── Конвертер процентов ── */
     function convertPct(val) {
         var resEl   = document.getElementById('convResult');
         var labelEl = document.getElementById('convLabel');
@@ -473,7 +517,6 @@
         }
     }
 
-    /* ── Reveal ── */
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(e) {
             if (e.isIntersecting) e.target.classList.add('visible');

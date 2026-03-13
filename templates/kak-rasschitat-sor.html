@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block meta_title %}Как рассчитать СОР в школе Казахстана — формула и пример | BilimCalc{% endblock %}
-{% block meta_desc %}Узнайте как рассчитать СОР — суммативное оценивание за раздел. Формула расчёта, пример с числами, официальная методика МОН РК. Проверьте свой результат онлайн.{% endblock %}
+{% block meta_desc %}Как рассчитать СОР — суммативное оценивание за раздел. Формула МОН РК, пошаговый пример с двумя СОР, частые ошибки и советы по подготовке.{% endblock %}
 {% block canonical %}https://bilimcalc.vercel.app/kak-rasschitat-sor{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block og_title %}Как рассчитать СОР — формула, пример, методика МОН РК{% endblock %}
 {% block og_desc %}Полное руководство по расчёту суммативного оценивания за раздел для школ Казахстана.{% endblock %}
 {% block og_url %}https://bilimcalc.vercel.app/kak-rasschitat-sor{% endblock %}
-{% block nav_sor %}active{% endblock %}
-{% block mob_sor %}active{% endblock %}
+{% block nav_articles %}active{% endblock %}
+{% block mob_articles %}active{% endblock %}
 
 {% block schema_extra %}
 <script type="application/ld+json">
@@ -16,10 +16,10 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Как рассчитать СОР в школе Казахстана",
-    "description": "Формула расчёта суммативного оценивания за раздел, пример с числами, официальная методика МОН РК",
+    "description": "Формула расчёта суммативного оценивания за раздел, пошаговый пример, официальная методика МОН РК",
     "url": "https://bilimcalc.vercel.app/kak-rasschitat-sor",
     "datePublished": "2025-09-01",
-    "dateModified": "2026-02-01",
+    "dateModified": "2026-03-13",
     "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
@@ -33,7 +33,8 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
-        { "@type": "ListItem", "position": 2, "name": "Как рассчитать СОР", "item": "https://bilimcalc.vercel.app/kak-rasschitat-sor" }
+        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "https://bilimcalc.vercel.app/articles" },
+        { "@type": "ListItem", "position": 3, "name": "Как рассчитать СОР", "item": "https://bilimcalc.vercel.app/kak-rasschitat-sor" }
     ]
 }
 </script>
@@ -43,7 +44,6 @@
     "@type": "HowTo",
     "name": "Как рассчитать СОР (суммативное оценивание за раздел)",
     "description": "Пошаговый расчёт СОР по официальной методике МОН РК",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "totalTime": "PT2M",
     "step": [
         { "@type": "HowToStep", "position": 1, "name": "Переведите каждый СОР в проценты", "text": "Для каждого СОР: набранные баллы ÷ максимум × 100. Например: 12 ÷ 15 × 100 = 80%." },
@@ -82,6 +82,8 @@
     <nav class="breadcrumb" aria-label="Хлебные крошки">
         <a href="/">Главная</a>
         <span class="breadcrumb__sep" aria-hidden="true">›</span>
+        <a href="/articles">Статьи</a>
+        <span class="breadcrumb__sep" aria-hidden="true">›</span>
         <span aria-current="page">Как рассчитать СОР</span>
     </nav>
     <div class="article-layout">
@@ -90,7 +92,7 @@
                 Как рассчитать СОР: формула, пример и методика МОН РК
             </h1>
             <div class="article__meta">
-                <time datetime="2026-02-01" itemprop="dateModified">Обновлено: февраль 2026</time>
+                <time datetime="2026-03-13" itemprop="dateModified">Март 2026</time>
                 <span class="article__meta-sep">·</span>
                 <span>5 мин чтения</span>
             </div>
@@ -110,15 +112,15 @@
             <h2>Что такое СОР</h2>
             <p>СОР — это суммативное оценивание за раздел или сквозную тему, которое показывает, насколько ты усвоил конкретный блок материала. Обычно СОР проводится несколько раз за четверть, чаще всего два раза, чтобы учитель мог объективно оценить твои знания. Каждая СОР проверяет не весь материал за четверть, а конкретный раздел, поэтому готовиться к ней проще и конкретнее.</p>
             <h2>Формула расчёта СОР</h2>
-            <p>Чтобы рассчитать СОР, берут проценты по всем СОР за четверть, находят среднее арифметическое и умножают на 0.25. Почему 0.25? Потому что СОР весит четверть итоговой оценки за четверть.</p>
+            <p>Чтобы рассчитать СОР, берут проценты по всем СОР за четверть, находят среднее арифметическое и умножают на 0,25. Почему 0,25? Потому что СОР весит четверть итоговой оценки за четверть.</p>
             <div class="article__formula">
-                <div class="article__formula-title">Формула СОР</div>
+                <div class="article__formula-title">Формула СОР (официальная методика МОН РК)</div>
                 <div class="article__formula-body">
                     СОР (в итоговой оценке) = (СОР1% + СОР2% + ...) ÷ Кол-во СОР × 25%
                 </div>
             </div>
-            <h2>Пример расчёта</h2>
-            <p>Предположим, СОР1: 12 из 15 баллов (80%), СОР2: 9 из 15 баллов (60%). Среднее: (80% + 60%) ÷ 2 = 70%. Вклад в итог: 70% × 0,25 = 17,5 из 25.</p>
+            <h2>Пошаговый пример расчёта</h2>
+            <p>СОР1: 12 из 15 баллов (80%), СОР2: 9 из 15 баллов (60%). Среднее: (80% + 60%) ÷ 2 = 70%. Вклад в итог: 70% × 0,25 = 17,5 из 25.</p>
             <div class="article__example">
                 <table class="article__table">
                     <thead><tr><th>Параметр</th><th>СОР 1</th><th>СОР 2</th></tr></thead>
@@ -127,14 +129,13 @@
                         <tr><td>Максимум</td><td>15</td><td>15</td></tr>
                         <tr><td>Процент</td><td>80%</td><td>60%</td></tr>
                         <tr class="article__table-result"><td><strong>Средний процент</strong></td><td colspan="2"><strong>70%</strong></td></tr>
-                        <tr class="article__table-result"><td><strong>Вклад в итоговую оценку</strong></td><td colspan="2"><strong>17.5 из 25</strong></td></tr>
+                        <tr class="article__table-result"><td><strong>Вклад в итоговую оценку</strong></td><td colspan="2"><strong>70% × 0,25 = 17,5 из 25</strong></td></tr>
                     </tbody>
                 </table>
             </div>
             <h2>Сколько весит СОР в итоговой оценке</h2>
             <p>Итоговая оценка за четверть состоит из трёх частей: СО 25%, СОР 25% и СОЧ 50%. СОЧ проводится в конце четверти и весит вдвое больше, чем СОР. Но это не значит, что СОР можно игнорировать — два слабых СОР заметно снижают итог.</p>
 
-            <!-- НОВЫЙ СЕГМЕНТИРОВАННЫЙ ПРОГРЕСС-БАР -->
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
                     <div class="article__weights-label article__weights-label--so">СО</div>
@@ -155,22 +156,29 @@
 
             <h2>Как повысить оценку за СОР</h2>
             <p>Чтобы хорошо сдать СОР, начни с повторения конкретного раздела. Разделяй материал на блоки и решай практические задания. Используй критерии оценивания от учителя, чтобы точно знать, что проверяется. Практика — ключ к успеху: решай примеры и задачи, не оставляй сложные моменты на последний день.</p>
+
+            <h2>Частые ошибки при расчёте СОР</h2>
+            <h3>Ошибка 1: Делить сумму баллов на сумму максимумов вместо среднего процентов</h3>
+            <p>Если у тебя два СОР: первый 12/15 (80%), второй 9/15 (60%) — не суммируй баллы (21/30 = 70%). В данном случае результат совпал, но при разных максимумах это даёт ошибку. Правильно: считай процент каждого СОР отдельно, затем среднее.</p>
+            <h3>Ошибка 2: Игнорировать пропущенный СОР</h3>
+            <p>Пропущенный без уважительной причины СОР засчитывается как 0%. Это резко снижает средний процент. Нужно сразу сообщать учителю и договариваться об индивидуальной сдаче.</p>
+
             <h2>Часто задаваемые вопросы</h2>
             <h3>Когда проводится СОР?</h3>
             <p>Обычно за четверть проводится две СОР по каждому предмету. Иногда школа может назначить больше, если тема большая. Следи за расписанием, чтобы не пропустить важный тест.</p>
             <h3>Можно ли пересдать СОР?</h3>
             <p>Пропущенный СОР засчитывается только с разрешения учителя. Обычно назначают индивидуальную сдачу или перенос. Важно предупредить заранее, чтобы результат был учтён в итоговой оценке.</p>
             <h3>Что делать если пропустил СОР по болезни?</h3>
-            <p>Нужно сразу сообщить учителю. Обычно назначается индивидуальная сдача или перенос. Важно не откладывать, чтобы итоговая оценка за четверть была рассчитана корректно.</p>
+            <p>Нужно сразу сообщить учителю и принести справку. Обычно назначается индивидуальная сдача или перенос. Важно не откладывать, чтобы итоговая оценка за четверть была рассчитана корректно.</p>
             <div class="article__related">
                 <div class="article__related-title">Читайте также</div>
                 <div class="article__related-links">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за год: формула 70/30</span><span class="article__related-arrow">→</span></a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за четверть</span><span class="article__related-arrow">→</span></a>
                     <a href="/kak-rasschitat-soch" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать СОЧ — полное руководство</span><span class="article__related-arrow">→</span></a>
+                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за четверть</span><span class="article__related-arrow">→</span></a>
                     <a href="/kak-rasschitat-so" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Что такое СО и как считается</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как перевести проценты в оценку — таблица</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за год: формула 70/30</span><span class="article__related-arrow">→</span></a>
                     <a href="/metodika-rascheta-mon-rk" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Официальная методика расчёта МОН РК</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как перевести проценты в оценку — таблица и конвертер</span><span class="article__related-arrow">→</span></a>
                 </div>
             </div>
         </article>
@@ -182,7 +190,7 @@
             </div>
             <div class="sidebar-widget">
                 <div class="sidebar-widget__title">Формула кратко</div>
-                <div class="sidebar-widget__formula">(Сумма набранных ÷ Сумма максимальных) × 25</div>
+                <div class="sidebar-widget__formula">(Сумма % всех СОР ÷ кол-во) × 0,25</div>
                 <div class="sidebar-widget__note">СОР = 25% итоговой оценки</div>
             </div>
             <div class="sidebar-widget">
@@ -191,6 +199,7 @@
                     <a href="/kak-rasschitat-so"  class="sidebar-nav__link">→ Как рассчитать СО</a>
                     <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
                     <a href="/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Итоговая оценка</a>
+                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод процентов</a>
                     <a href="/metodika-rascheta-mon-rk" class="sidebar-nav__link">→ Методика МОН РК</a>
                 </nav>
             </div>

@@ -7,8 +7,8 @@
 {% block og_title %}Методика расчёта оценок МОН РК: критериальное оценивание в Казахстане{% endblock %}
 {% block og_desc %}Подробный разбор официальной методики оценивания МОН РК: нормативная база, три вида суммативного оценивания, формула итоговой оценки.{% endblock %}
 {% block og_url %}https://bilimcalc.vercel.app/metodika-rascheta-mon-rk{% endblock %}
-{% block nav_metodika %}active{% endblock %}
-{% block mob_metodika %}active{% endblock %}
+{% block nav_articles %}active{% endblock %}
+{% block mob_articles %}active{% endblock %}
 
 {% block schema_extra %}
 <script type="application/ld+json">
@@ -19,7 +19,7 @@
     "description": "Критериальное оценивание в школах Казахстана: нормативная база, три вида суммативного оценивания, официальная формула итоговой оценки",
     "url": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",
     "datePublished": "2025-09-01",
-    "dateModified": "2026-02-01",
+    "dateModified": "2026-03-13",
     "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
@@ -33,7 +33,8 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
-        { "@type": "ListItem", "position": 2, "name": "Методика расчёта МОН РК", "item": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk" }
+        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "https://bilimcalc.vercel.app/articles" },
+        { "@type": "ListItem", "position": 3, "name": "Методика расчёта МОН РК", "item": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk" }
     ]
 }
 </script>
@@ -67,6 +68,8 @@
     <nav class="breadcrumb" aria-label="Хлебные крошки">
         <a href="/">Главная</a>
         <span class="breadcrumb__sep" aria-hidden="true">›</span>
+        <a href="/articles">Статьи</a>
+        <span class="breadcrumb__sep" aria-hidden="true">›</span>
         <span aria-current="page">Методика расчёта МОН РК</span>
     </nav>
     <div class="article-layout">
@@ -75,7 +78,7 @@
                 Официальная методика расчёта оценок МОН РК: полный разбор
             </h1>
             <div class="article__meta">
-                <time datetime="2026-02-01" itemprop="dateModified">Обновлено: февраль 2026</time>
+                <time datetime="2026-03-13" itemprop="dateModified">Март 2026</time>
                 <span class="article__meta-sep">·</span>
                 <span>7 мин чтения</span>
             </div>
@@ -105,7 +108,7 @@
                     <thead><tr><th>Вид</th><th>Что проверяет</th><th>Когда</th><th>Вес</th></tr></thead>
                     <tbody>
                         <tr><td><a href="/kak-rasschitat-so"><strong>СО</strong></a></td><td>Отдельные темы в течение четверти</td><td>Регулярно</td><td>25%</td></tr>
-                        <tr><td><a href="/kak-rasschitat-sor"><strong>СОР</strong></a></td><td>Крупные разделы программы</td><td>2 раза за четверть</td><td>25%</td></tr>
+                        <tr><td><a href="/kak-rasschitat-sor"><strong>СОР</strong></a></td><td>Крупные разделы программы</td><td>2-3 раза за четверть</td><td>25%</td></tr>
                         <tr><td><a href="/kak-rasschitat-soch"><strong>СОЧ</strong></a></td><td>Весь материал четверти</td><td>В конце четверти</td><td>50%</td></tr>
                     </tbody>
                 </table>
@@ -118,7 +121,6 @@
             </div>
             <p>Если по предмету не проводится СОЧ, его вес перераспределяется между оставшимися компонентами — это тоже прописано в нормативной базе оценивания. Для быстрого подсчёта по официальной методике удобно использовать <a href="/">калькулятор онлайн</a>.</p>
 
-            <!-- НОВЫЙ СЕГМЕНТИРОВАННЫЙ ПРОГРЕСС-БАР -->
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
                     <div class="article__weights-label article__weights-label--so">СО</div>
@@ -179,7 +181,7 @@
                     <a href="/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Итоговая оценка</a>
                     <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
                     <a href="/kak-rasschitat-sor" class="sidebar-nav__link">→ Как рассчитать СОР</a>
-                    <a href="/kak-rasschitat-so" class="sidebar-nav__link">→ Как рассчитать СО</a>
+                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод процентов</a>
                 </nav>
             </div>
         </aside>
