@@ -2,7 +2,7 @@
 <html lang="ru" data-theme="dark">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     <meta name="language" content="ru">
     <meta http-equiv="content-language" content="ru">
@@ -10,7 +10,7 @@
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
 
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.2">
 
     <title>{% block meta_title %}BilimCalc — калькулятор СО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор СО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
@@ -36,9 +36,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.7.0">
-    <link rel="stylesheet" href="/static/css/article.css?v=1.7.0">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="/static/css/article.css?v=1.7.2">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.2">
+    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.2">
     {% block extra_css %}{% endblock %}
 
     <script type="application/ld+json">
@@ -47,7 +48,12 @@
         "@type": "Organization",
         "name": "BilimCalc",
         "url": "https://bilimcalc.vercel.app/",
-        "logo": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png"
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png",
+            "width": 32,
+            "height": 32
+        }
     }
     </script>
     <script type="application/ld+json">
@@ -60,6 +66,12 @@
         "url": "https://bilimcalc.vercel.app/",
         "description": "Онлайн-калькулятор для расчёта итоговой оценки по системе СО, СОР и СОЧ в школах Казахстана",
         "inLanguage": "ru",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://bilimcalc.vercel.app/static/icons/preview.png",
+            "width": 1200,
+            "height": 630
+        },
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KZT" },
         "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "128" }
     }
@@ -156,7 +168,7 @@
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.7.0"></script>
+<script src="/static/js/pwa-install.js?v=1.7.2"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

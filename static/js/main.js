@@ -2,7 +2,14 @@ let so   = [];
 let sors = [];
 const SAVE_KEY = "bilimcalc_v1";
 
-// ─── UI: чипы со значениями ───────────────────────────────────────────────
+function hapticLight() {
+    if (navigator.vibrate) navigator.vibrate(10);
+}
+function hapticReset() {
+    // Двойной импульс — ощущение «очистки»
+    if (navigator.vibrate) navigator.vibrate([12, 60, 12]);
+}
+
 
 function createChip(text, onDelete) {
     const el  = document.createElement("div");
@@ -24,7 +31,6 @@ function renderSO() {
     const container = document.getElementById("soList");
     const empty     = document.getElementById("soEmpty");
 
-    // убираем старые чипы, оставляем только #soEmpty
     Array.from(container.children).forEach(c => {
         if (c.id !== "soEmpty") c.remove();
     });
@@ -77,7 +83,6 @@ function renderSORS() {
     if (empty) empty.style.display = sors.length ? "none" : "block";
 }
 
-// ─── Сохранение / восстановление ─────────────────────────────────────────
 
 function saveState() {
     const sochDialed = document.getElementById("sochDialed").value;
@@ -108,13 +113,11 @@ function loadState() {
     }
 }
 
-// ─── Валидация и ошибки ───────────────────────────────────────────────────
 
 function showInputError(anchorEl, message) {
     const card = anchorEl.closest(".card");
     if (!card) return;
 
-    // сначала убираем предыдущие баннеры в этой карточке
     card.querySelectorAll(".input-error-banner").forEach(b => {
         clearTimeout(b._timer);
         b.classList.add("input-error-banner--hide");
@@ -175,7 +178,6 @@ function validateSoch() {
     return true;
 }
 
-// ─── Обработчики форм ─────────────────────────────────────────────────────
 
 document.getElementById("addForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -258,6 +260,9 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
         !document.getElementById("sochDialed").value &&
         !document.getElementById("sochMax").value) return;
 
+    // Haptic — только на кнопке "Сбросить всё"
+    hapticReset();
+
     so   = [];
     sors = [];
     ["sochDialed","sochMax","sorDialed","sorMax","soInput"].forEach(id => {
@@ -271,7 +276,6 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
     calculate();
 });
 
-// ─── Кнопка «Поделиться» ─────────────────────────────────────────────────
 
 (function setupShare() {
     const shareBtn = document.getElementById("shareBtn");
@@ -410,10 +414,7 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
     });
 })();
 
-// ─── Инпуты: только цифры ─────────────────────────────────────────────────
 
-// ограничиваем ввод: только цифры, не больше maxLen символов
-// onFull — колбэк когда поле заполнено (например, переход к следующему)
 function restrictToDigits(input, maxLen, maxVal, onFull) {
     input.addEventListener("keydown", function (e) {
         const nav = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter","Home","End"];
@@ -441,7 +442,6 @@ restrictToDigits(sorMaxInput,     2);
 restrictToDigits(sochDialedInput, 2, undefined, () => sochMaxInput.focus());
 restrictToDigits(sochMaxInput,    2);
 
-// backspace в пустом правом поле → переходим в левое
 sorMaxInput.addEventListener("keydown", function (e) {
     if (e.key === "Backspace" && !this.value) {
         sorDialedInput.focus();
@@ -455,7 +455,6 @@ sochMaxInput.addEventListener("keydown", function (e) {
     }
 });
 
-// debounce для инпутов СОЧ — пересчёт не на каждый символ
 function debounce(fn, ms) {
     let t;
     return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms || 250); };
@@ -466,10 +465,7 @@ const debouncedCalculate = debounce(calculate, 250);
 document.getElementById("sochDialed").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
 document.getElementById("sochMax").addEventListener("input",    () => { validateSoch(); saveState(); debouncedCalculate(); });
 
-// ─── Расчёт ───────────────────────────────────────────────────────────────
 
-// считаем вклад каждого компонента в процентах
-// СО и СОР — по 25%, СОЧ — 50%
 function computeParts(soArr, sorsArr, soch) {
     let total_so = null;
     if (soArr && soArr.length > 0) {
@@ -496,8 +492,6 @@ function computeParts(soArr, sorsArr, soch) {
     return { total_so, total_sor, total_soch };
 }
 
-// итоговый % с учётом того, какие компоненты есть
-// если только СО — масштабируем до 100%, если СО+СОР — тоже
 function computeFinalPct(total_so, total_sor, total_soch) {
     if (total_so !== null && total_sor !== null && total_soch !== null) {
         return Math.round((total_so + total_sor + total_soch) * 10000) / 10000;
@@ -511,7 +505,6 @@ function computeFinalPct(total_so, total_sor, total_soch) {
     return null;
 }
 
-// показывает точное значение под итогом: 84.50% → «84.50% → 85%»
 function updateRoundingHint(value) {
     let hint = document.getElementById("roundingHint");
     if (!hint) {
@@ -568,7 +561,6 @@ function calculate() {
             const pct        = Number(final_result);
             const gradeCheck = Math.round(pct);
 
-            // плавная анимация числа
             const startVal = parseFloat(finalEl.innerText) || 0;
             const t0       = performance.now();
             const isWhole  = Number.isInteger(pct);
@@ -646,7 +638,6 @@ function calculate() {
     }
 }
 
-// ─── График тренда СО ─────────────────────────────────────────────────────
 
 let trendChart;
 let chartColor = "#58a6ff";
@@ -677,7 +668,6 @@ function updateTrend() {
     }
 }
 
-// линейная регрессия по оценкам СО
 function calcTrendLine(scores) {
     const n     = scores.length;
     const x     = Array.from({ length: n }, (_, i) => i + 1);
@@ -792,7 +782,6 @@ function drawTrend(scores, predictions, accuracy) {
 
     document.getElementById("aiAccuracy").textContent = accuracy + "%";
 
-    // текстовый вывод направления тренда
     const trend = predictions[predictions.length - 1] - predictions[0];
     let trendText;
     if      (trend >  0.6) trendText = "📈 Отличный рост! Продолжай в том же духе";
@@ -803,13 +792,11 @@ function drawTrend(scores, predictions, accuracy) {
     document.getElementById("trendLabel").textContent = trendText;
 }
 
-// ─── FAQ ──────────────────────────────────────────────────────────────────
 
 document.querySelectorAll(".faq-q").forEach(btn => {
     btn.addEventListener("click", function () {
         const item   = this.closest(".faq-item");
         const isOpen = item.classList.contains("open");
-        // закрываем все открытые
         document.querySelectorAll(".faq-item.open").forEach(i => {
             i.classList.remove("open");
             i.querySelector(".faq-q").setAttribute("aria-expanded", "false");
@@ -821,7 +808,6 @@ document.querySelectorAll(".faq-q").forEach(btn => {
     });
 });
 
-// ─── Офлайн-баннер ───────────────────────────────────────────────────────
 
 (function () {
     const banner = document.getElementById("offlineBanner");
@@ -831,7 +817,6 @@ document.querySelectorAll(".faq-q").forEach(btn => {
     window.addEventListener("online",  () => banner.style.display = "none");
 })();
 
-// ─── Service Worker ───────────────────────────────────────────────────────
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
@@ -841,13 +826,11 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-// ─── Инициализация ────────────────────────────────────────────────────────
 
 (function init() {
     loadState();
     renderSO();
     renderSORS();
-    // небольшая задержка чтобы DOM успел отрисоваться перед первым расчётом
     setTimeout(() => {
         calculate();
         if (so.length >= 2) updateTrend();

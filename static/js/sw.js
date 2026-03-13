@@ -10,6 +10,9 @@ const STATIC_ASSETS = [
     "/kalkulator-ekzamena",
     "/kak-rasschitat-itogovuyu-otsenku-za-god",
     "/kak-perevesti-procenty-v-otsenku",
+    "/articles",
+    "/kalkulator-sor",
+    "/kalkulator-soch",
 
     "/static/css/style.css",
     "/static/css/article.css",
@@ -61,7 +64,6 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
     const url = new URL(event.request.url);
 
-    // /calculate — сначала сеть, при офлайне отдаём последний кэшированный ответ
     if (url.pathname === "/calculate") {
         event.respondWith(
             fetch(event.request.clone()).then(response => {
@@ -86,7 +88,6 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // статика — ищем по pathname без query-параметров
     if (url.pathname.startsWith("/static/") || STATIC_ASSETS.includes(url.pathname)) {
         event.respondWith(
             caches.match(url.pathname).then(cached => {
@@ -104,7 +105,6 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // навигация — сначала сеть, fallback на кэш
     if (event.request.mode === "navigate") {
         event.respondWith(
             fetch(event.request).catch(() =>

@@ -2,7 +2,7 @@
 <html lang="ru" data-theme="dark">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     <meta name="language" content="ru">
     <meta http-equiv="content-language" content="ru">
@@ -39,7 +39,8 @@
     <link rel="stylesheet" href="/static/css/style.css?v=1.7.0">
     <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.0">
     <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.0">
-    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.7.0">
+    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.7.2">
+    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.2">
 
     <script type="application/ld+json">
     {
@@ -297,6 +298,20 @@
                 </div>
 
                 <div class="formula-hint" id="formulaHint"></div>
+
+                <div class="exam-empty-hint" id="examEmptyHint">
+                    <span class="exam-empty-hint__arrow">↑</span>
+                    <span>Выбери оценку за 1-ю четверть</span>
+                </div>
+
+                <button id="examShareBtn" class="btn ghost">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                    Поделиться оценкой
+                </button>
             </div>
         </div>
 
@@ -350,8 +365,9 @@
     </div>
 
     <footer>
-        <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener">GitHub</a></div>
-        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.7.0</div>
+        <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener">GitHub</a> · <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank">Обратная связь</a></div>
+
+        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.7.2</div>
     </footer>
 </div>
 

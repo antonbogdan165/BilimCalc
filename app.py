@@ -4,10 +4,26 @@ import time
 
 from logics import calculate_parts, calculate_final
 
+# Flask-Limiter опциональный — не ломает при отсутствии пакета
+try:
+    from flask_limiter import Limiter
+    from flask_limiter.util import get_remote_address
+    _limiter_available = True
+except ImportError:
+    _limiter_available = False
+
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
 BUILD_TIME = str(int(time.time()))
+
+if _limiter_available:
+    limiter = Limiter(
+        get_remote_address,
+        app=app,
+        default_limits=["200 per minute"],
+        storage_uri="memory://",
+    )
 
 
 ARTICLE_ROUTES = {
@@ -20,6 +36,13 @@ ARTICLE_ROUTES = {
     "/kak-rasschitat-itogovuyu-otsenku-za-god":      "kak-rasschitat-itogovuyu-otsenku-za-god.html",
     "/kak-perevesti-procenty-v-otsenku":             "kak-perevesti-procenty-v-otsenku.html",
     "/articles":                                     "articles.html",
+}
+
+CALC_REDIRECTS = {
+    "/kalkulator-sor":   "/",
+    "/kalkulator-soch":  "/",
+    "/kalkulator-so":    "/",
+    "/calculator":       "/",
 }
 
 
@@ -58,6 +81,9 @@ def favicon():
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
+    if _limiter_available:
+        pass  
+
     data = request.get_json(silent=True)
     if not data:
         return jsonify({"error": "Некорректный JSON"}), 400
@@ -91,8 +117,18 @@ def _make_article_view(template):
     return view
 
 
+def _make_redirect_view(target, route_name):
+    def view():
+        return redirect(target, code=301)
+    view.__name__ = "redirect_" + route_name
+    return view
+
+
 for path, template in ARTICLE_ROUTES.items():
     app.add_url_rule(path, view_func=_make_article_view(template))
+
+for path, target in CALC_REDIRECTS.items():
+    app.add_url_rule(path, view_func=_make_redirect_view(target, path.lstrip("/")))
 
 
 @app.errorhandler(404)
