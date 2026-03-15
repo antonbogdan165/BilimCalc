@@ -55,7 +55,6 @@ h1 {
     .grid > div:last-child  { order: 1; }
 }
 
-/* ── Карточки ── */
 .card {
     background: rgba(22, 27, 34, 0.90);
     padding: 20px;
@@ -76,7 +75,6 @@ h1 {
 
 .section-title { color: var(--accent); margin: 0 0 13px; font-size: 13px; font-weight: 600; }
 
-/* ── Строки форм ── */
 .so-row, .sor-row, .soch-row {
     display: flex; gap: 8px; align-items: center;
     margin-bottom: 10px; min-width: 0; width: 100%;
@@ -88,7 +86,6 @@ h1 {
 .soch-inputs { display: flex; gap: 8px; flex: 1; min-width: 0; }
 .soch-inputs input { flex: 1; min-width: 0; }
 
-/* ── Инпуты ── */
 input[type="number"],
 input[type="text"] {
     background: var(--surface);
@@ -97,8 +94,8 @@ input[type="text"] {
     padding: 10px 13px;
     border-radius: 10px;
     width: 100%; outline: none;
-    font-size: 16px; /* ≥16px чтобы iOS не делал zoom */
-    min-height: 48px; /* увеличенная touch-зона */
+    font-size: 16px; 
+    min-height: 48px; 
     transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 input[type="number"]::placeholder,
@@ -109,7 +106,6 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 
-/* ── Кнопки ── */
 .btn {
     background: linear-gradient(135deg, #3fb950, #2ea043);
     color: #fff; border: none;
@@ -120,7 +116,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     touch-action: manipulation;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     will-change: transform;
-    /* Убираем задержку тапа */
     -webkit-tap-highlight-color: transparent;
     user-select: none;
 }
@@ -143,7 +138,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     .ghost:hover { border-color: rgba(255,255,255,0.18); color: #e6edf3; box-shadow: none; }
 }
 
-/* ── Чипы ── */
 .list {
     display: flex; flex-wrap: wrap; gap: 7px;
     margin-top: 8px; min-width: 0; max-width: 100%; width: 100%; overflow: hidden;
@@ -163,7 +157,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     transition: transform 200ms ease, opacity 200ms ease;
 }
 
-/* ── Результат ── */
 .result-big {
     text-align: center; font-size: 52px; font-weight: 800;
     margin-bottom: 10px; letter-spacing: 0.5px;
@@ -198,7 +191,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 .official-link:hover  { transform: translateY(-2px); background: #2da83a; box-shadow: 0 6px 22px rgba(60,182,72,0.38); }
 .official-link:active { transform: scale(0.98); }
 
-/* ── Прогресс ── */
 .progress-wrap {
     background: var(--surface); padding: 12px; border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.03);
@@ -211,7 +203,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     will-change: width;
 }
 
-/* ── Тренд ── */
 .trend-box {
     background: #070b11; border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.05);
@@ -243,7 +234,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 .trend-hint  { display: none; text-align: center; font-size: 12px; color: var(--muted); padding: 6px 0; }
 .trend-box.collapsed + .trend-hint { display: block; }
 
-/* ── Разбивка весов ── */
 .breakdown {
     display: flex; align-items: center; gap: 0;
     padding: 12px 0 4px;
@@ -287,25 +277,21 @@ footer a { color: var(--accent); text-decoration: none; }
 }
 .soch-tooltip:hover .soch-tooltip-text { visibility: visible; }
 
-/* ══════════════════════
-   МОБИЛЕ — УЛУЧШЕННЫЙ
-   ══════════════════════ */
+
 @media (max-width: 600px) {
     .container { margin: 12px auto; padding: 10px; }
     h1 { font-size: 1.25rem; margin-bottom: 16px; letter-spacing: -0.3px; }
     .card { padding: 14px; border-radius: 14px; }
     .card:hover { transform: none; box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
 
-    /* Инпуты — крупнее, удобнее */
     input[type="number"],
     input[type="text"] {
-        font-size: 16px; /* обязательно, иначе iOS делает zoom */
+        font-size: 16px; 
         min-height: 50px;
         padding: 12px 14px;
         border-radius: 10px;
     }
 
-    /* Кнопки — минимум 48px */
     .btn {
         min-height: 48px;
         font-size: 14px;
@@ -313,7 +299,6 @@ footer a { color: var(--accent); text-decoration: none; }
         border-radius: 10px;
     }
 
-    /* Чипы — удобнее тапать */
     .list-item {
         padding: 10px 14px;
         font-size: 15px;
@@ -328,7 +313,6 @@ footer a { color: var(--accent); text-decoration: none; }
         justify-content: center;
     }
 
-    /* Формы */
     .so-row   { flex-direction: column; align-items: stretch; gap: 10px; }
     #addForm  { flex-wrap: nowrap; gap: 8px; }
     #addForm input { min-width: 0; }
@@ -344,10 +328,8 @@ footer a { color: var(--accent); text-decoration: none; }
     .soch-inputs { gap: 6px; }
     #clearSochBtn { width: 100%; }
 
-    /* Результат */
     .result-big { font-size: 44px; margin-bottom: 8px; }
 
-    /* Тренд */
     #trendContainer { height: 120px !important; }
     .breakdown { gap: 4px; }
     .break-card  { flex: 1; }
@@ -361,16 +343,13 @@ footer a { color: var(--accent); text-decoration: none; }
     .grade-badge { font-size: 11px; padding: 3px 10px; margin-bottom: 8px; }
     .progress-bar { height: 6px; margin-bottom: 10px; }
 
-    /* BilimLand link */
     .official-link { min-height: 48px; padding: 10px 14px; gap: 8px; }
     .official-link .bilim-logo { width: 26px; height: 26px; }
     .official-link .link-text-main { font-size: 12px; }
 
-    /* content-visibility для секций ниже fold */
     .faq-card { content-visibility: auto; contain-intrinsic-size: 0 300px; }
     .articles-card { content-visibility: auto; contain-intrinsic-size: 0 200px; }
 
-    /* Сброс и шэр */
     #resetAllBtn { font-size: 14px; min-height: 48px; }
     .share-btn   { font-size: 13px; min-height: 48px; }
 }
@@ -388,7 +367,6 @@ footer a { color: var(--accent); text-decoration: none; }
     .card { padding: 10px 11px; }
 }
 
-/* ── FAQ ── */
 .faq-card h2 { margin-bottom: 16px; }
 .faq-list { display: flex; flex-direction: column; gap: 6px; }
 
@@ -433,7 +411,6 @@ footer a { color: var(--accent); text-decoration: none; }
     .faq-a p { font-size: 13px; }
 }
 
-/* ── Карточки статей ── */
 .articles-grid { display: flex; flex-direction: column; gap: 8px; }
 
 .article-card {
@@ -469,7 +446,6 @@ footer a { color: var(--accent); text-decoration: none; }
     .article-card { padding: 10px 12px; }
 }
 
-/* ── Анимации ── */
 @keyframes shake {
     0%,100% { transform: translateX(0); }
     20%  { transform: translateX(-5px); }
@@ -497,7 +473,6 @@ footer a { color: var(--accent); text-decoration: none; }
 @keyframes errIn  { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes errOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-4px); } }
 
-/* ── Офлайн-баннер ── */
 .offline-banner {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     background: #b45309; color: #fef3c7;
@@ -507,7 +482,6 @@ footer a { color: var(--accent); text-decoration: none; }
 }
 @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
 
-/* ── Grade badge ── */
 .grade-badge {
     display: block; text-align: center; margin: 0 auto 12px;
     padding: 5px 16px; border-radius: 20px;
@@ -519,9 +493,6 @@ footer a { color: var(--accent); text-decoration: none; }
 .badge-good      { background: rgba(46,160,67,0.12);   color: #56d364;        border: 1px solid rgba(46,160,67,0.35); }
 .badge-excellent { background: rgba(34,197,94,0.15);   color: #4ade80;        border: 1px solid rgba(34,197,94,0.4); }
 
-/* ══════════════════════════════════════════════
-   СВЕТЛАЯ ТЕМА
-   ══════════════════════════════════════════════ */
 [data-theme="light"] {
     --bg:      #f0f4f8; --card: #ffffff; --surface: #e8eef4;
     --muted:   #64748b; --accent: #2563eb; --success: #16a34a;
@@ -573,7 +544,6 @@ footer a { color: var(--accent); text-decoration: none; }
 [data-theme="light"] footer { color: #64748b; }
 [data-theme="light"] footer a { color: var(--accent); }
 
-/* ── Кнопка темы ── */
 .theme-btn {
     display: flex; align-items: center; justify-content: center;
     width: 38px; height: 38px; border-radius: 10px;
@@ -588,7 +558,6 @@ footer a { color: var(--accent); text-decoration: none; }
 .theme-btn:active { transform: scale(0.93); }
 [data-theme="light"] .theme-btn:hover { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.15); }
 
-/* ── Логотип-заголовок ── */
 .site-title { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; margin: 8px 0 28px; }
 .site-title__logo { display: flex; align-items: center; gap: 10px; }
 .site-title__logo svg { width: 36px; height: 36px; flex-shrink: 0; display: block; margin-top: 2px; }
@@ -601,11 +570,9 @@ footer a { color: var(--accent); text-decoration: none; }
 [data-theme="light"] .site-title__name { color: #0f172a; }
 .site-title__sub { font-size: clamp(0.8rem, 2.5vw, 0.95rem); color: var(--muted); font-weight: 500; letter-spacing: 0.1px; }
 
-/* ── Reveal ── */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.45s ease, transform 0.45s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ── Splash ── */
 #splash {
     position: fixed; inset: 0; z-index: 10000;
     display: flex; flex-direction: column;
@@ -626,12 +593,6 @@ footer a { color: var(--accent); text-decoration: none; }
 @keyframes splash-fill { from { width: 0%; } to { width: 100%; } }
 @keyframes splash-pop  { from { opacity: 0; transform: scale(0.75) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
-/* ══════════════════════════════════════════════
-   ТОПБАР
-   ══════════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   UNIFIED TOPBAR v1.6.3
-   ══════════════════════════════════════════ */
 #topbar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -642,23 +603,19 @@ footer a { color: var(--accent); text-decoration: none; }
 }
 [data-theme="light"] #topbar { background: rgba(240,244,248,0.97); border-bottom-color: rgba(0,0,0,0.08); }
 
-/* ── Logo ── */
 .topbar-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; }
 .topbar-logo svg { width: 22px; height: 22px; display: block; }
 .topbar-logo__name { font-size: 15px; font-weight: 800; color: #e6edf3; letter-spacing: -0.3px; line-height: 1; white-space: nowrap; }
 .topbar-logo__name span { color: #3cb648; }
 [data-theme="light"] .topbar-logo__name { color: #0f172a; }
 
-/* BilimExam logo variant */
 .topbar-logo--exam .topbar-logo__name { color: #a78bfa; }
 .topbar-logo--exam .topbar-logo__name span { color: #c4b5fd; }
 [data-theme="light"] .topbar-logo--exam .topbar-logo__name { color: #7c3aed; }
 [data-theme="light"] .topbar-logo--exam .topbar-logo__name span { color: #6d28d9; }
 
-/* ── Center ── */
 .topbar-center { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: center; }
 
-/* Методика МОН — subtle pill */
 .topbar-official-link {
     display: flex; align-items: center; gap: 5px; padding: 5px 10px;
     border-radius: 8px; border: 1px solid rgba(255,255,255,0.07);
@@ -671,7 +628,6 @@ footer a { color: var(--accent); text-decoration: none; }
 [data-theme="light"] .topbar-official-link { border-color: rgba(0,0,0,0.08); background: rgba(0,0,0,0.03); color: #64748b; }
 [data-theme="light"] .topbar-official-link:hover { color: #334155; border-color: rgba(0,0,0,0.14); background: rgba(0,0,0,0.06); }
 
-/* Статьи — branded blue pill */
 .topbar-articles-btn {
     display: flex; align-items: center; gap: 5px; padding: 5px 11px;
     border-radius: 8px; border: 1.5px solid rgba(88,166,255,0.3);
@@ -687,10 +643,8 @@ footer a { color: var(--accent); text-decoration: none; }
 [data-theme="light"] .topbar-articles-btn:hover { background: rgba(37,99,235,0.13); border-color: rgba(37,99,235,0.5); color: #1d4ed8; }
 [data-theme="light"] .topbar-articles-btn.active { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.5); color: #1d4ed8; }
 
-/* ── Right ── */
 .topbar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
-/* BilimExam button — purple */
 .topbar-exam-btn {
     display: flex; align-items: center; gap: 6px; padding: 5px 10px 5px 7px;
     border-radius: 8px; border: 1.5px solid rgba(167,139,250,0.3);
@@ -707,7 +661,6 @@ footer a { color: var(--accent); text-decoration: none; }
 [data-theme="light"] .topbar-exam-btn:hover { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.45); }
 [data-theme="light"] .topbar-exam-btn__text { color: #7c3aed; }
 
-/* BilimCalc button — green */
 .topbar-calc-btn {
     display: flex; align-items: center; gap: 6px; padding: 5px 10px 5px 7px;
     border-radius: 8px; border: 1.5px solid rgba(60,182,72,0.3);
@@ -724,17 +677,12 @@ footer a { color: var(--accent); text-decoration: none; }
 [data-theme="light"] .topbar-calc-btn:hover { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.45); }
 [data-theme="light"] .topbar-calc-btn__text { color: #16a34a; }
 
-/* ── Убрать выделение при тапе ── */
 *, button, a, input, .btn, .ghost, .faq-q,
 .article-card, .mobile-nav__item,
 .topbar-official-link, .topbar-logo, .topbar-articles-btn, [role="button"] {
     -webkit-tap-highlight-color: transparent !important;
 }
 
-/* ── Адаптивность ──
-   Десктоп: всё видно с текстом
-   Мобайл (<600px): логотип без текста, центр виден, кнопка приложения без текста
-────────────────────────────────── */
 @media (max-width: 600px) {
     #topbar { padding: 0 12px; gap: 6px; }
     .topbar-logo__name { display: none; }
@@ -747,7 +695,6 @@ footer a { color: var(--accent); text-decoration: none; }
     .topbar-center { gap: 5px; }
 }
 
-/* ── Кнопка Поделиться ── */
 .share-btn {
     display: flex; align-items: center; justify-content: center;
     gap: 6px; font-size: 13px;
@@ -765,7 +712,6 @@ footer a { color: var(--accent); text-decoration: none; }
     border-color: rgba(37,99,235,0.2) !important;
 }
 
-/* ── Кнопка Сбросить всё ── */
 #resetAllBtn {
     color: var(--danger) !important;
     border-color: rgba(218,54,51,0.25) !important;
@@ -785,7 +731,6 @@ html { touch-action: pan-x pan-y; }
     font-style: italic; letter-spacing: 0.1px;
 }
 
-/* ── mobile-nav item exam accent ── */
 .mobile-nav__item--exam { color: #a78bfa !important; }
 .mobile-nav__item--exam.active { color: #a78bfa !important; }
 .mobile-nav__item--exam.active .mobile-nav__icon { transform: scale(1.15) translateY(-1px); }

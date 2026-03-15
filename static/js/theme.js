@@ -1,10 +1,19 @@
 (function () {
-    var KEY          = 'bilimcalc_theme';
-    var prefersDark  = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var saved        = localStorage.getItem(KEY);
-    // если пользователь ещё не выбирал — берём системные настройки
-    var theme        = saved || (prefersDark ? 'dark' : 'light');
+    var KEY         = 'bilimcalc_theme';
+    var saved       = localStorage.getItem(KEY);
+    var systemDark  = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    var theme = saved || (systemDark ? 'dark' : 'light');
+
     document.documentElement.setAttribute('data-theme', theme);
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        if (!localStorage.getItem(KEY)) {
+            var next = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            if (window.ThemeToggle) window.ThemeToggle._updateBtn();
+        }
+    });
 
     window.ThemeToggle = {
         get: function () {
@@ -17,6 +26,12 @@
         },
         toggle: function () {
             this.set(this.get() === 'dark' ? 'light' : 'dark');
+        },
+        resetToSystem: function () {
+            localStorage.removeItem(KEY);
+            var s = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', s);
+            this._updateBtn();
         },
         _updateBtn: function () {
             var t    = this.get();

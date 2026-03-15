@@ -19,12 +19,14 @@ const STATIC_ASSETS = [
     "/static/css/page-loader.css",
     "/static/css/pwa-banner.css",
     "/static/css/bilimexam.css",
+    "/static/css/additions.css",
 
     "/static/js/main.js",
     "/static/js/theme.js",
     "/static/js/page-loader.js",
     "/static/js/pwa-install.js",
     "/static/js/bilimexam.js",
+    "/static/js/visitor-counter.js",
     "/static/js/chart.min.js",
 
     "/site.webmanifest",

@@ -7,10 +7,30 @@
     <meta name="language" content="ru">
     <meta http-equiv="content-language" content="ru">
 
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107236685', 'ym');
+        ym(107236685, 'init', {
+            ssr: true,
+            webvisor: true,
+            clickmap: true,
+            ecommerce: "dataLayer",
+            referrer: document.referrer,
+            url: location.href,
+            accurateTrackBounce: true,
+            trackLinks: true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
 
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.2">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.3">
 
     <title>{% block meta_title %}BilimCalc — калькулятор СО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор СО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
@@ -36,10 +56,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.7.2">
-    <link rel="stylesheet" href="/static/css/article.css?v=1.7.2">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.2">
-    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.2">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/article.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.3">
     {% block extra_css %}{% endblock %}
 
     <script type="application/ld+json">
@@ -168,7 +188,7 @@
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.7.2"></script>
+<script src="/static/js/pwa-install.js?v=1.7.3"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>
