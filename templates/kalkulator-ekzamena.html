@@ -36,11 +36,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.7.0">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.0">
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.0">
-    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.7.2">
-    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.2">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.3">
 
     <script type="application/ld+json">
     {
@@ -365,13 +365,26 @@
     </div>
 
     <footer>
-        <div>Разработчик: Anton · <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener">GitHub</a> · <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank">Обратная связь</a></div>
-
-        <div style="margin-top:5px;opacity:.6">© <span id="yearExam"></span> BilimExam · v1.7.2</div>
+        <div class="ft-inner">
+            <div class="ft-bottom">
+                <div class="ft-badge" id="visitorBadge">
+                    <span class="ft-badge-dot"></span>
+                    <span id="visitorCount">загрузка...</span>
+                </div>
+                <div class="ft-mid">
+                    <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener" class="ft-link">GitHub</a>
+                    <span class="ft-sep">·</span>
+                    <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank" class="ft-link">Обратная связь</a>
+                </div>
+                <div class="ft-right">
+                    <span class="ft-copy">© <span id="yearExam"></span> BilimExam</span>
+                    <span class="ft-version">v1.7.3</span>
+                </div>
+            </div>
+        </div>
     </footer>
 </div>
 
-<!-- ══ МОБИЛЬНЫЙ ТАБ-БАР ══ -->
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item">
         <span class="mobile-nav__icon">🧮</span>
@@ -387,7 +400,8 @@
     </a>
 </nav>
 
-<script src="/static/js/bilimexam.js?v=1.7.0"></script>
-<script src="/static/js/pwa-install.js?v=1.7.0"></script>
+<script src="/static/js/visitor-counter.js?v=1.7.3" defer></script>
+<script src="/static/js/bilimexam.js?v=1.7.3"></script>
+<script src="/static/js/pwa-install.js?v=1.7.3"></script>
 </body>
 </html>

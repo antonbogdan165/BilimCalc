@@ -700,6 +700,21 @@ function hexToRgba(hex, a) {
 function drawTrend(scores, predictions, accuracy) {
     const canvas = document.getElementById("trendChart");
     if (!canvas) return;
+
+    if (typeof Chart === "undefined") {
+        const container = document.getElementById("trendContainer");
+        if (container && !container.querySelector(".chart-offline-msg")) {
+            const msg = document.createElement("div");
+            msg.className = "chart-offline-msg";
+            msg.style.cssText = "display:flex;align-items:center;justify-content:center;height:100%;font-size:12px;color:#8b949e;text-align:center;line-height:1.5;padding:0 12px";
+            msg.textContent = "График доступен при наличии интернета";
+            container.appendChild(msg);
+        }
+        document.getElementById("aiAccuracy").textContent = "--%%";
+        document.getElementById("trendLabel").textContent = "Нет данных";
+        return;
+    }
+
     const ctx = canvas.getContext("2d");
     if (trendChart) trendChart.destroy();
 
