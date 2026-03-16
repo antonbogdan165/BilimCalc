@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory, redirect, Response
 import os
 import time
+import requests as req_lib
 from datetime import date
 
 from logics import calculate_parts, calculate_final
@@ -16,6 +17,17 @@ except ImportError:
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
 BUILD_TIME = str(int(time.time()))
+
+_SUPABASE_URL = os.environ.get('SUPABASE_URL', '')
+_SUPABASE_KEY = os.environ.get('SUPABASE_KEY', '')
+
+def _sb_headers():
+    return {
+        'apikey':        _SUPABASE_KEY,
+        'Authorization': 'Bearer ' + _SUPABASE_KEY,
+        'Content-Type':  'application/json',
+        'Prefer':        'return=representation',
+    }
 
 if _limiter_available:
     limiter = Limiter(
@@ -135,6 +147,42 @@ def calculate():
         "total_soch":   parts[2],
         "final_result": final_result,
     })
+
+
+
+@app.route("/api/visits", methods=["GET"])
+def api_visits_get():
+    if not _SUPABASE_URL or not _SUPABASE_KEY:
+        return jsonify({"count": 0})
+    try:
+        r = req_lib.get(
+            _SUPABASE_URL + "/rest/v1/visits?id=eq.1&select=count",
+            headers=_sb_headers(),
+            timeout=5,
+        )
+        data = r.json()
+        count = data[0]["count"] if data else 0
+        return jsonify({"count": count})
+    except Exception:
+        return jsonify({"count": 0})
+
+
+@app.route("/api/visits/increment", methods=["POST"])
+def api_visits_increment():
+    if not _SUPABASE_URL or not _SUPABASE_KEY:
+        return jsonify({"count": 0})
+    try:
+        r = req_lib.post(
+            _SUPABASE_URL + "/rest/v1/rpc/increment_visits",
+            headers=_sb_headers(),
+            json={},
+            timeout=5,
+        )
+        raw = r.json()
+        count = raw if isinstance(raw, int) else 0
+        return jsonify({"count": count})
+    except Exception:
+        return jsonify({"count": 0})
 
 
 def _make_article_view(template):
