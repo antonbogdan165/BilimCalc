@@ -6,6 +6,7 @@
     <meta name="robots" content="index, follow">
     <meta name="language" content="ru">
     <meta http-equiv="content-language" content="ru">
+    <meta name="author" content="Anton Bogdan">
 
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
@@ -30,11 +31,15 @@
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
 
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.4">
 
     <title>{% block meta_title %}BilimCalc — калькулятор СО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор СО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
     <link rel="canonical" href="{% block canonical %}https://bilimcalc.vercel.app/{% endblock %}">
+
+    <link rel="alternate" hreflang="ru-KZ" href="{% block hreflang_kz %}https://bilimcalc.vercel.app/{% endblock %}">
+    <link rel="alternate" hreflang="ru" href="{% block hreflang_ru %}https://bilimcalc.vercel.app/{% endblock %}">
+    <link rel="alternate" hreflang="x-default" href="https://bilimcalc.vercel.app/">
 
     <meta property="og:type"        content="{% block og_type %}website{% endblock %}">
     <meta property="og:locale"      content="ru_RU">
@@ -45,8 +50,10 @@
     <meta property="og:image"       content="https://bilimcalc.vercel.app/static/icons/preview.png">
     <meta property="og:image:width"  content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"   content="{% block og_image_alt %}BilimCalc — калькулятор СО, СОР и СОЧ для школ Казахстана{% endblock %}">
     <meta name="twitter:card"  content="summary_large_image">
     <meta name="twitter:image" content="https://bilimcalc.vercel.app/static/icons/preview.png">
+    <meta name="twitter:image:alt" content="{% block twitter_image_alt %}BilimCalc — калькулятор оценок{% endblock %}">
 
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
@@ -56,10 +63,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.7.3">
-    <link rel="stylesheet" href="/static/css/article.css?v=1.7.3">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.3">
-    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.4">
+    <link rel="stylesheet" href="/static/css/article.css?v=1.7.4">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.4">
+    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.4">
     {% block extra_css %}{% endblock %}
 
     <script type="application/ld+json">
@@ -106,10 +113,13 @@
         gtag('config', 'G-7S9C0KT928');
     </script>
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://mc.yandex.ru">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://api.counterapi.dev">
 </head>
 <body>
 
-<!-- ══ TOPBAR ══ -->
 <div id="topbar">
     <a class="topbar-logo" href="/" title="BilimCalc">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
@@ -155,7 +165,6 @@
 
 {% block content %}{% endblock %}
 
-<!-- ══ MOBILE TAB BAR ══ -->
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item {% block mob_home %}{% endblock %}">
         <span class="mobile-nav__icon">🧮</span>
@@ -188,7 +197,7 @@
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.7.3"></script>
+<script src="/static/js/pwa-install.js?v=1.7.4"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -1,15 +1,51 @@
 let so   = [];
 let sors = [];
 const SAVE_KEY = "bilimcalc_v1";
+const SITE_URL_BASE = "https://bilimcalc.vercel.app/";
 
 function hapticLight() {
     if (navigator.vibrate) navigator.vibrate(10);
 }
 function hapticReset() {
-    // Двойной импульс — ощущение «очистки»
     if (navigator.vibrate) navigator.vibrate([12, 60, 12]);
 }
 
+function buildShareURL() {
+    const params = new URLSearchParams();
+    if (so.length) params.set("so", so.join(","));
+    if (sors.length) params.set("sor", sors.map(p => p[0] + "-" + p[1]).join(","));
+    const sochDialed = document.getElementById("sochDialed").value;
+    const sochMax    = document.getElementById("sochMax").value;
+    if (sochMax && Number(sochMax) > 0) params.set("soch", sochDialed + "-" + sochMax);
+    const qs = params.toString();
+    return SITE_URL_BASE + (qs ? "?" + qs : "");
+}
+
+function loadFromURL() {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has("so")) {
+            const vals = params.get("so").split(",").map(Number).filter(v => v >= 1 && v <= 10);
+            if (vals.length) so = vals;
+        }
+        if (params.has("sor")) {
+            const pairs = params.get("sor").split(",").map(s => s.split("-").map(Number));
+            const valid = pairs.filter(p => p.length === 2 && p[1] > 0 && p[0] <= p[1]);
+            if (valid.length) sors = valid;
+        }
+        if (params.has("soch")) {
+            const parts = params.get("soch").split("-").map(Number);
+            if (parts.length === 2 && parts[1] > 0 && parts[0] <= parts[1]) {
+                document.getElementById("sochDialed").value = parts[0];
+                document.getElementById("sochMax").value    = parts[1];
+            }
+        }
+        if (params.has("so") || params.has("sor") || params.has("soch")) {
+            return true;
+        }
+    } catch (e) {}
+    return false;
+}
 
 function createChip(text, onDelete) {
     const el  = document.createElement("div");
@@ -260,7 +296,6 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
         !document.getElementById("sochDialed").value &&
         !document.getElementById("sochMax").value) return;
 
-    // Haptic — только на кнопке "Сбросить всё"
     hapticReset();
 
     so   = [];
@@ -281,8 +316,6 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
     const shareBtn = document.getElementById("shareBtn");
     if (!shareBtn) return;
 
-    const SITE_URL = "https://bilimcalc.vercel.app/";
-
     function getShareText() {
         const result = document.getElementById("finalResult").textContent.trim();
         const badge  = document.getElementById("gradeBadge").textContent.trim();
@@ -293,7 +326,7 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
         if (document.getElementById("shareModal")) return;
 
         const text        = getShareText();
-        const url         = SITE_URL;
+        const url         = buildShareURL();
         const encodedUrl  = encodeURIComponent(url);
         const encodedText = encodeURIComponent(text + "\n");
 
@@ -390,7 +423,7 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
 
     shareBtn.addEventListener("click", async () => {
         const text      = getShareText();
-        const url       = SITE_URL;
+        const url       = buildShareURL();
         const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
         if (navigator.share && !isDesktop) {
@@ -843,7 +876,10 @@ if ("serviceWorker" in navigator) {
 
 
 (function init() {
-    loadState();
+    const loadedFromURL = loadFromURL();
+    if (!loadedFromURL) {
+        loadState();
+    }
     renderSO();
     renderSORS();
     setTimeout(() => {

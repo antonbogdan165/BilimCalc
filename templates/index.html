@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru" data-theme="dark">
 <head>
-    <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -9,21 +8,21 @@
             for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
             k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
         })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107236685', 'ym');
-
         ym(107236685, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <meta name="robots" content="index, follow">
+    <meta name="author" content="Anton">
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.4">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="/static/css/style.css?v=1.7.3">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.3">
-    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.3">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.4">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.4">
+    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.4">
     <meta charset="utf-8">
     <title>BilimCalc — калькулятор СО, СОР и СОЧ онлайн</title>
     <meta name="language" content="ru">
@@ -36,18 +35,27 @@
     <meta property="og:url" content="https://bilimcalc.vercel.app/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="canonical" href="https://bilimcalc.vercel.app/">
+    <link rel="alternate" hreflang="ru-KZ" href="https://bilimcalc.vercel.app/">
+    <link rel="alternate" hreflang="ru" href="https://bilimcalc.vercel.app/">
+    <link rel="alternate" hreflang="x-default" href="https://bilimcalc.vercel.app/">
     <meta property="og:site_name" content="BilimCalc">
     <meta property="og:image" content="https://bilimcalc.vercel.app/static/icons/preview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="BilimCalc — калькулятор СО, СОР и СОЧ для школ Казахстана">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://bilimcalc.vercel.app/static/icons/preview.png">
+    <meta name="twitter:image:alt" content="BilimCalc — калькулятор оценок для школ Казахстана">
     <meta name="theme-color" content="#0f1117">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
           as="script" crossorigin="anonymous">
+    <link rel="dns-prefetch" href="https://mc.yandex.ru">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://api.counterapi.dev">
 
     <script type="application/ld+json">
     {
@@ -87,7 +95,6 @@
 </head>
 <body>
 
-<!-- ══ SPLASH ══ -->
 <div id="splash">
     <div class="splash-logo">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
@@ -162,9 +169,7 @@
     </div>
 
     <div class="grid">
-        <!-- левая колонка -->
         <div>
-            <!-- СО -->
             <div class="card reveal">
                 <div class="section-title">СО</div>
                 <div class="so-row">
@@ -179,7 +184,6 @@
                 </div>
             </div>
 
-            <!-- СОР -->
             <div class="card reveal" style="margin-top:14px">
                 <div class="section-title">СОР</div>
                 <div class="sor-row">
@@ -195,7 +199,6 @@
                 </div>
             </div>
 
-            <!-- СОЧ -->
             <div class="card reveal" style="margin-top:14px">
                 <div class="section-title">СОЧ</div>
                 <div class="soch-row">
@@ -207,7 +210,6 @@
                 </div>
             </div>
 
-            <!-- Сбросить всё -->
             <div style="margin-top:10px">
                 <button class="btn ghost" id="resetAllBtn" style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.25);">
                     🗑 Сбросить всё
@@ -215,7 +217,6 @@
             </div>
         </div>
 
-        <!-- правая колонка -->
         <div>
             <div class="card">
                 <div class="result-big" id="finalResult">—</div>
@@ -285,7 +286,6 @@
         </div>
     </div>
 
-    <!-- Баннер: BilimExam -->
     <a href="/kalkulator-ekzamena" class="card bilimexam-banner" style="margin-top:20px;display:flex;align-items:center;gap:14px;text-decoration:none;padding:16px 20px;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.06);">
         <div style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(167,139,250,0.15);border-radius:10px;font-size:20px">🎓</div>
         <div style="flex:1;min-width:0">
@@ -343,83 +343,6 @@
         </div>
     </div>
 
-    <div class="card" style="margin-top:20px">
-        <h2>Полезные статьи</h2>
-        <p class="small" style="margin-bottom:14px">Подробные руководства по системе оценивания в школах Казахстана</p>
-        <div class="articles-grid">
-
-            <!-- 70/30 — выделенная карточка, чуть крупнее -->
-            <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article-card" style="grid-column:1/-1;padding:16px 20px;background:rgba(167,139,250,0.05);border-color:rgba(167,139,250,0.18)">
-                <div class="article-card__icon" style="width:50px;height:50px;border-radius:10px;background:rgba(167,139,250,0.12);color:#a78bfa;border-color:rgba(167,139,250,0.3);font-size:12px">70/30</div>
-                <div class="article-card__body">
-                    <div class="article-card__title">Итоговая оценка за год: формула 70/30</div>
-                    <div class="article-card__desc">Как рассчитывается с учётом экзамена — разбор по шагам</div>
-                </div>
-                <span class="article-card__arrow">→</span>
-            </a>
-
-            <!-- СО — иконка без заливки, только обводка -->
-            <a href="/kak-rasschitat-so" class="article-card">
-                <div class="article-card__icon" style="background:none;border:1px solid rgba(88,166,255,0.35);color:var(--accent)">СО</div>
-                <div class="article-card__body">
-                    <div class="article-card__title">Как рассчитать СО</div>
-                    <div class="article-card__desc">Формула, пример расчёта и советы по повышению среднего балла</div>
-                </div>
-                <span class="article-card__arrow">→</span>
-            </a>
-
-            <!-- СОР — немного другой border-radius -->
-            <a href="/kak-rasschitat-sor" class="article-card">
-                <div class="article-card__icon" style="background:rgba(210,153,34,0.10);color:var(--warning);border-color:rgba(210,153,34,0.25);border-radius:8px">СОР</div>
-                <div class="article-card__body">
-                    <div class="article-card__title">Как рассчитать СОР</div>
-                    <div class="article-card__desc">Суммативное оценивание за раздел: формула и пример</div>
-                </div>
-                <span class="article-card__arrow">→</span>
-            </a>
-
-            <!-- СОЧ — чуть меньшая иконка -->
-            <a href="/kak-rasschitat-soch" class="article-card">
-                <div class="article-card__icon" style="width:42px;height:42px;background:rgba(46,160,67,0.10);color:var(--success);border-color:rgba(46,160,67,0.25)">СОЧ</div>
-                <div class="article-card__body">
-                    <div class="article-card__title">Как рассчитать СОЧ</div>
-                    <div class="article-card__desc">Итоговая работа: формула, вес и как повлиять на результат</div>
-                </div>
-                <span class="article-card__arrow">→</span>
-            </a>
-
-            <!-- ИО — без фона, только левый бордер цветом -->
-            <a href="/itogovaya-ocenka-za-chetvert" class="article-card">
-                <div class="article-card__icon" style="background:none;border:none;color:var(--danger);font-size:13px;font-weight:900;letter-spacing:0">ИО</div>
-                <div class="article-card__body">
-                    <div class="article-card__title">Итоговая оценка за четверть</div>
-                    <div class="article-card__desc">Как рассчитывается и от чего зависит итог</div>
-                </div>
-                <span class="article-card__arrow">→</span>
-            </a>
-
-            <!-- МОН — мелкий текст, другой border-radius -->
-            <a href="/metodika-rascheta-mon-rk" class="article-card">
-                <div class="article-card__icon" style="background:rgba(88,166,255,0.07);color:var(--accent);border-color:rgba(88,166,255,0.2);border-radius:6px;font-size:10px;letter-spacing:0">МОН</div>
-                <div class="article-card__body">
-                    <div class="article-card__title">Методика расчёта МОН РК</div>
-                    <div class="article-card__desc">Официальные правила оценивания в казахстанских школах</div>
-                </div>
-                <span class="article-card__arrow">→</span>
-            </a>
-
-            <!-- %→5 — иконка вообще без рамки, просто цветной текст -->
-            <a href="/kak-perevesti-procenty-v-otsenku" class="article-card">
-                <div class="article-card__icon" style="background:none;border:none;color:var(--muted);font-size:11px;font-weight:900">%→5</div>
-                <div class="article-card__body">
-                    <div class="article-card__title">Как перевести проценты в оценку</div>
-                    <div class="article-card__desc">Таблица 85%=5, 65%=4 + пример округления 84.5%→5</div>
-                </div>
-                <span class="article-card__arrow">›</span>
-            </a>
-
-        </div>
-    </div>
     <footer>
         <div class="ft-inner">
             <div class="ft-bottom">
@@ -434,7 +357,7 @@
                 </div>
                 <div class="ft-right">
                     <span class="ft-copy">© <span id="year"></span> BilimCalc</span>
-                    <span class="ft-version">v1.7.3</span>
+                    <span class="ft-version">v1.7.4</span>
                 </div>
             </div>
         </div>
@@ -458,8 +381,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
     integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF"
-    crossorigin="anonymous"></script>
-<script src="/static/js/main.js?v=1.7.3"></script>
+    crossorigin="anonymous"
+    defer></script>
+<script src="/static/js/main.js?v=1.7.4" defer></script>
 
 <script>
 (function() {
@@ -496,7 +420,7 @@
     });
 })()
 </script>
-<script src="/static/js/visitor-counter.js?v=1.7.3" defer></script>
-<script src="/static/js/pwa-install.js?v=1.7.3"></script>
+<script src="/static/js/visitor-counter.js?v=1.7.4" defer></script>
+<script src="/static/js/pwa-install.js?v=1.7.4"></script>
 </body>
 </html>

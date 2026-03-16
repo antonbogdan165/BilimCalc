@@ -1,10 +1,10 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory, redirect
+from flask import Flask, request, jsonify, render_template, send_from_directory, redirect, Response
 import os
 import time
+from datetime import date
 
 from logics import calculate_parts, calculate_final
 
-# Flask-Limiter опциональный — не ломает при отсутствии пакета
 try:
     from flask_limiter import Limiter
     from flask_limiter.util import get_remote_address
@@ -45,6 +45,19 @@ CALC_REDIRECTS = {
     "/calculator":       "/",
 }
 
+SITEMAP_URLS = [
+    {"loc": "https://bilimcalc.vercel.app/",                                          "changefreq": "weekly",  "priority": "1.0"},
+    {"loc": "https://bilimcalc.vercel.app/kalkulator-ekzamena",                       "changefreq": "monthly", "priority": "0.9"},
+    {"loc": "https://bilimcalc.vercel.app/articles",                                  "changefreq": "weekly",  "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",   "changefreq": "monthly", "priority": "0.9"},
+    {"loc": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",          "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",              "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-soch",                       "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-sor",                        "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-so",                         "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",                  "changefreq": "monthly", "priority": "0.7"},
+]
+
 
 @app.before_request
 def force_non_www():
@@ -58,9 +71,26 @@ def index():
 
 
 @app.route("/robots.txt")
+def robots():
+    return send_from_directory("static", "robots.txt")
+
+
 @app.route("/sitemap.xml")
-def static_from_root():
-    return send_from_directory("static", request.path[1:])
+def sitemap():
+    today = date.today().isoformat()
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for u in SITEMAP_URLS:
+        lines.append(
+            f'  <url>'
+            f'<loc>{u["loc"]}</loc>'
+            f'<lastmod>{today}</lastmod>'
+            f'<changefreq>{u["changefreq"]}</changefreq>'
+            f'<priority>{u["priority"]}</priority>'
+            f'</url>'
+        )
+    lines.append('</urlset>')
+    return Response("\n".join(lines), mimetype="application/xml")
 
 
 @app.route("/sw.js")
@@ -81,9 +111,6 @@ def favicon():
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
-    if _limiter_available:
-        pass  
-
     data = request.get_json(silent=True)
     if not data:
         return jsonify({"error": "Некорректный JSON"}), 400
