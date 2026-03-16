@@ -27,7 +27,6 @@ const STATIC_ASSETS = [
     "/static/js/pwa-install.js",
     "/static/js/bilimexam.js",
     "/static/js/visitor-counter.js",
-    "/static/js/chart.min.js",
 
     "/site.webmanifest",
     "/static/icons/favicon-32x32.png",
@@ -36,16 +35,23 @@ const STATIC_ASSETS = [
     "/static/icons/apple-touch-icon.png",
 ];
 
+const CDN_ASSETS = [
+    "https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js",
+];
+
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache =>
-            Promise.allSettled(
-                STATIC_ASSETS.map(url =>
+            Promise.allSettled([
+                ...STATIC_ASSETS.map(url =>
                     cache.add(url).catch(err =>
                         console.warn("[SW] не удалось закэшировать:", url, err)
                     )
-                )
-            )
+                ),
+                ...CDN_ASSETS.map(url =>
+                    fetch(url).then(r => { if (r.ok) cache.put(url, r); }).catch(() => {})
+                ),
+            ])
         ).then(() => self.skipWaiting())
     );
 });
@@ -86,6 +92,18 @@ self.addEventListener("fetch", event => {
                     { headers: { "Content-Type": "application/json" } }
                 );
             })
+        );
+        return;
+    }
+
+    if (url.hostname === "cdn.jsdelivr.net") {
+        event.respondWith(
+            fetch(event.request).then(response => {
+                if (response.ok) {
+                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, response.clone()));
+                }
+                return response;
+            }).catch(() => caches.match(event.request))
         );
         return;
     }

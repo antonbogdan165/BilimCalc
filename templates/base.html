@@ -182,6 +182,7 @@
 
 <script>
 (function(){
+    ThemeToggle.init();
     document.addEventListener('click', function(e){
         var target = e.target.closest('.mobile-nav__item, .btn, .topbar-official-link');
         if (!target) return;
