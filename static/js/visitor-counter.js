@@ -1,8 +1,11 @@
 (function () {
     'use strict';
 
-    var API_URL = 'https://api.counterapi.dev/v1/bilimcalc-site/visits/up';
+    var NAMESPACE   = 'bilimcalc-site';
+    var KEY         = 'visits';
+    var BASE_URL    = 'https://api.counterapi.dev/v1/' + NAMESPACE + '/' + KEY;
     var SESSION_KEY = 'bc_session_counted';
+    var TIMEOUT_MS  = 5000;
 
     function fmt(n) {
         if (n >= 1000000) return (Math.floor(n / 100000) / 10).toFixed(1) + 'M+';
@@ -15,7 +18,7 @@
         var duration = 900;
         var t0 = performance.now();
         (function tick(now) {
-            var p   = Math.min((now - t0) / duration, 1);
+            var p    = Math.min((now - t0) / duration, 1);
             var ease = 1 - Math.pow(1 - p, 3);
             var cur  = Math.floor(startVal + (target - startVal) * ease);
             el.textContent = fmt(cur) + ' учеников';
@@ -24,17 +27,30 @@
         })(t0);
     }
 
+    function fetchWithTimeout(url, ms) {
+        return new Promise(function (resolve, reject) {
+            var timer = setTimeout(function () {
+                reject(new Error('timeout'));
+            }, ms);
+            fetch(url).then(function (r) {
+                clearTimeout(timer);
+                resolve(r);
+            }).catch(function (e) {
+                clearTimeout(timer);
+                reject(e);
+            });
+        });
+    }
+
     function init() {
         var badge   = document.getElementById('visitorBadge');
         var countEl = document.getElementById('visitorCount');
         if (!badge || !countEl) return;
 
         var alreadyCounted = sessionStorage.getItem(SESSION_KEY);
-        var url = alreadyCounted
-            ? API_URL.replace('/up', '')
-            : API_URL;
+        var url = alreadyCounted ? BASE_URL : BASE_URL + '/up';
 
-        fetch(url)
+        fetchWithTimeout(url, TIMEOUT_MS)
             .then(function (r) { return r.json(); })
             .then(function (data) {
                 if (!alreadyCounted) {
