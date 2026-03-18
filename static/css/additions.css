@@ -155,18 +155,3 @@ footer a { color: inherit; }
         padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
     }
 }
-
-/* scroll-margin so scrollIntoView clears the fixed topbar and nav */
-@media (max-width: 900px) {
-    input[type="text"],
-    input[type="number"] {
-        scroll-margin-top: 70px;
-        scroll-margin-bottom: 80px;
-    }
-}
-
-@media (max-width: 900px) {
-    html, body {
-        overscroll-behavior-y: none;
-    }
-}
