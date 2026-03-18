@@ -51,8 +51,6 @@ h1 {
 }
 @media (max-width: 900px) {
     .grid { grid-template-columns: 1fr; }
-    .grid > div:first-child { order: 2; }
-    .grid > div:last-child  { order: 1; }
 }
 
 .card {
