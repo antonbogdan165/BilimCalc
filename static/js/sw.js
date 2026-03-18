@@ -27,7 +27,6 @@ const STATIC_ASSETS = [
     "/static/js/pwa-install.js",
     "/static/js/bilimexam.js",
     "/static/js/visitor-counter.js",
-    "/static/js/mobile-keyboard-ux.js",
 
     "/site.webmanifest",
     "/static/icons/favicon-32x32.png",
@@ -46,7 +45,7 @@ self.addEventListener("install", event => {
             Promise.allSettled([
                 ...STATIC_ASSETS.map(url =>
                     cache.add(url).catch(err =>
-                        console.warn("[SW] не удалось закэшировать:", url, err)
+                        console.warn("[SW] failed to cache:", url, err)
                     )
                 ),
                 ...CDN_ASSETS.map(url =>
@@ -61,10 +60,7 @@ self.addEventListener("activate", event => {
     event.waitUntil(
         caches.keys().then(keys =>
             Promise.all(
-                keys.filter(k => k !== CACHE_NAME).map(k => {
-                    console.log("[SW] удаляем старый кэш:", k);
-                    return caches.delete(k);
-                })
+                keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
             )
         ).then(() => self.clients.claim())
     );
@@ -72,30 +68,6 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
     const url = new URL(event.request.url);
-
-    if (url.pathname === "/calculate") {
-        event.respondWith(
-            fetch(event.request.clone()).then(response => {
-                if (response.ok) {
-                    caches.open(CACHE_NAME).then(cache =>
-                        cache.put("/calculate-last", response.clone())
-                    );
-                }
-                return response;
-            }).catch(async () => {
-                const cached = await caches.match("/calculate-last");
-                if (cached) return cached;
-                return new Response(
-                    JSON.stringify({
-                        total_so: null, total_sor: null,
-                        total_soch: null, final_result: null, offline: true
-                    }),
-                    { headers: { "Content-Type": "application/json" } }
-                );
-            })
-        );
-        return;
-    }
 
     if (url.hostname === "cdn.jsdelivr.net") {
         event.respondWith(

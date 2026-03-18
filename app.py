@@ -1,10 +1,8 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory, redirect, Response
+from flask import Flask, render_template, send_from_directory, redirect, Response
 import os
 import time
 import requests as req_lib
 from datetime import date
-
-from logics import calculate_parts, calculate_final
 
 try:
     from flask_limiter import Limiter
@@ -73,6 +71,7 @@ SITEMAP_URLS = [
 
 @app.before_request
 def force_non_www():
+    from flask import request
     if request.host.startswith("www."):
         return redirect("https://bilimcalc.vercel.app/" + request.full_path, code=301)
 
@@ -121,39 +120,10 @@ def favicon():
     return send_from_directory("static/icons", "favicon.ico")
 
 
-@app.route("/calculate", methods=["POST"])
-def calculate():
-    data = request.get_json(silent=True)
-    if not data:
-        return jsonify({"error": "Некорректный JSON"}), 400
-
-    so   = data.get("so", [])
-    sors = data.get("sors", [])
-    soch = data.get("soch")
-
-    if not isinstance(so, list) or not isinstance(sors, list):
-        return jsonify({"error": "Поля 'so' и 'sors' должны быть массивами"}), 400
-
-    try:
-        parts = calculate_parts(so=so, sors=sors, soch=soch)
-        final_result = calculate_final(*parts)
-    except Exception as e:
-        app.logger.error(f"Ошибка при вычислении: {e}")
-        return jsonify({"error": "Ошибка при вычислении"}), 500
-
-    return jsonify({
-        "total_so":     parts[0],
-        "total_sor":    parts[1],
-        "total_soch":   parts[2],
-        "final_result": final_result,
-    })
-
-
-
 @app.route("/api/visits", methods=["GET"])
 def api_visits_get():
     if not _SUPABASE_URL or not _SUPABASE_KEY:
-        return jsonify({"count": 0})
+        return _json({"count": 0})
     try:
         r = req_lib.get(
             _SUPABASE_URL + "/rest/v1/visits?id=eq.1&select=count",
@@ -161,16 +131,15 @@ def api_visits_get():
             timeout=5,
         )
         data = r.json()
-        count = data[0]["count"] if data else 0
-        return jsonify({"count": count})
+        return _json({"count": data[0]["count"] if data else 0})
     except Exception:
-        return jsonify({"count": 0})
+        return _json({"count": 0})
 
 
 @app.route("/api/visits/increment", methods=["POST"])
 def api_visits_increment():
     if not _SUPABASE_URL or not _SUPABASE_KEY:
-        return jsonify({"count": 0})
+        return _json({"count": 0})
     try:
         r = req_lib.post(
             _SUPABASE_URL + "/rest/v1/rpc/increment_visits",
@@ -179,10 +148,14 @@ def api_visits_increment():
             timeout=5,
         )
         raw = r.json()
-        count = raw if isinstance(raw, int) else 0
-        return jsonify({"count": count})
+        return _json({"count": raw if isinstance(raw, int) else 0})
     except Exception:
-        return jsonify({"count": 0})
+        return _json({"count": 0})
+
+
+def _json(data):
+    from flask import jsonify
+    return jsonify(data)
 
 
 def _make_article_view(template):

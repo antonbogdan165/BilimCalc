@@ -3,9 +3,6 @@ let sors = [];
 const SAVE_KEY = "bilimcalc_v1";
 const SITE_URL_BASE = "https://bilimcalc.vercel.app/";
 
-function hapticLight() {
-    if (navigator.vibrate) navigator.vibrate(10);
-}
 function hapticReset() {
     if (navigator.vibrate) navigator.vibrate([12, 60, 12]);
 }
@@ -40,9 +37,7 @@ function loadFromURL() {
                 document.getElementById("sochMax").value    = parts[1];
             }
         }
-        if (params.has("so") || params.has("sor") || params.has("soch")) {
-            return true;
-        }
+        return params.has("so") || params.has("sor") || params.has("soch");
     } catch (e) {}
     return false;
 }

@@ -8,7 +8,6 @@
 
     var splash = document.getElementById('examSplash');
     if (splash) setTimeout(function () { splash.classList.add('hidden'); }, 800);
-    if (window.PageLoader) window.PageLoader.hide();
 
     var ob = document.getElementById('offlineBanner');
     if (ob) {
@@ -79,11 +78,7 @@
         var hintEl = document.getElementById('examEmptyHint');
         var qs = [state.q1, state.q2, state.q3, state.q4].filter(function (v) { return v !== null; });
         if (!hintEl) return;
-        if (qs.length === 0) {
-            hintEl.style.display = 'flex';
-        } else {
-            hintEl.style.display = 'none';
-        }
+        hintEl.style.display = qs.length === 0 ? 'flex' : 'none';
     }
 
     var SITE_URL = 'https://bilimcalc.vercel.app/kalkulator-ekzamena';
@@ -106,7 +101,6 @@
         var encodedUrl = encodeURIComponent(url);
         var tgLink     = 'https://t.me/share/url?url=' + encodedUrl + '&text=' + encodeURIComponent(text);
         var waLink     = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(text + '\n') + encodedUrl;
-        var vkLink     = 'https://vk.com/share.php?url=' + encodedUrl + '&title=' + encodeURIComponent(text);
 
         var modal = document.createElement('div');
         modal.id  = 'examShareModal';
