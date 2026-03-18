@@ -27,6 +27,7 @@ const STATIC_ASSETS = [
     "/static/js/pwa-install.js",
     "/static/js/bilimexam.js",
     "/static/js/visitor-counter.js",
+    "/static/js/mobile-keyboard-ux.js",
 
     "/site.webmanifest",
     "/static/icons/favicon-32x32.png",
