@@ -1,51 +1,18 @@
 (function () {
     'use strict';
-
-    var savedInput    = null;
-    var savedScrollY  = 0;
-    var shouldRestore = false;
-    var blurTimer     = null;
-
-    document.addEventListener('mousedown', function (e) {
-        if (e.target && e.target.tagName === 'INPUT') {
-            savedScrollY = window.scrollY;
-        }
-    }, true);
-
-    document.addEventListener('touchstart', function (e) {
-        if (e.target && e.target.tagName === 'INPUT') {
-            savedScrollY = window.scrollY;
-        }
-    }, { passive: true });
+    var lastInput = null;
 
     document.addEventListener('focusin', function (e) {
-        var t = e.target;
-        if (!t || t.tagName !== 'INPUT') return;
-
-        savedInput    = t;
-        shouldRestore = true;
-        if (blurTimer) clearTimeout(blurTimer);
-
-        requestAnimationFrame(function () {
-            window.scrollTo(0, savedScrollY);
-        });
-    }, true);
-
-    document.addEventListener('focusout', function () {
-        blurTimer = setTimeout(function () {
-            if (!document.hidden) shouldRestore = false;
-        }, 400);
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+            lastInput = e.target;
+        }
     }, true);
 
     document.addEventListener('visibilitychange', function () {
-        if (!document.hidden && shouldRestore && savedInput && document.body.contains(savedInput)) {
-            if (blurTimer) clearTimeout(blurTimer);
+        if (!document.hidden && lastInput && document.body.contains(lastInput)) {
             setTimeout(function () {
-                if (savedInput && document.body.contains(savedInput)) {
-                    savedInput.focus({ preventScroll: true });
-                }
-            }, 300);
+                lastInput.focus({ preventScroll: true });
+            }, 100);
         }
     });
-
 }());

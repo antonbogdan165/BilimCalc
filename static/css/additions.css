@@ -155,3 +155,12 @@ footer a { color: inherit; }
         padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
     }
 }
+
+html, body {
+    scroll-behavior: auto !important;
+    overscroll-behavior-y: none;
+}
+
+input {
+    scroll-margin-top: 20vh;
+}

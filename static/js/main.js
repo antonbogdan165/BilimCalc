@@ -470,20 +470,20 @@ const sochDialedInput = document.getElementById("sochDialed");
 const sochMaxInput    = document.getElementById("sochMax");
 
 restrictToDigits(soInput, 2, 10);
-restrictToDigits(sorDialedInput,  2, undefined, () => sorMaxInput.focus());
+restrictToDigits(sorDialedInput,  2, undefined, () => sorMaxInput.focus({ preventScroll: true }));
 restrictToDigits(sorMaxInput,     2);
-restrictToDigits(sochDialedInput, 2, undefined, () => sochMaxInput.focus());
+restrictToDigits(sochDialedInput, 2, undefined, () => sochMaxInput.focus({ preventScroll: true }));
 restrictToDigits(sochMaxInput,    2);
 
 sorMaxInput.addEventListener("keydown", function (e) {
     if (e.key === "Backspace" && !this.value) {
-        sorDialedInput.focus();
+        sorDialedInput.focus({ preventScroll: true });
         sorDialedInput.setSelectionRange(sorDialedInput.value.length, sorDialedInput.value.length);
     }
 });
 sochMaxInput.addEventListener("keydown", function (e) {
     if (e.key === "Backspace" && !this.value) {
-        sochDialedInput.focus();
+        sochDialedInput.focus({ preventScroll: true });
         sochDialedInput.setSelectionRange(sochDialedInput.value.length, sochDialedInput.value.length);
     }
 });
