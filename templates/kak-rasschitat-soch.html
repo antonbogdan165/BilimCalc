@@ -41,20 +41,6 @@
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Как рассчитать СОЧ (суммативное оценивание за четверть)",
-    "description": "Пошаговый расчёт СОЧ по официальной методике МОН РК",
-    "totalTime": "PT2M",
-    "step": [
-        { "@type": "HowToStep", "position": 1, "name": "Узнайте набранные и максимальные баллы", "text": "Запишите, сколько баллов набрано за СОЧ и каков максимум. Например: 18 из 25." },
-        { "@type": "HowToStep", "position": 2, "name": "Переведите в проценты", "text": "Набранные ÷ максимум × 100: 18 ÷ 25 × 100 = 72%." },
-        { "@type": "HowToStep", "position": 3, "name": "Рассчитайте вклад СОЧ", "text": "Умножьте процент на 0,5: 72% × 0,5 = 36 из 50 возможных баллов." }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
         {
@@ -65,7 +51,7 @@
         {
             "@type": "Question",
             "name": "Можно ли пересдать СОЧ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Только с разрешения учителя при наличии уважительной причины (болезнь со справкой). Самостоятельно пересдать нельзя." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Только с разрешения учителя при наличии уважительной причины (болезнь со справкой)." }
         },
         {
             "@type": "Question",
@@ -80,6 +66,38 @@
     ]
 }
 </script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.article ul {
+    margin: 12px 0 16px 0;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.article ul li {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #b0bec8;
+    padding-left: 20px;
+    position: relative;
+}
+.article ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+    opacity: 0.6;
+}
+.article ul li strong { color: #e6edf3; }
+[data-theme="light"] .article ul li { color: #475569; }
+[data-theme="light"] .article ul li strong { color: #0f172a; }
+[data-theme="light"] .article ul li::before { opacity: 0.5; }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -123,9 +141,7 @@
             <p>Формула строгая и зафиксирована в официальной методике МОН РК. Почему умножаем на 50? Потому что СОЧ занимает ровно <strong>50%</strong> итоговой оценки за четверть. Оставшиеся 50% — это СО (25%) и СОР (25%).</p>
             <div class="article__formula">
                 <div class="article__formula-title">Формула СОЧ (официальная методика МОН РК)</div>
-                <div class="article__formula-body">
-                    СОЧ (вклад в итоговую оценку) = (Набранные баллы ÷ Максимальные баллы) × 50
-                </div>
+                <div class="article__formula-body">СОЧ (вклад в итоговую оценку) = (Набранные баллы ÷ Максимальные баллы) × 50</div>
             </div>
 
             <div class="article__weights-inline">
@@ -185,35 +201,44 @@
             <p><strong>5. Рассчитай, какой балл тебе нужен.</strong> Знай свои текущие СО и СОР — <a href="/">калькулятор BilimCalc</a> покажет, какой минимальный балл за СОЧ выведет тебя на нужную оценку.</p>
 
             <h2>Частые ошибки при расчёте СОЧ</h2>
-
             <h3>Ошибка 1: «СОЧ — это просто ещё одна контрольная»</h3>
             <p>Нет. СОЧ весит <strong>в два раза больше</strong>, чем СО или СОР. Одна слабо написанная СОЧ может снизить итоговую оценку за четверть на целый балл — даже если всё остальное было на «5».</p>
-
             <h3>Ошибка 2: Неправильно считать процент СОЧ</h3>
             <p>Многие делят баллы на 100, а не на максимум. Правильно: <strong>набранные ÷ максимальные × 100</strong> — вот процент. Потом умножить на 0,5 — вот вклад в итоговую оценку.</p>
-
-            <h3>Ошибка 3: Пропустить СОЧ в надежде, что «само рассосётся»</h3>
+            <h3>Ошибка 3: Пропустить СОЧ без уважительной причины</h3>
             <p>Пропущенный без уважительной причины СОЧ засчитывается как <strong>0 баллов</strong>. Это означает 0 из 50 возможных — итоговая оценка за четверть автоматически падает в «2» или «3».</p>
 
-            <h3>Ошибка 4: Готовиться только к СОЧ, игнорируя СО</h3>
-            <p>Если средний балл по СО низкий, даже отличная СОЧ не вытянет оценку. СО тоже суммируются и дают 25% итога.</p>
-
-            <h3>Ошибка 5: Не знать максимальные баллы своей СОЧ</h3>
-            <p>Максимум у разных учителей разный: 20, 25, 30 баллов. Уточни заранее — без этого не посчитаешь правильно.</p>
-
             <h2>Часто задаваемые вопросы</h2>
-
-            <h3>Если набрал 14 из 20 — какая оценка?</h3>
-            <p>14 ÷ 20 × 100 = 70%. Это вклад СОЧ = 35 из 50. Итоговая оценка зависит также от СО и СОР — используй <a href="/">калькулятор</a>, чтобы считать всё вместе.</p>
-
-            <h3>Можно ли пересдать СОЧ?</h3>
-            <p>Только с разрешения учителя при наличии уважительной причины — болезнь с официальной справкой. Самостоятельно пересдать нельзя.</p>
-
-            <h3>Что будет, если не сдал СОЧ по болезни?</h3>
-            <p>Нужно немедленно сообщить учителю и принести справку. Школа обязана назначить индивидуальную сдачу. Не откладывай — итоговая оценка за четверть рассчитывается по истечении четверти.</p>
-
-            <h3>Одинаков ли вес СОЧ по всем предметам?</h3>
-            <p>Да. По официальной методике МОН РК СОЧ составляет 50% итоговой оценки за четверть по всем основным предметам вне зависимости от класса или учителя.</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Если набрал 14 из 20 — какая оценка?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>14 ÷ 20 × 100 = 70%. Это вклад СОЧ = 35 из 50. Итоговая оценка зависит также от СО и СОР — используй <a href="/">калькулятор</a>, чтобы считать всё вместе.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Можно ли пересдать СОЧ?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Только с разрешения учителя при наличии уважительной причины — болезнь с официальной справкой. Самостоятельно пересдать нельзя.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Что будет, если не сдал СОЧ по болезни?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Нужно немедленно сообщить учителю и принести справку. Школа обязана назначить индивидуальную сдачу. Не откладывай — итоговая оценка за четверть рассчитывается по истечении четверти.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Одинаков ли вес СОЧ по всем предметам?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Да. По официальной методике МОН РК СОЧ составляет 50% итоговой оценки за четверть по всем основным предметам вне зависимости от класса или учителя.</p></div>
+                </div>
+            </div>
 
             <div class="article__related">
                 <div class="article__related-title">Читайте также</div>
@@ -258,4 +283,23 @@
         </aside>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var item = this.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(i) {
+            i.classList.remove('open');
+            i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+            item.classList.add('open');
+            this.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
+</script>
 {% endblock %}

@@ -46,6 +46,7 @@ ARTICLE_ROUTES = {
     "/kak-rasschitat-itogovuyu-otsenku-za-god":      "kak-rasschitat-itogovuyu-otsenku-za-god.html",
     "/kak-perevesti-procenty-v-otsenku":             "kak-perevesti-procenty-v-otsenku.html",
     "/articles":                                     "articles.html",
+    "/perehod-na-12-letku-kazakhstan":               "perehod-na-12-letku-kazakhstan.html",
 }
 
 CALC_REDIRECTS = {
@@ -66,6 +67,7 @@ SITEMAP_URLS = [
     {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-sor",                        "changefreq": "monthly", "priority": "0.8"},
     {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-so",                         "changefreq": "monthly", "priority": "0.8"},
     {"loc": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",                  "changefreq": "monthly", "priority": "0.7"},
+    {"loc": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",            "changefreq": "monthly", "priority": "0.7"},
 ]
 
 

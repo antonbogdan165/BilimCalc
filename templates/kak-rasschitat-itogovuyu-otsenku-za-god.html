@@ -41,20 +41,6 @@
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Как рассчитать итоговую оценку за год — формула 70/30",
-    "description": "Пошаговый расчёт итоговой оценки за год для 9 и 11 классов Казахстана по формуле МОН РК",
-    "totalTime": "PT3M",
-    "step": [
-        { "@type": "HowToStep", "position": 1, "name": "Рассчитайте годовую оценку", "text": "(Q1 + Q2 + Q3 + Q4) ÷ 4. Например: (4+3+4+5) ÷ 4 = 4,0." },
-        { "@type": "HowToStep", "position": 2, "name": "Примените веса", "text": "Годовая × 0,70 + Экзамен × 0,30. Например: 4,0 × 0,70 + 4 × 0,30 = 2,80 + 1,20." },
-        { "@type": "HowToStep", "position": 3, "name": "Округлите результат", "text": "Сложите компоненты: 2,80 + 1,20 = 4,00. Округление: дробная часть ≥ 0,5 → вверх. Итог: 4." }
-    ]
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
         {
@@ -64,22 +50,49 @@
         },
         {
             "@type": "Question",
-            "name": "Что такое формула 70/30 в школах Казахстана?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Официальная методика МОН РК: 70% — годовая оценка (среднее за четверти), 30% — оценка за итоговый экзамен. Применяется в 9 и 11 классах." }
+            "name": "Чем отличается итоговая оценка от годовой?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Годовая — среднее за четыре четверти. Итоговая — результат формулы 70/30, включающей и годовую, и экзамен. В аттестат идёт именно итоговая." }
         },
         {
             "@type": "Question",
             "name": "Как рассчитать нужный балл на экзамене?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Нужный балл = (желаемый итог − годовая × 0,7) ÷ 0,3. Например, при годовой 4,0 для итоговой «5»: (4,5 − 2,8) ÷ 0,3 = 5,67 — недостижимо, «5» закрыта." }
-        },
-        {
-            "@type": "Question",
-            "name": "Чем отличается годовая оценка от итоговой за год?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Годовая — среднее за четыре четверти. Итоговая — результат формулы 70/30, включающей и годовую, и экзамен. В аттестат идёт именно итоговая." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Нужный балл = (желаемый итог − годовая × 0,7) ÷ 0,3." }
         }
     ]
 }
 </script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.article ul {
+    margin: 12px 0 16px 0;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.article ul li {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #b0bec8;
+    padding-left: 20px;
+    position: relative;
+}
+.article ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+    opacity: 0.6;
+}
+.article ul li strong { color: #e6edf3; }
+[data-theme="light"] .article ul li { color: #475569; }
+[data-theme="light"] .article ul li strong { color: #0f172a; }
+[data-theme="light"] .article ul li::before { opacity: 0.5; }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -91,7 +104,6 @@
         <span class="breadcrumb__sep" aria-hidden="true">›</span>
         <span aria-current="page">Итоговая оценка за год</span>
     </nav>
-
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
             <h1 class="article__title" itemprop="headline">
@@ -100,11 +112,10 @@
             <div class="article__meta">
                 <time datetime="2026-03-13" itemprop="dateModified">Март 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>9 мин чтения</span>
+                <span>6 мин чтения</span>
                 <span class="article__meta-sep">·</span>
                 <span>9 и 11 класс</span>
             </div>
-
             <a href="/kalkulator-ekzamena" class="mobile-cta">
                 <div class="mobile-cta__icon">🎓</div>
                 <div class="mobile-cta__body">
@@ -113,7 +124,6 @@
                 </div>
                 <span class="mobile-cta__arrow">→</span>
             </a>
-
             <p class="article__lead">
                 Итоговая оценка за год в <strong>9 и 11 классах</strong> казахстанских школ считается не просто как среднее за четверти.
                 По методике МОН РК применяется формула <strong>70/30</strong>: годовая оценка весит 70%, экзамен — 30%.
@@ -123,11 +133,10 @@
             <h2>Когда применяется формула 70/30</h2>
             <p>Формула 70/30 используется на двух ключевых этапах: в 9 классе (итоговая аттестация после основной школы) и в 11 классе (аттестация за среднюю школу). Именно эти оценки идут в аттестат и во многом определяют дальнейшее поступление в колледж или вуз.</p>
             <p>В остальных классах (с 1 по 8 и в 10-м) итоговая оценка за год считается иначе — как среднее арифметическое четвертных оценок без экзамена. Если ты учишься в 9 или 11 классе, формула 70/30 касается тебя напрямую.</p>
-            <p>Важно понимать: одна хорошая четверть не спасёт от плохой годовой оценки, а слабый экзамен может снизить итог даже при отличных четвертях. Именно поэтому знать формулу нужно заранее, а не за день до объявления результатов.</p>
 
             <h2>Из чего складывается итоговая оценка за год</h2>
             <p>Итоговая оценка за год состоит из двух частей. Первая — годовая оценка (ГО). Это среднее арифметическое четвертных оценок по 5-балльной шкале (2, 3, 4 или 5). Она составляет <strong>70% итогового результата</strong>. Вторая часть — оценка за итоговую аттестацию (экзамен). Она составляет оставшиеся <strong>30%</strong>.</p>
-            <p>Четвертная оценка в свою очередь рассчитывается по системе СО, СОР и СОЧ — про это подробно написано в статье <a href="/itogovaya-ocenka-za-chetvert">«Итоговая оценка за четверть»</a>. Для расчёта годовой оценки нужна уже готовая <strong>итоговая оценка за каждую четверть</strong> в баллах.</p>
+            <p>Четвертная оценка рассчитывается по системе СО, СОР и СОЧ — про это подробно написано в статье <a href="/itogovaya-ocenka-za-chetvert">«Итоговая оценка за четверть»</a>. Для расчёта годовой оценки нужна уже готовая <strong>итоговая оценка за каждую четверть</strong> в баллах.</p>
 
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
@@ -145,7 +154,6 @@
             </div>
 
             <h2>Формула расчёта</h2>
-            <p>Расчёт проходит в три шага. Сначала находится годовая оценка — среднее арифметическое по всем четырём четвертям. Затем каждая часть умножается на свой вес. В конце результаты складываются, и итоговое число округляется до целого по математическим правилам: дробная часть 0,5 и выше округляется вверх, ниже — вниз.</p>
             <div class="article__formula">
                 <div class="article__formula-title">Шаг 1 — Годовая оценка</div>
                 <div class="article__formula-body">ГО = (Q1 + Q2 + Q3 + Q4) ÷ 4</div>
@@ -173,69 +181,56 @@
                     </tbody>
                 </table>
             </div>
-            <p>Результат 4.0 — итоговая оценка <strong>4</strong>. Пример: если бы сумма была 3.5 — итог «4»; если 3.4 — итог «3».</p>
-
-            <h2>Если нет экзамена</h2>
-            <p>Для учеников, освобождённых от итоговой аттестации по состоянию здоровья или по другим официальным причинам, итоговая оценка за год выставляется только на основе годовой оценки. Формула в этом случае упрощается: итог равен среднему арифметическому за четыре четверти.</p>
-
-            <h2>Как экзамен влияет на итоговую оценку</h2>
-            <p>Допустим, годовая оценка <strong>4</strong> (среднее по четвертям = 4.0). Если на экзамене получить <strong>3</strong>, итог: 4.0 × 0.7 + 3 × 0.3 = 2.8 + 0.9 = <strong>3.7 → 4</strong>. Если получить <strong>5</strong>: 2.8 + 5 × 0.3 = 2.8 + 1.5 = <strong>4.3 → 4</strong>. Оценка не изменилась — значит при хорошей годовой оценке экзамен лишь подтверждает результат. Но при пограничной годовой — например, средней 3.5 — один балл на экзамене может решить всё.</p>
 
             <h2>Стратегия: как повысить итоговую оценку за год</h2>
             <p>Первое и главное — не запускать четверти. Годовая оценка весит 70%, и одна слабая четверть тянет среднее вниз. Если первые три четверти были на «3», даже пятёрки в 4-й четверти и на экзамене не выведут на итоговую «5».</p>
-            <p>Второе — хорошо готовиться к итоговой аттестации. Экзамен весит 30%, и это достаточно, чтобы сдвинуть результат на один уровень. Особенно важен экзамен, если среднее по четвертям находится на границе — например, 3.5 или 4.5.</p>
-            <p>Третье — считай заранее. Зная свои четвертные оценки, можно точно определить, какой балл нужен на экзамене. Для этого удобно использовать <a href="/kalkulator-ekzamena">BilimExam</a> — он сразу показывает нужный балл за экзамен для «3», «4» и «5».</p>
-
-            <h2>Влияние на аттестат</h2>
-            <p>Именно итоговые оценки за год вносятся в аттестат об основном среднем образовании (9 класс) или общем среднем образовании (11 класс). От них зависит средний балл аттестата, который учитывается при поступлении в колледж или используется как дополнительный показатель при конкурсе.</p>
+            <p>Второе — хорошо готовиться к итоговой аттестации. Экзамен весит 30%, и этого достаточно, чтобы сдвинуть результат на один уровень. Особенно важен экзамен, если среднее по четвертям находится на границе — например, 3.5 или 4.5.</p>
+            <p>Третье — считай заранее. Зная свои четвертные оценки, можно точно определить, какой балл нужен на экзамене. Для этого удобно использовать <a href="/kalkulator-ekzamena">BilimExam</a>.</p>
 
             <h2>Часто задаваемые вопросы</h2>
-            <h3>Что если одна четверть пропущена по болезни?</h3>
-            <p>Если четвертная оценка не была выставлена из-за длительного отсутствия по болезни, школа должна предоставить ученику возможность аттестоваться. Конкретный порядок регулируется внутренними правилами школы и приказами МОН. В расчёте годовой оценки учитываются только фактически выставленные четвертные оценки.</p>
-            <h3>Можно ли пересдать экзамен?</h3>
-            <p>Пересдача итоговой аттестации возможна в предусмотренных регламентом случаях — например, если ученик заболел в день экзамена или подал апелляцию и её удовлетворили. Апелляцию можно подать в течение следующего рабочего дня после объявления результатов.</p>
-            <h3>Чем отличается итоговая оценка от годовой?</h3>
-            <p>Годовая оценка — это среднее за четыре четверти. Итоговая оценка за год — это результат применения формулы 70/30, который уже включает и годовую, и экзамен. Именно итоговая оценка идёт в аттестат.</p>
-            <h3>Как рассчитать, какой балл нужен на экзамене?</h3>
-            <p>Из формулы: экзамен = (нужный итог − годовая × 0.7) / 0.3. Например, при средней годовой 4.0 для итоговой «5» нужен экзамен: (4.5 − 4.0 × 0.7) / 0.3 = (4.5 − 2.8) / 0.3 = 5.67 — это больше 5, значит «5» уже недостижима. Это удобно считать в <a href="/kalkulator-ekzamena">BilimExam</a>.</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Что если одна четверть пропущена по болезни?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Если четвертная оценка не была выставлена из-за длительного отсутствия по болезни, школа должна предоставить ученику возможность аттестоваться. Конкретный порядок регулируется внутренними правилами школы и приказами МОН.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Можно ли пересдать экзамен?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Пересдача итоговой аттестации возможна в предусмотренных регламентом случаях — например, если ученик заболел в день экзамена или подал апелляцию и её удовлетворили.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Чем отличается итоговая оценка от годовой?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Годовая оценка — это среднее за четыре четверти. Итоговая оценка за год — это результат применения формулы 70/30, который уже включает и годовую, и экзамен. Именно итоговая оценка идёт в аттестат.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Как рассчитать, какой балл нужен на экзамене?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Из формулы: экзамен = (нужный итог − годовая × 0.7) / 0.3. Например, при средней годовой 4.0 для итоговой «5» нужен экзамен: (4.5 − 2.8) / 0.3 = 5.67 — это больше 5, значит «5» уже недостижима. Это удобно считать в <a href="/kalkulator-ekzamena">BilimExam</a>.</p></div>
+                </div>
+            </div>
 
             <div class="article__related">
                 <div class="article__related-title">Читайте также</div>
                 <div class="article__related-links">
-                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Итоговая оценка за четверть: как считается</span>
-                        <span class="article__related-arrow">→</span>
-                    </a>
-                    <a href="/kak-rasschitat-soch" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Как рассчитать СОЧ — формула и пример</span>
-                        <span class="article__related-arrow">→</span>
-                    </a>
-                    <a href="/kak-rasschitat-sor" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Как рассчитать СОР — полное руководство</span>
-                        <span class="article__related-arrow">→</span>
-                    </a>
-                    <a href="/kak-rasschitat-so" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Что такое СО и как считается</span>
-                        <span class="article__related-arrow">→</span>
-                    </a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Как перевести проценты в оценку — таблица и конвертер</span>
-                        <span class="article__related-arrow">→</span>
-                    </a>
-                    <a href="/metodika-rascheta-mon-rk" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Официальная методика расчёта МОН РК</span>
-                        <span class="article__related-arrow">→</span>
-                    </a>
+                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за четверть: как считается</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-rasschitat-soch" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать СОЧ — формула и пример</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-rasschitat-sor" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать СОР — полное руководство</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-rasschitat-so" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Что такое СО и как считается</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как перевести проценты в оценку — таблица и конвертер</span><span class="article__related-arrow">→</span></a>
+                    <a href="/metodika-rascheta-mon-rk" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Официальная методика расчёта МОН РК</span><span class="article__related-arrow">→</span></a>
                 </div>
             </div>
         </article>
-
         <aside class="article-sidebar">
             <div class="sidebar-widget sidebar-widget--cta">
                 <div class="sidebar-widget__title">🎓 BilimExam</div>
@@ -261,4 +256,23 @@
         </aside>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var item = this.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(i) {
+            i.classList.remove('open');
+            i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+            item.classList.add('open');
+            this.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
+</script>
 {% endblock %}

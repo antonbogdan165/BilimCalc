@@ -51,16 +51,48 @@
         {
             "@type": "Question",
             "name": "Чем критериальное оценивание отличается от традиционного?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Результат сравнивается с заранее установленными критериями, а не с другими учениками. Итоговая оценка рассчитывается по формуле: СО × 25% + СОР × 25% + СОЧ × 50% — прозрачно и проверяемо." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Результат сравнивается с заранее установленными критериями, а не с другими учениками. Итоговая оценка рассчитывается по формуле: СО × 25% + СОР × 25% + СОЧ × 50%." }
         },
         {
             "@type": "Question",
             "name": "Одинакова ли методика МОН для всех школ Казахстана?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Методика МОН РК обязательна для государственных школ. Большинство частных школ также её придерживаются, что обеспечивает единый стандарт по всей стране." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Методика МОН РК обязательна для государственных школ. Большинство частных школ также её придерживаются." }
         }
     ]
 }
 </script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.article ul {
+    margin: 12px 0 16px 0;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.article ul li {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #b0bec8;
+    padding-left: 20px;
+    position: relative;
+}
+.article ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+    opacity: 0.6;
+}
+.article ul li strong { color: #e6edf3; }
+[data-theme="light"] .article ul li { color: #475569; }
+[data-theme="light"] .article ul li strong { color: #0f172a; }
+[data-theme="light"] .article ul li::before { opacity: 0.5; }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -95,12 +127,15 @@
                 при которой итоговая оценка считается по чёткой формуле, а не на усмотрение учителя.
                 Разбираем официальную методику МОН РК: откуда она взялась, как работает и что означает для ученика.
             </p>
+
             <h2>Что такое критериальное оценивание</h2>
             <p>Критериальное оценивание — это система, при которой результаты обучения сравниваются не с другими учениками, а с заранее понятными критериями. Раньше в школах использовалась привычная 5-балльная шкала, где многое зависело от субъективного мнения учителя. Ученики часто не понимали, почему получили именно такую оценку.</p>
             <p>Суть критериального оценивания в том, что каждая работа проверяется по конкретным показателям. Это снижает стресс и даёт возможность планировать учебную нагрузку. Родителям проще отслеживать прогресс, а учителям — аргументировать выставленные оценки.</p>
             <p>В Казахстане эта система стала основой обновлённого содержания образования. Она напрямую связана с тем, как считается <a href="/itogovaya-ocenka-za-chetvert">итоговая оценка за четверть</a> и год.</p>
+
             <h2>Нормативная база</h2>
             <p>Вся система оценивания опирается на официальные документы Министерства образования и науки Республики Казахстан. Методика была внедрена поэтапно вместе с обновлённым содержанием образования. Сегодня суммативное оценивание в Казахстане используется на всех уровнях обучения.</p>
+
             <h2>Три вида суммативного оценивания</h2>
             <p>В критериальной системе используются три основных вида суммативного оценивания. Каждый из них отвечает за свой этап обучения и выполняет отдельную функцию. Вместе они дают объективную картину знаний ученика.</p>
             <div class="article__example">
@@ -113,13 +148,14 @@
                     </tbody>
                 </table>
             </div>
+
             <h2>Формула итоговой оценки по методике МОН</h2>
             <p>Официальная формула расчёта строго закреплена в методике МОН РК. Итоговая оценка за четверть складывается из трёх компонентов — каждый переводится в проценты и суммируется.</p>
             <div class="article__formula">
                 <div class="article__formula-title">Официальная формула МОН РК</div>
                 <div class="article__formula-body">Итог = (среднее СО ÷ 10 × 25) + (среднее СОР% × 0.25) + (СОЧ% × 0.50)</div>
             </div>
-            <p>Если по предмету не проводится СОЧ, его вес перераспределяется между оставшимися компонентами — это тоже прописано в нормативной базе оценивания. Для быстрого подсчёта по официальной методике удобно использовать <a href="/">калькулятор онлайн</a>.</p>
+            <p>Если по предмету не проводится СОЧ, его вес перераспределяется между оставшимися компонентами. Для быстрого подсчёта по официальной методике удобно использовать <a href="/">калькулятор онлайн</a>.</p>
 
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
@@ -142,13 +178,32 @@
             <h2>Частые вопросы учителей и родителей</h2>
             <p>Часто родители переживают, что новая система сложнее старой. На практике она просто более детальная и прозрачная — все оценки можно проверить и пересчитать. Зная формулу, любой родитель может самостоятельно убедиться в правильности выставленной отметки.</p>
             <p>Ученикам важно понимать влияние каждой оценки. Суммативное оценивание выстроено так, чтобы результат зависел от работы в течение всей четверти, а не от одной контрольной в конце.</p>
+
             <h2>Часто задаваемые вопросы</h2>
-            <h3>С какого класса применяется система?</h3>
-            <p>Критериальное оценивание применяется с начальных классов. Система вводится постепенно, с учётом возраста учеников. К средней школе она используется в полном объёме.</p>
-            <h3>Одинакова ли методика для всех школ?</h3>
-            <p>Методика МОН РК является обязательной для государственных школ. Большинство частных школ также придерживаются этих правил. Это обеспечивает единый подход к оцениванию по всей стране.</p>
-            <h3>Где найти официальный документ МОН?</h3>
-            <p>Официальные документы публикуются на сайте Министерства образования и в открытых правовых базах Казахстана. В них подробно описана нормативная база оценивания и формулы расчёта.</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>С какого класса применяется система?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Критериальное оценивание применяется с начальных классов. Система вводится постепенно, с учётом возраста учеников. К средней школе она используется в полном объёме.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Одинакова ли методика для всех школ?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Методика МОН РК является обязательной для государственных школ. Большинство частных школ также придерживаются этих правил. Это обеспечивает единый подход к оцениванию по всей стране.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Где найти официальный документ МОН?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><p>Официальные документы публикуются на сайте Министерства образования и в открытых правовых базах Казахстана. В них подробно описана нормативная база оценивания и формулы расчёта.</p></div>
+                </div>
+            </div>
+
             <div class="article__related">
                 <div class="article__related-title">Читайте также</div>
                 <div class="article__related-links">
@@ -170,21 +225,40 @@
             <div class="sidebar-widget">
                 <div class="sidebar-widget__title">Три вида оценивания</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-so"  class="sidebar-nav__link">→ СО — 25%</a>
-                    <a href="/kak-rasschitat-sor" class="sidebar-nav__link">→ СОР — 25%</a>
+                    <a href="/kak-rasschitat-so"   class="sidebar-nav__link">→ СО — 25%</a>
+                    <a href="/kak-rasschitat-sor"  class="sidebar-nav__link">→ СОР — 25%</a>
                     <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ СОЧ — 50%</a>
                 </nav>
             </div>
             <div class="sidebar-widget">
                 <div class="sidebar-widget__title">Другие статьи</div>
                 <nav class="sidebar-nav">
-                    <a href="/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Итоговая оценка</a>
-                    <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
-                    <a href="/kak-rasschitat-sor" class="sidebar-nav__link">→ Как рассчитать СОР</a>
+                    <a href="/itogovaya-ocenka-za-chetvert"     class="sidebar-nav__link">→ Итоговая оценка</a>
+                    <a href="/kak-rasschitat-soch"              class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
+                    <a href="/kak-rasschitat-sor"               class="sidebar-nav__link">→ Как рассчитать СОР</a>
                     <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод процентов</a>
                 </nav>
             </div>
         </aside>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var item = this.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(i) {
+            i.classList.remove('open');
+            i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+            item.classList.add('open');
+            this.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
+</script>
 {% endblock %}
