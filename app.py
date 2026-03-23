@@ -122,6 +122,11 @@ def favicon():
     return send_from_directory("static/icons", "favicon.ico")
 
 
+@app.route("/bilimcalc2026key.txt")
+def indexnow_key():
+    return "bilimcalc2026key", 200, {"Content-Type": "text/plain"}
+
+
 @app.route("/api/visits", methods=["GET"])
 def api_visits_get():
     if not _SUPABASE_URL or not _SUPABASE_KEY:
