@@ -70,6 +70,57 @@ SITEMAP_URLS = [
     {"loc": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",            "changefreq": "monthly", "priority": "0.7"},
 ]
 
+RSS_ARTICLES = [
+    {
+        "title": "Итоговая оценка за год: формула 70/30",
+        "link": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",
+        "desc": "Как рассчитывается итоговая оценка за год в 9 и 11 классах Казахстана по формуле МОН РК.",
+        "date": "Thu, 13 Mar 2026 10:00:00 +0500",
+    },
+    {
+        "title": "Итоговая оценка за четверть: формула расчёта СО, СОР, СОЧ",
+        "link": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",
+        "desc": "Как рассчитывается итоговая оценка за четверть в школах Казахстана по методике МОН РК.",
+        "date": "Thu, 13 Mar 2026 10:00:00 +0500",
+    },
+    {
+        "title": "Как рассчитать СОЧ — формула и пример",
+        "link": "https://bilimcalc.vercel.app/kak-rasschitat-soch",
+        "desc": "Суммативное оценивание за четверть: формула расчёта, вес 50%, пошаговый пример.",
+        "date": "Thu, 13 Mar 2026 10:00:00 +0500",
+    },
+    {
+        "title": "Как рассчитать СОР — полное руководство",
+        "link": "https://bilimcalc.vercel.app/kak-rasschitat-sor",
+        "desc": "Суммативное оценивание за раздел: формула расчёта, вес 25%, пример с двумя СОР.",
+        "date": "Thu, 13 Mar 2026 10:00:00 +0500",
+    },
+    {
+        "title": "Как рассчитать СО — формула, пример, методика МОН РК",
+        "link": "https://bilimcalc.vercel.app/kak-rasschitat-so",
+        "desc": "Суммативное оценивание по шкале 1–10: формула расчёта и вес 25% в итоговой оценке.",
+        "date": "Thu, 13 Mar 2026 10:00:00 +0500",
+    },
+    {
+        "title": "Как перевести проценты в оценку — таблица и конвертер",
+        "link": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",
+        "desc": "Шкала оценок Казахстан: 85%=5, 65%=4, 40%=3. Правило округления и онлайн-конвертер.",
+        "date": "Thu, 13 Mar 2026 10:00:00 +0500",
+    },
+    {
+        "title": "Методика расчёта оценок МОН РК — критериальное оценивание",
+        "link": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",
+        "desc": "Официальная методика оценивания в казахстанских школах: три вида суммативного оценивания.",
+        "date": "Thu, 13 Mar 2026 10:00:00 +0500",
+    },
+    {
+        "title": "3–8 классы переводят на 12-летнее обучение в Казахстане? Правда или фейк",
+        "link": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",
+        "desc": "Разбираем информацию о переходе 3–8 классов на 12-летнее образование в Казахстане.",
+        "date": "Wed, 19 Mar 2026 10:00:00 +0500",
+    },
+]
+
 
 @app.before_request
 def force_non_www():
@@ -104,6 +155,35 @@ def sitemap():
         )
     lines.append('</urlset>')
     return Response("\n".join(lines), mimetype="application/xml")
+
+
+@app.route("/feed.xml")
+def rss_feed():
+    items = ""
+    for a in RSS_ARTICLES:
+        items += (
+            f"\n    <item>"
+            f"\n      <title><![CDATA[{a['title']}]]></title>"
+            f"\n      <link>{a['link']}</link>"
+            f"\n      <guid isPermaLink=\"true\">{a['link']}</guid>"
+            f"\n      <description><![CDATA[{a['desc']}]]></description>"
+            f"\n      <pubDate>{a['date']}</pubDate>"
+            f"\n    </item>"
+        )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
+        '  <channel>\n'
+        '    <title>BilimCalc — Статьи о системе оценивания в Казахстане</title>\n'
+        '    <link>https://bilimcalc.vercel.app/articles</link>\n'
+        '    <description>Подробные руководства по СО, СОР, СОЧ и итоговым оценкам по методике МОН РК</description>\n'
+        '    <language>ru</language>\n'
+        '    <atom:link href="https://bilimcalc.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>\n'
+        f'{items}\n'
+        '  </channel>\n'
+        '</rss>'
+    )
+    return Response(xml, mimetype="application/xml")
 
 
 @app.route("/sw.js")

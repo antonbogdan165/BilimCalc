@@ -8,6 +8,13 @@
     <meta http-equiv="content-language" content="ru">
     <meta name="author" content="Anton Bogdan">
 
+    <meta name="geo.region" content="KZ">
+    <meta name="geo.placename" content="Kazakhstan">
+    <meta name="geo.position" content="48.0196;66.9237">
+    <meta name="ICBM" content="48.0196, 66.9237">
+
+    <meta name="news_keywords" content="СО, СОР, СОЧ, оценки, школа Казахстан, МОН РК, итоговая оценка, калькулятор оценок">
+
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -40,6 +47,9 @@
     <link rel="alternate" hreflang="ru-KZ" href="{% block hreflang_kz %}https://bilimcalc.vercel.app/{% endblock %}">
     <link rel="alternate" hreflang="ru" href="{% block hreflang_ru %}https://bilimcalc.vercel.app/{% endblock %}">
     <link rel="alternate" hreflang="x-default" href="https://bilimcalc.vercel.app/">
+
+    <!-- RSS-фид для Яндекса и агрегаторов -->
+    <link rel="alternate" type="application/rss+xml" title="BilimCalc — Статьи" href="https://bilimcalc.vercel.app/feed.xml">
 
     <meta property="og:type"        content="{% block og_type %}website{% endblock %}">
     <meta property="og:locale"      content="ru_RU">
