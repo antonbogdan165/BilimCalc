@@ -633,7 +633,7 @@ function calculate() {
             const hintEl = document.getElementById("formulaHint");
             if (hintEl) {
                 const parts = [];
-                if (total_so   !== null) parts.push("СО: "  + total_so.toFixed(2));
+                if (total_so   !== null) parts.push("ФО: "  + total_so.toFixed(2));
                 if (total_sor  !== null) parts.push("СОР: " + total_sor.toFixed(2));
                 if (total_soch !== null) parts.push("СОЧ: " + total_soch.toFixed(2));
                 if (parts.length) {

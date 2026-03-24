@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block meta_title %}Статьи — система оценивания в школах Казахстана | BilimCalc{% endblock %}
-{% block meta_desc %}Все статьи BilimCalc: как рассчитать СО, СОР, СОЧ, итоговую оценку за четверть и год. Официальная методика МОН РК, таблица перевода процентов.{% endblock %}
+{% block meta_desc %}Все статьи BilimCalc: как рассчитать ФО, СОР, СОЧ, итоговую оценку за четверть и год. Официальная методика МОН РК, таблица перевода процентов.{% endblock %}
 {% block canonical %}https://bilimcalc.vercel.app/articles{% endblock %}
 {% block og_title %}Статьи о системе оценивания в школах Казахстана — BilimCalc{% endblock %}
-{% block og_desc %}Полный список статей: СО, СОР, СОЧ, итоговые оценки, методика МОН РК, перевод процентов.{% endblock %}
+{% block og_desc %}Полный список статей: ФО, СОР, СОЧ, итоговые оценки, методика МОН РК, перевод процентов.{% endblock %}
 {% block og_url %}https://bilimcalc.vercel.app/articles{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
@@ -25,7 +25,7 @@
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Статьи о системе оценивания в школах Казахстана",
-    "description": "Подробные руководства по расчёту СО, СОР, СОЧ и итоговых оценок по методике МОН РК",
+    "description": "Подробные руководства по расчёту ФО, СОР, СОЧ и итоговых оценок по методике МОН РК",
     "url": "https://bilimcalc.vercel.app/articles",
     "numberOfItems": 8,
     "itemListElement": [
@@ -33,7 +33,7 @@
         { "@type": "ListItem", "position": 2, "url": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert", "name": "Итоговая оценка за четверть" },
         { "@type": "ListItem", "position": 3, "url": "https://bilimcalc.vercel.app/kak-rasschitat-soch", "name": "Как рассчитать СОЧ" },
         { "@type": "ListItem", "position": 4, "url": "https://bilimcalc.vercel.app/kak-rasschitat-sor", "name": "Как рассчитать СОР" },
-        { "@type": "ListItem", "position": 5, "url": "https://bilimcalc.vercel.app/kak-rasschitat-so", "name": "Как рассчитать СО" },
+        { "@type": "ListItem", "position": 5, "url": "https://bilimcalc.vercel.app/kak-rasschitat-so", "name": "Как рассчитать ФО" },
         { "@type": "ListItem", "position": 6, "url": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk", "name": "Методика расчёта МОН РК" },
         { "@type": "ListItem", "position": 7, "url": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku", "name": "Как перевести проценты в оценку" },
         { "@type": "ListItem", "position": 8, "url": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan", "name": "12-летнее образование в Казахстане" }
@@ -82,7 +82,7 @@
                 </div>
                 <div class="apc__body">
                     <div class="apc__title">Итоговая оценка за четверть</div>
-                    <div class="apc__desc">Как рассчитывается итоговая оценка за четверть: СО + СОР + СОЧ. Формула, пошаговый пример, переводная шкала.</div>
+                    <div class="apc__desc">Как рассчитывается итоговая оценка за четверть: ФО + СОР + СОЧ. Формула, пошаговый пример, переводная шкала.</div>
                     <div class="apc__tags">
                         <span class="apc__tag">5–11 класс</span>
                         <span class="apc__tag">Формула</span>
@@ -131,13 +131,13 @@
 
             <a href="/kak-rasschitat-so" class="apc">
                 <div class="apc__icon apc__icon--blue">
-                    <span>СО</span>
+                    <span>ФО</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Как рассчитать СО</div>
+                    <div class="apc__title">Как рассчитать ФО</div>
                     <div class="apc__desc">Суммативное оценивание: формула расчёта, вес 25% в итоговой оценке. Шкала 1–10, пример с несколькими оценками.</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">СО = 25%</span>
+                        <span class="apc__tag">ФО = 25%</span>
                         <span class="apc__tag">Формативные</span>
                     </div>
                 </div>
@@ -207,7 +207,7 @@
         </p>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <a href="/" class="btn" style="text-decoration: none; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; padding: 0 24px;">
-                🧮 Калькулятор СО / СОР / СОЧ
+                🧮 Калькулятор ФО / СОР / СОЧ
             </a>
             <a href="/kalkulator-ekzamena"
                style="display: inline-flex; align-items: center; gap: 8px; padding: 0 24px; min-height: 46px;

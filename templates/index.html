@@ -24,13 +24,13 @@
     <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.5">
     <link rel="stylesheet" href="/static/css/additions.css?v=1.7.5">
     <meta charset="utf-8">
-    <title>BilimCalc — калькулятор СО, СОР и СОЧ онлайн</title>
+    <title>BilimCalc — калькулятор ФО, СОР и СОЧ онлайн</title>
     <meta name="language" content="ru">
     <meta http-equiv="content-language" content="ru">
     <meta property="og:locale" content="ru_RU">
-    <meta name="description" content="Онлайн калькулятор СО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть и процента успеваемости. Бесплатно и без регистрации.">
-    <meta property="og:title" content="BilimCalc — калькулятор СО, СОР и СОЧ онлайн">
-    <meta property="og:description" content="Быстрый расчет СО, СОР и СОЧ. Бесплатно и без регистрации.">
+    <meta name="description" content="Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть и процента успеваемости. Бесплатно и без регистрации.">
+    <meta property="og:title" content="BilimCalc — калькулятор ФО, СОР и СОЧ онлайн">
+    <meta property="og:description" content="Быстрый расчет ФО, СОР и СОЧ. Бесплатно и без регистрации.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bilimcalc.vercel.app/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,7 @@
     <meta property="og:image" content="https://bilimcalc.vercel.app/static/icons/preview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="BilimCalc — калькулятор СО, СОР и СОЧ для школ Казахстана">
+    <meta property="og:image:alt" content="BilimCalc — калькулятор ФО, СОР и СОЧ для школ Казахстана">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://bilimcalc.vercel.app/static/icons/preview.png">
     <meta name="twitter:image:alt" content="BilimCalc — калькулятор оценок для школ Казахстана">
@@ -62,7 +62,7 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "BilimCalc",
-        "alternateName": "Калькулятор СО, СОР и СОЧ",
+        "alternateName": "Калькулятор ФО, СОР и СОЧ",
         "url": "https://bilimcalc.vercel.app/"
     }
     </script>
@@ -74,12 +74,12 @@
             {
                 "@type": "Question",
                 "name": "Как рассчитывается итоговая оценка?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Итоговая оценка рассчитывается по методике МОН РК: СО × 25% + СОР × 25% + СОЧ × 50%." }
+                "acceptedAnswer": { "@type": "Answer", "text": "Итоговая оценка рассчитывается по методике МОН РК: ФО × 25% + СОР × 25% + СОЧ × 50%." }
             },
             {
                 "@type": "Question",
-                "name": "Что такое СО, СОР и СОЧ?",
-                "acceptedAnswer": { "@type": "Answer", "text": "СО — суммативное оценивание по шкале 2–10. СОР — суммативное оценивание за раздел. СОЧ — суммативное оценивание за четверть." }
+                "name": "Что такое ФО, СОР и СОЧ?",
+                "acceptedAnswer": { "@type": "Answer", "text": "ФО — суммативное оценивание по шкале 2–10. СОР — суммативное оценивание за раздел. СОЧ — суммативное оценивание за четверть." }
             }
         ]
     }
@@ -165,13 +165,13 @@
             </svg>
             <span class="site-title__name" aria-hidden="true">Bilim<span>Calc</span></span>
         </div>
-        <h1 class="site-title__h1-seo">Калькулятор СО, СОР и СОЧ для школ Казахстана</h1>
+        <h1 class="site-title__h1-seo">Калькулятор ФО, СОР и СОЧ для школ Казахстана</h1>
     </div>
 
     <div class="grid">
         <div>
             <div class="card reveal">
-                <div class="section-title">СО</div>
+                <div class="section-title">ФО</div>
                 <div class="so-row">
                     <form id="addForm">
                         <input id="soInput" type="text" inputmode="numeric" placeholder="Введите 1–10" maxlength="2" autocomplete="off">
@@ -180,7 +180,7 @@
                     <button class="btn ghost" id="clearSoBtn">Очистить</button>
                 </div>
                 <div class="list" id="soList">
-                    <div class="list-empty" id="soEmpty">Ещё нет оценок СО</div>
+                    <div class="list-empty" id="soEmpty">Ещё нет оценок ФО</div>
                 </div>
             </div>
 
@@ -262,11 +262,11 @@
                         <div class="trend-label" id="trendLabel">—</div>
                     </div>
 
-                    <div class="trend-hint">Добавьте 2+ оценок СО для AI-анализа динамики</div>
+                    <div class="trend-hint">Добавьте 2+ оценок ФО для AI-анализа динамики</div>
 
                     <div class="breakdown">
                         <div class="break-card" style="border-left:2px solid rgba(88,166,255,0.45)">
-                            <span class="break-title">СО</span>
+                            <span class="break-title">ФО</span>
                             <span class="break-value" id="breakSo">—</span>
                             <span class="small" id="breakSoDetails"></span>
                         </div>
@@ -310,28 +310,28 @@
                     <span>Как рассчитывается итоговая оценка?</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
-                <div class="faq-a"><p>Итоговая оценка рассчитывается по официальной методике МОН РК: <strong>СО × 25% + СОР × 25% + СОЧ × 50%</strong>. Если СОЧ не было — сумма СО и СОР умножается на 2.</p></div>
+                <div class="faq-a"><p>Итоговая оценка рассчитывается по официальной методике МОН РК: <strong>ФО × 25% + СОР × 25% + СОЧ × 50%</strong>. Если СОЧ не было — сумма ФО и СОР умножается на 2.</p></div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
-                    <span>Что такое СО, СОР и СОЧ?</span>
+                    <span>Что такое ФО, СОР и СОЧ?</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
-                <div class="faq-a"><p><strong>СО</strong> — суммативное оценивание по шкале 2–10. <strong>СОР</strong> — суммативное оценивание за раздел. <strong>СОЧ</strong> — суммативное оценивание за четверть.</p></div>
+                <div class="faq-a"><p><strong>ФО</strong> — суммативное оценивание по шкале 2–10. <strong>СОР</strong> — суммативное оценивание за раздел. <strong>СОЧ</strong> — суммативное оценивание за четверть.</p></div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
                     <span>Для каких классов подходит калькулятор?</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
-                <div class="faq-a"><p>Калькулятор СО/СОР/СОЧ подходит для учеников <strong>5–11 классов</strong>. Для расчёта итоговой годовой оценки (9 и 11 класс) используй отдельный <a href="/kalkulator-ekzamena" style="color:var(--accent)">калькулятор экзамена</a>.</p></div>
+                <div class="faq-a"><p>Калькулятор ФО/СОР/СОЧ подходит для учеников <strong>5–11 классов</strong>. Для расчёта итоговой годовой оценки (9 и 11 класс) используй отдельный <a href="/kalkulator-ekzamena" style="color:var(--accent)">калькулятор экзамена</a>.</p></div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
                     <span>Что означает AI-анализ и тренд?</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
-                <div class="faq-a"><p>При добавлении 2+ оценок СО строится график динамики. Пунктирная линия — это <strong>линейная регрессия</strong>: математический тренд, показывающий направление изменения оценок.</p></div>
+                <div class="faq-a"><p>При добавлении 2+ оценок ФО строится график динамики. Пунктирная линия — это <strong>линейная регрессия</strong>: математический тренд, показывающий направление изменения оценок.</p></div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">

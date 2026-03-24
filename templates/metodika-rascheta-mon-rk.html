@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block meta_title %}Методика расчёта оценок МОН РК — критериальное оценивание в школах Казахстана | BilimCalc{% endblock %}
-{% block meta_desc %}Официальная методика расчёта оценок МОН РК: что такое критериальное оценивание, нормативная база, формула итоговой оценки СО + СОР + СОЧ. Подробный разбор.{% endblock %}
+{% block meta_desc %}Официальная методика расчёта оценок МОН РК: что такое критериальное оценивание, нормативная база, формула итоговой оценки ФО + СОР + СОЧ. Подробный разбор.{% endblock %}
 {% block canonical %}https://bilimcalc.vercel.app/metodika-rascheta-mon-rk{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block og_title %}Методика расчёта оценок МОН РК: критериальное оценивание в Казахстане{% endblock %}
@@ -51,7 +51,7 @@
         {
             "@type": "Question",
             "name": "Чем критериальное оценивание отличается от традиционного?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Результат сравнивается с заранее установленными критериями, а не с другими учениками. Итоговая оценка рассчитывается по формуле: СО × 25% + СОР × 25% + СОЧ × 50%." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Результат сравнивается с заранее установленными критериями, а не с другими учениками. Итоговая оценка рассчитывается по формуле: ФО × 25% + СОР × 25% + СОЧ × 50%." }
         },
         {
             "@type": "Question",
@@ -142,7 +142,7 @@
                 <table class="article__table">
                     <thead><tr><th>Вид</th><th>Что проверяет</th><th>Когда</th><th>Вес</th></tr></thead>
                     <tbody>
-                        <tr><td><a href="/kak-rasschitat-so"><strong>СО</strong></a></td><td>Отдельные темы в течение четверти</td><td>Регулярно</td><td>25%</td></tr>
+                        <tr><td><a href="/kak-rasschitat-so"><strong>ФО</strong></a></td><td>Отдельные темы в течение четверти</td><td>Регулярно</td><td>25%</td></tr>
                         <tr><td><a href="/kak-rasschitat-sor"><strong>СОР</strong></a></td><td>Крупные разделы программы</td><td>2-3 раза за четверть</td><td>25%</td></tr>
                         <tr><td><a href="/kak-rasschitat-soch"><strong>СОЧ</strong></a></td><td>Весь материал четверти</td><td>В конце четверти</td><td>50%</td></tr>
                     </tbody>
@@ -153,13 +153,13 @@
             <p>Официальная формула расчёта строго закреплена в методике МОН РК. Итоговая оценка за четверть складывается из трёх компонентов — каждый переводится в проценты и суммируется.</p>
             <div class="article__formula">
                 <div class="article__formula-title">Официальная формула МОН РК</div>
-                <div class="article__formula-body">Итог = (среднее СО ÷ 10 × 25) + (среднее СОР% × 0.25) + (СОЧ% × 0.50)</div>
+                <div class="article__formula-body">Итог = (среднее ФО ÷ 10 × 25) + (среднее СОР% × 0.25) + (СОЧ% × 0.50)</div>
             </div>
             <p>Если по предмету не проводится СОЧ, его вес перераспределяется между оставшимися компонентами. Для быстрого подсчёта по официальной методике удобно использовать <a href="/">калькулятор онлайн</a>.</p>
 
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
-                    <div class="article__weights-label article__weights-label--so">СО</div>
+                    <div class="article__weights-label article__weights-label--so">ФО</div>
                     <div class="article__weights-label article__weights-label--sor">СОР</div>
                     <div class="article__weights-label article__weights-label--soch">СОЧ</div>
                 </div>
@@ -211,7 +211,7 @@
                     <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за четверть: полный расчёт</span><span class="article__related-arrow">→</span></a>
                     <a href="/kak-rasschitat-soch" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать СОЧ — формула и пример</span><span class="article__related-arrow">→</span></a>
                     <a href="/kak-rasschitat-sor" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать СОР — полное руководство</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-so" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Что такое СО и как считается</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-rasschitat-so" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Что такое ФО и как считается</span><span class="article__related-arrow">→</span></a>
                     <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как перевести проценты в оценку — таблица и конвертер</span><span class="article__related-arrow">→</span></a>
                     <a href="/perehod-na-12-letku-kazakhstan" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">3–8 классы и 12-летнее обучение в Казахстане — правда или фейк</span><span class="article__related-arrow">→</span></a>
                 </div>
@@ -226,7 +226,7 @@
             <div class="sidebar-widget">
                 <div class="sidebar-widget__title">Три вида оценивания</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-so"   class="sidebar-nav__link">→ СО — 25%</a>
+                    <a href="/kak-rasschitat-so"   class="sidebar-nav__link">→ ФО — 25%</a>
                     <a href="/kak-rasschitat-sor"  class="sidebar-nav__link">→ СОР — 25%</a>
                     <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ СОЧ — 50%</a>
                 </nav>

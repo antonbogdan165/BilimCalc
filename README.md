@@ -1,7 +1,7 @@
-# 📊 BilimCalc — Калькулятор СО, СОР и СОЧ
+# 📊 BilimCalc — Калькулятор ФО, СОР и СОЧ
 
 <p align="center">
-  Онлайн-калькулятор для расчёта итоговой оценки по системе СО, СОР и СОЧ (Казахстан)
+  Онлайн-калькулятор для расчёта итоговой оценки по системе ФО, СОР и СОЧ (Казахстан)
 </p>
 
 <p align="center">
@@ -31,7 +31,7 @@
 
 ## 🚀 Возможности
 
-- 📊 Расчёт СО (формативные оценки)
+- 📊 Расчёт ФО (формативные оценки)
 - 🧮 Расчёт СОР (суммативные за раздел)
 - 🎯 Расчёт СОЧ (итоговая работа)
 - 🎓 **BilimExam** — итоговая оценка за год (9 и 11 класс, формула 70/30)
@@ -50,9 +50,9 @@
 
 Итоговая оценка рассчитывается по официальной методике МОН РК:
 
-**СО × 25% + СОР × 25% + СОЧ × 50%**
+**ФО × 25% + СОР × 25% + СОЧ × 50%**
 
-Если СОЧ не было — (СО + СОР) × 2. ML-анализ тренда работает полностью в браузере (без сервера).
+Если СОЧ не было — (ФО + СОР) × 2. ML-анализ тренда работает полностью в браузере (без сервера).
 
 Для 9 и 11 класса применяется формула **Годовая × 70% + Экзамен × 30%**.
 
@@ -64,7 +64,7 @@
 
 | Тема | Ссылка |
 |------|--------|
-| Как рассчитать СО | [bilimcalc.vercel.app/kak-rasschitat-so](https://bilimcalc.vercel.app/kak-rasschitat-so) |
+| Как рассчитать ФО | [bilimcalc.vercel.app/kak-rasschitat-so](https://bilimcalc.vercel.app/kak-rasschitat-so) |
 | Как рассчитать СОР | [bilimcalc.vercel.app/kak-rasschitat-sor](https://bilimcalc.vercel.app/kak-rasschitat-sor) |
 | Как рассчитать СОЧ | [bilimcalc.vercel.app/kak-rasschitat-soch](https://bilimcalc.vercel.app/kak-rasschitat-soch) |
 | Итоговая оценка за четверть | [bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert](https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert) |
@@ -108,7 +108,7 @@ python app.py
 
 ```
 ├── app.py              # Flask routes
-├── logics.py           # Расчёт СО/СОР/СОЧ
+├── logics.py           # Расчёт ФО/СОР/СОЧ
 ├── requirements.txt
 ├── static/
 │   ├── css/

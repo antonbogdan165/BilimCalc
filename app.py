@@ -78,7 +78,7 @@ RSS_ARTICLES = [
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
-        "title": "Итоговая оценка за четверть: формула расчёта СО, СОР, СОЧ",
+        "title": "Итоговая оценка за четверть: формула расчёта ФО, СОР, СОЧ",
         "link": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",
         "desc": "Как рассчитывается итоговая оценка за четверть в школах Казахстана по методике МОН РК.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
@@ -96,7 +96,7 @@ RSS_ARTICLES = [
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
-        "title": "Как рассчитать СО — формула, пример, методика МОН РК",
+        "title": "Как рассчитать ФО — формула, пример, методика МОН РК",
         "link": "https://bilimcalc.vercel.app/kak-rasschitat-so",
         "desc": "Суммативное оценивание по шкале 1–10: формула расчёта и вес 25% в итоговой оценке.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
@@ -176,7 +176,7 @@ def rss_feed():
         '  <channel>\n'
         '    <title>BilimCalc — Статьи о системе оценивания в Казахстане</title>\n'
         '    <link>https://bilimcalc.vercel.app/articles</link>\n'
-        '    <description>Подробные руководства по СО, СОР, СОЧ и итоговым оценкам по методике МОН РК</description>\n'
+        '    <description>Подробные руководства по ФО, СОР, СОЧ и итоговым оценкам по методике МОН РК</description>\n'
         '    <language>ru</language>\n'
         '    <atom:link href="https://bilimcalc.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>\n'
         f'{items}\n'
