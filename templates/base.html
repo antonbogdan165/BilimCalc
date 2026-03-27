@@ -48,7 +48,6 @@
     <link rel="alternate" hreflang="ru" href="{% block hreflang_ru %}https://bilimcalc.vercel.app/{% endblock %}">
     <link rel="alternate" hreflang="x-default" href="https://bilimcalc.vercel.app/">
 
-    <!-- RSS-фид для Яндекса и агрегаторов -->
     <link rel="alternate" type="application/rss+xml" title="BilimCalc — Статьи" href="https://bilimcalc.vercel.app/feed.xml">
 
     <meta property="og:type"        content="{% block og_type %}website{% endblock %}">
@@ -77,6 +76,7 @@
     <link rel="stylesheet" href="/static/css/article.css?v=1.7.6">
     <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.6">
     <link rel="stylesheet" href="/static/css/additions.css?v=1.7.6">
+    <link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.7.7">
     {% block extra_css %}{% endblock %}
 
     <script type="application/ld+json">
@@ -129,7 +129,7 @@
 </head>
 <body>
 
-<div id="topbar">
+<div id="topbar" class="topbar--calc">
     <a class="topbar-logo" href="/" title="BilimCalc">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
             <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
@@ -141,6 +141,10 @@
     </a>
 
     <div class="topbar-center">
+        <a href="/" class="topbar-mobile-brand">
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648"/><path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/></svg>
+            <span class="topbar-mobile-brand__name">Bilim<span>Calc</span></span>
+        </a>
         <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267"
            target="_blank" rel="noopener noreferrer" class="topbar-official-link">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"

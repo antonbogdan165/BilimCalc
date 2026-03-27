@@ -21,6 +21,7 @@ const STATIC_ASSETS = [
     "/static/css/pwa-banner.css",
     "/static/css/bilimexam.css",
     "/static/css/additions.css",
+    "/static/css/topbar-improved.css",
 
     "/static/js/main.js",
     "/static/js/theme.js",
