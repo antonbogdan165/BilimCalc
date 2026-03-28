@@ -8,61 +8,17 @@
 .site-nav__link:hover::after,
 .site-nav__link.active::after { left: 9px; right: 9px; }
 
-#mobile-nav { display: none; }
+#mobile-nav {
+    display: none !important;
+}
 
 @media (max-width: 600px) {
-    .site-header .site-nav { display: none; }
-    .topbar-nav { display: none; }
-
-    #mobile-nav {
-        display: flex;
-        position: fixed; bottom: 0; left: 0; right: 0;
-        z-index: 200;
-        background: #0a0c10;
-        border-top: 1px solid #1a1f28;
-        align-items: stretch;
-        padding-bottom: env(safe-area-inset-bottom, 0px);
-        transform: translate3d(0, 0, 0);
-        -webkit-transform: translate3d(0, 0, 0);
-        backface-visibility: hidden;
-        isolation: isolate;
-        contain: layout style paint;
-    }
-    [data-theme="light"] #mobile-nav { background: #f2f4f7; border-top-color: #dde2ea; }
-
-    .mobile-nav__item {
-        flex: 1;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        gap: 3px; padding: 8px 4px 10px;
-        text-decoration: none;
-        color: var(--muted);
-        font-size: 10px; font-weight: 500;
-        transition: color 0.12s;
-        -webkit-tap-highlight-color: transparent;
-        touch-action: pan-y;
-        user-select: none;
-        -webkit-user-select: none;
-        position: relative; overflow: hidden;
-    }
-    .mobile-nav__item:active { opacity: 0.6; }
-    .mobile-nav__item.active { color: #2f9e52; }
-
-    .mobile-nav__icon { font-size: 19px; line-height: 1; display: block; }
-    .mobile-nav__item.active .mobile-nav__icon { transform: scale(1.1) translateY(-1px); }
-
-    .mobile-nav__item.active::before {
-        content: '';
-        position: absolute; top: 0; left: 25%; right: 25%;
-        height: 1px; background: #2f9e52;
-    }
-
     body {
-        padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: 0;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-y: none;
     }
-    .site-footer__links { display: none; }
+    .site-footer__links { display: flex; }
 }
 
 @keyframes ripple-out {
