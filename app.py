@@ -3,9 +3,6 @@ import os
 import time
 import requests as req_lib
 from datetime import date
-from dotenv import load_dotenv
-
-load_dotenv()
 
 try:
     from flask_limiter import Limiter
