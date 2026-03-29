@@ -77,7 +77,13 @@
     <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.6">
     <link rel="stylesheet" href="/static/css/additions.css?v=1.7.6">
     <link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.7.7">
+    <link rel="stylesheet" href="/static/css/ads.css?v=1.7.7">
     {% block extra_css %}{% endblock %}
+
+    {% if ya_ad_block_id %}
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+    {% endif %}
 
     <script type="application/ld+json">
     {
@@ -177,6 +183,49 @@
 </div>
 
 {% block content %}{% endblock %}
+
+{% if ya_ad_block_id %}
+<div class="ya-ad-strip">
+    <span class="ya-ad-strip__label">Реклама</span>
+    <div id="yandex_rtb_{{ ya_ad_block_id }}"></div>
+</div>
+<script>
+window.yaContextCb.push(function() {
+    Ya.Context.AdvManager.render({
+        blockId: "{{ ya_ad_block_id }}",
+        renderTo: "yandex_rtb_{{ ya_ad_block_id }}"
+    });
+});
+</script>
+{% endif %}
+
+{% if ya_ad_block_left %}
+<div class="ya-ad-float ya-ad-float--left" id="ya_float_left_wrap">
+    <div id="yandex_rtb_{{ ya_ad_block_left }}"></div>
+</div>
+<script>
+window.yaContextCb.push(function() {
+    Ya.Context.AdvManager.render({
+        blockId: "{{ ya_ad_block_left }}",
+        renderTo: "yandex_rtb_{{ ya_ad_block_left }}"
+    });
+});
+</script>
+{% endif %}
+
+{% if ya_ad_block_right %}
+<div class="ya-ad-float ya-ad-float--right" id="ya_float_right_wrap">
+    <div id="yandex_rtb_{{ ya_ad_block_right }}"></div>
+</div>
+<script>
+window.yaContextCb.push(function() {
+    Ya.Context.AdvManager.render({
+        blockId: "{{ ya_ad_block_right }}",
+        renderTo: "yandex_rtb_{{ ya_ad_block_right }}"
+    });
+});
+</script>
+{% endif %}
 
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item {% block mob_home %}{% endblock %}">

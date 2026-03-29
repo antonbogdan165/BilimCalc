@@ -1,0 +1,51 @@
+.ya-ad-strip {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 20px 28px;
+    text-align: center;
+}
+
+.ya-ad-strip__label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 8px;
+    opacity: 0.4;
+    user-select: none;
+}
+
+.ya-ad-strip > div[id^="yandex_rtb"] {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.ya-ad-float {
+    display: none;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    width: 160px;
+}
+
+@media (min-width: 1300px) {
+    .ya-ad-float {
+        display: block;
+    }
+
+    .ya-ad-float--left {
+        right: calc(50% + 480px);
+    }
+
+    .ya-ad-float--right {
+        left: calc(50% + 480px);
+    }
+}
+
+@media (min-width: 1600px) {
+    .ya-ad-float--left  { right: calc(50% + 500px); }
+    .ya-ad-float--right { left:  calc(50% + 500px); }
+}

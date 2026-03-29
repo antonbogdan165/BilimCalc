@@ -3,6 +3,9 @@ import os
 import time
 import requests as req_lib
 from datetime import date
+from dotenv import load_dotenv
+
+load_dotenv()
 
 try:
     from flask_limiter import Limiter
@@ -120,6 +123,15 @@ RSS_ARTICLES = [
         "date": "Wed, 19 Mar 2026 10:00:00 +0500",
     },
 ]
+
+
+@app.context_processor
+def inject_ads():
+    return dict(
+        ya_ad_block_id=os.environ.get('YA_AD_BLOCK_ID', ''),
+        ya_ad_block_left=os.environ.get('YA_AD_BLOCK_LEFT', ''),
+        ya_ad_block_right=os.environ.get('YA_AD_BLOCK_RIGHT', ''),
+    )
 
 
 @app.before_request
