@@ -95,9 +95,23 @@
         if (!blockId) return;
 
         var container = document.getElementById('ya_sticky_content');
-        if (!container) return;
+        var wrapper   = document.getElementById('ya-floor-ad-container');
+        if (!container || !wrapper) return;
 
         renderBlock(blockId, 'ya_sticky_content');
+
+        var waited = 0;
+        var check = setInterval(function () {
+            waited += 300;
+            var hasContent = container.children.length > 0 &&
+                             container.offsetHeight > 10;
+            if (hasContent) {
+                clearInterval(check);
+                wrapper.classList.add('is-ready');
+            } else if (waited > 8000) {
+                clearInterval(check);
+            }
+        }, 300);
     }
 
     function init() {

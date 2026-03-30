@@ -168,16 +168,20 @@
 #ya-floor-ad-container {
     display: none;
     position: fixed;
-    bottom: 60px; 
+    bottom: 60px;
     left: 0;
     right: 0;
     z-index: 100;
     transform: translateY(100%);
-    animation: floorSlideUp 0.4s ease 1.2s forwards;
+    transition: transform 0.4s ease;
     background: var(--surface, #161b22);
     border-top: 1px solid var(--border, rgba(139,148,158,0.15));
     padding: 6px 0 4px;
     text-align: center;
+}
+
+#ya-floor-ad-container.is-ready {
+    transform: translateY(0);
 }
 
 #ya-floor-ad-container::before {
@@ -198,11 +202,7 @@
     display: inline-block;
     max-width: 100%;
     overflow: hidden;
-}
-
-@keyframes floorSlideUp {
-    from { transform: translateY(100%); }
-    to   { transform: translateY(0); }
+    min-height: 0; 
 }
 
 @media (max-width: 900px) {
