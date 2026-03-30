@@ -214,7 +214,10 @@ window.yaContextCb.push(function() {
 
 {% if ya_ad_block_left %}
 <div class="ya-ad-float ya-ad-float--left" id="ya_float_left_wrap">
-    <div id="yandex_rtb_{{ ya_ad_block_left }}"></div>
+    <span class="ya-ad-float__label">Реклама</span>
+    <div class="ya-ad-float__inner">
+        <div id="yandex_rtb_{{ ya_ad_block_left }}"></div>
+    </div>
 </div>
 <script>
 window.yaContextCb.push(function() {
@@ -228,7 +231,10 @@ window.yaContextCb.push(function() {
 
 {% if ya_ad_block_right %}
 <div class="ya-ad-float ya-ad-float--right" id="ya_float_right_wrap">
-    <div id="yandex_rtb_{{ ya_ad_block_right }}"></div>
+    <span class="ya-ad-float__label">Реклама</span>
+    <div class="ya-ad-float__inner">
+        <div id="yandex_rtb_{{ ya_ad_block_right }}"></div>
+    </div>
 </div>
 <script>
 window.yaContextCb.push(function() {
