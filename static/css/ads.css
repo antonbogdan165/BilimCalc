@@ -10,7 +10,7 @@
     opacity: 0.45;
     user-select: none;
     pointer-events: none;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .ya-ad-label::before,
@@ -23,7 +23,7 @@
 
 
 .ya-ad-inline {
-    margin: 36px 0;
+    margin: 20px 0;
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -47,7 +47,7 @@
     opacity: 0.45;
     user-select: none;
     pointer-events: none;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .ya-ad-inline__label::before,
@@ -67,7 +67,7 @@
 }
 
 @media (max-width: 600px) {
-    .ya-ad-inline          { margin: 24px 0; }
+    .ya-ad-inline          { margin: 14px 0; }
     .ya-ad-inline__wrap    { min-height: 80px; border-radius: 8px; }
 }
 
@@ -75,7 +75,7 @@
 .ya-ad-strip {
     max-width: 940px;
     margin: 0 auto;
-    padding: 0 20px 32px;
+    padding: 0 20px 16px;
     text-align: center;
 }
 
@@ -90,7 +90,7 @@
     letter-spacing: 0.8px;
     opacity: 0.4;
     user-select: none;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     max-width: 728px;
     margin-left: auto;
     margin-right: auto;
