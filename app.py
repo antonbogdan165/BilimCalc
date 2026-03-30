@@ -128,8 +128,11 @@ def inject_ads():
         ya_ad_block_id=os.environ.get('YA_AD_BLOCK_ID', ''),
         ya_ad_block_left=os.environ.get('YA_AD_BLOCK_LEFT', ''),
         ya_ad_block_right=os.environ.get('YA_AD_BLOCK_RIGHT', ''),
+        ya_ad_article_1=os.environ.get('YA_AD_ARTICLE_1', ''),
+        ya_ad_article_2=os.environ.get('YA_AD_ARTICLE_2', ''),
+        ya_ad_article_3=os.environ.get('YA_AD_ARTICLE_3', ''),
+        ya_ad_sticky=os.environ.get('YA_AD_STICKY', ''),
     )
-
 
 @app.before_request
 def force_non_www():

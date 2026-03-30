@@ -38,7 +38,7 @@
     <script src="/static/js/theme.js"></script>
     <script src="/static/js/page-loader.js"></script>
 
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.6">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.7.8">
 
     <title>{% block meta_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
@@ -72,17 +72,30 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/style.css?v=1.7.6">
-    <link rel="stylesheet" href="/static/css/article.css?v=1.7.6">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.6">
-    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.6">
-    <link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.7.7">
-    <link rel="stylesheet" href="/static/css/ads.css?v=1.7.7">
+    <link rel="stylesheet" href="/static/css/style.css?v=1.7.8">
+    <link rel="stylesheet" href="/static/css/article.css?v=1.7.8">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.7.8">
+    <link rel="stylesheet" href="/static/css/additions.css?v=1.7.8">
+    <link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.7.8">
+    <link rel="stylesheet" href="/static/css/ads.css?v=1.7.8">
     {% block extra_css %}{% endblock %}
 
-    {% if ya_ad_block_id %}
-    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    {% if ya_ad_block_id or ya_ad_article_1 or ya_ad_sticky %}
+    <script>window.yaContextCb = window.yaContextCb || [];</script>
     <script src="https://yandex.ru/ads/system/context.js" async></script>
+    {% endif %}
+
+    {% if ya_ad_article_1 or ya_ad_sticky %}
+    <script>
+    window.__YA_ADS__ = {
+        article: [
+            "{{ ya_ad_article_1 }}",
+            "{{ ya_ad_article_2 }}",
+            "{{ ya_ad_article_3 }}"
+        ].filter(Boolean),
+        sticky: "{{ ya_ad_sticky }}"
+    };
+    </script>
     {% endif %}
 
     <script type="application/ld+json">
@@ -227,6 +240,12 @@ window.yaContextCb.push(function() {
 </script>
 {% endif %}
 
+{% if ya_ad_sticky %}
+<div id="ya-floor-ad-container">
+    <div id="ya_sticky_content"></div>
+</div>
+{% endif %}
+
 <nav id="mobile-nav" aria-label="Мобильная навигация">
     <a href="/" class="mobile-nav__item {% block mob_home %}{% endblock %}">
         <span class="mobile-nav__icon">🧮</span>
@@ -260,7 +279,8 @@ window.yaContextCb.push(function() {
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.7.6"></script>
+<script src="/static/js/pwa-install.js?v=1.7.8"></script>
 {% block extra_js %}{% endblock %}
+<script src="/static/js/ads.js?v=1.7.8" defer></script>
 </body>
 </html>
