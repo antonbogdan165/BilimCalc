@@ -150,18 +150,18 @@
 
 @media (min-width: 1500px) {
     .ya-ad-float            { display: block; }
-    .ya-ad-float--left      { right: calc(50% + 490px); }
-    .ya-ad-float--right     { left:  calc(50% + 490px); }
+    .ya-ad-float--left      { right: calc(50% + 510px); }
+    .ya-ad-float--right     { left:  calc(50% + 510px); }
 }
 
 @media (min-width: 1640px) {
-    .ya-ad-float--left      { right: calc(50% + 530px); }
-    .ya-ad-float--right     { left:  calc(50% + 530px); }
+    .ya-ad-float--left      { right: calc(50% + 560px); }
+    .ya-ad-float--right     { left:  calc(50% + 560px); }
 }
 
 @media (min-width: 1760px) {
-    .ya-ad-float--left      { right: calc(50% + 570px); }
-    .ya-ad-float--right     { left:  calc(50% + 570px); }
+    .ya-ad-float--left      { right: calc(50% + 600px); }
+    .ya-ad-float--right     { left:  calc(50% + 600px); }
 }
 
 
