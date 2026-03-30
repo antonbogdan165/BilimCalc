@@ -47,6 +47,7 @@ ARTICLE_ROUTES = {
     "/kak-perevesti-procenty-v-otsenku":             "kak-perevesti-procenty-v-otsenku.html",
     "/articles":                                     "articles.html",
     "/perehod-na-12-letku-kazakhstan":               "perehod-na-12-letku-kazakhstan.html",
+    "/disable-adblock":                              "disable-adblock.html"
 }
 
 CALC_REDIRECTS = {
