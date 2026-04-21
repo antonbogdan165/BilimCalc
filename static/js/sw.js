@@ -22,6 +22,7 @@ const STATIC_ASSETS = [
     "/static/css/bilimexam.css",
     "/static/css/additions.css",
     "/static/css/topbar-improved.css",
+    "/static/css/mobile-compact.css",
 
     "/static/js/main.js",
     "/static/js/theme.js",
@@ -29,6 +30,7 @@ const STATIC_ASSETS = [
     "/static/js/pwa-install.js",
     "/static/js/bilimexam.js",
     "/static/js/visitor-counter.js",
+    "/static/js/mobile-ux.js",
 
     "/site.webmanifest",
     "/static/icons/favicon-32x32.png",
