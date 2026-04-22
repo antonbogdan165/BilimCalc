@@ -12,8 +12,6 @@ const STATIC_ASSETS = [
     "/kak-perevesti-procenty-v-otsenku",
     "/perehod-na-12-letku-kazakhstan",
     "/articles",
-    "/kalkulator-sor",
-    "/kalkulator-soch",
 
     "/static/css/style.css",
     "/static/css/article.css",

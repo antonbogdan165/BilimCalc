@@ -1,5 +1,7 @@
 (function () {
-    if (window.innerWidth > 600) return;
+    const mq = window.matchMedia('(max-width: 600px)');
+
+    if (!mq.matches) return;
 
     var origShowTrend = window.showTrend;
 
@@ -60,4 +62,8 @@
             if (e.changedTouches[0].clientY - startY > 55) closeSheet();
         }, { passive: true });
     }
+
+    mq.addEventListener('change', function (e) {
+        if (!e.matches) closeSheet();
+    });
 })();

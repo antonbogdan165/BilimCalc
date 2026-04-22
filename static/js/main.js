@@ -656,8 +656,6 @@ function calculate() {
             const hintEl = document.getElementById("formulaHint");
             if (hintEl) hintEl.textContent = "";
         }
-
-        saveState();
     } catch (e) {
         console.error("calculate error", e);
     } finally {
@@ -672,8 +670,13 @@ let chartColor = "#58a6ff";
 
 function showTrend(visible) {
     const box = document.querySelector(".trend-box");
+    const btn = document.getElementById("trendTriggerBtn");
     if (!box) return;
     box.classList.toggle("collapsed", !visible);
+    if (btn && window.innerWidth > 600) {
+        btn.classList.toggle("trend-btn--active", !!visible);
+        btn.title = visible ? "AI-анализ динамики (подробнее)" : "AI-анализ динамики";
+    }
     if (!visible && trendChart) {
         try { trendChart.destroy(); } catch (e) {}
         trendChart = null;
@@ -690,7 +693,7 @@ function updateTrend() {
     try {
         const data = calcTrendLine(so);
         drawTrend(data.scores, data.predictions, data.accuracy);
-        if (trendChart?.resize) trendChart.resize();
+        if (trendChart && trendChart.resize) trendChart.resize();
     } catch (e) {
         console.error("trend error", e);
     }
@@ -725,72 +728,43 @@ function hexToRgba(hex, a) {
     return `rgba(${r},${g},${b},${a})`;
 }
 
-function drawTrend(scores, predictions, accuracy) {
-    const canvas = document.getElementById("trendChart");
-    if (!canvas) return;
+function _buildTrendChartConfig(ctx, scores, predictions, color, height) {
+    const sg = ctx.createLinearGradient(0, 0, 0, height);
+    sg.addColorStop(0,   hexToRgba(color, 0.32));
+    sg.addColorStop(0.6, hexToRgba(color, 0.06));
+    sg.addColorStop(1,   hexToRgba(color, 0.00));
 
-    if (typeof Chart === "undefined") {
-        const container = document.getElementById("trendContainer");
-        if (container && !container.querySelector(".chart-offline-msg")) {
-            const msg = document.createElement("div");
-            msg.className = "chart-offline-msg";
-            msg.style.cssText = "display:flex;align-items:center;justify-content:center;height:100%;font-size:12px;color:#8b949e;text-align:center;line-height:1.5;padding:0 12px";
-            msg.textContent = "График доступен при наличии интернета";
-            container.appendChild(msg);
-        }
-        document.getElementById("aiAccuracy").textContent = "--%%";
-        document.getElementById("trendLabel").textContent = "Нет данных";
-        return;
-    }
+    const pg = ctx.createLinearGradient(0, 0, 0, height);
+    pg.addColorStop(0, "rgba(139,148,158,0.10)");
+    pg.addColorStop(1, "rgba(139,148,158,0.00)");
 
-    const ctx = canvas.getContext("2d");
-    if (trendChart) trendChart.destroy();
+    const labels = Array.from({ length: scores.length }, (_, i) => "Ур." + (i + 1));
 
-    if (!Array.isArray(scores) || !Array.isArray(predictions)) return;
-    const len = Math.min(scores.length, predictions.length);
-    if (!len) return;
-
-    scores      = scores.slice(0, len).map(v => Math.min(Math.max(Number(v) || 2, 2), 10));
-    predictions = predictions.slice(0, len).map(v => Math.min(Math.max(Number(v) || 2, 2), 10));
-
-    const labels    = Array.from({ length: len }, (_, i) => "Ур." + (i + 1));
-    const color     = chartColor;
-    const h         = canvas.offsetHeight || 145;
-
-    const scoreGrad = ctx.createLinearGradient(0, 0, 0, h);
-    scoreGrad.addColorStop(0,    hexToRgba(color, 0.30));
-    scoreGrad.addColorStop(0.65, hexToRgba(color, 0.06));
-    scoreGrad.addColorStop(1,    hexToRgba(color, 0.00));
-
-    const predGrad = ctx.createLinearGradient(0, 0, 0, h);
-    predGrad.addColorStop(0, "rgba(139,148,158,0.12)");
-    predGrad.addColorStop(1, "rgba(139,148,158,0.00)");
-
-    trendChart = new Chart(ctx, {
+    return {
         type: "line",
         data: {
             labels,
             datasets: [
                 {
-                    data: scores,
+                    data: scores.slice(),
                     borderColor: color,
-                    backgroundColor: scoreGrad,
+                    backgroundColor: sg,
                     borderWidth: 2.5,
-                    tension: 0.42,
+                    tension: 0.45,
                     fill: true,
                     pointBackgroundColor: color,
                     pointBorderColor: "#060a10",
                     pointBorderWidth: 2,
                     pointRadius: 5,
-                    pointHoverRadius: 5,
+                    pointHoverRadius: 6,
                 },
                 {
-                    data: predictions,
-                    borderColor: "rgba(139,148,158,0.45)",
-                    backgroundColor: predGrad,
+                    data: predictions.slice(),
+                    borderColor: "rgba(139,148,158,0.38)",
+                    backgroundColor: pg,
                     borderWidth: 1.5,
                     borderDash: [5, 4],
-                    tension: 0.3,
+                    tension: 0.35,
                     fill: true,
                     pointRadius: 0,
                     pointHoverRadius: 0,
@@ -801,10 +775,10 @@ function drawTrend(scores, predictions, accuracy) {
             responsive: true,
             maintainAspectRatio: false,
             layout: { padding: { top: 8, right: 6, bottom: 2, left: 2 } },
-            animation: { duration: 550, easing: "easeOutCubic" },
+            animation: { duration: 550, easing: "easeOutQuart" },
             events: [],
             plugins: {
-                legend:  { display: false, labels: { generateLabels: () => [] } },
+                legend: { display: false, labels: { generateLabels: () => [] } },
                 tooltip: { enabled: false },
             },
             scales: {
@@ -821,7 +795,48 @@ function drawTrend(scores, predictions, accuracy) {
                 },
             },
         },
-    });
+    };
+}
+
+function drawTrend(scores, predictions, accuracy) {
+    const canvas = document.getElementById("trendChart");
+    if (!canvas) return;
+
+    if (typeof Chart === "undefined") {
+        const container = document.getElementById("trendContainer");
+        if (container && !container.querySelector(".chart-offline-msg")) {
+            const msg = document.createElement("div");
+            msg.className = "chart-offline-msg";
+            msg.style.cssText = "display:flex;align-items:center;justify-content:center;height:100%;font-size:12px;color:#8b949e;text-align:center;line-height:1.5;padding:0 12px";
+            msg.textContent = "График доступен при наличии интернета";
+            container.appendChild(msg);
+        }
+        document.getElementById("aiAccuracy").textContent = "--%";
+        document.getElementById("trendLabel").textContent = "Нет данных";
+        return;
+    }
+
+    const ctx   = canvas.getContext("2d");
+    const color = chartColor;
+    const h     = canvas.offsetHeight || 145;
+
+    if (trendChart) {
+        const sg = ctx.createLinearGradient(0, 0, 0, h);
+        sg.addColorStop(0,   hexToRgba(color, 0.32));
+        sg.addColorStop(0.6, hexToRgba(color, 0.06));
+        sg.addColorStop(1,   hexToRgba(color, 0.00));
+
+        const labels = Array.from({ length: scores.length }, (_, i) => "Ур." + (i + 1));
+        trendChart.data.labels                               = labels;
+        trendChart.data.datasets[0].data                    = scores.slice();
+        trendChart.data.datasets[0].borderColor             = color;
+        trendChart.data.datasets[0].backgroundColor         = sg;
+        trendChart.data.datasets[0].pointBackgroundColor    = color;
+        trendChart.data.datasets[1].data                    = predictions.slice();
+        trendChart.update("none");
+    } else {
+        trendChart = new Chart(ctx, _buildTrendChartConfig(ctx, scores, predictions, color, h));
+    }
 
     document.getElementById("aiAccuracy").textContent = accuracy + "%";
 
@@ -834,6 +849,134 @@ function drawTrend(scores, predictions, accuracy) {
     else                   trendText = "📊 Стабильная динамика";
     document.getElementById("trendLabel").textContent = trendText;
 }
+
+
+function showDetailedAnalysisModal() {
+    if (document.getElementById("trendModal") || so.length < 2) return;
+
+    const data = calcTrendLine(so);
+    const { scores, predictions, accuracy, slope } = data;
+
+    const min  = Math.min(...scores);
+    const max  = Math.max(...scores);
+    const avg  = scores.reduce((a, b) => a + b, 0) / scores.length;
+    const vari = scores.reduce((s, v) => s + (v - avg) ** 2, 0) / scores.length;
+    const std  = Math.sqrt(vari);
+    const next = parseFloat(Math.min(10, Math.max(1, predictions[predictions.length - 1] + (slope || 0))).toFixed(1));
+
+    const trend = predictions[predictions.length - 1] - predictions[0];
+    let trendEmoji, trendText, trendColor;
+    if      (trend >  0.6) { trendEmoji = "📈"; trendText = "Отличный рост";       trendColor = "#22c55e"; }
+    else if (trend >  0.2) { trendEmoji = "📈"; trendText = "Небольшой рост";      trendColor = "#3fb950"; }
+    else if (trend < -0.6) { trendEmoji = "📉"; trendText = "Снижение оценок";     trendColor = "#ff7070"; }
+    else if (trend < -0.2) { trendEmoji = "📉"; trendText = "Лёгкое снижение";     trendColor = "#e3b341"; }
+    else                   { trendEmoji = "📊"; trendText = "Стабильная динамика"; trendColor = "#58a6ff"; }
+
+    let interpretation;
+    if      (trend >  0.6) interpretation = `Оценки уверенно растут. Прогноз на следующую работу: ${next}/10. Продолжай в том же темпе!`;
+    else if (trend >  0.2) interpretation = `Прослеживается позитивная динамика. Прогноз на следующую работу: ${next}/10.`;
+    else if (trend < -0.6) interpretation = `Оценки снижаются. Прогноз на следующую работу: ${next}/10. Стоит уделить внимание учёбе.`;
+    else if (trend < -0.2) interpretation = `Небольшое снижение. Прогноз на следующую работу: ${next}/10.`;
+    else                   interpretation = `Результаты стабильны. Прогноз на следующую работу: ${next}/10.`;
+
+    const modal = document.createElement("div");
+    modal.id = "trendModal";
+    modal.innerHTML = `<div class="tm-overlay"></div>
+<div class="tm-box">
+    <div class="tm-header">
+        <div class="tm-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            AI-анализ динамики
+        </div>
+        <span class="tm-accuracy">Точность: ${accuracy}%</span>
+        <button class="tm-close" id="trendModalClose" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="tm-chart-wrap">
+        <canvas id="trendModalChart" style="display:block;width:100%;height:100%"></canvas>
+    </div>
+    <div class="tm-trend-badge" style="color:${trendColor};border-color:${trendColor}44;background:${trendColor}18">
+        ${trendEmoji} ${trendText}
+    </div>
+    <div class="tm-stats">
+        <div class="tm-stat"><span class="tm-stat__label">Среднее</span><span class="tm-stat__val">${avg.toFixed(1)}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">Минимум</span><span class="tm-stat__val">${min}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">Максимум</span><span class="tm-stat__val">${max}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">Разброс σ</span><span class="tm-stat__val">${std.toFixed(2)}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">Прогноз</span><span class="tm-stat__val" style="color:${trendColor}">${next}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">Работ</span><span class="tm-stat__val">${scores.length}</span></div>
+    </div>
+    <p class="tm-interpretation">${interpretation}</p>
+</div>`;
+
+    if (!document.getElementById("tmStyles")) {
+        const s = document.createElement("style");
+        s.id = "tmStyles";
+        s.textContent = `
+#trendModal{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px}
+.tm-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:tmOvIn 0.2s ease}
+.tm-box{position:relative;z-index:1;background:#0d1117;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:20px;width:100%;max-width:460px;animation:tmBxIn 0.28s cubic-bezier(.34,1.56,.64,1)}
+[data-theme="light"] .tm-box{background:#fff;border-color:rgba(0,0,0,0.09)}
+.tm-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.tm-title{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:700;color:#e6edf3;flex:1}
+[data-theme="light"] .tm-title{color:#0f172a}
+.tm-accuracy{font-size:11px;font-weight:700;color:var(--accent);background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.2);border-radius:6px;padding:3px 8px;white-space:nowrap}
+.tm-close{width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:7px;color:#8b949e;cursor:pointer;font-size:13px;-webkit-tap-highlight-color:transparent;transition:background 0.15s;-webkit-appearance:none;appearance:none}
+.tm-close:hover{background:rgba(255,255,255,0.1);color:#e6edf3}
+[data-theme="light"] .tm-close{background:rgba(0,0,0,0.04);border-color:rgba(0,0,0,0.09);color:#64748b}
+.tm-chart-wrap{height:170px;border-radius:10px;overflow:hidden;background:#070b11;border:1px solid rgba(255,255,255,0.05);margin-bottom:12px;position:relative}
+[data-theme="light"] .tm-chart-wrap{background:#f8fafc;border-color:rgba(0,0,0,0.06)}
+.tm-trend-badge{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;padding:7px 14px;border-radius:9px;border:1px solid;margin-bottom:12px}
+.tm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.tm-stat{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);border-radius:9px;padding:8px 10px;display:flex;flex-direction:column;align-items:center;gap:3px}
+[data-theme="light"] .tm-stat{background:rgba(0,0,0,0.02);border-color:rgba(0,0,0,0.06)}
+.tm-stat__label{font-size:10px;font-weight:600;color:#6e7681;text-transform:uppercase;letter-spacing:0.4px}
+.tm-stat__val{font-size:19px;font-weight:800;color:#e6edf3;line-height:1.1}
+[data-theme="light"] .tm-stat__val{color:#0f172a}
+.tm-interpretation{font-size:13px;color:#8b949e;line-height:1.65;text-align:center;margin:0}
+[data-theme="light"] .tm-interpretation{color:#64748b}
+#trendTriggerBtn.trend-btn--active{color:var(--accent);border-color:rgba(88,166,255,0.30);background:rgba(88,166,255,0.08)}
+[data-theme="light"] #trendTriggerBtn.trend-btn--active{color:var(--accent);border-color:rgba(37,99,235,0.28);background:rgba(37,99,235,0.07)}
+@keyframes tmOvIn{from{opacity:0}to{opacity:1}}
+@keyframes tmBxIn{from{opacity:0;transform:scale(0.93) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}`;
+        document.head.appendChild(s);
+    }
+
+    document.body.appendChild(modal);
+
+    const mc = document.getElementById("trendModalChart");
+    if (mc && typeof Chart !== "undefined") {
+        const ctx2 = mc.getContext("2d");
+        const clr  = chartColor;
+        const h2   = 170;
+        const cfg  = _buildTrendChartConfig(ctx2, scores, predictions, clr, h2);
+        cfg.options.layout.padding = { top: 10, right: 10, bottom: 4, left: 4 };
+        cfg.options.animation.duration = 500;
+        new Chart(ctx2, cfg);
+    }
+
+    function closeModal() {
+        const box = modal.querySelector(".tm-box");
+        const ov  = modal.querySelector(".tm-overlay");
+        box.style.cssText  += ";transition:transform 0.18s ease,opacity 0.18s ease;transform:scale(0.95);opacity:0";
+        ov.style.cssText   += ";transition:opacity 0.18s ease;opacity:0";
+        setTimeout(() => modal.remove(), 200);
+    }
+
+    document.getElementById("trendModalClose").addEventListener("click", closeModal);
+    modal.querySelector(".tm-overlay").addEventListener("click", closeModal);
+    document.addEventListener("keydown", function kh(e) {
+        if (e.key === "Escape") { closeModal(); document.removeEventListener("keydown", kh); }
+    });
+}
+
+(function setupTrendDesktop() {
+    const btn = document.getElementById("trendTriggerBtn");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+        if (window.innerWidth <= 600) return;
+        showDetailedAnalysisModal();
+    });
+})();
 
 
 document.querySelectorAll(".faq-q").forEach(btn => {

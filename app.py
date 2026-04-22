@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, redirect, Response
+from flask import Flask, render_template, send_from_directory, redirect, Response, request
 import os
 import time
 import requests as req_lib
@@ -19,6 +19,12 @@ BUILD_TIME = str(int(time.time()))
 _SUPABASE_URL = os.environ.get('SUPABASE_URL', '')
 _SUPABASE_KEY = os.environ.get('SUPABASE_KEY', '')
 
+_ALLOWED_ORIGINS = {
+    'bilimcalc.vercel.app',
+    'localhost',
+    '127.0.0.1',
+}
+
 def _sb_headers():
     return {
         'apikey':        _SUPABASE_KEY,
@@ -26,6 +32,12 @@ def _sb_headers():
         'Content-Type':  'application/json',
         'Prefer':        'return=representation',
     }
+
+def _is_allowed_origin():
+    origin  = request.headers.get('Origin', '')
+    referer = request.headers.get('Referer', '')
+    combined = origin + referer
+    return any(h in combined for h in _ALLOWED_ORIGINS)
 
 if _limiter_available:
     limiter = Limiter(
@@ -137,7 +149,6 @@ def inject_ads():
 
 @app.before_request
 def force_non_www():
-    from flask import request
     if request.host.startswith("www."):
         return redirect("https://bilimcalc.vercel.app/" + request.full_path, code=301)
 
@@ -238,6 +249,8 @@ def api_visits_get():
 
 @app.route("/api/visits/increment", methods=["POST"])
 def api_visits_increment():
+    if not _is_allowed_origin():
+        return _json({"count": 0})
     if not _SUPABASE_URL or not _SUPABASE_KEY:
         return _json({"count": 0})
     try:
