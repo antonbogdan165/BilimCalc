@@ -4,7 +4,7 @@
 Считает итоговую оценку за четверть и год по официальной методике МОН РК — быстро, точно и без лишних действий.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.6.1-22c55e?style=flat-square">
+  <img src="https://img.shields.io/badge/version-1.8.0-22c55e?style=flat-square">
   <img src="https://img.shields.io/badge/python-3.11-3b82f6?style=flat-square&logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/flask-3.0-black?style=flat-square&logo=flask">
   <img src="https://img.shields.io/badge/deploy-vercel-black?style=flat-square&logo=vercel">
