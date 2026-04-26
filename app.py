@@ -59,7 +59,7 @@ ARTICLE_ROUTES = {
     "/kak-perevesti-procenty-v-otsenku":             "kak-perevesti-procenty-v-otsenku.html",
     "/articles":                                     "articles.html",
     "/perehod-na-12-letku-kazakhstan":               "perehod-na-12-letku-kazakhstan.html",
-    "/disable-adblock":                              "disable-adblock.html"
+    "/disable-adblock":                              "disable-adblock.html",
 }
 
 CALC_REDIRECTS = {
@@ -69,18 +69,20 @@ CALC_REDIRECTS = {
     "/calculator":       "/",
 }
 
+NOINDEX_ROUTES = {"/disable-adblock"}
+
 SITEMAP_URLS = [
-    {"loc": "https://bilimcalc.vercel.app/",                                          "changefreq": "weekly",  "priority": "1.0"},
-    {"loc": "https://bilimcalc.vercel.app/kalkulator-ekzamena",                       "changefreq": "monthly", "priority": "0.9"},
-    {"loc": "https://bilimcalc.vercel.app/articles",                                  "changefreq": "weekly",  "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",   "changefreq": "monthly", "priority": "0.9"},
-    {"loc": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",          "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",              "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-soch",                       "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-sor",                        "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-so",                         "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",                  "changefreq": "monthly", "priority": "0.7"},
-    {"loc": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",            "changefreq": "monthly", "priority": "0.7"},
+    {"loc": "https://bilimcalc.vercel.app/",                                          "lastmod": "2026-04-01",  "changefreq": "weekly",  "priority": "1.0"},
+    {"loc": "https://bilimcalc.vercel.app/kalkulator-ekzamena",                       "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.9"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",   "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.9"},
+    {"loc": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",              "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.85"},
+    {"loc": "https://bilimcalc.vercel.app/articles",                                  "lastmod": "2026-03-19",  "changefreq": "weekly",  "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",          "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-soch",                       "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-sor",                        "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-so",                         "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",                  "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.7"},
+    {"loc": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",            "lastmod": "2026-03-19",  "changefreq": "monthly", "priority": "0.7"},
 ]
 
 RSS_ARTICLES = [
@@ -165,14 +167,18 @@ def robots():
 
 @app.route("/sitemap.xml")
 def sitemap():
-    today = date.today().isoformat()
-    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
-             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        '        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+        '        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9',
+        '        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">',
+    ]
     for u in SITEMAP_URLS:
         lines.append(
             f'  <url>'
             f'<loc>{u["loc"]}</loc>'
-            f'<lastmod>{today}</lastmod>'
+            f'<lastmod>{u["lastmod"]}</lastmod>'
             f'<changefreq>{u["changefreq"]}</changefreq>'
             f'<priority>{u["priority"]}</priority>'
             f'</url>'
@@ -271,9 +277,9 @@ def _json(data):
     return jsonify(data)
 
 
-def _make_article_view(template):
+def _make_article_view(template, noindex=False):
     def view():
-        return render_template(template)
+        return render_template(template, noindex=noindex)
     view.__name__ = template
     return view
 
@@ -286,7 +292,8 @@ def _make_redirect_view(target, route_name):
 
 
 for path, template in ARTICLE_ROUTES.items():
-    app.add_url_rule(path, view_func=_make_article_view(template))
+    is_noindex = path in NOINDEX_ROUTES
+    app.add_url_rule(path, view_func=_make_article_view(template, noindex=is_noindex))
 
 for path, target in CALC_REDIRECTS.items():
     app.add_url_rule(path, view_func=_make_redirect_view(target, path.lstrip("/")))
