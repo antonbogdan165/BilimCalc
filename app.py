@@ -18,6 +18,7 @@ BUILD_TIME = str(int(time.time()))
 
 _SUPABASE_URL = os.environ.get('SUPABASE_URL', '')
 _SUPABASE_KEY = os.environ.get('SUPABASE_KEY', '')
+_INDEXNOW_KEY = os.environ.get('INDEXNOW_KEY', 'bilimcalc2026key')
 
 _ALLOWED_ORIGINS = {
     'bilimcalc.vercel.app',
@@ -71,18 +72,25 @@ CALC_REDIRECTS = {
 
 NOINDEX_ROUTES = {"/disable-adblock"}
 
+TODAY = date.today().isoformat()
+
 SITEMAP_URLS = [
-    {"loc": "https://bilimcalc.vercel.app/",                                          "lastmod": "2026-04-01",  "changefreq": "weekly",  "priority": "1.0"},
-    {"loc": "https://bilimcalc.vercel.app/kalkulator-ekzamena",                       "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.9"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",   "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.9"},
-    {"loc": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",              "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.85"},
-    {"loc": "https://bilimcalc.vercel.app/articles",                                  "lastmod": "2026-03-19",  "changefreq": "weekly",  "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",          "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-soch",                       "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-sor",                        "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-so",                         "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",                  "lastmod": "2026-03-13",  "changefreq": "monthly", "priority": "0.7"},
-    {"loc": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",            "lastmod": "2026-03-19",  "changefreq": "monthly", "priority": "0.7"},
+    {"loc": "https://bilimcalc.vercel.app/",                                          "lastmod": TODAY, "changefreq": "weekly",  "priority": "1.0"},
+    {"loc": "https://bilimcalc.vercel.app/kalkulator-ekzamena",                       "lastmod": TODAY, "changefreq": "monthly", "priority": "0.9"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",   "lastmod": TODAY, "changefreq": "monthly", "priority": "0.9"},
+    {"loc": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",              "lastmod": TODAY, "changefreq": "monthly", "priority": "0.85"},
+    {"loc": "https://bilimcalc.vercel.app/articles",                                  "lastmod": TODAY, "changefreq": "weekly",  "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",          "lastmod": TODAY, "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-soch",                       "lastmod": TODAY, "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-sor",                        "lastmod": TODAY, "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-so",                         "lastmod": TODAY, "changefreq": "monthly", "priority": "0.8"},
+    {"loc": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",                  "lastmod": TODAY, "changefreq": "monthly", "priority": "0.7"},
+    {"loc": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",            "lastmod": TODAY, "changefreq": "monthly", "priority": "0.7"},
+]
+
+SITEMAP_IMAGES = [
+    {"loc": "https://bilimcalc.vercel.app/",                "image": "https://bilimcalc.vercel.app/static/icons/preview.png", "title": "BilimCalc — калькулятор ФО, СОР и СОЧ"},
+    {"loc": "https://bilimcalc.vercel.app/kalkulator-ekzamena", "image": "https://bilimcalc.vercel.app/static/icons/preview.png", "title": "BilimExam — итоговая оценка за год"},
 ]
 
 RSS_ARTICLES = [
@@ -167,20 +175,32 @@ def robots():
 
 @app.route("/sitemap.xml")
 def sitemap():
+    image_map = {item["loc"]: item for item in SITEMAP_IMAGES}
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"',
         '        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
         '        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9',
         '        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">',
     ]
     for u in SITEMAP_URLS:
+        img = image_map.get(u["loc"])
+        img_block = ""
+        if img:
+            img_block = (
+                f'<image:image>'
+                f'<image:loc>{img["image"]}</image:loc>'
+                f'<image:title>{img["title"]}</image:title>'
+                f'</image:image>'
+            )
         lines.append(
             f'  <url>'
             f'<loc>{u["loc"]}</loc>'
             f'<lastmod>{u["lastmod"]}</lastmod>'
             f'<changefreq>{u["changefreq"]}</changefreq>'
             f'<priority>{u["priority"]}</priority>'
+            f'{img_block}'
             f'</url>'
         )
     lines.append('</urlset>')
@@ -234,7 +254,7 @@ def favicon():
 
 @app.route("/bilimcalc2026key.txt")
 def indexnow_key():
-    return "bilimcalc2026key", 200, {"Content-Type": "text/plain"}
+    return _INDEXNOW_KEY, 200, {"Content-Type": "text/plain"}
 
 
 @app.route("/api/visits", methods=["GET"])
