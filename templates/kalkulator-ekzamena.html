@@ -19,12 +19,16 @@
 
     <script>window.__BRAND__ = { name: 'BilimExam', icon: '🎓' };</script>
     <script src="/static/js/theme.js"></script>
-    <script src="/static/js/page-loader.js"></script>
+    <script src="/static/js/page-loader.js" defer></script>
 
     <title>BilimExam — калькулятор итоговой оценки за год, 9 и 11 класс | Формула 70/30 МОН РК</title>
-    <meta name="description" content="Рассчитайте итоговую оценку за год по формуле МОН РК: годовая × 70% + экзамен × 30%. Введите оценки за 4 четверти и экзамен — калькулятор покажет итог и нужный балл для «4» и «5». Бесплатно, 9 и 11 класс Казахстан.">
+    <meta name="description" content="BilimExam — итоговая оценка за год по формуле 70/30 МОН РК. Введи оценки за четверти и экзамен — результат мгновенно. 9 и 11 класс Казахстан.">
     <meta name="keywords" content="итоговая оценка за год казахстан, калькулятор 70 30, формула МОН РК, 9 класс итоговая оценка, 11 класс экзамен, BilimExam, годовая оценка калькулятор">
+
     <link rel="canonical" href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
+    <link rel="alternate" hreflang="ru-KZ" href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
+    <link rel="alternate" hreflang="ru"    href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
+    <link rel="alternate" hreflang="x-default" href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
 
     <meta property="og:title"       content="BilimExam — итоговая оценка за год (9 и 11 класс Казахстан)">
     <meta property="og:description" content="Калькулятор годовой оценки по формуле 70/30. Введи оценки за четверти и экзамен — получи итог мгновенно. МОН РК.">
@@ -33,10 +37,14 @@
     <meta property="og:image"       content="https://bilimcalc.vercel.app/static/icons/preview.png">
     <meta property="og:image:width"  content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"   content="BilimExam — калькулятор итоговой оценки за год для 9 и 11 класса Казахстана">
     <meta property="og:locale"      content="ru_RU">
     <meta property="og:site_name"   content="BilimCalc">
-    <meta name="twitter:card"       content="summary_large_image">
-    <meta name="twitter:image"      content="https://bilimcalc.vercel.app/static/icons/preview.png">
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="BilimExam — итоговая оценка за год (9 и 11 класс)">
+    <meta name="twitter:description" content="Калькулятор 70/30 для 9 и 11 классов Казахстана. Введи оценки за четверти и экзамен — результат мгновенно.">
+    <meta name="twitter:image"       content="https://bilimcalc.vercel.app/static/icons/preview.png">
+    <meta name="twitter:image:alt"   content="BilimExam — калькулятор итоговой оценки">
 
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
@@ -410,6 +418,24 @@
     </a>
 </nav>
 
+<script>
+(function(){
+    ThemeToggle.init();
+    document.addEventListener('click', function(e){
+        var target = e.target.closest('.mobile-nav__item, .btn, .grade-btn');
+        if (!target) return;
+        var rect = target.getBoundingClientRect();
+        var ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        ripple.style.top  = (e.clientY - rect.top)  + 'px';
+        target.style.position = target.style.position || 'relative';
+        target.style.overflow = 'hidden';
+        target.appendChild(ripple);
+        ripple.addEventListener('animationend', function() { ripple.remove(); });
+    });
+})();
+</script>
 <script src="/static/js/visitor-counter.js?v=1.8.0" defer></script>
 <script src="/static/js/bilimexam.js?v=1.8.0"></script>
 <script src="/static/js/pwa-install.js?v=1.8.0"></script>

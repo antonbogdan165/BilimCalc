@@ -1,5 +1,6 @@
 import urllib.request
 import json
+import os
 
 URLS = [
     "https://bilimcalc.vercel.app/",
@@ -15,9 +16,11 @@ URLS = [
     "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",
 ]
 
+KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")
+
 data = {
     "host": "bilimcalc.vercel.app",
-    "key": "bilimcalc2026key",
+    "key": KEY,
     "urlList": URLS,
 }
 

@@ -1,6 +1,29 @@
 const CACHE_NAME = "bilimcalc-__BUILD_TIME__";
 
 const STATIC_ASSETS = [
+    "/static/css/style.css",
+    "/static/css/article.css",
+    "/static/css/page-loader.css",
+    "/static/css/pwa-banner.css",
+    "/static/css/bilimexam.css",
+    "/static/css/additions.css",
+    "/static/css/topbar-improved.css",
+    "/static/css/mobile-compact.css",
+    "/static/js/main.js",
+    "/static/js/theme.js",
+    "/static/js/page-loader.js",
+    "/static/js/pwa-install.js",
+    "/static/js/bilimexam.js",
+    "/static/js/visitor-counter.js",
+    "/static/js/mobile-ux.js",
+    "/site.webmanifest",
+    "/static/icons/favicon-32x32.png",
+    "/static/icons/web-app-manifest-192x192.png",
+    "/static/icons/web-app-manifest-512x512.png",
+    "/static/icons/apple-touch-icon.png",
+];
+
+const HTML_PAGES = [
     "/",
     "/kak-rasschitat-so",
     "/kak-rasschitat-sor",
@@ -12,29 +35,6 @@ const STATIC_ASSETS = [
     "/kak-perevesti-procenty-v-otsenku",
     "/perehod-na-12-letku-kazakhstan",
     "/articles",
-
-    "/static/css/style.css",
-    "/static/css/article.css",
-    "/static/css/page-loader.css",
-    "/static/css/pwa-banner.css",
-    "/static/css/bilimexam.css",
-    "/static/css/additions.css",
-    "/static/css/topbar-improved.css",
-    "/static/css/mobile-compact.css",
-
-    "/static/js/main.js",
-    "/static/js/theme.js",
-    "/static/js/page-loader.js",
-    "/static/js/pwa-install.js",
-    "/static/js/bilimexam.js",
-    "/static/js/visitor-counter.js",
-    "/static/js/mobile-ux.js",
-
-    "/site.webmanifest",
-    "/static/icons/favicon-32x32.png",
-    "/static/icons/web-app-manifest-192x192.png",
-    "/static/icons/web-app-manifest-512x512.png",
-    "/static/icons/apple-touch-icon.png",
 ];
 
 const CDN_ASSETS = [
@@ -73,17 +73,20 @@ self.addEventListener("fetch", event => {
 
     if (url.hostname === "cdn.jsdelivr.net") {
         event.respondWith(
-            fetch(event.request).then(response => {
-                if (response.ok) {
-                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, response.clone()));
-                }
-                return response;
-            }).catch(() => caches.match(event.request))
+            caches.match(event.request).then(cached => {
+                if (cached) return cached;
+                return fetch(event.request).then(response => {
+                    if (response.ok) {
+                        caches.open(CACHE_NAME).then(cache => cache.put(event.request, response.clone()));
+                    }
+                    return response;
+                });
+            })
         );
         return;
     }
 
-    if (url.pathname.startsWith("/static/") || STATIC_ASSETS.includes(url.pathname)) {
+    if (url.pathname.startsWith("/static/")) {
         event.respondWith(
             caches.match(url.pathname).then(cached => {
                 if (cached) return cached;
@@ -102,9 +105,18 @@ self.addEventListener("fetch", event => {
 
     if (event.request.mode === "navigate") {
         event.respondWith(
-            fetch(event.request).catch(() =>
-                caches.match(url.pathname).then(c => c || caches.match("/"))
-            )
+            fetch(event.request)
+                .then(response => {
+                    if (response.ok) {
+                        caches.open(CACHE_NAME).then(cache =>
+                            cache.put(url.pathname, response.clone())
+                        );
+                    }
+                    return response;
+                })
+                .catch(() =>
+                    caches.match(url.pathname).then(c => c || caches.match("/"))
+                )
         );
         return;
     }
