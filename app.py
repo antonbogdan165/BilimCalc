@@ -19,6 +19,11 @@ BUILD_TIME = str(int(time.time()))
 _SUPABASE_URL = os.environ.get('SUPABASE_URL', '')
 _SUPABASE_KEY = os.environ.get('SUPABASE_KEY', '')
 _INDEXNOW_KEY = os.environ.get('INDEXNOW_KEY', 'bilimcalc2026key')
+SITE_URL = os.environ.get('SITE_URL', 'https://bilimcalc.vercel.app').rstrip('/')
+
+
+def _abs_url(path):
+    return SITE_URL + path
 
 _ALLOWED_ORIGINS = {
     'bilimcalc.vercel.app',
@@ -74,71 +79,81 @@ NOINDEX_ROUTES = {"/disable-adblock"}
 
 TODAY = date.today().isoformat()
 
+_SITEMAP_PATHS = [
+    ("/",                                          "weekly",  "1.0"),
+    ("/kalkulator-ekzamena",                       "monthly", "0.9"),
+    ("/kak-rasschitat-itogovuyu-otsenku-za-god",   "monthly", "0.9"),
+    ("/itogovaya-ocenka-za-chetvert",              "monthly", "0.85"),
+    ("/articles",                                  "weekly",  "0.8"),
+    ("/kak-perevesti-procenty-v-otsenku",          "monthly", "0.8"),
+    ("/kak-rasschitat-soch",                       "monthly", "0.8"),
+    ("/kak-rasschitat-sor",                        "monthly", "0.8"),
+    ("/kak-rasschitat-so",                         "monthly", "0.8"),
+    ("/metodika-rascheta-mon-rk",                  "monthly", "0.7"),
+    ("/perehod-na-12-letku-kazakhstan",            "monthly", "0.7"),
+]
+
 SITEMAP_URLS = [
-    {"loc": "https://bilimcalc.vercel.app/",                                          "lastmod": TODAY, "changefreq": "weekly",  "priority": "1.0"},
-    {"loc": "https://bilimcalc.vercel.app/kalkulator-ekzamena",                       "lastmod": TODAY, "changefreq": "monthly", "priority": "0.9"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",   "lastmod": TODAY, "changefreq": "monthly", "priority": "0.9"},
-    {"loc": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",              "lastmod": TODAY, "changefreq": "monthly", "priority": "0.85"},
-    {"loc": "https://bilimcalc.vercel.app/articles",                                  "lastmod": TODAY, "changefreq": "weekly",  "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",          "lastmod": TODAY, "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-soch",                       "lastmod": TODAY, "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-sor",                        "lastmod": TODAY, "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/kak-rasschitat-so",                         "lastmod": TODAY, "changefreq": "monthly", "priority": "0.8"},
-    {"loc": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",                  "lastmod": TODAY, "changefreq": "monthly", "priority": "0.7"},
-    {"loc": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",            "lastmod": TODAY, "changefreq": "monthly", "priority": "0.7"},
+    {
+        "loc": SITE_URL + path,
+        "lastmod": TODAY,
+        "changefreq": freq,
+        "priority": pri,
+    }
+    for path, freq, pri in _SITEMAP_PATHS
 ]
 
 SITEMAP_IMAGES = [
-    {"loc": "https://bilimcalc.vercel.app/",                "image": "https://bilimcalc.vercel.app/static/icons/preview.png", "title": "BilimCalc — калькулятор ФО, СОР и СОЧ"},
-    {"loc": "https://bilimcalc.vercel.app/kalkulator-ekzamena", "image": "https://bilimcalc.vercel.app/static/icons/preview.png", "title": "BilimExam — итоговая оценка за год"},
+    {"loc": SITE_URL + "/", "image": SITE_URL + "/static/icons/preview.png", "title": "BilimCalc — калькулятор ФО, СОР и СОЧ"},
+    {"loc": SITE_URL + "/kalkulator-ekzamena", "image": SITE_URL + "/static/icons/preview.png", "title": "BilimExam — итоговая оценка за год"},
 ]
 
 RSS_ARTICLES = [
     {
         "title": "Итоговая оценка за год: формула 70/30",
-        "link": "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",
+        "link": _abs_url("/kak-rasschitat-itogovuyu-otsenku-za-god"),
         "desc": "Как рассчитывается итоговая оценка за год в 9 и 11 классах Казахстана по формуле МОН РК.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
         "title": "Итоговая оценка за четверть: формула расчёта ФО, СОР, СОЧ",
-        "link": "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",
+        "link": _abs_url("/itogovaya-ocenka-za-chetvert"),
         "desc": "Как рассчитывается итоговая оценка за четверть в школах Казахстана по методике МОН РК.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
         "title": "Как рассчитать СОЧ — формула и пример",
-        "link": "https://bilimcalc.vercel.app/kak-rasschitat-soch",
+        "link": _abs_url("/kak-rasschitat-soch"),
         "desc": "Суммативное оценивание за четверть: формула расчёта, вес 50%, пошаговый пример.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
         "title": "Как рассчитать СОР — полное руководство",
-        "link": "https://bilimcalc.vercel.app/kak-rasschitat-sor",
+        "link": _abs_url("/kak-rasschitat-sor"),
         "desc": "Суммативное оценивание за раздел: формула расчёта, вес 25%, пример с двумя СОР.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
         "title": "Как рассчитать ФО — формула, пример, методика МОН РК",
-        "link": "https://bilimcalc.vercel.app/kak-rasschitat-so",
+        "link": _abs_url("/kak-rasschitat-so"),
         "desc": "Суммативное оценивание по шкале 1–10: формула расчёта и вес 25% в итоговой оценке.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
         "title": "Как перевести проценты в оценку — таблица и конвертер",
-        "link": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",
+        "link": _abs_url("/kak-perevesti-procenty-v-otsenku"),
         "desc": "Шкала оценок Казахстан: 85%=5, 65%=4, 40%=3. Правило округления и онлайн-конвертер.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
         "title": "Методика расчёта оценок МОН РК — критериальное оценивание",
-        "link": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",
+        "link": _abs_url("/metodika-rascheta-mon-rk"),
         "desc": "Официальная методика оценивания в казахстанских школах: три вида суммативного оценивания.",
         "date": "Thu, 13 Mar 2026 10:00:00 +0500",
     },
     {
         "title": "3–8 классы переводят на 12-летнее обучение в Казахстане? Правда или фейк",
-        "link": "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",
+        "link": _abs_url("/perehod-na-12-letku-kazakhstan"),
         "desc": "Разбираем информацию о переходе 3–8 классов на 12-летнее образование в Казахстане.",
         "date": "Wed, 19 Mar 2026 10:00:00 +0500",
     },
@@ -146,8 +161,9 @@ RSS_ARTICLES = [
 
 
 @app.context_processor
-def inject_ads():
+def inject_globals():
     return dict(
+        site_url=SITE_URL,
         ya_ad_block_id=os.environ.get('YA_AD_BLOCK_ID', ''),
         ya_ad_block_left=os.environ.get('YA_AD_BLOCK_LEFT', ''),
         ya_ad_block_right=os.environ.get('YA_AD_BLOCK_RIGHT', ''),
@@ -160,7 +176,7 @@ def inject_ads():
 @app.before_request
 def force_non_www():
     if request.host.startswith("www."):
-        return redirect("https://bilimcalc.vercel.app/" + request.full_path, code=301)
+        return redirect(SITE_URL + request.full_path, code=301)
 
 
 @app.route("/")
@@ -170,7 +186,30 @@ def index():
 
 @app.route("/robots.txt")
 def robots():
-    return send_from_directory("static", "robots.txt")
+    body = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /api/\n"
+        "Disallow: /disable-adblock\n"
+        "\n"
+        "User-agent: Googlebot\n"
+        "Allow: /\n"
+        "Disallow: /api/\n"
+        "Disallow: /disable-adblock\n"
+        "\n"
+        "User-agent: Bingbot\n"
+        "Allow: /\n"
+        "Disallow: /api/\n"
+        "Disallow: /disable-adblock\n"
+        "\n"
+        "User-agent: YandexBot\n"
+        "Allow: /\n"
+        "Disallow: /api/\n"
+        "Disallow: /disable-adblock\n"
+        "\n"
+        f"Sitemap: {SITE_URL}/sitemap.xml\n"
+    )
+    return Response(body, mimetype="text/plain")
 
 
 @app.route("/sitemap.xml")
@@ -225,10 +264,10 @@ def rss_feed():
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
         '  <channel>\n'
         '    <title>BilimCalc — Статьи о системе оценивания в Казахстане</title>\n'
-        '    <link>https://bilimcalc.vercel.app/articles</link>\n'
+        f'    <link>{SITE_URL}/articles</link>\n'
         '    <description>Подробные руководства по ФО, СОР, СОЧ и итоговым оценкам по методике МОН РК</description>\n'
         '    <language>ru</language>\n'
-        '    <atom:link href="https://bilimcalc.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>\n'
+        f'    <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>\n'
         f'{items}\n'
         '  </channel>\n'
         '</rss>'
@@ -321,4 +360,4 @@ for path, target in CALC_REDIRECTS.items():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html"), 404
+    return render_template("404.html", noindex=True), 404

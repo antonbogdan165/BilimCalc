@@ -2,24 +2,30 @@ import urllib.request
 import json
 import os
 
+SITE_URL = os.environ.get("SITE_URL", "https://bilimcalc.vercel.app").rstrip("/")
+
 URLS = [
-    "https://bilimcalc.vercel.app/",
-    "https://bilimcalc.vercel.app/articles",
-    "https://bilimcalc.vercel.app/kalkulator-ekzamena",
-    "https://bilimcalc.vercel.app/kak-rasschitat-so",
-    "https://bilimcalc.vercel.app/kak-rasschitat-sor",
-    "https://bilimcalc.vercel.app/kak-rasschitat-soch",
-    "https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert",
-    "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",
-    "https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god",
-    "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",
-    "https://bilimcalc.vercel.app/perehod-na-12-letku-kazakhstan",
+    f"{SITE_URL}/",
+    f"{SITE_URL}/articles",
+    f"{SITE_URL}/kalkulator-ekzamena",
+    f"{SITE_URL}/kak-rasschitat-so",
+    f"{SITE_URL}/kak-rasschitat-sor",
+    f"{SITE_URL}/kak-rasschitat-soch",
+    f"{SITE_URL}/itogovaya-ocenka-za-chetvert",
+    f"{SITE_URL}/metodika-rascheta-mon-rk",
+    f"{SITE_URL}/kak-rasschitat-itogovuyu-otsenku-za-god",
+    f"{SITE_URL}/kak-perevesti-procenty-v-otsenku",
+    f"{SITE_URL}/perehod-na-12-letku-kazakhstan",
 ]
 
 KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")
 
+from urllib.parse import urlparse
+
+host = urlparse(SITE_URL).netloc
+
 data = {
-    "host": "bilimcalc.vercel.app",
+    "host": host,
     "key": KEY,
     "urlList": URLS,
 }

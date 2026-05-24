@@ -2,13 +2,44 @@
 
 {% block meta_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}
 {% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть и процента успеваемости. Бесплатно и без регистрации.{% endblock %}
-{% block canonical %}https://bilimcalc.vercel.app/{% endblock %}
+{% block canonical %}{{ site_url }}/{% endblock %}
 {% block og_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}
 {% block og_desc %}Быстрый расчет ФО, СОР и СОЧ. Бесплатно и без регистрации.{% endblock %}
-{% block og_url %}https://bilimcalc.vercel.app/{% endblock %}
-{% block og_image_alt %}BilimCalc — калькулятор ФО, СОР и СОЧ для школ Казахстана{% endblock %}
 {% block twitter_image_alt %}BilimCalc — калькулятор оценок для школ Казахстана{% endblock %}
+{% block og_image_alt %}BilimCalc — калькулятор ФО, СОР и СОЧ для школ Казахстана{% endblock %}
 {% block mob_home %}active{% endblock %}
+
+{% block main_stylesheets %}
+<link rel="stylesheet" href="/static/css/style.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/page-loader.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/additions.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/ads.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/adblock.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/mobile-compact.css?v=1.0.0">
+{% endblock %}
+
+{% block app_schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BilimCalc",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "url": "{{ site_url }}/",
+    "description": "Онлайн-калькулятор для расчёта итоговой оценки по системе ФО, СОР и СОЧ в школах Казахстана",
+    "inLanguage": "ru",
+    "image": {
+        "@type": "ImageObject",
+        "url": "{{ site_url }}/static/icons/preview.png",
+        "width": 1200,
+        "height": 630
+    },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KZT" }
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -22,7 +53,7 @@
     "@type": "WebSite",
     "name": "BilimCalc",
     "alternateName": "Калькулятор ФО, СОР и СОЧ",
-    "url": "https://bilimcalc.vercel.app/"
+    "url": "{{ site_url }}/"
 }
 </script>
 <script type="application/ld+json">
@@ -30,7 +61,7 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" }
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" }
     ]
 }
 </script>
@@ -212,6 +243,31 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+        <h2 style="font-size:15px;font-weight:700;margin-bottom:12px">Полезные статьи</h2>
+        <p class="small" style="margin-bottom:14px;color:var(--muted)">Формулы МОН РК, примеры расчётов и перевод процентов в оценку — с пошаговыми объяснениями.</p>
+        <div class="home-articles-list">
+            <a href="/itogovaya-ocenka-za-chetvert" class="art-teaser">
+                <div class="art-teaser__icon">ИО</div>
+                <span class="art-teaser__title">Итоговая оценка за четверть: ФО + СОР + СОЧ</span>
+                <span class="art-teaser__arrow">→</span>
+            </a>
+            <a href="/kak-rasschitat-soch" class="art-teaser">
+                <div class="art-teaser__icon">СОЧ</div>
+                <span class="art-teaser__title">Как рассчитать СОЧ — формула и пример</span>
+                <span class="art-teaser__arrow">→</span>
+            </a>
+            <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="art-teaser">
+                <div class="art-teaser__icon">70/30</div>
+                <span class="art-teaser__title">Итоговая оценка за год (9 и 11 класс)</span>
+                <span class="art-teaser__arrow">→</span>
+            </a>
+        </div>
+        <a href="/articles" class="btn ghost" style="width:100%;margin-top:14px;text-decoration:none;justify-content:center;display:inline-flex;align-items:center;gap:6px">
+            Все статьи →
+        </a>
     </div>
 
     <a href="/kalkulator-ekzamena" class="card bilimexam-banner" style="margin-top:20px;display:flex;align-items:center;gap:14px;text-decoration:none;padding:16px 20px;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.06);">

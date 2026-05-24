@@ -2,11 +2,6 @@
 
 {% block meta_title %}Страница не найдена — 404 | BilimCalc{% endblock %}
 {% block meta_desc %}Страница не найдена. Вернитесь на главную страницу BilimCalc — калькулятор ФО, СОР и СОЧ для школ Казахстана.{% endblock %}
-{% block canonical %}https://bilimcalc.vercel.app/{% endblock %}
-
-{% block extra_css %}
-<meta name="robots" content="noindex, nofollow">
-{% endblock %}
 
 {% block content %}
 <div class="not-found-wrap">
@@ -26,11 +21,13 @@
     <div class="not-found-links">
         <div class="not-found-links__title">Полезные страницы</div>
         <div class="not-found-links__grid">
+            <a href="/articles" class="not-found-link">Все статьи</a>
+            <a href="/kalkulator-ekzamena" class="not-found-link not-found-link--plain">BilimExam — итог за год</a>
             <a href="/kak-rasschitat-so"   class="not-found-link">Как рассчитать ФО</a>
             <a href="/kak-rasschitat-sor"  class="not-found-link not-found-link--plain">Как рассчитать СОР</a>
-            <a href="/kak-rasschitat-soch" class="not-found-link" style="border-radius:6px">Как рассчитать СОЧ</a>
+            <a href="/kak-rasschitat-soch" class="not-found-link">Как рассчитать СОЧ</a>
             <a href="/itogovaya-ocenka-za-chetvert" class="not-found-link not-found-link--plain">Итоговая оценка</a>
-            <a href="/metodika-rascheta-mon-rk" class="not-found-link" style="border-radius:10px">Методика МОН РК</a>
+            <a href="/metodika-rascheta-mon-rk" class="not-found-link">Методика МОН РК</a>
         </div>
     </div>
 

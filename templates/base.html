@@ -3,6 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function(){var k='bilimcalc_theme',s=localStorage.getItem(k),d=window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));})();
+    </script>
+    {% block head_early %}{% endblock %}
     {% if noindex %}
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
@@ -14,42 +18,10 @@
     <meta http-equiv="content-language" content="ru">
     <meta name="author" content="Anton Bogdan">
 
-    <meta name="geo.region" content="KZ">
-    <meta name="geo.placename" content="Kazakhstan">
-    <meta name="geo.position" content="48.0196;66.9237">
-    <meta name="ICBM" content="48.0196, 66.9237">
-
-    <meta name="news_keywords" content="ФО, СОР, СОЧ, оценки, школа Казахстан, МОН РК, итоговая оценка, калькулятор оценок">
-
-    <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
-            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107236685', 'ym');
-        ym(107236685, 'init', {
-            webvisor: true,
-            clickmap: true,
-            ecommerce: "dataLayer",
-            referrer: document.referrer,
-            url: location.href,
-            accurateTrackBounce: true,
-            trackLinks: true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-
-    <script src="/static/js/theme.js"></script>
-    <script src="/static/js/page-loader.js" defer></script>
-
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/ads.css?v=1.8.0">
-
     <title>{% block meta_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
 
-    {% set _canonical_url %}{% block canonical %}https://bilimcalc.vercel.app/{% endblock %}{% endset %}
+    {% set _canonical_url %}{% block canonical %}{{ site_url }}/{% endblock %}{% endset %}
     {% if not noindex %}
     <link rel="canonical" href="{{ _canonical_url }}">
     <link rel="alternate" hreflang="ru-KZ" href="{{ _canonical_url }}">
@@ -57,21 +29,26 @@
     <link rel="alternate" hreflang="x-default" href="{{ _canonical_url }}">
     {% endif %}
 
-    <link rel="alternate" type="application/rss+xml" title="BilimCalc — Статьи" href="https://bilimcalc.vercel.app/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="BilimCalc — Статьи" href="{{ site_url }}/feed.xml">
 
     <meta property="og:type"        content="{% block og_type %}website{% endblock %}">
     <meta property="og:locale"      content="ru_RU">
     <meta property="og:site_name"   content="BilimCalc">
-    <meta property="og:title"       content="{% block og_title %}BilimCalc — калькулятор ФО, СОР и СОЧ{% endblock %}">
-    <meta property="og:description" content="{% block og_desc %}Быстрый расчет ФО, СОР и СОЧ. Бесплатно и без регистрации.{% endblock %}">
+    {% set _og_title %}{% block og_title %}BilimCalc — калькулятор ФО, СОР и СОЧ{% endblock %}{% endset %}
+    {% set _og_desc %}{% block og_desc %}Быстрый расчет ФО, СОР и СОЧ. Бесплатно и без регистрации.{% endblock %}{% endset %}
+    <meta property="og:title"       content="{{ _og_title }}">
+    <meta property="og:description" content="{{ _og_desc }}">
     <meta property="og:url"         content="{{ _canonical_url }}">
-    <meta property="og:image"       content="https://bilimcalc.vercel.app/static/icons/preview.png">
+    <meta property="og:image"       content="{{ site_url }}/static/icons/preview.png">
     <meta property="og:image:width"  content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt"   content="{% block og_image_alt %}BilimCalc — калькулятор ФО, СОР и СОЧ для школ Казахстана{% endblock %}">
-    <meta name="twitter:card"  content="summary_large_image">
-    <meta name="twitter:image" content="https://bilimcalc.vercel.app/static/icons/preview.png">
-    <meta name="twitter:image:alt" content="{% block twitter_image_alt %}BilimCalc — калькулятор оценок{% endblock %}">
+    {% block article_og_meta %}{% endblock %}
+    <meta name="twitter:card"         content="summary_large_image">
+    <meta name="twitter:title"        content="{% block twitter_title %}{{ _og_title }}{% endblock %}">
+    <meta name="twitter:description"  content="{% block twitter_desc %}{{ _og_desc }}{% endblock %}">
+    <meta name="twitter:image"        content="{{ site_url }}/static/icons/preview.png">
+    <meta name="twitter:image:alt"    content="{% block twitter_image_alt %}BilimCalc — калькулятор оценок{% endblock %}">
 
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
@@ -81,6 +58,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.8.0">
+    {% block main_stylesheets %}
     <link rel="stylesheet" href="/static/css/style.css?v=1.8.0">
     <link rel="stylesheet" href="/static/css/article.css?v=1.8.0">
     <link rel="stylesheet" href="/static/css/page-loader.css?v=1.8.0">
@@ -89,7 +68,11 @@
     <link rel="stylesheet" href="/static/css/ads.css?v=1.8.0">
     <link rel="stylesheet" href="/static/css/adblock.css?v=1.8.0">
     <link rel="stylesheet" href="/static/css/mobile-compact.css?v=1.0.0">
+    {% endblock %}
     {% block extra_css %}{% endblock %}
+
+    <script src="/static/js/theme.js?v=1.8.0" defer></script>
+    <script src="/static/js/page-loader.js?v=1.8.0" defer></script>
 
     {% if ya_ad_block_id or ya_ad_article_1 or ya_ad_sticky %}
     <script>window.yaContextCb = window.yaContextCb || [];</script>
@@ -114,43 +97,17 @@
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "BilimCalc",
-        "url": "https://bilimcalc.vercel.app/",
+        "url": "{{ site_url }}/",
         "logo": {
             "@type": "ImageObject",
-            "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png",
+            "url": "{{ site_url }}/static/icons/favicon-32x32.png",
             "width": 32,
             "height": 32
         }
     }
     </script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "BilimCalc",
-        "applicationCategory": "EducationalApplication",
-        "operatingSystem": "Web",
-        "url": "https://bilimcalc.vercel.app/",
-        "description": "Онлайн-калькулятор для расчёта итоговой оценки по системе ФО, СОР и СОЧ в школах Казахстана",
-        "inLanguage": "ru",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://bilimcalc.vercel.app/static/icons/preview.png",
-            "width": 1200,
-            "height": 630
-        },
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KZT" }
-    }
-    </script>
+    {% block app_schema %}{% endblock %}
     {% block schema_extra %}{% endblock %}
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7S9C0KT928"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-7S9C0KT928');
-    </script>
 
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -162,6 +119,7 @@
 </head>
 <body>
 
+{% block topbar %}
 <div id="topbar" class="topbar--calc">
     <a class="topbar-logo" href="/" title="BilimCalc">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
@@ -208,6 +166,7 @@
         </button>
     </div>
 </div>
+{% endblock %}
 
 {% block content %}{% endblock %}
 
@@ -281,9 +240,16 @@ window.yaContextCb.push(function() {
 
 <script>
 (function(){
-    ThemeToggle.init();
+    function initUi() {
+        if (window.ThemeToggle) ThemeToggle.init();
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initUi);
+    } else {
+        initUi();
+    }
     document.addEventListener('click', function(e){
-        var target = e.target.closest('.mobile-nav__item, .btn, .topbar-official-link');
+        var target = e.target.closest('.mobile-nav__item, .btn, .topbar-official-link, .grade-btn');
         if (!target) return;
         var rect = target.getBoundingClientRect();
         var ripple = document.createElement('span');
@@ -297,10 +263,12 @@ window.yaContextCb.push(function() {
     });
 })();
 </script>
-<script src="/static/js/pwa-install.js?v=1.8.0"></script>
+<script src="/static/js/pwa-install.js?v=1.8.0" defer></script>
 {% block extra_js %}{% endblock %}
 <script src="/static/js/ads.js?v=1.8.0" defer></script>
 <script src="/static/js/adblock-detector.js?v=1.8.0" defer></script>
 <script src="/static/js/adblock-ui.js?v=1.8.0" defer></script>
+<script src="/static/js/analytics.js?v=1.8.0" defer></script>
+<noscript><div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </body>
 </html>

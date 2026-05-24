@@ -1,133 +1,85 @@
-<!DOCTYPE html>
-<html lang="ru" data-theme="dark">
-<head>
-    <meta charset="utf-8">
-    <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
-            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107236685', 'ym');
-        ym(107236685, 'init', { webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="ru">
-    <meta http-equiv="content-language" content="ru">
+{% extends "base.html" %}
 
-    <script>window.__BRAND__ = { name: 'BilimExam', icon: '🎓' };</script>
-    <script src="/static/js/theme.js"></script>
-    <script src="/static/js/page-loader.js" defer></script>
+{% block head_early %}
+<script>window.__BRAND__ = { name: 'BilimExam', icon: '🎓' };</script>
+{% endblock %}
 
-    <title>BilimExam — калькулятор итоговой оценки за год, 9 и 11 класс | Формула 70/30 МОН РК</title>
-    <meta name="description" content="BilimExam — итоговая оценка за год по формуле 70/30 МОН РК. Введи оценки за четверти и экзамен — результат мгновенно. 9 и 11 класс Казахстан.">
-    <meta name="keywords" content="итоговая оценка за год казахстан, калькулятор 70 30, формула МОН РК, 9 класс итоговая оценка, 11 класс экзамен, BilimExam, годовая оценка калькулятор">
+{% block meta_title %}BilimExam — калькулятор итоговой оценки за год, 9 и 11 класс | Формула 70/30 МОН РК{% endblock %}
+{% block meta_desc %}BilimExam — итоговая оценка за год по формуле 70/30 МОН РК. Введи оценки за четверти и экзамен — результат мгновенно. 9 и 11 класс Казахстан.{% endblock %}
+{% block canonical %}{{ site_url }}/kalkulator-ekzamena{% endblock %}
+{% block og_title %}BilimExam — итоговая оценка за год (9 и 11 класс Казахстан){% endblock %}
+{% block og_desc %}Калькулятор годовой оценки по формуле 70/30. Введи оценки за четверти и экзамен — получи итог мгновенно. МОН РК.{% endblock %}
+{% block og_image_alt %}BilimExam — калькулятор итоговой оценки за год для 9 и 11 класса Казахстана{% endblock %}
+{% block twitter_title %}BilimExam — итоговая оценка за год (9 и 11 класс){% endblock %}
+{% block twitter_desc %}Калькулятор 70/30 для 9 и 11 классов Казахстана. Введи оценки за четверти и экзамен — результат мгновенно.{% endblock %}
+{% block twitter_image_alt %}BilimExam — калькулятор итоговой оценки{% endblock %}
+{% block mob_exam %}active{% endblock %}
 
-    <link rel="canonical" href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
-    <link rel="alternate" hreflang="ru-KZ" href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
-    <link rel="alternate" hreflang="ru"    href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
-    <link rel="alternate" hreflang="x-default" href="https://bilimcalc.vercel.app/kalkulator-ekzamena">
+{% block main_stylesheets %}
+<link rel="stylesheet" href="/static/css/style.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/page-loader.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/additions.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/bilimexam.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.8.0">
+<link rel="stylesheet" href="/static/css/mobile-compact.css?v=1.0.0">
+{% endblock %}
 
-    <meta property="og:title"       content="BilimExam — итоговая оценка за год (9 и 11 класс Казахстан)">
-    <meta property="og:description" content="Калькулятор годовой оценки по формуле 70/30. Введи оценки за четверти и экзамен — получи итог мгновенно. МОН РК.">
-    <meta property="og:type"        content="website">
-    <meta property="og:url"         content="https://bilimcalc.vercel.app/kalkulator-ekzamena">
-    <meta property="og:image"       content="https://bilimcalc.vercel.app/static/icons/preview.png">
-    <meta property="og:image:width"  content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt"   content="BilimExam — калькулятор итоговой оценки за год для 9 и 11 класса Казахстана">
-    <meta property="og:locale"      content="ru_RU">
-    <meta property="og:site_name"   content="BilimCalc">
-    <meta name="twitter:card"        content="summary_large_image">
-    <meta name="twitter:title"       content="BilimExam — итоговая оценка за год (9 и 11 класс)">
-    <meta name="twitter:description" content="Калькулятор 70/30 для 9 и 11 классов Казахстана. Введи оценки за четверти и экзамен — результат мгновенно.">
-    <meta name="twitter:image"       content="https://bilimcalc.vercel.app/static/icons/preview.png">
-    <meta name="twitter:image:alt"   content="BilimExam — калькулятор итоговой оценки">
+{% block app_schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "BilimExam — калькулятор итоговой оценки за год",
+    "alternateName": "Калькулятор годовой оценки 70/30",
+    "url": "{{ site_url }}/kalkulator-ekzamena",
+    "description": "Калькулятор итоговой оценки за год для 9 и 11 классов Казахстана по формуле МОН РК: годовая оценка × 70% + оценка за экзамен × 30%. Бесплатно, без регистрации.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ru",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KZT" }
+}
+</script>
+{% endblock %}
 
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#0f1117">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <link rel="stylesheet" href="/static/css/style.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/bilimexam.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/additions.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/mobile-compact.css?v=1.0.0">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "BilimExam — калькулятор итоговой оценки за год",
-        "alternateName": "Калькулятор годовой оценки 70/30",
-        "url": "https://bilimcalc.vercel.app/kalkulator-ekzamena",
-        "description": "Калькулятор итоговой оценки за год для 9 и 11 классов Казахстана по формуле МОН РК: годовая оценка × 70% + оценка за экзамен × 30%. Бесплатно, без регистрации.",
-        "applicationCategory": "EducationalApplication",
-        "operatingSystem": "Web",
-        "inLanguage": "ru",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KZT" }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
-            { "@type": "ListItem", "position": 2, "name": "BilimExam — итоговая оценка за год", "item": "https://bilimcalc.vercel.app/kalkulator-ekzamena" }
-        ]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Как рассчитывается итоговая оценка за год в 9 и 11 классе?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "По формуле МОН РК: Годовая оценка × 70% + Оценка за экзамен × 30%. Годовая оценка — среднее арифметическое четвертных оценок."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Что такое формула 70/30?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Формула МОН РК для расчёта итоговой оценки за год: 70% составляет годовая оценка (среднее за четверти), 30% — оценка за итоговый экзамен. Применяется в 9 и 11 классах."
-                }
+{% block schema_extra %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "BilimExam — итоговая оценка за год", "item": "{{ site_url }}/kalkulator-ekzamena" }
+    ]
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Как рассчитывается итоговая оценка за год в 9 и 11 классе?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "По формуле МОН РК: Годовая оценка × 70% + Оценка за экзамен × 30%. Годовая оценка — среднее арифметическое четвертных оценок."
             }
-        ]
-    }
-    </script>
+        },
+        {
+            "@type": "Question",
+            "name": "Что такое формула 70/30?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Формула МОН РК для расчёта итоговой оценки за год: 70% составляет годовая оценка (среднее за четверти), 30% — оценка за итоговый экзамен. Применяется в 9 и 11 классах."
+            }
+        }
+    ]
+}
+</script>
+{% endblock %}
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7S9C0KT928"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date()); gtag('config', 'G-7S9C0KT928');
-    </script>
-</head>
-<body>
-
-<div id="examSplash">
-    <div class="sp-logo">
-        <div class="sp-icon">🎓</div>
-        <div class="sp-name">Bilim<span>Exam</span></div>
-    </div>
-    <div class="sp-bar-wrap"><div class="sp-bar"></div></div>
-</div>
-
+{% block topbar %}
 <div id="topbar" class="topbar--exam">
     <a href="/kalkulator-ekzamena" class="topbar-logo topbar-logo--exam" title="BilimExam">
         <span style="font-size:20px;line-height:1">🎓</span>
@@ -176,6 +128,16 @@
         </button>
     </div>
 </div>
+{% endblock %}
+
+{% block content %}
+<div id="examSplash">
+    <div class="sp-logo">
+        <div class="sp-icon">🎓</div>
+        <div class="sp-name">Bilim<span>Exam</span></div>
+    </div>
+    <div class="sp-bar-wrap"><div class="sp-bar"></div></div>
+</div>
 
 <div id="offlineBanner" class="offline-banner" style="display:none">
     ⚠️ Нет подключения к интернету — калькулятор работает офлайн
@@ -185,10 +147,13 @@
 
     <div class="exam-site-title">
         <div class="exam-site-title__logo">
-            <div class="exam-site-title__bigicon">🎓</div>
-            <h1 class="exam-site-title__name">Bilim<span>Exam</span></h1>
+            <div class="exam-site-title__bigicon" aria-hidden="true">🎓</div>
+            <div class="exam-site-title__brand">
+                <span class="exam-site-title__name">Bilim<span>Exam</span></span>
+            </div>
         </div>
-        <div class="exam-site-title__sub">Итоговая оценка за год — 9 и 11 класс Казахстан</div>
+        <h1 class="exam-site-title__h1">Калькулятор итоговой оценки за год — 9 и 11 класс Казахстан</h1>
+        <p class="exam-site-title__sub">Формула 70/30 МОН РК: годовая оценка × 70% + экзамен × 30%</p>
     </div>
 
     <div class="grid">
@@ -376,8 +341,8 @@
                 </svg>
             </div>
             <div class="link-text">
-                <span class="link-text-top">bilimcalc.vercel.app</span>
-                <span class="link-text-main">BilimCalc — калькулятор ФО, СОР, СОЧ →</span>
+                <span class="link-text-top">BilimCalc</span>
+                <span class="link-text-main">Калькулятор ФО, СОР, СОЧ →</span>
             </div>
         </a>
     </div>
@@ -402,42 +367,9 @@
         </div>
     </footer>
 </div>
+{% endblock %}
 
-<nav id="mobile-nav" aria-label="Мобильная навигация">
-    <a href="/" class="mobile-nav__item">
-        <span class="mobile-nav__icon">🧮</span>
-        <span>BilimCalc</span>
-    </a>
-    <a href="/articles" class="mobile-nav__item">
-        <span class="mobile-nav__icon">📚</span>
-        <span>Статьи</span>
-    </a>
-    <a href="/kalkulator-ekzamena" class="mobile-nav__item active mobile-nav__item--exam">
-        <span class="mobile-nav__icon">🎓</span>
-        <span>BilimExam</span>
-    </a>
-</nav>
-
-<script>
-(function(){
-    ThemeToggle.init();
-    document.addEventListener('click', function(e){
-        var target = e.target.closest('.mobile-nav__item, .btn, .grade-btn');
-        if (!target) return;
-        var rect = target.getBoundingClientRect();
-        var ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        ripple.style.left = (e.clientX - rect.left) + 'px';
-        ripple.style.top  = (e.clientY - rect.top)  + 'px';
-        target.style.position = target.style.position || 'relative';
-        target.style.overflow = 'hidden';
-        target.appendChild(ripple);
-        ripple.addEventListener('animationend', function() { ripple.remove(); });
-    });
-})();
-</script>
+{% block extra_js %}
 <script src="/static/js/visitor-counter.js?v=1.8.0" defer></script>
-<script src="/static/js/bilimexam.js?v=1.8.0"></script>
-<script src="/static/js/pwa-install.js?v=1.8.0"></script>
-</body>
-</html>
+<script src="/static/js/bilimexam.js?v=1.8.0" defer></script>
+{% endblock %}
