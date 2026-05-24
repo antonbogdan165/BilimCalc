@@ -1,8 +1,9 @@
-import urllib.request
 import json
 import os
+import urllib.request
+from urllib.parse import urlparse
 
-SITE_URL = os.environ.get("SITE_URL", "https://bilimcalc.vercel.app").rstrip("/")
+from config import SITE_URL
 
 URLS = [
     f"{SITE_URL}/",
@@ -19,8 +20,6 @@ URLS = [
 ]
 
 KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")
-
-from urllib.parse import urlparse
 
 host = urlparse(SITE_URL).netloc
 

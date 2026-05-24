@@ -2,11 +2,9 @@
 
 {% block meta_title %}Как рассчитать СОЧ в школе Казахстана — формула и пример | BilimCalc{% endblock %}
 {% block meta_desc %}Как рассчитать СОЧ — суммативное оценивание за четверть. Формула МОН РК: (набранные ÷ максимум) × 50. Два примера с числами, частые ошибки, советы.{% endblock %}
-{% block canonical %}https://bilimcalc.vercel.app/kak-rasschitat-soch{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block og_title %}Как рассчитать СОЧ — формула, пример, методика МОН РК{% endblock %}
 {% block og_desc %}Полное руководство по расчёту суммативного оценивания за четверть: формула, пошаговый пример, частые ошибки, советы по подготовке.{% endblock %}
-{% block og_url %}https://bilimcalc.vercel.app/kak-rasschitat-soch{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -17,14 +15,14 @@
     "@type": "Article",
     "headline": "Как рассчитать СОЧ в школе Казахстана: формула и пример",
     "description": "Формула расчёта суммативного оценивания за четверть, пошаговый пример, официальная методика МОН РК, частые ошибки и советы по подготовке",
-    "url": "https://bilimcalc.vercel.app/kak-rasschitat-soch",
+    "url": "{{ site_url }}/kak-rasschitat-soch",
     "datePublished": "2025-09-01",
     "dateModified": "2026-05-24",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
+    "image": "{{ site_url }}/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
-    "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png" } },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://bilimcalc.vercel.app/kak-rasschitat-soch" }
+    "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png" } },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/kak-rasschitat-soch" }
 }
 </script>
 <script type="application/ld+json">
@@ -32,9 +30,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "https://bilimcalc.vercel.app/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Как рассчитать СОЧ", "item": "https://bilimcalc.vercel.app/kak-rasschitat-soch" }
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "Как рассчитать СОЧ", "item": "{{ site_url }}/kak-rasschitat-soch" }
     ]
 }
 </script>

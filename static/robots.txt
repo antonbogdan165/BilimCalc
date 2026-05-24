@@ -1,21 +1,7 @@
+# Fallback copy; production serves /robots.txt from Flask with SITE_URL from env.
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /disable-adblock
 
-User-agent: Googlebot
-Allow: /
-Disallow: /api/
-Disallow: /disable-adblock
-
-User-agent: Bingbot
-Allow: /
-Disallow: /api/
-Disallow: /disable-adblock
-
-User-agent: YandexBot
-Allow: /
-Disallow: /api/
-Disallow: /disable-adblock
-
-Sitemap: https://bilimcalc.vercel.app/sitemap.xml
+Sitemap: /sitemap.xml

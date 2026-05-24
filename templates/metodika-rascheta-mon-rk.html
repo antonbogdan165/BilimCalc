@@ -2,11 +2,9 @@
 
 {% block meta_title %}Методика расчёта оценок МОН РК — критериальное оценивание в школах Казахстана | BilimCalc{% endblock %}
 {% block meta_desc %}Официальная методика расчёта оценок МОН РК: что такое критериальное оценивание, формула ФО × 25% + СОР × 25% + СОЧ × 50%, два примера с числами. Полный разбор.{% endblock %}
-{% block canonical %}https://bilimcalc.vercel.app/metodika-rascheta-mon-rk{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block og_title %}Методика расчёта оценок МОН РК: критериальное оценивание в Казахстане{% endblock %}
 {% block og_desc %}Подробный разбор официальной методики оценивания МОН РК: нормативная база, три вида суммативного оценивания, формула итоговой оценки.{% endblock %}
-{% block og_url %}https://bilimcalc.vercel.app/metodika-rascheta-mon-rk{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -17,14 +15,14 @@
     "@type": "Article",
     "headline": "Официальная методика расчёта оценок МОН РК",
     "description": "Критериальное оценивание в школах Казахстана: нормативная база, три вида суммативного оценивания, официальная формула итоговой оценки",
-    "url": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk",
+    "url": "{{ site_url }}/metodika-rascheta-mon-rk",
     "datePublished": "2025-09-01",
     "dateModified": "2026-05-24",
-    "image": "https://bilimcalc.vercel.app/static/icons/preview.png",
+    "image": "{{ site_url }}/static/icons/preview.png",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
-    "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "https://bilimcalc.vercel.app/static/icons/favicon-32x32.png" } },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk" }
+    "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png" } },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/metodika-rascheta-mon-rk" }
 }
 </script>
 <script type="application/ld+json">
@@ -32,9 +30,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "https://bilimcalc.vercel.app/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Методика расчёта МОН РК", "item": "https://bilimcalc.vercel.app/metodika-rascheta-mon-rk" }
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "Методика расчёта МОН РК", "item": "{{ site_url }}/metodika-rascheta-mon-rk" }
     ]
 }
 </script>

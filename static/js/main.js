@@ -1,7 +1,9 @@
 let so   = [];
 let sors = [];
 const SAVE_KEY = "bilimcalc_v1";
-const SITE_URL_BASE = "https://bilimcalc.vercel.app/";
+function getSiteBase() {
+    return window.location.origin + "/";
+}
 
 function hapticReset() {
     if (navigator.vibrate) navigator.vibrate([12, 60, 12]);
@@ -15,7 +17,7 @@ function buildShareURL() {
     const sochMax    = document.getElementById("sochMax").value;
     if (sochMax && Number(sochMax) > 0) params.set("soch", sochDialed + "-" + sochMax);
     const qs = params.toString();
-    return SITE_URL_BASE + (qs ? "?" + qs : "");
+    return getSiteBase() + (qs ? "?" + qs : "");
 }
 
 function loadFromURL() {

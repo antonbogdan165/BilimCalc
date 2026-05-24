@@ -2,11 +2,9 @@
 
 {% block meta_title %}Как перевести проценты в оценку — таблица и конвертер | BilimCalc{% endblock %}
 {% block meta_desc %}Таблица перевода процентов в оценку по казахстанской шкале МОН РК: 85–100%=5, 65–84%=4, 40–64%=3. Правило округления: 84,5%→85%→«5». Конвертер онлайн.{% endblock %}
-{% block canonical %}https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block og_title %}Как перевести проценты в оценку — таблица, примеры, конвертер{% endblock %}
 {% block og_desc %}Шкала оценок Казахстан: 85%=5, 65%=4, 40%=3. Правило округления 84,5%→«5». Онлайн-конвертер и таблица граничных значений.{% endblock %}
-{% block og_url %}https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -17,10 +15,10 @@
     "@type": "Article",
     "headline": "Как перевести проценты в оценку — таблица и конвертер",
     "description": "Таблица перевода процентов в оценку по казахстанской шкале с примерами округления.",
-    "url": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku",
+    "url": "{{ site_url }}/kak-perevesti-procenty-v-otsenku",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton Bogdan" },
-    "publisher": { "@type": "Organization", "name": "BilimCalc", "url": "https://bilimcalc.vercel.app" },
+    "publisher": { "@type": "Organization", "name": "BilimCalc", "url": "{{ site_url }}/" },
     "datePublished": "2026-03-07",
     "dateModified": "2026-05-24"
 }
@@ -30,9 +28,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://bilimcalc.vercel.app/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "https://bilimcalc.vercel.app/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Как перевести проценты в оценку", "item": "https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku" }
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "Как перевести проценты в оценку", "item": "{{ site_url }}/kak-perevesti-procenty-v-otsenku" }
     ]
 }
 </script>

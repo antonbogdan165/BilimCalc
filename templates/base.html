@@ -21,7 +21,7 @@
     <title>{% block meta_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}</title>
     <meta name="description" content="{% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
 
-    {% set _canonical_url %}{% block canonical %}{{ site_url }}/{% endblock %}{% endset %}
+    {% set _canonical_url %}{% block canonical %}{{ canonical_url }}{% endblock %}{% endset %}
     {% if not noindex %}
     <link rel="canonical" href="{{ _canonical_url }}">
     <link rel="alternate" hreflang="ru-KZ" href="{{ _canonical_url }}">

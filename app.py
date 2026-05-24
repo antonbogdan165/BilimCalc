@@ -19,11 +19,19 @@ BUILD_TIME = str(int(time.time()))
 _SUPABASE_URL = os.environ.get('SUPABASE_URL', '')
 _SUPABASE_KEY = os.environ.get('SUPABASE_KEY', '')
 _INDEXNOW_KEY = os.environ.get('INDEXNOW_KEY', 'bilimcalc2026key')
-SITE_URL = os.environ.get('SITE_URL', 'https://bilimcalc.vercel.app').rstrip('/')
+
+from config import SITE_URL
 
 
 def _abs_url(path):
     return SITE_URL + path
+
+
+def _canonical_for_path(path):
+    """Canonical URL for a route path (must match sitemap loc format)."""
+    if not path or path == "/":
+        return SITE_URL + "/"
+    return SITE_URL + path.rstrip("/")
 
 _ALLOWED_ORIGINS = {
     'bilimcalc.vercel.app',
@@ -164,6 +172,7 @@ RSS_ARTICLES = [
 def inject_globals():
     return dict(
         site_url=SITE_URL,
+        canonical_url=_canonical_for_path(request.path),
         ya_ad_block_id=os.environ.get('YA_AD_BLOCK_ID', ''),
         ya_ad_block_left=os.environ.get('YA_AD_BLOCK_LEFT', ''),
         ya_ad_block_right=os.environ.get('YA_AD_BLOCK_RIGHT', ''),

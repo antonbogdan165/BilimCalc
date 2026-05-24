@@ -81,7 +81,9 @@
         hintEl.style.display = qs.length === 0 ? 'flex' : 'none';
     }
 
-    var SITE_URL = 'https://bilimcalc.vercel.app/kalkulator-ekzamena';
+    function getSharePageUrl() {
+        return window.location.origin + window.location.pathname;
+    }
 
     function getShareText() {
         var gradeEl = document.getElementById('examResultGrade');
@@ -97,7 +99,7 @@
     function showExamShareModal() {
         if (document.getElementById('examShareModal')) return;
         var text       = getShareText();
-        var url        = SITE_URL;
+        var url        = getSharePageUrl();
         var encodedUrl = encodeURIComponent(url);
         var tgLink     = 'https://t.me/share/url?url=' + encodedUrl + '&text=' + encodeURIComponent(text);
         var waLink     = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(text + '\n') + encodedUrl;
@@ -179,10 +181,10 @@
             var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
             var text = getShareText();
             if (navigator.share && !isDesktop) {
-                navigator.share({ title: 'BilimExam — итоговая оценка', text: text, url: SITE_URL })
+                navigator.share({ title: 'BilimExam — итоговая оценка', text: text, url: getSharePageUrl() })
                     .catch(function (e) { if (e.name !== 'AbortError') showExamShareModal(); });
             } else if (isDesktop) {
-                navigator.clipboard.writeText(text + ' ' + SITE_URL).then(function () {
+                navigator.clipboard.writeText(text + ' ' + getSharePageUrl()).then(function () {
                     var orig = shareBtn.innerHTML;
                     shareBtn.textContent = '✓ Скопировано!';
                     setTimeout(function () { shareBtn.innerHTML = orig; }, 2000);
