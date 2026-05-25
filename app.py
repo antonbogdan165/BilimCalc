@@ -28,7 +28,6 @@ def _abs_url(path):
 
 
 def _canonical_for_path(path):
-    """Canonical URL for a route path (must match sitemap loc format)."""
     if not path or path == "/":
         return SITE_URL + "/"
     return SITE_URL + path.rstrip("/")
@@ -185,7 +184,10 @@ def inject_globals():
 @app.before_request
 def force_non_www():
     if request.host.startswith("www."):
-        return redirect(SITE_URL + request.full_path, code=301)
+        url = SITE_URL + request.path
+        if request.query_string:
+            url += "?" + request.query_string.decode("utf-8")
+        return redirect(url, code=301)
 
 
 @app.route("/")
@@ -287,8 +289,11 @@ def rss_feed():
 @app.route("/sw.js")
 def service_worker():
     sw_path = os.path.join(app.root_path, "static", "js", "sw.js")
-    with open(sw_path, "r", encoding="utf-8") as f:
-        content = f.read().replace("__BUILD_TIME__", BUILD_TIME)
+    try:
+        with open(sw_path, "r", encoding="utf-8") as f:
+            content = f.read().replace("__BUILD_TIME__", BUILD_TIME)
+    except OSError:
+        return "", 404
     response = app.response_class(response=content, mimetype="application/javascript")
     response.headers["Service-Worker-Allowed"] = "/"
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"

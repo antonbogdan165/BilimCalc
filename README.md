@@ -1,127 +1,155 @@
-# BilimCalc
-
-**Бесплатный онлайн-калькулятор для школьников Казахстана.**
-Считает итоговую оценку за четверть и год по официальной методике МОН РК — быстро, точно и без лишних действий.
+<h1 align="center">BilimCalc</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.8.0-22c55e?style=flat-square">
-  <img src="https://img.shields.io/badge/python-3.11-3b82f6?style=flat-square&logo=python&logoColor=white">
-  <img src="https://img.shields.io/badge/flask-3.0-black?style=flat-square&logo=flask">
-  <img src="https://img.shields.io/badge/deploy-vercel-black?style=flat-square&logo=vercel">
-  <img src="https://img.shields.io/badge/pwa-ready-8b5cf6?style=flat-square">
-  <img src="https://img.shields.io/badge/license-CC--BY--NC--4.0-64748b?style=flat-square">
+  Веб-приложение для расчета школьных оценок по системе МОН РК
 </p>
 
-<br>
+<p align="center">
+  <a href="https://bilimcalc.vercel.app">bilimcalc.vercel.app</a>
+</p>
 
-## Зачем это нужно
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.8.0-22c55e?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/python-3.11-3b82f6?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/flask-3.0-black?style=flat-square&logo=flask" alt="Flask">
+  <img src="https://img.shields.io/badge/vercel-deploy-black?style=flat-square&logo=vercel" alt="Vercel">
+  <img src="https://img.shields.io/badge/pwa-ready-8b5cf6?style=flat-square" alt="PWA">
+</p>
 
-Каждый раз перед концом четверти сотни тысяч учеников и родителей по всему Казахстану пытаются вручную посчитать итоговую оценку. Гуглят формулы, считают в обычном калькуляторе, ошибаются.
+---
 
-BilimCalc решает эту задачу за секунды. Никаких лишних шагов — просто вводишь свои оценки и сразу видишь результат.
+## О проекте
 
-> Сайт работает полностью бесплатно, без рекламы в интерфейсе и без регистрации.
+BilimCalc — веб-приложение для расчета итоговых школьных оценок по стандартам МОН РК.
 
-**→ [bilimcalc.vercel.app](https://bilimcalc.vercel.app)**
+Проект автоматически рассчитывает результаты на основе ФО, СОР и СОЧ с учетом официальных коэффициентов и особенностей системы оценивания для разных классов.
 
-<br>
+Основная задача проекта — предоставить быстрый и удобный инструмент, который одинаково хорошо работает как на компьютерах, так и на мобильных устройствах.
 
-## Что умеет BilimCalc
+---
 
-#### Калькулятор четверти
-Расчёт итоговой оценки по официальной формуле МОН РК:
-**ФО × 25% + СОР × 25% + СОЧ × 50%**
+## Скриншот
 
-Поддерживает несколько ФО, несколько СОР с разными максимумами и один СОЧ. Если СОЧ не было — считает по формуле `(ФО + СОР) × 2`.
+![BilimCalc](./screenshots/main.png)
 
-#### BilimExam — итоговая за год
-Отдельный калькулятор для учеников 9 и 11 классов. Формула **70/30**: годовая оценка × 70% + экзамен × 30%. Показывает, какой балл нужен на экзамене для «3», «4» или «5».
+---
 
-#### AI-анализ динамики
-При вводе двух и более ФО строит график с трендом на основе линейной регрессии. Работает полностью в браузере, без сервера.
+## Возможности
 
-#### Работает офлайн
-Service Worker кэширует все страницы и ресурсы. Сайт открывается даже без интернета.
+- Расчет итоговых оценок по формулам МОН РК
+- Поддержка ФО, СОР и СОЧ
+- Обработка случаев без СОЧ
+- Поддержка системы 70/30 для 9 и 11 классов
+- Работа без интернета (PWA + Service Worker)
+- Установка приложения на Android и iOS
+- Графики успеваемости на Chart.js
+- Темная и светлая темы
+- Адаптивный интерфейс для мобильных устройств
 
-#### Устанавливается на телефон
-PWA с поддержкой iOS и Android. Добавляется на главный экран, запускается как обычное приложение.
+---
 
-<br>
+## Технологии
 
-## Как считается оценка
+### Backend
 
-| Компонент | Описание | Вес |
-|-----------|----------|-----|
-| ФО | Среднее всех формативных оценок (шкала 1–10) | 25% |
-| СОР | Среднее процентов за суммативные по разделам | 25% |
-| СОЧ | Суммативное за четверть | 50% |
+- Python 3.11
+- Flask
+- Gunicorn
 
-Итоговый процент переводится в оценку: **85%+ → 5**, 65–84% → 4, 40–64% → 3, ниже 40% → 2.
+### Frontend
 
-Для 9 и 11 классов: `Итог = Годовая × 0.70 + Экзамен × 0.30`
+- Vanilla JavaScript
+- CSS3
+- Chart.js
 
-<br>
+### Infrastructure
 
-## Стек
+- Vercel
+- Service Worker
+- Web App Manifest
 
-```
-Backend     Flask 3.0 · Python 3.11 · Gunicorn
-Frontend    Vanilla JS · Chart.js · CSS3
-Deploy      Vercel
-PWA         Service Worker · Web App Manifest
-DB          Supabase (счётчик посещений)
-```
+### Database
 
-<br>
+- Supabase (аналитика посещений)
 
-## Быстрый старт
+---
+
+## Архитектура
+
+- Backend отвечает за роутинг и отдачу шаблонов
+- Основные вычисления выполняются на стороне клиента
+- Данные пользователей не сохраняются
+- Service Worker кэширует статические ресурсы для offline-режима
+- Supabase используется только для аналитики посещений
+
+---
+
+## Локальный запуск
+
+Для запуска проекта потребуется Python 3.11+.
 
 ```bash
-git clone https://github.com/antonbogdan165/grade-calculator.git
-cd grade-calculator
+# 1. Клонирование репозитория
+git clone https://github.com/antonbogdan165/BilimCalc.git
+
+# 2. Переход в папку проекта
+cd BilimCalc
+
+# 3. Установка зависимостей
 pip install -r requirements.txt
+
+# 4. Запуск сервера
 python app.py
 ```
 
-Открой в браузере: `http://127.0.0.1:5000`
+После запуска приложение будет доступно по адресу:
 
-<br>
+```text
+http://127.0.0.1:5000
+```
+
+---
 
 ## Структура проекта
 
-```
+```text
 bilimcalc/
-├── app.py              # Роуты Flask
-├── logics.py           # Формула расчёта ФО / СОР / СОЧ
+├── app.py
+├── logics.py
 ├── requirements.txt
 ├── static/
-│   ├── css/            # Стили (dark/light тема, PWA, статьи)
-│   └── js/             # Логика расчётов, тренд, SW
-└── templates/
-    ├── base.html        # Базовый шаблон
-    ├── index.html       # Главная страница
-    ├── kalkulator-ekzamena.html   # BilimExam
-    └── ...              # Статьи и утилиты
+│   ├── css/
+│   ├── js/
+│   ├── icons/
+│   └── manifest.json
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   └── articles/
+└── vercel.json
 ```
 
-<br>
+---
 
-## Контент
+## Статус проекта
 
-Помимо калькулятора, на сайте есть база статей по системе оценивания МОН РК:
+Проект поддерживается в стабильном состоянии без активной разработки новых функций.
 
-- [Как рассчитать ФО](https://bilimcalc.vercel.app/kak-rasschitat-so)
-- [Как рассчитать СОР](https://bilimcalc.vercel.app/kak-rasschitat-sor)
-- [Как рассчитать СОЧ](https://bilimcalc.vercel.app/kak-rasschitat-soch)
-- [Итоговая оценка за четверть](https://bilimcalc.vercel.app/itogovaya-ocenka-za-chetvert)
-- [Итоговая оценка за год (70/30)](https://bilimcalc.vercel.app/kak-rasschitat-itogovuyu-otsenku-za-god)
-- [Как перевести проценты в оценку](https://bilimcalc.vercel.app/kak-perevesti-procenty-v-otsenku)
-- [Методика расчёта МОН РК](https://bilimcalc.vercel.app/metodika-rascheta-mon-rk)
-
-<br>
+---
 
 ## Лицензия
 
-[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — можно использовать и адаптировать в некоммерческих целях с указанием автора.
+Проект распространяется по лицензии CC BY-NC 4.0.
 
-© 2026 Anton Bogdan
+Разрешено использование, изучение и модификация проекта в некоммерческих целях с обязательным указанием авторства.
+
+Коммерческое использование без разрешения автора запрещено.
+
+---
+
+## Автор
+
+Anton Bogdan
+
+- GitHub: https://github.com/antonbogdan165
+- Website: https://bilimcalc.vercel.app
