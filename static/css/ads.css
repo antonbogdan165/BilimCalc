@@ -163,3 +163,19 @@
     .ya-ad-float--left      { right: calc(50% + 600px); }
     .ya-ad-float--right     { left:  calc(50% + 600px); }
 }
+
+#ya_sticky_content,
+.ya-sticky-banner {
+    max-height: 15vh !important;
+    min-height: 80px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+}
+
+#ya_sticky_content iframe,
+#ya_sticky_content > div,
+.ya-sticky-banner iframe {
+    max-height: 15vh !important;
+}
