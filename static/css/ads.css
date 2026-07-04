@@ -231,14 +231,14 @@
     right: 0;
     z-index: 60;
     pointer-events: none;
-    display: flex;
+    display: none;
     justify-content: center;
     padding: 0 12px;
     padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-.ya-ad-sticky-wrap:not(:has(#ya_sticky_content *)) {
-    display: none;
+.ya-ad-sticky-wrap.ya-ad-sticky-wrap--visible {
+    display: flex;
 }
 
 .ya-ad-sticky__frame {
@@ -277,7 +277,6 @@
 #ya_sticky_content,
 .ya-sticky-banner {
     max-height: 15vh !important;
-    min-height: 80px !important;
     overflow: hidden !important;
     display: flex !important;
     align-items: flex-end !important;
@@ -292,7 +291,7 @@
 }
 
 @media (max-width: 600px) {
-    body:has(.ya-ad-sticky-wrap) {
+    body:has(.ya-ad-sticky-wrap--visible) {
         padding-bottom: max(96px, 15vh);
     }
 

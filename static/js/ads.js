@@ -93,8 +93,28 @@
     function initFloorAd() {
         var blockId = cfg.sticky;
         if (!blockId) return;
-        if (!document.getElementById('ya_sticky_content')) return;
+
+        var content = document.getElementById('ya_sticky_content');
+        var wrap = document.querySelector('.ya-ad-sticky-wrap');
+        if (!content || !wrap) return;
+
+        function syncVisibility() {
+            var hasContent = content.childElementCount > 0 && content.offsetHeight > 4;
+            wrap.classList.toggle('ya-ad-sticky-wrap--visible', hasContent);
+        }
+
         renderBlock(blockId, 'ya_sticky_content');
+
+        if ('ResizeObserver' in window) {
+            new ResizeObserver(syncVisibility).observe(content);
+        }
+        new MutationObserver(syncVisibility).observe(content, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+
+        setInterval(syncVisibility, 1000);
     }
 
     function init() {
