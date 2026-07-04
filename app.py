@@ -1,12 +1,21 @@
-from flask import Flask, render_template, send_from_directory, redirect, Response, request
 import os
 import time
+from urllib.parse import urlparse
+
 import requests as req_lib
-from datetime import date
+from flask import (
+    Flask,
+    Response,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+)
 
 try:
     from flask_limiter import Limiter
     from flask_limiter.util import get_remote_address
+
     _limiter_available = True
 except ImportError:
     _limiter_available = False
@@ -16,9 +25,9 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
 BUILD_TIME = str(int(time.time()))
 
-_SUPABASE_URL = os.environ.get('SUPABASE_URL', '')
-_SUPABASE_KEY = os.environ.get('SUPABASE_KEY', '')
-_INDEXNOW_KEY = os.environ.get('INDEXNOW_KEY', 'bilimcalc2026key')
+_SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+_SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
+_INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")
 
 from config import SITE_URL
 
@@ -32,25 +41,37 @@ def _canonical_for_path(path):
         return SITE_URL + "/"
     return SITE_URL + path.rstrip("/")
 
-_ALLOWED_ORIGINS = {
-    'bilimcalc.vercel.app',
-    'localhost',
-    '127.0.0.1',
-}
+
+def _allowed_hosts():
+    hosts = {"localhost", "127.0.0.1"}
+    netloc = urlparse(SITE_URL).netloc
+    if netloc:
+        hosts.add(netloc)
+        if netloc.startswith("www."):
+            hosts.add(netloc[4:])
+        else:
+            hosts.add("www." + netloc)
+    return hosts
+
 
 def _sb_headers():
     return {
-        'apikey':        _SUPABASE_KEY,
-        'Authorization': 'Bearer ' + _SUPABASE_KEY,
-        'Content-Type':  'application/json',
-        'Prefer':        'return=representation',
+        "apikey": _SUPABASE_KEY,
+        "Authorization": "Bearer " + _SUPABASE_KEY,
+        "Content-Type": "application/json",
+        "Prefer": "return=representation",
     }
 
+
 def _is_allowed_origin():
-    origin  = request.headers.get('Origin', '')
-    referer = request.headers.get('Referer', '')
+    allowed = _allowed_hosts()
+    if request.host in allowed:
+        return True
+    origin = request.headers.get("Origin", "")
+    referer = request.headers.get("Referer", "")
     combined = origin + referer
-    return any(h in combined for h in _ALLOWED_ORIGINS)
+    return any(h in combined for h in allowed)
+
 
 if _limiter_available:
     limiter = Limiter(
@@ -62,48 +83,48 @@ if _limiter_available:
 
 
 ARTICLE_ROUTES = {
-    "/kak-rasschitat-soch":                          "kak-rasschitat-soch.html",
-    "/kak-rasschitat-sor":                           "kak-rasschitat-sor.html",
-    "/kak-rasschitat-so":                            "kak-rasschitat-so.html",
-    "/itogovaya-ocenka-za-chetvert":                 "itogovaya-ocenka-za-chetvert.html",
-    "/metodika-rascheta-mon-rk":                     "metodika-rascheta-mon-rk.html",
-    "/kalkulator-ekzamena":                          "kalkulator-ekzamena.html",
-    "/kak-rasschitat-itogovuyu-otsenku-za-god":      "kak-rasschitat-itogovuyu-otsenku-za-god.html",
-    "/kak-perevesti-procenty-v-otsenku":             "kak-perevesti-procenty-v-otsenku.html",
-    "/articles":                                     "articles.html",
-    "/perehod-na-12-letku-kazakhstan":               "perehod-na-12-letku-kazakhstan.html",
-    "/disable-adblock":                              "disable-adblock.html",
+    "/kak-rasschitat-soch": "kak-rasschitat-soch.html",
+    "/kak-rasschitat-sor": "kak-rasschitat-sor.html",
+    "/kak-rasschitat-so": "kak-rasschitat-so.html",
+    "/itogovaya-ocenka-za-chetvert": "itogovaya-ocenka-za-chetvert.html",
+    "/metodika-rascheta-mon-rk": "metodika-rascheta-mon-rk.html",
+    "/kalkulator-ekzamena": "kalkulator-ekzamena.html",
+    "/kak-rasschitat-itogovuyu-otsenku-za-god": "kak-rasschitat-itogovuyu-otsenku-za-god.html",
+    "/kak-perevesti-procenty-v-otsenku": "kak-perevesti-procenty-v-otsenku.html",
+    "/articles": "articles.html",
+    "/perehod-na-12-letku-kazakhstan": "perehod-na-12-letku-kazakhstan.html",
+    "/disable-adblock": "disable-adblock.html",
 }
 
 CALC_REDIRECTS = {
-    "/kalkulator-sor":   "/",
-    "/kalkulator-soch":  "/",
-    "/kalkulator-so":    "/",
-    "/calculator":       "/",
+    "/kalkulator-sor": "/",
+    "/kalkulator-soch": "/",
+    "/kalkulator-so": "/",
+    "/calculator": "/",
 }
 
 NOINDEX_ROUTES = {"/disable-adblock"}
 
-TODAY = date.today().isoformat()
+SITEMAP_LASTMOD = "2026-07-04"
 
 _SITEMAP_PATHS = [
-    ("/",                                          "weekly",  "1.0"),
-    ("/kalkulator-ekzamena",                       "monthly", "0.9"),
-    ("/kak-rasschitat-itogovuyu-otsenku-za-god",   "monthly", "0.9"),
-    ("/itogovaya-ocenka-za-chetvert",              "monthly", "0.85"),
-    ("/articles",                                  "weekly",  "0.8"),
-    ("/kak-perevesti-procenty-v-otsenku",          "monthly", "0.8"),
-    ("/kak-rasschitat-soch",                       "monthly", "0.8"),
-    ("/kak-rasschitat-sor",                        "monthly", "0.8"),
-    ("/kak-rasschitat-so",                         "monthly", "0.8"),
-    ("/metodika-rascheta-mon-rk",                  "monthly", "0.7"),
-    ("/perehod-na-12-letku-kazakhstan",            "monthly", "0.7"),
+    ("/", "weekly", "1.0"),
+    ("/kalkulator-ekzamena", "monthly", "0.9"),
+    ("/kak-rasschitat-itogovuyu-otsenku-za-god", "monthly", "0.9"),
+    ("/itogovaya-ocenka-za-chetvert", "monthly", "0.85"),
+    ("/articles", "weekly", "0.8"),
+    ("/kak-perevesti-procenty-v-otsenku", "monthly", "0.8"),
+    ("/kak-rasschitat-soch", "monthly", "0.8"),
+    ("/kak-rasschitat-sor", "monthly", "0.8"),
+    ("/kak-rasschitat-so", "monthly", "0.8"),
+    ("/metodika-rascheta-mon-rk", "monthly", "0.7"),
+    ("/perehod-na-12-letku-kazakhstan", "monthly", "0.7"),
 ]
 
 SITEMAP_URLS = [
     {
         "loc": SITE_URL + path,
-        "lastmod": TODAY,
+        "lastmod": SITEMAP_LASTMOD,
         "changefreq": freq,
         "priority": pri,
     }
@@ -111,8 +132,16 @@ SITEMAP_URLS = [
 ]
 
 SITEMAP_IMAGES = [
-    {"loc": SITE_URL + "/", "image": SITE_URL + "/static/icons/preview.png", "title": "BilimCalc — калькулятор ФО, СОР и СОЧ"},
-    {"loc": SITE_URL + "/kalkulator-ekzamena", "image": SITE_URL + "/static/icons/preview.png", "title": "BilimExam — итоговая оценка за год"},
+    {
+        "loc": SITE_URL + "/",
+        "image": SITE_URL + "/static/icons/preview.png",
+        "title": "BilimCalc — калькулятор ФО, СОР и СОЧ",
+    },
+    {
+        "loc": SITE_URL + "/kalkulator-ekzamena",
+        "image": SITE_URL + "/static/icons/preview.png",
+        "title": "BilimExam — итоговая оценка за год",
+    },
 ]
 
 RSS_ARTICLES = [
@@ -171,15 +200,19 @@ RSS_ARTICLES = [
 def inject_globals():
     return dict(
         site_url=SITE_URL,
+        build_time=BUILD_TIME,
         canonical_url=_canonical_for_path(request.path),
-        ya_ad_block_id=os.environ.get('YA_AD_BLOCK_ID', ''),
-        ya_ad_block_left=os.environ.get('YA_AD_BLOCK_LEFT', ''),
-        ya_ad_block_right=os.environ.get('YA_AD_BLOCK_RIGHT', ''),
-        ya_ad_article_1=os.environ.get('YA_AD_ARTICLE_1', ''),
-        ya_ad_article_2=os.environ.get('YA_AD_ARTICLE_2', ''),
-        ya_ad_article_3=os.environ.get('YA_AD_ARTICLE_3', ''),
-        ya_ad_sticky=os.environ.get('YA_AD_STICKY', ''),
+        google_site_verification=os.environ.get("GOOGLE_SITE_VERIFICATION", ""),
+        yandex_verification=os.environ.get("YANDEX_VERIFICATION", ""),
+        ya_ad_block_id=os.environ.get("YA_AD_BLOCK_ID", ""),
+        ya_ad_block_left=os.environ.get("YA_AD_BLOCK_LEFT", ""),
+        ya_ad_block_right=os.environ.get("YA_AD_BLOCK_RIGHT", ""),
+        ya_ad_article_1=os.environ.get("YA_AD_ARTICLE_1", ""),
+        ya_ad_article_2=os.environ.get("YA_AD_ARTICLE_2", ""),
+        ya_ad_article_3=os.environ.get("YA_AD_ARTICLE_3", ""),
+        ya_ad_sticky=os.environ.get("YA_AD_STICKY", ""),
     )
+
 
 @app.before_request
 def force_non_www():
@@ -239,21 +272,21 @@ def sitemap():
         img_block = ""
         if img:
             img_block = (
-                f'<image:image>'
-                f'<image:loc>{img["image"]}</image:loc>'
-                f'<image:title>{img["title"]}</image:title>'
-                f'</image:image>'
+                f"<image:image>"
+                f"<image:loc>{img['image']}</image:loc>"
+                f"<image:title>{img['title']}</image:title>"
+                f"</image:image>"
             )
         lines.append(
-            f'  <url>'
-            f'<loc>{u["loc"]}</loc>'
-            f'<lastmod>{u["lastmod"]}</lastmod>'
-            f'<changefreq>{u["changefreq"]}</changefreq>'
-            f'<priority>{u["priority"]}</priority>'
-            f'{img_block}'
-            f'</url>'
+            f"  <url>"
+            f"<loc>{u['loc']}</loc>"
+            f"<lastmod>{u['lastmod']}</lastmod>"
+            f"<changefreq>{u['changefreq']}</changefreq>"
+            f"<priority>{u['priority']}</priority>"
+            f"{img_block}"
+            f"</url>"
         )
-    lines.append('</urlset>')
+    lines.append("</urlset>")
     return Response("\n".join(lines), mimetype="application/xml")
 
 
@@ -265,7 +298,7 @@ def rss_feed():
             f"\n    <item>"
             f"\n      <title><![CDATA[{a['title']}]]></title>"
             f"\n      <link>{a['link']}</link>"
-            f"\n      <guid isPermaLink=\"true\">{a['link']}</guid>"
+            f'\n      <guid isPermaLink="true">{a["link"]}</guid>'
             f"\n      <description><![CDATA[{a['desc']}]]></description>"
             f"\n      <pubDate>{a['date']}</pubDate>"
             f"\n    </item>"
@@ -273,15 +306,15 @@ def rss_feed():
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
-        '  <channel>\n'
-        '    <title>BilimCalc — Статьи о системе оценивания в Казахстане</title>\n'
-        f'    <link>{SITE_URL}/articles</link>\n'
-        '    <description>Подробные руководства по ФО, СОР, СОЧ и итоговым оценкам по методике МОН РК</description>\n'
-        '    <language>ru</language>\n'
+        "  <channel>\n"
+        "    <title>BilimCalc — Статьи о системе оценивания в Казахстане</title>\n"
+        f"    <link>{SITE_URL}/articles</link>\n"
+        "    <description>Подробные руководства по ФО, СОР, СОЧ и итоговым оценкам по методике МОН РК</description>\n"
+        "    <language>ru</language>\n"
         f'    <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>\n'
-        f'{items}\n'
-        '  </channel>\n'
-        '</rss>'
+        f"{items}\n"
+        "  </channel>\n"
+        "</rss>"
     )
     return Response(xml, mimetype="application/xml")
 
@@ -303,6 +336,15 @@ def service_worker():
 @app.route("/favicon.ico")
 def favicon():
     return send_from_directory("static/icons", "favicon.ico")
+
+
+@app.route("/site.webmanifest")
+def webmanifest():
+    return send_from_directory(
+        os.path.join(app.root_path, "static"),
+        "site.webmanifest",
+        mimetype="application/manifest+json",
+    )
 
 
 @app.route("/bilimcalc2026key.txt")
@@ -347,12 +389,14 @@ def api_visits_increment():
 
 def _json(data):
     from flask import jsonify
+
     return jsonify(data)
 
 
 def _make_article_view(template, noindex=False):
     def view():
         return render_template(template, noindex=noindex)
+
     view.__name__ = template
     return view
 
@@ -360,6 +404,7 @@ def _make_article_view(template, noindex=False):
 def _make_redirect_view(target, route_name):
     def view():
         return redirect(target, code=301)
+
     view.__name__ = "redirect_" + route_name
     return view
 

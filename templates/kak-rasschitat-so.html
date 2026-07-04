@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block meta_title %}Как рассчитать ФО в школе Казахстана — формула и пример | BilimCalc{% endblock %}
-{% block meta_desc %}Как рассчитать ФО — суммативное оценивание по шкале 1–10. Формула расчёта ФО: (сумма ÷ количество) × 2,5. Два примера с числами, методика МОН РК.{% endblock %}
+{% block meta_desc %}Как рассчитать ФО — суммативное оценивание по шкале 1–10. Формула расчёта ФО: (сумма ÷ количество)
+× 2,5. Два примера с числами, методика МОН РК.{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block og_title %}Как рассчитать ФО — формула, пример, методика МОН РК{% endblock %}
 {% block og_desc %}Полное руководство по расчёту суммативного оценивания для школ Казахстана.{% endblock %}
@@ -18,10 +19,10 @@
     "url": "{{ site_url }}/kak-rasschitat-so",
     "datePublished": "2025-09-01",
     "dateModified": "2026-05-24",
-    "image": "{{ site_url }}/static/icons/preview.png",
+    "image": "{{ site_url }}/static/icons/preview.png?v={{ build_time }}",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
-    "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png" } },
+    "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
     "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/kak-rasschitat-so" }
 }
 </script>
@@ -68,33 +69,47 @@
 
 {% block extra_css %}
 <style>
-.article ul {
-    margin: 12px 0 16px 0;
-    padding-left: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-.article ul li {
-    font-size: 15px;
-    line-height: 1.75;
-    color: #b0bec8;
-    padding-left: 20px;
-    position: relative;
-}
-.article ul li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: 700;
-    opacity: 0.6;
-}
-.article ul li strong { color: #e6edf3; }
-[data-theme="light"] .article ul li { color: #475569; }
-[data-theme="light"] .article ul li strong { color: #0f172a; }
-[data-theme="light"] .article ul li::before { opacity: 0.5; }
+    .article ul {
+        margin: 12px 0 16px 0;
+        padding-left: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .article ul li {
+        font-size: 15px;
+        line-height: 1.75;
+        color: #b0bec8;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .article ul li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 700;
+        opacity: 0.6;
+    }
+
+    .article ul li strong {
+        color: #e6edf3;
+    }
+
+    [data-theme="light"] .article ul li {
+        color: #475569;
+    }
+
+    [data-theme="light"] .article ul li strong {
+        color: #0f172a;
+    }
+
+    [data-theme="light"] .article ul li::before {
+        opacity: 0.5;
+    }
 </style>
 {% endblock %}
 
@@ -126,55 +141,111 @@
                 <span class="mobile-cta__arrow">→</span>
             </a>
             <p class="article__lead">
-                <strong>ФО</strong> (суммативное оценивание) составляет <strong>25% итоговой оценки за четверть</strong> по официальной <a href="/metodika-rascheta-mon-rk">методике МОН РК</a>. Формула расчёта: <strong>(сумма всех ФО ÷ количество) × 2,5</strong>. ФО выставляется по шкале 1–10 и накапливается в течение четверти. Разберём расчёт по шагам с двумя примерами и объясним, почему даже «маленький» тест влияет на итог.
+                <strong>ФО</strong> (суммативное оценивание) составляет <strong>25% итоговой оценки за четверть</strong>
+                по официальной <a href="/metodika-rascheta-mon-rk">методике МОН РК</a>. Формула расчёта: <strong>(сумма
+                    всех ФО ÷ количество) × 2,5</strong>. ФО выставляется по шкале 1–10 и накапливается в течение
+                четверти. Разберём расчёт по шагам с двумя примерами и объясним, почему даже «маленький» тест влияет на
+                итог.
             </p>
 
             <h2>Краткий ответ: как рассчитывается ФО</h2>
-            <p>ФО — это среднее арифметическое всех формативных оценок за четверть, переведённое в процент с весом 25%. Алгоритм прост:</p>
+            <p>ФО — это среднее арифметическое всех формативных оценок за четверть, переведённое в процент с весом 25%.
+                Алгоритм прост:</p>
             <ul>
                 <li><strong>Шаг 1:</strong> сложи все ФО оценки (шкала 1–10)</li>
                 <li><strong>Шаг 2:</strong> раздели сумму на количество оценок — получишь среднее ФО</li>
-                <li><strong>Шаг 3:</strong> умножь среднее на 2,5 (то же самое, что среднее ÷ 10 × 25) — это вклад ФО в итоговую оценку за четверть</li>
+                <li><strong>Шаг 3:</strong> умножь среднее на 2,5 (то же самое, что среднее ÷ 10 × 25) — это вклад ФО в
+                    итоговую оценку за четверть</li>
             </ul>
-            <p>Остальные 75% итоговой оценки - это СОР (25%) и СОЧ (50%). Про расчёт каждого из них читай в статьях <a href="/kak-rasschitat-sor">как рассчитать СОР</a> и <a href="/kak-rasschitat-soch">как рассчитать СОЧ</a>.</p>
+            <p>Остальные 75% итоговой оценки - это СОР (25%) и СОЧ (50%). Про расчёт каждого из них читай в статьях <a
+                    href="/kak-rasschitat-sor">как рассчитать СОР</a> и <a href="/kak-rasschitat-soch">как рассчитать
+                    СОЧ</a>.</p>
 
             <h2>Что такое ФО</h2>
-            <p>ФО — это суммативное оценивание, которое показывает, как ты усвоил тему или раздел. В школах Казахстана его часто называют «формативные оценки», хотя по <a href="/metodika-rascheta-mon-rk">методике МОН РК</a> это именно ФО. Такие оценки ставят после контрольных, тестов, проектов и проверочных работ. ФО оценка выставляется по шкале <strong>1–10</strong>, где 1 — минимальный результат, а 10 — максимальный. Обычно за одну тему или раздел ты получаешь одну или несколько ФО. Они накапливаются в течение четверти и напрямую влияют на итоговую оценку.</p>
-            <p>Отличие ФО от СОР и СОЧ в том, что ФО проводятся регулярно — после каждой темы или нескольких уроков. Это позволяет учителю отслеживать текущий прогресс, а ученику — понимать, где пробелы, не дожидаясь конца четверти.</p>
+            <p>ФО — это суммативное оценивание, которое показывает, как ты усвоил тему или раздел. В школах Казахстана
+                его часто называют «формативные оценки», хотя по <a href="/metodika-rascheta-mon-rk">методике МОН РК</a>
+                это именно ФО. Такие оценки ставят после контрольных, тестов, проектов и проверочных работ. ФО оценка
+                выставляется по шкале <strong>1–10</strong>, где 1 — минимальный результат, а 10 — максимальный. Обычно
+                за одну тему или раздел ты получаешь одну или несколько ФО. Они накапливаются в течение четверти и
+                напрямую влияют на итоговую оценку.</p>
+            <p>Отличие ФО от СОР и СОЧ в том, что ФО проводятся регулярно — после каждой темы или нескольких уроков. Это
+                позволяет учителю отслеживать текущий прогресс, а ученику — понимать, где пробелы, не дожидаясь конца
+                четверти.</p>
 
             <h2>Формула расчёта ФО</h2>
-            <p>ФО занимает 25% итоговой оценки за четверть — это фиксированный вес по системе оценивания Казахстана. Остальные проценты приходятся на СОР и СОЧ, но именно ФО ты получаешь чаще всего. Поэтому даже обычные контрольные имеют значение.</p>
+            <p>ФО занимает 25% итоговой оценки за четверть — это фиксированный вес по системе оценивания Казахстана.
+                Остальные проценты приходятся на СОР и СОЧ, но именно ФО ты получаешь чаще всего. Поэтому даже обычные
+                контрольные имеют значение.</p>
             <div class="article__formula">
                 <div class="article__formula-title">Формула ФО (официальная методика МОН РК)</div>
                 <div class="article__formula-body">ФО (в итоговой оценке) = (Сумма всех ФО ÷ Кол-во ФО) × 2.5</div>
             </div>
 
             <h2>Пример расчёта № 1 — стандартный</h2>
-            <p>Представь, что за четверть у тебя пять ФО: 7, 8, 9, 6 и 8. Складываем оценки: 7+8+9+6+8 = 38. Делим на количество: 38 ÷ 5 = 7,6. Считаем вклад: 7,6 × 2,5 = <strong>19%</strong>. Эти 19% идут в итоговую оценку за четверть.</p>
+            <p>Представь, что за четверть у тебя пять ФО: 7, 8, 9, 6 и 8. Складываем оценки: 7+8+9+6+8 = 38. Делим на
+                количество: 38 ÷ 5 = 7,6. Считаем вклад: 7,6 × 2,5 = <strong>19%</strong>. Эти 19% идут в итоговую
+                оценку за четверть.</p>
             <div class="article__example">
                 <table class="article__table">
-                    <thead><tr><th>ФО оценки</th><th>Среднее</th><th>Вклад в итог</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>ФО оценки</th>
+                            <th>Среднее</th>
+                            <th>Вклад в итог</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr><td>7, 8, 9, 6, 8</td><td>7,6</td><td>7,6 × 2,5 = <strong>19%</strong></td></tr>
+                        <tr>
+                            <td>7, 8, 9, 6, 8</td>
+                            <td>7,6</td>
+                            <td>7,6 × 2,5 = <strong>19%</strong></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <h2>Пример расчёта № 2 — с низкой оценкой</h2>
-            <p>Другой ученик получил за четверть шесть ФО: 9, 10, 8, 3, 9, 8. Низкая оценка «3» резко тянет среднее вниз. Сумма: 9+10+8+3+9+8 = 47. Среднее: 47 ÷ 6 = 7,83. Вклад: 7,83 × 2,5 ≈ <strong>19,6%</strong>. Сравним: без «тройки» среднее было бы 44 ÷ 5 = 8,8, вклад — 8,8 × 2,5 = 22%. Одна низкая ФО снизила вклад на <strong>2,4%</strong> — а это может изменить итоговую оценку за четверть.</p>
+            <p>Другой ученик получил за четверть шесть ФО: 9, 10, 8, 3, 9, 8. Низкая оценка «3» резко тянет среднее
+                вниз. Сумма: 9+10+8+3+9+8 = 47. Среднее: 47 ÷ 6 = 7,83. Вклад: 7,83 × 2,5 ≈ <strong>19,6%</strong>.
+                Сравним: без «тройки» среднее было бы 44 ÷ 5 = 8,8, вклад — 8,8 × 2,5 = 22%. Одна низкая ФО снизила
+                вклад на <strong>2,4%</strong> — а это может изменить итоговую оценку за четверть.</p>
             <div class="article__example">
                 <table class="article__table">
-                    <thead><tr><th>Сценарий</th><th>Оценки</th><th>Среднее</th><th>Вклад ФО</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>Сценарий</th>
+                            <th>Оценки</th>
+                            <th>Среднее</th>
+                            <th>Вклад ФО</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr><td>С «тройкой»</td><td>9, 10, 8, 3, 9, 8</td><td>7,83</td><td>≈ 19,6%</td></tr>
-                        <tr><td>Без «тройки»</td><td>9, 10, 8, 9, 8</td><td>8,8</td><td>22%</td></tr>
-                        <tr class="article__table-result"><td colspan="3"><strong>Разница из-за одной оценки</strong></td><td><strong>−2,4%</strong></td></tr>
+                        <tr>
+                            <td>С «тройкой»</td>
+                            <td>9, 10, 8, 3, 9, 8</td>
+                            <td>7,83</td>
+                            <td>≈ 19,6%</td>
+                        </tr>
+                        <tr>
+                            <td>Без «тройки»</td>
+                            <td>9, 10, 8, 9, 8</td>
+                            <td>8,8</td>
+                            <td>22%</td>
+                        </tr>
+                        <tr class="article__table-result">
+                            <td colspan="3"><strong>Разница из-за одной оценки</strong></td>
+                            <td><strong>−2,4%</strong></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <h2>Сколько весит ФО в итоговой оценке</h2>
-            <p>Итоговая оценка за четверть в системе оценивания Казахстана состоит из трёх частей: ФО 25%, СОР 25% и СОЧ 50%. Многие думают, что одна маленькая ФО оценка ничего не решает. На самом деле каждая низкая оценка тянет среднее вниз. Особенно заметно это при малом количестве ФО — например, если их всего три, одна «двойка» сильно роняет результат. Подробнее о том, как все три компонента складываются в итог, читай в статье <a href="/itogovaya-ocenka-za-chetvert">итоговая оценка за четверть</a>.</p>
+            <p>Итоговая оценка за четверть в системе оценивания Казахстана состоит из трёх частей: ФО 25%, СОР 25% и СОЧ
+                50%. Многие думают, что одна маленькая ФО оценка ничего не решает. На самом деле каждая низкая оценка
+                тянет среднее вниз. Особенно заметно это при малом количестве ФО — например, если их всего три, одна
+                «двойка» сильно роняет результат. Подробнее о том, как все три компонента складываются в итог, читай в
+                статье <a href="/itogovaya-ocenka-za-chetvert">итоговая оценка за четверть</a>.</p>
 
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
@@ -195,57 +266,106 @@
             </div>
 
             <h2>Как повысить оценку за ФО</h2>
-            <p>Первое — относись к каждой проверочной как к важной. Даже маленький тест может стать ФО и пойти в расчёт. Не пропускай работы без уважительной причины — пропущенная ФО часто засчитывается как 0 или минимальный балл. Второе — спрашивай учителя, за что снижен балл. Часто можно понять ошибку и больше её не повторять. Третье — следи за оценками самостоятельно через <a href="/">калькулятор ФО онлайн</a> — он показывает, как текущий уровень ФО влияет на итоговую оценку за четверть.</p>
+            <p>Первое — относись к каждой проверочной как к важной. Даже маленький тест может стать ФО и пойти в расчёт.
+                Не пропускай работы без уважительной причины — пропущенная ФО часто засчитывается как 0 или минимальный
+                балл. Второе — спрашивай учителя, за что снижен балл. Часто можно понять ошибку и больше её не
+                повторять. Третье — следи за оценками самостоятельно через <a href="/">калькулятор ФО онлайн</a> — он
+                показывает, как текущий уровень ФО влияет на итоговую оценку за четверть.</p>
 
             <h2>Часто задаваемые вопросы</h2>
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
                         <span>Можно ли пересдать ФО?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
                     </button>
-                    <div class="faq-a"><p>Чаще всего пересдача ФО не предусмотрена. Формативные оценки в Казахстане используются как фиксация результата на конкретный момент. В редких случаях учитель может дать дополнительное задание, но это его решение. Поэтому лучше сразу писать работы на максимум.</p></div>
+                    <div class="faq-a">
+                        <p>Чаще всего пересдача ФО не предусмотрена. Формативные оценки в Казахстане используются как
+                            фиксация результата на конкретный момент. В редких случаях учитель может дать дополнительное
+                            задание, но это его решение. Поэтому лучше сразу писать работы на максимум.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
                         <span>Сколько ФО ставится за четверть?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
                     </button>
-                    <div class="faq-a"><p>Точного количества нет, всё зависит от предмета и программы. Обычно это 12–16 ФО за четверть, иногда больше. Учитель ставит ФО после завершения тем или разделов. Все они учитываются при расчёте среднего балла.</p></div>
+                    <div class="faq-a">
+                        <p>Точного количества нет, всё зависит от предмета и программы. Обычно это 12–16 ФО за четверть,
+                            иногда больше. Учитель ставит ФО после завершения тем или разделов. Все они учитываются при
+                            расчёте среднего балла.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
                         <span>Как ФО влияет на итоговую оценку?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
                     </button>
-                    <div class="faq-a"><p>ФО даёт 25% от всей четвертной оценки. Даже если хорошо написаны СОР и СОЧ, слабые ФО могут снизить итог. Именно поэтому ФО оценка так важна. Чтобы понять влияние заранее, удобно считать всё через <a href="/">калькулятор ФО онлайн</a>.</p></div>
+                    <div class="faq-a">
+                        <p>ФО даёт 25% от всей четвертной оценки. Даже если хорошо написаны СОР и СОЧ, слабые ФО могут
+                            снизить итог. Именно поэтому ФО оценка так важна. Чтобы понять влияние заранее, удобно
+                            считать всё через <a href="/">калькулятор ФО онлайн</a>.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
                         <span>Что делать, если пропустил ФО по болезни?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
                     </button>
-                    <div class="faq-a"><p>Сразу сообщи учителю и принеси справку о болезни. В этом случае учитель должен дать возможность написать работу в другой день. Если же пропуск без уважительной причины — оценка может быть выставлена как минимальная. Всё зависит от внутренних правил школы.</p></div>
+                    <div class="faq-a">
+                        <p>Сразу сообщи учителю и принеси справку о болезни. В этом случае учитель должен дать
+                            возможность написать работу в другой день. Если же пропуск без уважительной причины — оценка
+                            может быть выставлена как минимальная. Всё зависит от внутренних правил школы.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="article__related">
                 <div class="article__related-title">Читайте также</div>
                 <div class="article__related-links">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за год: формула 70/30</span><span class="article__related-arrow">→</span></a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за четверть: полный расчёт</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-sor" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать СОР — полное руководство</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-soch" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Что такое СОЧ и как считается</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как перевести проценты в оценку — таблица</span><span class="article__related-arrow">→</span></a>
-                    <a href="/metodika-rascheta-mon-rk" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Официальная методика расчёта МОН РК</span><span class="article__related-arrow">→</span></a>
-                    <a href="/perehod-na-12-letku-kazakhstan" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">3–8 классы и 12-летнее обучение в Казахстане — правда или фейк</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card"><span
+                            class="article__related-label">Статья</span><span class="article__related-text">Итоговая
+                            оценка за год: формула 70/30</span><span class="article__related-arrow">→</span></a>
+                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span
+                            class="article__related-label">Статья</span><span class="article__related-text">Итоговая
+                            оценка за четверть: полный расчёт</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-rasschitat-sor" class="article__related-card"><span
+                            class="article__related-label">Статья</span><span class="article__related-text">Как
+                            рассчитать СОР — полное руководство</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-rasschitat-soch" class="article__related-card"><span
+                            class="article__related-label">Статья</span><span class="article__related-text">Что такое
+                            СОЧ и как считается</span><span class="article__related-arrow">→</span></a>
+                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span
+                            class="article__related-label">Статья</span><span class="article__related-text">Как
+                            перевести проценты в оценку — таблица</span><span
+                            class="article__related-arrow">→</span></a>
+                    <a href="/metodika-rascheta-mon-rk" class="article__related-card"><span
+                            class="article__related-label">Статья</span><span class="article__related-text">Официальная
+                            методика расчёта МОН РК</span><span class="article__related-arrow">→</span></a>
+                    <a href="/perehod-na-12-letku-kazakhstan" class="article__related-card"><span
+                            class="article__related-label">Статья</span><span class="article__related-text">3–8 классы и
+                            12-летнее обучение в Казахстане — правда или фейк</span><span
+                            class="article__related-arrow">→</span></a>
                 </div>
             </div>
         </article>
         <aside class="article-sidebar">
             <div class="sidebar-widget sidebar-widget--cta">
                 <div class="sidebar-widget__title">Рассчитать онлайн</div>
-                <p class="sidebar-widget__text">Введи свои баллы за СОЧ, СОР и ФО — калькулятор мгновенно покажет итоговую оценку</p>
+                <p class="sidebar-widget__text">Введи свои баллы за СОЧ, СОР и ФО — калькулятор мгновенно покажет
+                    итоговую оценку</p>
                 <a href="/" class="btn sidebar-widget__btn">Открыть калькулятор →</a>
             </div>
             <div class="sidebar-widget">
@@ -256,7 +376,7 @@
             <div class="sidebar-widget">
                 <div class="sidebar-widget__title">Другие статьи</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-sor"  class="sidebar-nav__link">→ Как рассчитать СОР</a>
+                    <a href="/kak-rasschitat-sor" class="sidebar-nav__link">→ Как рассчитать СОР</a>
                     <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
                     <a href="/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Итоговая оценка</a>
                     <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод процентов</a>
@@ -270,19 +390,19 @@
 
 {% block extra_js %}
 <script>
-document.querySelectorAll('.faq-q').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var item = this.closest('.faq-item');
-        var isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(function(i) {
-            i.classList.remove('open');
-            i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    document.querySelectorAll('.faq-q').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var item = this.closest('.faq-item');
+            var isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(function (i) {
+                i.classList.remove('open');
+                i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+                this.setAttribute('aria-expanded', 'true');
+            }
         });
-        if (!isOpen) {
-            item.classList.add('open');
-            this.setAttribute('aria-expanded', 'true');
-        }
     });
-});
 </script>
 {% endblock %}

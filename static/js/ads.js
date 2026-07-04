@@ -9,7 +9,7 @@
         window.yaContextCb.push(function () {
             try {
                 Ya.Context.AdvManager.render({ blockId: blockId, renderTo: containerId });
-            } catch (e) {}
+            } catch (e) { }
         });
     }
 

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru" data-theme="dark">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-    (function(){var k='bilimcalc_theme',s=localStorage.getItem(k),d=window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));})();
+        (function () { var k = 'bilimcalc_theme', s = localStorage.getItem(k), d = window.matchMedia('(prefers-color-scheme: dark)').matches; document.documentElement.setAttribute('data-theme', s || (d ? 'dark' : 'light')); })();
     </script>
     {% block head_early %}{% endblock %}
     {% if noindex %}
@@ -17,79 +18,86 @@
     <meta name="language" content="ru">
     <meta http-equiv="content-language" content="ru">
     <meta name="author" content="Anton Bogdan">
+    <meta name="google-site-verification" content="{{ google_site_verification }}">
+    <meta name="yandex-verification" content="{{ yandex_verification }}">
+
+    {% set has_any_ad = ya_ad_block_id or ya_ad_block_left or ya_ad_block_right or ya_ad_article_1 or ya_ad_article_2 or
+    ya_ad_article_3 or ya_ad_sticky %}
 
     <title>{% block meta_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}</title>
-    <meta name="description" content="{% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
+    <meta name="description"
+        content="{% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть. Бесплатно и без регистрации.{% endblock %}">
 
     {% set _canonical_url %}{% block canonical %}{{ canonical_url }}{% endblock %}{% endset %}
     {% if not noindex %}
     <link rel="canonical" href="{{ _canonical_url }}">
     <link rel="alternate" hreflang="ru-KZ" href="{{ _canonical_url }}">
-    <link rel="alternate" hreflang="ru"    href="{{ _canonical_url }}">
+    <link rel="alternate" hreflang="ru" href="{{ _canonical_url }}">
     <link rel="alternate" hreflang="x-default" href="{{ _canonical_url }}">
     {% endif %}
 
     <link rel="alternate" type="application/rss+xml" title="BilimCalc — Статьи" href="{{ site_url }}/feed.xml">
 
-    <meta property="og:type"        content="{% block og_type %}website{% endblock %}">
-    <meta property="og:locale"      content="ru_RU">
-    <meta property="og:site_name"   content="BilimCalc">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="BilimCalc">
     {% set _og_title %}{% block og_title %}BilimCalc — калькулятор ФО, СОР и СОЧ{% endblock %}{% endset %}
-    {% set _og_desc %}{% block og_desc %}Быстрый расчет ФО, СОР и СОЧ. Бесплатно и без регистрации.{% endblock %}{% endset %}
-    <meta property="og:title"       content="{{ _og_title }}">
+    {% set _og_desc %}{% block og_desc %}Быстрый расчет ФО, СОР и СОЧ. Бесплатно и без регистрации.{% endblock %}{%
+    endset %}
+    <meta property="og:title" content="{{ _og_title }}">
     <meta property="og:description" content="{{ _og_desc }}">
-    <meta property="og:url"         content="{{ _canonical_url }}">
-    <meta property="og:image"       content="{% block og_image %}{{ site_url }}/static/icons/preview.png{% endblock %}">
-    <meta property="og:image:width"  content="1200">
+    <meta property="og:url" content="{{ _canonical_url }}">
+    <meta property="og:image"
+        content="{% block og_image %}{{ site_url }}/static/icons/preview.png?v={{ build_time }}{% endblock %}">
+    <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt"   content="{% block og_image_alt %}BilimCalc — калькулятор ФО, СОР и СОЧ для школ Казахстана{% endblock %}">
+    <meta property="og:image:alt"
+        content="{% block og_image_alt %}BilimCalc — калькулятор ФО, СОР и СОЧ для школ Казахстана{% endblock %}">
     {% block article_og_meta %}{% endblock %}
-    
-    <meta name="twitter:card"         content="summary_large_image">
-    <meta name="twitter:title"        content="{% block twitter_title %}{{ _og_title }}{% endblock %}">
-    <meta name="twitter:description"  content="{% block twitter_desc %}{{ _og_desc }}{% endblock %}">
-    <meta name="twitter:image"        content="{% block twitter_image %}{{ site_url }}/static/icons/preview.png{% endblock %}">
-    <meta name="twitter:image:alt"    content="{% block twitter_image_alt %}BilimCalc — калькулятор оценок{% endblock %}">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ _og_title }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_desc %}{{ _og_desc }}{% endblock %}">
+    <meta name="twitter:image"
+        content="{% block twitter_image %}{{ site_url }}/static/icons/preview.png?v={{ build_time }}{% endblock %}">
+    <meta name="twitter:image:alt" content="{% block twitter_image_alt %}BilimCalc — калькулятор оценок{% endblock %}">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png?v={{ build_time }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png?v={{ build_time }}">
+    <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png?v={{ build_time }}">
+    <link rel="manifest" href="/site.webmanifest?v={{ build_time }}">
     <meta name="theme-color" content="#0f1117">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="/static/css/pwa-banner.css?v=1.8.0">
+    <link rel="stylesheet" href="/static/css/pwa-banner.css?v={{ build_time }}">
     {% block main_stylesheets %}
-    <link rel="stylesheet" href="/static/css/style.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/article.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/page-loader.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/additions.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/ads.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/adblock.css?v=1.8.0">
-    <link rel="stylesheet" href="/static/css/mobile-compact.css?v=1.0.0">
+    <link rel="stylesheet" href="/static/css/style.css?v={{ build_time }}">
+    <link rel="stylesheet" href="/static/css/article.css?v={{ build_time }}">
+    <link rel="stylesheet" href="/static/css/page-loader.css?v={{ build_time }}">
+    <link rel="stylesheet" href="/static/css/additions.css?v={{ build_time }}">
+    <link rel="stylesheet" href="/static/css/topbar-improved.css?v={{ build_time }}">
+    <link rel="stylesheet" href="/static/css/ads.css?v={{ build_time }}">
+    <link rel="stylesheet" href="/static/css/adblock.css?v={{ build_time }}">
+    <link rel="stylesheet" href="/static/css/mobile-compact.css?v={{ build_time }}">
     {% endblock %}
     {% block extra_css %}{% endblock %}
 
-    <script src="/static/js/theme.js?v=1.8.0" defer></script>
-    <script src="/static/js/page-loader.js?v=1.8.0" defer></script>
+    <script src="/static/js/theme.js?v={{ build_time }}" defer></script>
+    <script src="/static/js/page-loader.js?v={{ build_time }}" defer></script>
 
-    {% if ya_ad_block_id or ya_ad_block_left or ya_ad_block_right or ya_ad_article_1 or ya_ad_sticky %}
+    {% if has_any_ad %}
     <script>window.yaContextCb = window.yaContextCb || [];</script>
     <script src="https://yandex.ru/ads/system/context.js" async></script>
-    {% endif %}
-
-    {% if ya_ad_article_1 or ya_ad_sticky %}
     <script>
-    window.__YA_ADS__ = {
-        article: [
-            "{{ ya_ad_article_1 }}",
-            "{{ ya_ad_article_2 }}",
-            "{{ ya_ad_article_3 }}"
-        ].filter(Boolean),
-        sticky: "{{ ya_ad_sticky }}"
-    };
+        window.__YA_ADS__ = {
+            article: [
+                "{{ ya_ad_article_1 }}",
+                "{{ ya_ad_article_2 }}",
+                "{{ ya_ad_article_3 }}"
+            ].filter(Boolean),
+            sticky: "{{ ya_ad_sticky }}"
+        };
     </script>
     {% endif %}
 
@@ -104,7 +112,7 @@
                 "url": "{{ site_url }}/",
                 "logo": {
                     "@type": "ImageObject",
-                    "url": "{{ site_url }}/static/icons/web-app-manifest-512x512.png",
+                    "url": "{{ site_url }}/static/icons/web-app-manifest-512x512.png?v={{ build_time }}",
                     "width": 512,
                     "height": 512
                 }
@@ -132,158 +140,177 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
 </head>
+
 <body>
 
-{% block topbar %}
-<div id="topbar" class="topbar--calc">
-    <a class="topbar-logo" href="/" title="BilimCalc">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
-            <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
-            <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
-            <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648"/>
-            <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/>
-        </svg>
-        <span class="topbar-logo__name">Bilim<span>Calc</span></span>
-    </a>
-
-    <div class="topbar-center">
-        <a href="/" class="topbar-mobile-brand">
-            <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648"/><path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/></svg>
-            <span class="topbar-mobile-brand__name">Bilim<span>Calc</span></span>
-        </a>
-        <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267"
-           target="_blank" rel="noopener noreferrer" class="topbar-official-link">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
+    {% block topbar %}
+    <div id="topbar" class="topbar--calc">
+        <a class="topbar-logo" href="/" title="BilimCalc">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+                <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+                <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+                <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648" />
+                <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round" />
             </svg>
-            <span>Методика МОН</span>
+            <span class="topbar-logo__name">Bilim<span>Calc</span></span>
         </a>
 
-        <a href="/articles" class="topbar-articles-btn {% block nav_articles %}{% endblock %}">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
+        <div class="topbar-center">
+            <a href="/" class="topbar-mobile-brand">
+                <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                    <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+                    <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+                    <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648" />
+                    <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round" />
+                </svg>
+                <span class="topbar-mobile-brand__name">Bilim<span>Calc</span></span>
+            </a>
+            <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267" target="_blank"
+                rel="noopener noreferrer" class="topbar-official-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                </svg>
+                <span>Методика МОН</span>
+            </a>
+
+            <a href="/articles" class="topbar-articles-btn {% block nav_articles %}{% endblock %}">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                </svg>
+                <span>Статьи</span>
+            </a>
+        </div>
+
+        <div class="topbar-right">
+            <a href="/kalkulator-ekzamena" class="topbar-exam-btn" title="BilimExam — итоговая оценка за год">
+                <span class="topbar-exam-btn__icon">🎓</span>
+                <span class="topbar-exam-btn__text">Bilim<b>Exam</b></span>
+            </a>
+            <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
+                <span id="themeIcon">☀️</span>
+            </button>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% if ya_ad_block_id %}
+    <div class="ya-ad-strip">
+        <div class="ya-ad-strip__frame">
+            <span class="ya-ad-strip__label">Реклама</span>
+            <div id="yandex_rtb_{{ ya_ad_block_id }}"></div>
+        </div>
+    </div>
+    <script>
+        window.yaContextCb.push(function () {
+            Ya.Context.AdvManager.render({
+                blockId: "{{ ya_ad_block_id }}",
+                renderTo: "yandex_rtb_{{ ya_ad_block_id }}"
+            });
+        });
+    </script>
+    {% endif %}
+
+    {% if ya_ad_block_left %}
+    <div class="ya-ad-float ya-ad-float--left" id="ya_float_left_wrap">
+        <span class="ya-ad-float__label">Реклама</span>
+        <div class="ya-ad-float__inner">
+            <div id="yandex_rtb_{{ ya_ad_block_left }}"></div>
+        </div>
+    </div>
+    <script>
+        window.yaContextCb.push(function () {
+            Ya.Context.AdvManager.render({
+                blockId: "{{ ya_ad_block_left }}",
+                renderTo: "yandex_rtb_{{ ya_ad_block_left }}"
+            });
+        });
+    </script>
+    {% endif %}
+
+    {% if ya_ad_block_right %}
+    <div class="ya-ad-float ya-ad-float--right" id="ya_float_right_wrap">
+        <span class="ya-ad-float__label">Реклама</span>
+        <div class="ya-ad-float__inner">
+            <div id="yandex_rtb_{{ ya_ad_block_right }}"></div>
+        </div>
+    </div>
+    <script>
+        window.yaContextCb.push(function () {
+            Ya.Context.AdvManager.render({
+                blockId: "{{ ya_ad_block_right }}",
+                renderTo: "yandex_rtb_{{ ya_ad_block_right }}"
+            });
+        });
+    </script>
+    {% endif %}
+
+    {% if ya_ad_sticky %}
+    <div class="ya-ad-sticky-wrap">
+        <div class="ya-ad-sticky__frame">
+            <span class="ya-ad-sticky__label">Реклама</span>
+            <div id="ya_sticky_content"></div>
+        </div>
+    </div>
+    {% endif %}
+
+    <nav id="mobile-nav" aria-label="Мобильная навигация">
+        <a href="/" class="mobile-nav__item {% block mob_home %}{% endblock %}">
+            <span class="mobile-nav__icon">🧮</span>
+            <span>BilimCalc</span>
+        </a>
+        <a href="/articles" class="mobile-nav__item {% block mob_articles %}{% endblock %}">
+            <span class="mobile-nav__icon">📚</span>
             <span>Статьи</span>
         </a>
-    </div>
-
-    <div class="topbar-right">
-        <a href="/kalkulator-ekzamena" class="topbar-exam-btn" title="BilimExam — итоговая оценка за год">
-            <span class="topbar-exam-btn__icon">🎓</span>
-            <span class="topbar-exam-btn__text">Bilim<b>Exam</b></span>
+        <a href="/kalkulator-ekzamena"
+            class="mobile-nav__item mobile-nav__item--exam {% block mob_exam %}{% endblock %}">
+            <span class="mobile-nav__icon">🎓</span>
+            <span>BilimExam</span>
         </a>
-        <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
-            <span id="themeIcon">☀️</span>
-        </button>
-    </div>
-</div>
-{% endblock %}
+    </nav>
 
-{% block content %}{% endblock %}
-
-{% if ya_ad_block_id %}
-<div class="ya-ad-strip">
-    <span class="ya-ad-strip__label">Реклама</span>
-    <div id="yandex_rtb_{{ ya_ad_block_id }}"></div>
-</div>
-<script>
-window.yaContextCb.push(function() {
-    Ya.Context.AdvManager.render({
-        blockId: "{{ ya_ad_block_id }}",
-        renderTo: "yandex_rtb_{{ ya_ad_block_id }}"
-    });
-});
-</script>
-{% endif %}
-
-{% if ya_ad_block_left %}
-<div class="ya-ad-float ya-ad-float--left" id="ya_float_left_wrap">
-    <span class="ya-ad-float__label">Реклама</span>
-    <div class="ya-ad-float__inner">
-        <div id="yandex_rtb_{{ ya_ad_block_left }}"></div>
-    </div>
-</div>
-<script>
-window.yaContextCb.push(function() {
-    Ya.Context.AdvManager.render({
-        blockId: "{{ ya_ad_block_left }}",
-        renderTo: "yandex_rtb_{{ ya_ad_block_left }}"
-    });
-});
-</script>
-{% endif %}
-
-{% if ya_ad_block_right %}
-<div class="ya-ad-float ya-ad-float--right" id="ya_float_right_wrap">
-    <span class="ya-ad-float__label">Реклама</span>
-    <div class="ya-ad-float__inner">
-        <div id="yandex_rtb_{{ ya_ad_block_right }}"></div>
-    </div>
-</div>
-<script>
-window.yaContextCb.push(function() {
-    Ya.Context.AdvManager.render({
-        blockId: "{{ ya_ad_block_right }}",
-        renderTo: "yandex_rtb_{{ ya_ad_block_right }}"
-    });
-});
-</script>
-{% endif %}
-
-{% if ya_ad_sticky %}
-<div id="ya_sticky_content"></div>
-{% endif %}
-
-<nav id="mobile-nav" aria-label="Мобильная навигация">
-    <a href="/" class="mobile-nav__item {% block mob_home %}{% endblock %}">
-        <span class="mobile-nav__icon">🧮</span>
-        <span>BilimCalc</span>
-    </a>
-    <a href="/articles" class="mobile-nav__item {% block mob_articles %}{% endblock %}">
-        <span class="mobile-nav__icon">📚</span>
-        <span>Статьи</span>
-    </a>
-    <a href="/kalkulator-ekzamena" class="mobile-nav__item mobile-nav__item--exam {% block mob_exam %}{% endblock %}">
-        <span class="mobile-nav__icon">🎓</span>
-        <span>BilimExam</span>
-    </a>
-</nav>
-
-<script>
-(function(){
-    function initUi() {
-        if (window.ThemeToggle) ThemeToggle.init();
-    }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initUi);
-    } else {
-        initUi();
-    }
-    document.addEventListener('click', function(e){
-        var target = e.target.closest('.mobile-nav__item, .btn, .topbar-official-link, .grade-btn');
-        if (!target) return;
-        var rect = target.getBoundingClientRect();
-        var ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        ripple.style.left = (e.clientX - rect.left) + 'px';
-        ripple.style.top  = (e.clientY - rect.top)  + 'px';
-        target.style.position = target.style.position || 'relative';
-        target.style.overflow = 'hidden';
-        target.appendChild(ripple);
-        ripple.addEventListener('animationend', function() { ripple.remove(); });
-    });
-})();
-</script>
-<script src="/static/js/pwa-install.js?v=1.8.0" defer></script>
-{% block extra_js %}{% endblock %}
-<script src="/static/js/ads.js?v=1.8.0" defer></script>
-<script src="/static/js/adblock-detector.js?v=1.8.0" defer></script>
-<script src="/static/js/adblock-ui.js?v=1.8.0" defer></script>
-<script src="/static/js/analytics.js?v=1.8.0" defer></script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <script>
+        (function () {
+            function initUi() {
+                if (window.ThemeToggle) ThemeToggle.init();
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initUi);
+            } else {
+                initUi();
+            }
+            document.addEventListener('click', function (e) {
+                var target = e.target.closest('.mobile-nav__item, .btn, .topbar-official-link, .grade-btn');
+                if (!target) return;
+                var rect = target.getBoundingClientRect();
+                var ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                target.style.position = target.style.position || 'relative';
+                target.style.overflow = 'hidden';
+                target.appendChild(ripple);
+                ripple.addEventListener('animationend', function () { ripple.remove(); });
+            });
+        })();
+    </script>
+    <script src="/static/js/pwa-install.js?v={{ build_time }}" defer></script>
+    {% block extra_js %}{% endblock %}
+    {% if has_any_ad %}
+    <script src="/static/js/ads.js?v={{ build_time }}" defer></script>
+    {% endif %}
+    <script src="/static/js/adblock-detector.js?v={{ build_time }}" defer></script>
+    <script src="/static/js/adblock-ui.js?v={{ build_time }}" defer></script>
+    <script src="/static/js/analytics.js?v={{ build_time }}" defer></script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
 </body>
+
 </html>

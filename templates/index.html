@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block meta_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}
-{% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть и процента успеваемости. Бесплатно и без регистрации.{% endblock %}
+{% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть и
+процента успеваемости. Бесплатно и без регистрации.{% endblock %}
 {% block og_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}
 {% block og_desc %}Быстрый расчет ФО, СОР и СОЧ. Бесплатно и без регистрации.{% endblock %}
 {% block twitter_image_alt %}BilimCalc — калькулятор оценок для школ Казахстана{% endblock %}
@@ -9,13 +10,13 @@
 {% block mob_home %}active{% endblock %}
 
 {% block main_stylesheets %}
-<link rel="stylesheet" href="/static/css/style.css?v=1.8.0">
-<link rel="stylesheet" href="/static/css/page-loader.css?v=1.8.0">
-<link rel="stylesheet" href="/static/css/additions.css?v=1.8.0">
-<link rel="stylesheet" href="/static/css/topbar-improved.css?v=1.8.0">
-<link rel="stylesheet" href="/static/css/ads.css?v=1.8.0">
-<link rel="stylesheet" href="/static/css/adblock.css?v=1.8.0">
-<link rel="stylesheet" href="/static/css/mobile-compact.css?v=1.0.0">
+<link rel="stylesheet" href="/static/css/style.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/page-loader.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/additions.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/topbar-improved.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/ads.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/adblock.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/mobile-compact.css?v={{ build_time }}">
 {% endblock %}
 
 {% block app_schema %}
@@ -31,7 +32,7 @@
     "inLanguage": "ru",
     "image": {
         "@type": "ImageObject",
-        "url": "{{ site_url }}/static/icons/preview.png",
+        "url": "{{ site_url }}/static/icons/preview.png?v={{ build_time }}",
         "width": 1200,
         "height": 630
     },
@@ -42,7 +43,8 @@
 
 {% block extra_css %}
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" as="script" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" as="script"
+    crossorigin="anonymous">
 {% endblock %}
 
 {% block schema_extra %}
@@ -88,14 +90,16 @@
 <div id="splash">
     <div class="splash-logo">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
-            <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
-            <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
-            <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648"/>
-            <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/>
+            <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+            <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+            <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648" />
+            <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round" />
         </svg>
         <div class="splash-name">Bilim<span>Calc</span></div>
     </div>
-    <div class="splash-bar-wrap"><div class="splash-bar"></div></div>
+    <div class="splash-bar-wrap">
+        <div class="splash-bar"></div>
+    </div>
 </div>
 
 <div id="offlineBanner" class="offline-banner" style="display:none">
@@ -106,10 +110,10 @@
     <div class="site-title">
         <div class="site-title__logo">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
-                <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
-                <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648"/>
-                <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648"/>
-                <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round"/>
+                <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+                <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+                <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648" />
+                <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round" />
             </svg>
             <span class="site-title__name" aria-hidden="true">Bilim<span>Calc</span></span>
         </div>
@@ -125,7 +129,8 @@
                 </div>
                 <div class="so-row">
                     <form id="addForm">
-                        <input id="soInput" type="text" inputmode="numeric" placeholder="Введите 1–10" maxlength="2" autocomplete="off">
+                        <input id="soInput" type="text" inputmode="numeric" placeholder="Введите 1–10" maxlength="2"
+                            autocomplete="off">
                         <button class="btn" type="submit">Добавить</button>
                     </form>
                 </div>
@@ -141,8 +146,10 @@
                 </div>
                 <div class="sor-row">
                     <form id="sorForm">
-                        <input id="sorDialed" type="text" inputmode="numeric" placeholder="Набрал" maxlength="2" autocomplete="off">
-                        <input id="sorMax" type="text" inputmode="numeric" placeholder="Максимум" maxlength="2" autocomplete="off">
+                        <input id="sorDialed" type="text" inputmode="numeric" placeholder="Набрал" maxlength="2"
+                            autocomplete="off">
+                        <input id="sorMax" type="text" inputmode="numeric" placeholder="Максимум" maxlength="2"
+                            autocomplete="off">
                         <button class="btn" type="submit">Добавить</button>
                     </form>
                 </div>
@@ -158,15 +165,26 @@
                 </div>
                 <div class="soch-row">
                     <div class="soch-inputs">
-                        <input id="sochDialed" type="text" inputmode="numeric" placeholder="Набрал" maxlength="2" autocomplete="off">
-                        <input id="sochMax" type="text" inputmode="numeric" placeholder="Максимум" maxlength="2" autocomplete="off">
+                        <input id="sochDialed" type="text" inputmode="numeric" placeholder="Набрал" maxlength="2"
+                            autocomplete="off">
+                        <input id="sochMax" type="text" inputmode="numeric" placeholder="Максимум" maxlength="2"
+                            autocomplete="off">
                     </div>
                 </div>
             </div>
 
             <div style="margin-top:10px">
-                <button class="btn ghost" id="resetAllBtn" style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.25);">
-                    🗑 Сбросить всё
+                <button class="btn ghost" id="resetAllBtn"
+                    style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.25);display:inline-flex;align-items:center;justify-content:center;gap:7px;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        <line x1="10" y1="11" x2="10" y2="17" />
+                        <line x1="14" y1="11" x2="14" y2="17" />
+                    </svg>
+                    Сбросить всё
                 </button>
             </div>
         </div>
@@ -175,19 +193,24 @@
             <div class="card">
                 <div class="result-header">
                     <div class="result-side result-side--left">
-                        <button id="shareBtn" class="result-action-btn share-btn" style="display:none;" title="Поделиться результатом">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                        <button id="shareBtn" class="result-action-btn share-btn" style="display:none;"
+                            title="Поделиться результатом">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="18" cy="5" r="3" />
+                                <circle cx="6" cy="12" r="3" />
+                                <circle cx="18" cy="19" r="3" />
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
                             </svg>
                         </button>
                     </div>
                     <div class="result-big" id="finalResult">—</div>
                     <div class="result-side result-side--right">
                         <button id="trendTriggerBtn" class="result-action-btn" title="AI-анализ динамики">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
                             </svg>
                         </button>
                     </div>
@@ -210,8 +233,12 @@
                                 <span id="aiAccuracy">--%</span>
                             </div>
                             <div style="display:flex;gap:10px">
-                                <div class="t-legend"><div class="t-legend-line solid"></div><span>Оценки</span></div>
-                                <div class="t-legend"><div class="t-legend-line dashed"></div><span>Тренд</span></div>
+                                <div class="t-legend">
+                                    <div class="t-legend-line solid"></div><span>Оценки</span>
+                                </div>
+                                <div class="t-legend">
+                                    <div class="t-legend-line dashed"></div><span>Тренд</span>
+                                </div>
                             </div>
                         </div>
                         <div id="trendContainer" style="height:145px">
@@ -246,7 +273,8 @@
 
     <div class="card" style="margin-top:20px">
         <h2 style="font-size:15px;font-weight:700;margin-bottom:12px">Полезные статьи</h2>
-        <p class="small" style="margin-bottom:14px;color:var(--muted)">Формулы МОН РК, примеры расчётов и перевод процентов в оценку — с пошаговыми объяснениями.</p>
+        <p class="small" style="margin-bottom:14px;color:var(--muted)">Формулы МОН РК, примеры расчётов и перевод
+            процентов в оценку — с пошаговыми объяснениями.</p>
         <div class="home-articles-list">
             <a href="/itogovaya-ocenka-za-chetvert" class="art-teaser">
                 <div class="art-teaser__icon">ИО</div>
@@ -264,15 +292,20 @@
                 <span class="art-teaser__arrow">→</span>
             </a>
         </div>
-        <a href="/articles" class="btn ghost" style="width:100%;margin-top:14px;text-decoration:none;justify-content:center;display:inline-flex;align-items:center;gap:6px">
+        <a href="/articles" class="btn ghost"
+            style="width:100%;margin-top:14px;text-decoration:none;justify-content:center;display:inline-flex;align-items:center;gap:6px">
             Все статьи →
         </a>
     </div>
 
-    <a href="/kalkulator-ekzamena" class="card bilimexam-banner" style="margin-top:20px;display:flex;align-items:center;gap:14px;text-decoration:none;padding:16px 20px;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.06);">
-        <div style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(167,139,250,0.15);border-radius:10px;font-size:20px">🎓</div>
+    <a href="/kalkulator-ekzamena" class="card bilimexam-banner"
+        style="margin-top:20px;display:flex;align-items:center;gap:14px;text-decoration:none;padding:16px 20px;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.06);">
+        <div
+            style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(167,139,250,0.15);border-radius:10px;font-size:20px">
+            🎓</div>
         <div style="flex:1;min-width:0">
-            <div class="bilimexam-banner__title" style="font-size:15px;font-weight:800;margin-bottom:2px"><span style="color:#a78bfa">Bilim</span><span style="color:#c4b5fd">Exam</span></div>
+            <div class="bilimexam-banner__title" style="font-size:15px;font-weight:800;margin-bottom:2px"><span
+                    style="color:#a78bfa">Bilim</span><span style="color:#c4b5fd">Exam</span></div>
             <div style="font-size:13px;color:var(--muted)">9 и 11 класс · Формула 70/30 · Годовая + экзамен</div>
         </div>
         <div style="color:#a78bfa;font-size:18px;flex-shrink:0;opacity:0.7">→</div>
@@ -280,8 +313,12 @@
 
     <div class="card" style="margin-top:20px">
         <h2>О проекте</h2>
-        <p class="small" style="margin-top:8px">Сервис создан для того, чтобы ученику не приходилось вручную выводить формулы и считать в обычном калькуляторе, а можно было за пару секунд узнать, какую оценку или процент нужно получить, чтобы выйти на желаемый итог по предмету.</p>
-        <p class="small" style="margin-top:7px">BilimCalc подходит для учеников 5–11 классов, а также для родителей и учителей, которые хотят наглядно оценить текущую успеваемость. Сайт работает бесплатно, без регистрации и доступен с любого устройства.</p>
+        <p class="small" style="margin-top:8px">Сервис создан для того, чтобы ученику не приходилось вручную выводить
+            формулы и считать в обычном калькуляторе, а можно было за пару секунд узнать, какую оценку или процент нужно
+            получить, чтобы выйти на желаемый итог по предмету.</p>
+        <p class="small" style="margin-top:7px">BilimCalc подходит для учеников 5–11 классов, а также для родителей и
+            учителей, которые хотят наглядно оценить текущую успеваемость. Сайт работает бесплатно, без регистрации и
+            доступен с любого устройства.</p>
         <p class="small" style="margin-top:7px">Проект открытый и учебный. Исходный код доступен на GitHub.</p>
     </div>
 
@@ -291,37 +328,68 @@
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
                     <span>Как рассчитывается итоговая оценка?</span>
-                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
                 </button>
-                <div class="faq-a"><p>Итоговая оценка рассчитывается по официальной методике МОН РК: <strong>ФО × 25% + СОР × 25% + СОЧ × 50%</strong>. Если СОЧ не было — сумма ФО и СОР умножается на 2.</p></div>
+                <div class="faq-a">
+                    <p>Итоговая оценка рассчитывается по официальной методике МОН РК: <strong>ФО × 25% + СОР × 25% + СОЧ
+                            × 50%</strong>. Если СОЧ не было — сумма ФО и СОР умножается на 2.</p>
+                </div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
                     <span>Что такое ФО, СОР и СОЧ?</span>
-                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
                 </button>
-                <div class="faq-a"><p><strong>ФО</strong> — суммативное оценивание по шкале 2–10. <strong>СОР</strong> — суммативное оценивание за раздел. <strong>СОЧ</strong> — суммативное оценивание за четверть.</p></div>
+                <div class="faq-a">
+                    <p><strong>ФО</strong> — суммативное оценивание по шкале 2–10. <strong>СОР</strong> — суммативное
+                        оценивание за раздел. <strong>СОЧ</strong> — суммативное оценивание за четверть.</p>
+                </div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
                     <span>Для каких классов подходит калькулятор?</span>
-                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
                 </button>
-                <div class="faq-a"><p>Калькулятор ФО/СОР/СОЧ подходит для учеников <strong>5–11 классов</strong>. Для расчёта итоговой годовой оценки (9 и 11 класс) используй отдельный <a href="/kalkulator-ekzamena" style="color:var(--accent)">калькулятор экзамена</a>.</p></div>
+                <div class="faq-a">
+                    <p>Калькулятор ФО/СОР/СОЧ подходит для учеников <strong>5–11 классов</strong>. Для расчёта итоговой
+                        годовой оценки (9 и 11 класс) используй отдельный <a href="/kalkulator-ekzamena"
+                            style="color:var(--accent)">калькулятор экзамена</a>.</p>
+                </div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
                     <span>Что означает AI-анализ и тренд?</span>
-                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
                 </button>
-                <div class="faq-a"><p>При добавлении 2+ оценок ФО строится график динамики. Пунктирная линия — это <strong>линейная регрессия</strong>: математический тренд, показывающий направление изменения оценок.</p></div>
+                <div class="faq-a">
+                    <p>При добавлении 2+ оценок ФО строится график динамики. Пунктирная линия — это <strong>линейная
+                            регрессия</strong>: математический тренд, показывающий направление изменения оценок.</p>
+                </div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
                     <span>Сохраняются ли введённые данные?</span>
-                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
                 </button>
-                <div class="faq-a"><p>Да. Все данные автоматически сохраняются в памяти браузера (localStorage) и восстанавливаются при следующем посещении. Данные хранятся только на вашем устройстве.</p></div>
+                <div class="faq-a">
+                    <p>Да. Все данные автоматически сохраняются в памяти браузера (localStorage) и восстанавливаются при
+                        следующем посещении. Данные хранятся только на вашем устройстве.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -334,7 +402,8 @@
                     <span id="visitorCount"></span>
                 </div>
                 <div class="ft-mid">
-                    <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener" class="ft-link">GitHub</a>
+                    <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener"
+                        class="ft-link">GitHub</a>
                     <span class="ft-sep">·</span>
                     <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank" class="ft-link">Обратная связь</a>
                 </div>
@@ -352,51 +421,50 @@
 
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
-    integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF"
-    crossorigin="anonymous"
+    integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF" crossorigin="anonymous"
     defer></script>
-<script src="/static/js/main.js?v=1.8.0" defer></script>
-<script src="/static/js/mobile-ux.js?v=1.8.0" defer></script>
-<script src="/static/js/visitor-counter.js?v=1.8.0" defer></script>
+<script src="/static/js/main.js?v={{ build_time }}" defer></script>
+<script src="/static/js/mobile-ux.js?v={{ build_time }}" defer></script>
+<script src="/static/js/visitor-counter.js?v={{ build_time }}" defer></script>
 <script>
-(function() {
-    var splash = document.getElementById('splash');
-    if (splash) setTimeout(function() { splash.classList.add('hidden'); }, 450);
+    (function () {
+        var splash = document.getElementById('splash');
+        if (splash) setTimeout(function () { splash.classList.add('hidden'); }, 450);
 
-    var items = document.querySelectorAll('.reveal');
-    if (items.length) {
-        var io = new IntersectionObserver(function(entries) {
-            entries.forEach(function(e) {
-                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        var items = document.querySelectorAll('.reveal');
+        if (items.length) {
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.08 });
+            items.forEach(function (el, i) {
+                el.style.transitionDelay = (i * 0.06) + 's';
+                io.observe(el);
             });
-        }, { threshold: 0.08 });
-        items.forEach(function(el, i) {
-            el.style.transitionDelay = (i * 0.06) + 's';
-            io.observe(el);
-        });
-    }
-
-    var el = document.getElementById('finalResult');
-    if (!el) return;
-    var busy = false;
-    function round() {
-        if (busy) return;
-        var txt = el.textContent.trim();
-        if (!txt || txt === '—') return;
-        var m = txt.match(/^([\d.]+)%$/);
-        if (!m) return;
-        var raw = parseFloat(m[1]);
-        if (isNaN(raw)) return;
-        var ceil = Math.round(raw);
-        var newTxt = ceil + '%';
-        if (newTxt !== txt) {
-            busy = true;
-            el.textContent = newTxt;
-            busy = false;
         }
-    }
-    var obs = new MutationObserver(round);
-    obs.observe(el, { childList: true, characterData: true, subtree: true });
-})();
+
+        var el = document.getElementById('finalResult');
+        if (!el) return;
+        var busy = false;
+        function round() {
+            if (busy) return;
+            var txt = el.textContent.trim();
+            if (!txt || txt === '—') return;
+            var m = txt.match(/^([\d.]+)%$/);
+            if (!m) return;
+            var raw = parseFloat(m[1]);
+            if (isNaN(raw)) return;
+            var ceil = Math.round(raw);
+            var newTxt = ceil + '%';
+            if (newTxt !== txt) {
+                busy = true;
+                el.textContent = newTxt;
+                busy = false;
+            }
+        }
+        var obs = new MutationObserver(round);
+        obs.observe(el, { childList: true, characterData: true, subtree: true });
+    })();
 </script>
 {% endblock %}

@@ -9,6 +9,9 @@ const STATIC_ASSETS = [
     "/static/css/additions.css",
     "/static/css/topbar-improved.css",
     "/static/css/mobile-compact.css",
+    "/static/css/ads.css",
+    "/static/css/adblock.css",
+    "/static/js/ads.js",
     "/static/js/main.js",
     "/static/js/theme.js",
     "/static/js/page-loader.js",
@@ -88,12 +91,12 @@ self.addEventListener("fetch", event => {
 
     if (url.pathname.startsWith("/static/")) {
         event.respondWith(
-            caches.match(url.pathname).then(cached => {
+            caches.match(event.request).then(cached => {
                 if (cached) return cached;
                 return fetch(event.request).then(response => {
                     if (response.ok) {
                         caches.open(CACHE_NAME).then(cache =>
-                            cache.put(url.pathname, response.clone())
+                            cache.put(event.request, response.clone())
                         );
                     }
                     return response;
