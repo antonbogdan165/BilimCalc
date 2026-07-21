@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://bilimcalc.vercel.app">bilimcalc.vercel.app</a>
+  <a href="https://bilimcalc.asia">bilimcalc.asia</a>
 </p>
 
 <p align="center">
@@ -152,4 +152,4 @@ bilimcalc/
 Anton Bogdan
 
 - GitHub: https://github.com/antonbogdan165
-- Website: https://bilimcalc.vercel.app
+- Website: https://bilimcalc.asia
