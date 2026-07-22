@@ -214,15 +214,6 @@ def inject_globals():
     )
 
 
-@app.before_request
-def force_non_www():
-    if request.host.startswith("www."):
-        url = SITE_URL + request.path
-        if request.query_string:
-            url += "?" + request.query_string.decode("utf-8")
-        return redirect(url, code=301)
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
