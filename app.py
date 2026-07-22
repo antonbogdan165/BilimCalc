@@ -202,8 +202,10 @@ def inject_globals():
         site_url=SITE_URL,
         build_time=BUILD_TIME,
         canonical_url=_canonical_for_path(request.path),
-        google_site_verification=os.environ.get("GOOGLE_SITE_VERIFICATION", ""),
-        yandex_verification=os.environ.get("YANDEX_VERIFICATION", ""),
+        google_site_verification=os.environ.get(
+            "GOOGLE_SITE_VERIFICATION", "kH-2Ji4B8Ht6iJMVtZw0cJftFvANk8LLFORRc4GEnxU"
+        ),
+        yandex_verification=os.environ.get("YANDEX_VERIFICATION", "f1fe256acca013a6"),
         ya_ad_block_id=os.environ.get("YA_AD_BLOCK_ID", ""),
         ya_ad_block_left=os.environ.get("YA_AD_BLOCK_LEFT", ""),
         ya_ad_block_right=os.environ.get("YA_AD_BLOCK_RIGHT", ""),
