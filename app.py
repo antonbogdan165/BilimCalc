@@ -203,7 +203,7 @@ def inject_globals():
         build_time=BUILD_TIME,
         canonical_url=_canonical_for_path(request.path),
         google_site_verification=os.environ.get(
-            "GOOGLE_SITE_VERIFICATION", "kH-2Ji4B8Ht6iJMVtZw0cJftFvANk8LLFORRc4GEnxU"
+            "GOOGLE_SITE_VERIFICATION", "0fMbzvCzXupKdMlhlgc1xPnxrAcWKTaLS_zsNe4mDJc"
         ),
         yandex_verification=os.environ.get("YANDEX_VERIFICATION", "f1fe256acca013a6"),
         ya_ad_block_id=os.environ.get("YA_AD_BLOCK_ID", ""),
