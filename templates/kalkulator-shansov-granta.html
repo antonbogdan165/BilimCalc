@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block head_early %}
+<script>window.__BRAND__ = { name: 'BilimGrant', icon: '🎯' };</script>
+{% endblock %}
+
+{% block meta_title %}Какие шансы поступить на грант? Калькулятор ЕНТ 2026 — BilimGrant{% endblock %}
+{% block meta_desc %}Узнай свои шансы поступить на бюджет (грант) по результатам ЕНТ. Калькулятор учитывает
+специальность, тип вуза и сельскую квоту. Прогноз 2026, бесплатно.{% endblock %}
+{% block og_title %}Какие у меня шансы поступить на бюджет? Калькулятор гранта ЕНТ 2026{% endblock %}
+{% block og_desc %}Оцени вероятность получения государственного гранта: выбери специальность, введи пробный балл ЕНТ —
+результат мгновенно.{% endblock %}
+{% block og_image_alt %}BilimGrant — калькулятор шансов на грант ЕНТ Казахстан{% endblock %}
+{% block twitter_title %}Калькулятор шансов на грант ЕНТ 2026 — BilimGrant{% endblock %}
+{% block twitter_desc %}Какие шансы поступить на бюджет? Введи балл ЕНТ, выбери специальность — получи прогноз.{%
+endblock %}
+
+{% block main_stylesheets %}
+<link rel="stylesheet" href="/static/css/style.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/page-loader.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/pwa-banner.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/additions.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/bilimgrant.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/topbar-improved.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/ads.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/adblock.css?v={{ build_time }}">
+<link rel="stylesheet" href="/static/css/mobile-compact.css?v={{ build_time }}">
+{% endblock %}
+
+{% block app_schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BilimGrant — калькулятор шансов на грант ЕНТ",
+    "alternateName": "Калькулятор поступления на бюджет",
+    "url": "{{ site_url }}/kalkulator-shansov-granta",
+    "description": "Онлайн-калькулятор для оценки шансов получить государственный грант по результатам ЕНТ в Казахстане. Учитывает группу образовательных программ, тип вуза и сельскую квоту.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ru",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KZT" }
+}
+</script>
+{% endblock %}
+
+{% block schema_extra %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Калькулятор шансов на грант", "item": "{{ site_url }}/kalkulator-shansov-granta" }
+    ]
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Какие шансы поступить на бюджет с баллом 70–80?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Хорошие шансы сохраняются на аграрных, ветеринарных и части непрофильных инженерных программ — там прогноз проходного всего 60–65 баллов. А вот на педагогические специальности с 70–80 баллами претендовать нельзя: порог допуска к конкурсу — 75 баллов, а прогноз проходного держится в районе 90–105. На IT, юриспруденцию или медицину с таким баллом тоже пробиться практически невозможно — проходной прогноз там 95–118 баллов."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Как работает сельская квота на грант?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "35% грантов разыгрываются среди выпускников сельских школ. Квота не добавляет баллы — конкурс идёт отдельно. Исторически проходной по квоте на 5–15 пунктов ниже общего конкурса."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Насколько точен калькулятор шансов на грант?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Калькулятор даёт ориентировочную оценку на основе пороговых баллов НЦТ и прогнозных проходных диапазонов. Реальный проходной зависит от конкуренции в конкретном году и определяется только после распределения."
+            }
+        }
+    ]
+}
+</script>
+{% endblock %}
+
+{% block topbar %}
+<div id="topbar" class="topbar--grant">
+    <a href="/kalkulator-shansov-granta" class="topbar-logo topbar-logo--grant" title="BilimGrant">
+        <span style="font-size:18px;line-height:1">🎯</span>
+        <span class="topbar-logo__name">Bilim<span>Grant</span></span>
+    </a>
+
+    <div class="topbar-center">
+        <a href="/kalkulator-shansov-granta" class="topbar-mobile-brand">
+            <span style="font-size:16px;line-height:1">🎯</span>
+            <span class="topbar-mobile-brand__name">Bilim<span style="color:#f59e0b">Grant</span></span>
+        </a>
+        <a href="/articles" class="topbar-articles-btn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="4" rx="1" />
+                <rect x="3" y="10" width="18" height="4" rx="1" />
+                <rect x="3" y="16" width="18" height="4" rx="1" />
+            </svg>
+            <span>Статьи</span>
+        </a>
+    </div>
+
+    <div class="topbar-right">
+        <a href="/" class="topbar-calc-btn" title="BilimCalc">
+            <span class="topbar-calc-btn__icon">
+                <svg viewBox="0 0 24 24" fill="none" width="13" height="13">
+                    <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+                    <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648" />
+                    <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648" />
+                    <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round" />
+                </svg>
+            </span>
+            <span class="topbar-calc-btn__text">Bilim<b>Calc</b></span>
+        </a>
+        <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
+            <span id="themeIcon">☀️</span>
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="grantSplash">
+    <div class="sp-logo" style="display:flex;align-items:center;gap:12px">
+        <div class="sp-icon">🎯</div>
+        <div class="sp-name">Bilim<span>Grant</span></div>
+    </div>
+    <div class="sp-bar-wrap"
+        style="width:130px;height:3px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden">
+        <div class="sp-bar"></div>
+    </div>
+</div>
+
+<div id="offlineBanner" class="offline-banner" style="display:none">
+    ⚠️ Нет подключения к интернету — калькулятор работает офлайн
+</div>
+
+<div class="container" style="padding-top:64px; max-width: 900px;">
+
+    <div class="grant-site-title">
+        <div class="grant-site-title__logo">
+            <div class="grant-site-title__bigicon" aria-hidden="true">🎯</div>
+            <div class="grant-site-title__brand">
+                <span class="grant-site-title__name">Bilim<span>Grant</span></span>
+            </div>
+        </div>
+        <h1 class="grant-site-title__h1">Какие у меня шансы поступить на бюджет? Калькулятор гранта ЕНТ</h1>
+        <p class="grant-site-title__sub">Оценка вероятности получения государственного гранта по пробному баллу ЕНТ ·
+            прогноз 2026</p>
+    </div>
+
+    <div class="grid" style="gap: 16px;">
+
+        <div>
+            <div class="card" style="padding: 16px;">
+                <div class="section-title" style="margin-bottom:10px;color:var(--gr);font-size: 13px;">Параметры</div>
+
+                <div class="grant-field">
+                    <label class="grant-label" for="grantMajor">Группа образовательных программ</label>
+                    <select id="grantMajor" class="grant-select">
+                        <option value="it">Информационные технологии</option>
+                        <option value="pedagogy">Педагогические науки</option>
+                        <option value="medicine">Медицина и здравоохранение</option>
+                        <option value="law">Право</option>
+                        <option value="agri">Сельское хозяйство и ветеринария</option>
+                    </select>
+                </div>
+
+                <div class="grant-field">
+                    <label class="grant-label" for="grantUniType">Тип вуза</label>
+                    <select id="grantUniType" class="grant-select">
+                        <option value="standard">Стандартный (прочие вузы, мин. 50 баллов)</option>
+                        <option value="national">Национальный вуз (мин. 65 баллов)</option>
+                    </select>
+                </div>
+
+                <div class="grant-field">
+                    <label class="grant-label" for="grantScoreSlider">Пробный балл ЕНТ</label>
+                    <div class="grant-score-row">
+                        <input type="range" id="grantScoreSlider" class="grant-slider" min="50" max="140" value="66"
+                            step="1">
+                        <input type="number" id="grantScore" class="grant-score-input" min="50" max="140" value="66">
+                    </div>
+                </div>
+
+                <div class="grant-field">
+                    <div class="grant-toggle-row">
+                        <div>
+                            <div class="grant-toggle-label">Сельская квота</div>
+                            <div class="grant-toggle-hint">35% мест — отдельный конкурс</div>
+                        </div>
+                        <label class="grant-toggle">
+                            <input type="checkbox" id="grantRural">
+                            <span class="grant-toggle__track"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:8px">
+                <button class="btn ghost" id="grantResetBtn"
+                    style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.22);padding: 8px;font-size: 13px;">
+                    🗑 Сбросить
+                </button>
+            </div>
+        </div>
+
+        <div class="grant-result-col">
+            <div class="card" style="padding: 16px;">
+                <div class="grant-gauge-wrap grant-gauge-wrap--desktop">
+                    <canvas id="grantGauge" width="260" height="140" aria-hidden="true"></canvas>
+                </div>
+                <div class="grant-prob-row" style="margin-top:6px">
+                    <div
+                        style="font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:2px">
+                        Вероятность</div>
+                    <div class="grant-prob-value" id="grantProbValue">—</div>
+                    <div class="grant-status gs-fair" id="grantStatusLabel">—</div>
+                    <div><span id="grantScoreDelta" class="grant-delta grant-delta--neutral">—</span></div>
+                </div>
+
+                <button id="grantShareBtn" class="grant-share-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3" />
+                        <circle cx="6" cy="12" r="3" />
+                        <circle cx="18" cy="19" r="3" />
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                    </svg>
+                    Поделиться результатом
+                </button>
+
+                <div class="grant-result-details">
+                    <div class="grant-info-row">
+                        <span class="grant-info-row__label">Прогноз проходного</span>
+                        <span class="grant-info-row__val" id="grantPassRange">—</span>
+                    </div>
+                    <div class="grant-info-row">
+                        <span class="grant-info-row__label">Пороги</span>
+                        <span class="grant-info-row__val" id="grantThresholdInfo" style="font-size:11.5px">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card" style="margin-top:12px; padding: 16px;">
+        <h2 style="color:var(--gr);font-size:13px;font-weight:700;margin-bottom:6px">Как считается вероятность</h2>
+        <p class="small" style="font-size:12px;line-height:1.5;">
+            Калькулятор сравнивает ваш пробный балл с <strong>прогнозным диапазоном проходного</strong> по выбранной
+            группе программ.
+            Данные основаны на пороговых баллах НЦТ и статистике прошлых лет. Сельская квота учитывается как отдельный
+            конкурс с более низким прогнозом (на 8–12 баллов).
+        </p>
+        <p class="small" style="margin-top:4px;font-size:12px;line-height:1.5;">
+            Если балл ниже порога участия или минимума для типа вуза — шансы равны нулю: система не допустит к конкурсу.
+        </p>
+        <a href="/porogovye-bally-granta-ent" class="art-teaser" style="margin-top:8px;padding:10px">
+            <div class="art-teaser__icon"
+                style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.25);width:32px;height:32px;font-size:11px">
+                ЕНТ</div>
+            <span class="art-teaser__title" style="font-size:12.5px">Проходные баллы гранта ЕНТ 2026 — таблица,
+                алгоритм, нововведения</span>
+            <span class="art-teaser__arrow">→</span>
+        </a>
+        <a href="/kombinacii-profilnyh-predmetov-ent" class="art-teaser" style="margin-top:8px;padding:10px">
+            <div class="art-teaser__icon"
+                style="background:rgba(245,158,11,0.12);color:#f59e0b;border-color:rgba(245,158,11,0.25);width:32px;height:32px;font-size:11px">
+                ЕНТ</div>
+            <span class="art-teaser__title" style="font-size:12.5px">Комбинации профильных предметов ЕНТ</span>
+            <span class="art-teaser__arrow">→</span>
+        </a>
+    </div>
+
+    <footer>
+        <div class="ft-inner">
+            <div class="ft-bottom">
+                <div class="ft-badge" id="visitorBadge">
+                    <span class="ft-badge-dot"></span>
+                    <span id="visitorCount"></span>
+                </div>
+                <div class="ft-mid">
+                    <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener"
+                        class="ft-link">GitHub</a>
+                    <span class="ft-sep">·</span>
+                    <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank" class="ft-link">Обратная связь</a>
+                </div>
+                <div class="ft-right">
+                    <span class="ft-copy">© <span id="yearGrant"></span> BilimGrant</span>
+                    <span class="ft-version">v1.8.1</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/visitor-counter.js?v={{ build_time }}" defer></script>
+<script src="/static/js/bilimgrant.js?v={{ build_time }}" defer></script>
+{% endblock %}

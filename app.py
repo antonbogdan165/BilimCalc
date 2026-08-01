@@ -93,6 +93,9 @@ ARTICLE_ROUTES = {
     "/kak-perevesti-procenty-v-otsenku": "kak-perevesti-procenty-v-otsenku.html",
     "/articles": "articles.html",
     "/perehod-na-12-letku-kazakhstan": "perehod-na-12-letku-kazakhstan.html",
+    "/porogovye-bally-granta-ent": "porogovye-bally-granta-ent.html",
+    "/kombinacii-profilnyh-predmetov-ent": "kombinacii-profilnyh-predmetov-ent.html",
+    "/kalkulator-shansov-granta": "kalkulator-shansov-granta.html",
     "/disable-adblock": "disable-adblock.html",
 }
 
@@ -105,10 +108,13 @@ CALC_REDIRECTS = {
 
 NOINDEX_ROUTES = {"/disable-adblock"}
 
-SITEMAP_LASTMOD = "2026-07-04"
+SITEMAP_LASTMOD = "2026-07-31"
 
 _SITEMAP_PATHS = [
     ("/", "weekly", "1.0"),
+    ("/kalkulator-shansov-granta", "monthly", "0.95"),
+    ("/porogovye-bally-granta-ent", "monthly", "0.9"),
+    ("/kombinacii-profilnyh-predmetov-ent", "monthly", "0.85"),
     ("/kalkulator-ekzamena", "monthly", "0.9"),
     ("/kak-rasschitat-itogovuyu-otsenku-za-god", "monthly", "0.9"),
     ("/itogovaya-ocenka-za-chetvert", "monthly", "0.85"),
@@ -142,9 +148,26 @@ SITEMAP_IMAGES = [
         "image": SITE_URL + "/static/icons/preview.png",
         "title": "BilimExam — итоговая оценка за год",
     },
+    {
+        "loc": SITE_URL + "/kalkulator-shansov-granta",
+        "image": SITE_URL + "/static/icons/preview.png",
+        "title": "BilimGrant — калькулятор шансов на грант ЕНТ",
+    },
 ]
 
 RSS_ARTICLES = [
+    {
+        "title": "Комбинации профильных предметов ЕНТ: как выбрать специальность",
+        "link": _abs_url("/kombinacii-profilnyh-predmetov-ent"),
+        "desc": "Все 12 комбинаций профильных предметов ЕНТ 2026 и специальности, которые они открывают. Таблица, главное правило выбора и частые ошибки.",
+        "date": "Sat, 01 Aug 2026 10:00:00 +0500",
+    },
+    {
+        "title": "Проходные баллы гранта ЕНТ 2026 — таблица и алгоритм",
+        "link": _abs_url("/porogovye-bally-granta-ent"),
+        "desc": "Пороговые и проходные баллы гранта ЕНТ: IT, медицина, право. Алгоритм распределения, сельская квота, нововведения 2026.",
+        "date": "Fri, 31 Jul 2026 10:00:00 +0500",
+    },
     {
         "title": "Итоговая оценка за год: формула 70/30",
         "link": _abs_url("/kak-rasschitat-itogovuyu-otsenku-za-god"),

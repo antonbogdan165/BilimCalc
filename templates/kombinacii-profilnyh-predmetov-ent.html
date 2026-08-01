@@ -1,0 +1,447 @@
+{% extends "base.html" %}
+
+{% block meta_title %}Комбинации профильных предметов ЕНТ 2026 — как выбрать специальность | BilimCalc{% endblock %}
+{% block meta_desc %}Все 12 комбинаций профильных предметов ЕНТ 2026 и специальности, которые они открывают: IT,
+медицина, право, педагогика. Таблица, главное правило выбора и частые ошибки абитуриентов.{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}Комбинации профильных предметов ЕНТ: как выбрать специальность{% endblock %}
+{% block og_desc %}Таблица «предмет → специальности», главное правило выбора пары и частые ошибки абитуриентов при
+подаче на ЕНТ 2026.{% endblock %}
+{% block nav_articles %}active{% endblock %}
+{% block mob_articles %}active{% endblock %}
+
+{% block schema_extra %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Комбинации профильных предметов ЕНТ: как выбрать специальность",
+    "description": "Все 12 комбинаций профильных предметов ЕНТ 2026, специальности по каждой паре, главное правило выбора и частые ошибки абитуриентов",
+    "url": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent",
+    "datePublished": "2026-08-01",
+    "dateModified": "2026-08-01",
+    "image": "{{ site_url }}/static/icons/preview.png?v={{ build_time }}",
+    "inLanguage": "ru",
+    "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
+    "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent" }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "Комбинации профильных предметов ЕНТ", "item": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent" }
+    ]
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Можно ли одной парой предметов поступить сразу на несколько разных специальностей?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Да, и это скорее правило, чем исключение. Каждая пара профильных предметов открывает доступ не к одной специальности, а к целой группе образовательных программ — иногда из 10–20 и более направлений. Например, «математика — физика» одновременно ведёт и в инженерию, и в энергетику, и в IT, и в учителя физики." }
+        },
+        {
+            "@type": "Question",
+            "name": "Что делать, если нужная специальность формально относится к паре, которая плохо даётся?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Сначала проверить, нет ли этой же специальности в другой паре — иногда смежные направления пересекаются. Если пересечения нет, стоит честно оценить время на подготовку: профильный предмет весит существенно больше обязательных — 40 заданий и 50 баллов на каждый." }
+        },
+        {
+            "@type": "Question",
+            "name": "Творческий экзамен — это то же самое, что профильный предмет?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Формально да: он занимает место профильной пары для творческих, части педагогических и медицинских специальностей. Разница в форме — это не тестовые задания, а практическое или ситуационное испытание, например решение педагогической ситуации или психометрический экзамен." }
+        },
+        {
+            "@type": "Question",
+            "name": "Если ещё не определился со специальностью, какую пару выбрать с запасом?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Пары с точными науками — математика-физика, математика-информатика — и биология-химия традиционно открывают наибольшее число направлений с высоким конкурсом на гранты. Но это работает только при реальной подготовке по этим предметам, иначе низкий балл сократит шансы сильнее, чем более узкая, но освоенная пара." }
+        }
+    ]
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .article ul {
+        margin: 12px 0 16px 0;
+        padding-left: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .article ul li {
+        font-size: 15px;
+        line-height: 1.75;
+        color: #b0bec8;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .article ul li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        color: #f59e0b;
+        font-weight: 700;
+        opacity: 0.6;
+    }
+
+    .article ul li strong {
+        color: #e6edf3;
+    }
+
+    .article__note {
+        padding: 12px 14px;
+        background: rgba(245, 158, 11, 0.07);
+        border: 1px solid rgba(245, 158, 11, 0.18);
+        border-radius: 10px;
+        font-size: 14px;
+        color: #b0bec8;
+        line-height: 1.65;
+        margin: 16px 0;
+    }
+
+    .article__note strong {
+        color: #f59e0b;
+    }
+
+    .article__note--warning {
+        background: rgba(218, 54, 51, 0.07);
+        border-color: rgba(218, 54, 51, 0.22);
+    }
+
+    .article__note--warning strong {
+        color: #ff7070;
+    }
+
+    [data-theme="light"] .article ul li {
+        color: #475569;
+    }
+
+    [data-theme="light"] .article ul li strong {
+        color: #0f172a;
+    }
+
+    [data-theme="light"] .article__note {
+        background: rgba(245, 158, 11, 0.06);
+        color: #475569;
+    }
+
+    [data-theme="light"] .article__note--warning {
+        background: rgba(220, 38, 38, 0.05);
+        border-color: rgba(220, 38, 38, 0.2);
+    }
+
+    [data-theme="light"] .article__note--warning strong {
+        color: #dc2626;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="article-wrap">
+    <nav class="breadcrumb" aria-label="Хлебные крошки">
+        <a href="/">Главная</a>
+        <span class="breadcrumb__sep" aria-hidden="true">›</span>
+        <a href="/articles">Статьи</a>
+        <span class="breadcrumb__sep" aria-hidden="true">›</span>
+        <span aria-current="page">Комбинации профильных предметов ЕНТ</span>
+    </nav>
+    <div class="article-layout">
+        <article class="article" itemscope itemtype="https://schema.org/Article">
+            <h1 class="article__title" itemprop="headline">
+                Комбинации профильных предметов ЕНТ: как выбрать специальность
+            </h1>
+            <div class="article__meta">
+                <time datetime="2026-08-01" itemprop="dateModified">Август 2026</time>
+                <span class="article__meta-sep">·</span>
+                <span>9 мин чтения</span>
+                <span class="article__meta-sep">·</span>
+                <span>Абитуриенту · ЕНТ 2026</span>
+            </div>
+
+            <a href="/porogovye-bally-granta-ent" class="mobile-cta">
+                <div class="mobile-cta__icon">🎯</div>
+                <div class="mobile-cta__body">
+                    <div class="mobile-cta__label">Читайте также</div>
+                    <div class="mobile-cta__title">Проходные баллы гранта ЕНТ 2026</div>
+                </div>
+                <span class="mobile-cta__arrow">→</span>
+            </a>
+
+            <p class="article__lead">
+                Каждый год в апреле–мае десятки тысяч выпускников садятся за бланк ЕНТ, толком не осознавая, что
+                решение о будущей профессии они на самом деле принимают на несколько месяцев раньше — в момент
+                выбора пары профильных предметов. Формат экзамена в 2026 году не изменился: три обязательных предмета
+                и два профильных, всего 120 заданий за четыре часа, максимум 140 баллов. Но именно профильная пара
+                работает как ключ: она открывает доступ к одним группам специальностей и наглухо закрывает другие.
+            </p>
+
+            <div class="article__note">
+                <strong>Коротко:</strong> в 2026 году действует 12 предметных пар плюс отдельно вынесенный творческий
+                экзамен. Самая популярная связка — «математика — физика» (18–19% участников), на втором месте
+                «биология — химия» (14,5–16,6%), на третьем — творческий экзамен (около 12,4%). Комбинацию нельзя
+                поменять между первой и второй попыткой сдачи в один год.
+            </div>
+
+            <h2>Как это работает</h2>
+            <p>
+                Каждая пара закреплена за определённым перечнем групп образовательных программ — широких
+                направлений, внутри которых уже находятся конкретные специальности вуза. Рост популярности связки
+                «математика — физика» отражает растущий спрос на инженерно-технические и IT-направления: будущие
+                инженеры, механики, энергетики, строители, технологи, специалисты машиностроения. Пара
+                «биология — химия» традиционно ориентирована на медицину, фармацевтику и биотехнологии, а творческий
+                экзамен закрывает искусство, дизайн, архитектуру и часть педагогических специальностей.
+            </p>
+
+            <h2>Таблица: профильные предметы → доступные группы специальностей</h2>
+            <div class="article__example">
+                <table class="article__table">
+                    <thead>
+                        <tr>
+                            <th>Профильная пара</th>
+                            <th>Куда ведёт (примеры направлений)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Математика — Физика</td>
+                            <td>Инженерия, IT, энергетика, механика, транспорт, строительство, металлургия,
+                                материаловедение, учителя математики и физики</td>
+                        </tr>
+                        <tr>
+                            <td>Математика — Информатика</td>
+                            <td>Информационные технологии, информационная безопасность, криптология, учителя
+                                информатики</td>
+                        </tr>
+                        <tr>
+                            <td>Математика — География</td>
+                            <td>Экономика, финансы, менеджмент, маркетинг, аудит, социология, науки о земле</td>
+                        </tr>
+                        <tr>
+                            <td>Биология — Химия</td>
+                            <td>Медицина, стоматология, педиатрия, фармация, сестринское дело, ветеринария,
+                                общественное здоровье</td>
+                        </tr>
+                        <tr>
+                            <td>Химия — Биология</td>
+                            <td>Химия, учителя химии и биологии, технология фармацевтического производства</td>
+                        </tr>
+                        <tr>
+                            <td>Химия — Физика</td>
+                            <td>Химическая инженерия и процессы</td>
+                        </tr>
+                        <tr>
+                            <td>Биология — География</td>
+                            <td>Педагогика и психология, дошкольное и начальное обучение, экология, лесное хозяйство,
+                                социальная работа</td>
+                        </tr>
+                        <tr>
+                            <td>Всемирная история — География</td>
+                            <td>История, философия, археология, учителя географии и гуманитарных предметов</td>
+                        </tr>
+                        <tr>
+                            <td>Всемирная история — Основы права</td>
+                            <td>Право, правоохранительная деятельность</td>
+                        </tr>
+                        <tr>
+                            <td>География — Иностранный язык</td>
+                            <td>Туризм, гостинично-ресторанный бизнес, международные экономические отношения</td>
+                        </tr>
+                        <tr>
+                            <td>Иностранный язык — Всемирная история</td>
+                            <td>Международные отношения, переводческое дело, востоковедение, политология,
+                                культурология, учителя иностранного языка</td>
+                        </tr>
+                        <tr>
+                            <td>Каз./рус. язык — литература</td>
+                            <td>Филология, библиотечное дело, учителя языка и литературы</td>
+                        </tr>
+                        <tr class="article__table-result">
+                            <td><strong>Творческий экзамен</strong></td>
+                            <td><strong>Искусство, дизайн, музыка, режиссура, архитектура, журналистика, спорт,
+                                    теология</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="article__note">
+                <strong>На заметку:</strong> список специальностей внутри каждой пары ежегодно обновляется — в
+                последние годы появились такие направления, как железнодорожный транспорт и технологии, магистральные
+                сети и инфраструктура, криптология, инжиниринг материалов и государственный аудит. Актуальный перечень
+                публикуется на портале «Әділет».
+            </div>
+
+            <h2>Внимание: главное правило выбора</h2>
+            <div class="article__note article__note--warning">
+                <strong>⚠️ Комбинацию профильных предметов нельзя поменять между первой и второй попыткой сдачи ЕНТ в
+                    один год</strong> — она выбирается один раз при подаче заявления. Если «на всякий случай» взять
+                пару попроще, а через месяц передумать и решить поступать на специальность из другого списка,
+                пересдать с другой парой предметов в эту же кампанию уже не получится.
+            </div>
+            <p>
+                Самая частая ошибка абитуриентов — выбор пары <strong>«от предмета», а не «от специальности»</strong>.
+                Сначала стоит определить 2–3 специальности-кандидата, посмотреть, к какой паре они относятся, и
+                только потом сравнивать, где выше шансы набрать балл. Пара «легче сдать» не должна перевешивать пару
+                «ведёт туда, куда нужно» — иначе есть риск отлично сдать экзамен и обнаружить, что подать документы
+                некуда.
+            </p>
+
+            <h2>Часто задаваемые вопросы</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Можно ли одной парой предметов поступить сразу на несколько разных специальностей?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Да, и это скорее правило, чем исключение. Каждая пара профильных предметов открывает
+                            доступ не к одной специальности, а к целой группе образовательных программ — иногда из
+                            10–20 и более направлений. Например, «математика — физика» одновременно ведёт и в
+                            инженерию, и в энергетику, и в IT, и в учителя физики. Поэтому даже если окончательное
+                            решение о специальности ещё не созрело, разумно выбирать пару, которая оставляет максимум
+                            вариантов внутри интересующей сферы.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Что делать, если нужная специальность формально относится к паре, которая плохо
+                            даётся?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Проверить, нет ли этой же специальности (или близкой по смыслу) в другой паре — иногда
+                            смежные направления пересекаются. Если пересечения нет, придётся честно оценить, сколько
+                            времени есть на подготовку: профильный предмет весит существенно больше, чем обязательные
+                            (по 40 заданий и 50 баллов на каждый), поэтому налегать на подготовку по нужной, а не по
+                            удобной паре, почти всегда окупается сильнее.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Творческий экзамен — это то же самое, что профильный предмет?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Формально да, он занимает место профильной пары для специальностей творческого и части
+                            педагогических и медицинских направлений. Разница в форме проведения: это не тестовые
+                            задания, а практическое или ситуационное испытание — например, решение педагогической
+                            ситуации для будущих учителей или психометрический экзамен для медицинских специальностей.
+                            Точный формат для конкретной специальности стоит уточнять заранее, а не в день экзамена.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Если я вообще не определился со специальностью, какую пару выбрать «с запасом»?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Универсального ответа нет, но есть логика: пары с точными науками (математика — физика,
+                            математика — информатика) и пара биология — химия традиционно открывают наибольшее число
+                            направлений с высоким конкурсом на гранты, поэтому часто выбираются «с запасом» даже теми,
+                            кто ещё не определился окончательно. Но это работает только если у абитуриента реально
+                            есть база по этим предметам — пара, взятая наугад без подготовки, обычно приводит к
+                            низкому баллу и сокращает шансы куда сильнее, чем более узкая, но освоенная связка
+                            предметов.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article__related">
+                <div class="article__related-title">Читайте также</div>
+                <div class="article__related-links">
+                    <a href="/porogovye-bally-granta-ent" class="article__related-card">
+                        <span class="article__related-label">Статья</span>
+                        <span class="article__related-text">Проходные баллы гранта ЕНТ 2026 — таблица и сроки
+                            подачи</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                    <a href="/kalkulator-shansov-granta" class="article__related-card">
+                        <span class="article__related-label">Калькулятор</span>
+                        <span class="article__related-text">Какие шансы на грант? Калькулятор BilimGrant</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                    <a href="/metodika-rascheta-mon-rk" class="article__related-card">
+                        <span class="article__related-label">Статья</span>
+                        <span class="article__related-text">Методика расчёта оценок МОН РК</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <aside class="article-sidebar">
+            <div class="sidebar-widget sidebar-widget--cta">
+                <div class="sidebar-widget__title">🎯 Калькулятор шансов</div>
+                <p class="sidebar-widget__text">Введи пробный балл ЕНТ — узнай ориентировочную вероятность получения
+                    гранта по выбранной специальности</p>
+                <a href="/kalkulator-shansov-granta" class="btn sidebar-widget__btn"
+                    style="background:#f59e0b;border-color:#f59e0b">Открыть BilimGrant →</a>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">Топ-пары ЕНТ 2026</div>
+                <div class="sidebar-widget__formula" style="color:#f59e0b">Матем.-Физика — 18–19%</div>
+                <div class="sidebar-widget__note">Биология-Химия — 14,5–16,6% · Творческий экзамен — 12,4%</div>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">Правило выбора</div>
+                <div class="sidebar-widget__formula">1 пара = 1 год</div>
+                <div class="sidebar-widget__note">Сменить комбинацию между попытками нельзя</div>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">Другие статьи</div>
+                <nav class="sidebar-nav">
+                    <a href="/porogovye-bally-granta-ent" class="sidebar-nav__link">→ Проходные баллы гранта ЕНТ</a>
+                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Как перевести проценты в
+                        оценку?</a>
+                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ Итоговая оценка за
+                        год (70/30)</a>
+                </nav>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.querySelectorAll('.faq-q').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var item = this.closest('.faq-item');
+            var isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(function (i) {
+                i.classList.remove('open');
+                i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -6,6 +6,7 @@ const STATIC_ASSETS = [
     "/static/css/page-loader.css",
     "/static/css/pwa-banner.css",
     "/static/css/bilimexam.css",
+    "/static/css/bilimgrant.css",
     "/static/css/additions.css",
     "/static/css/topbar-improved.css",
     "/static/css/mobile-compact.css",
@@ -17,6 +18,7 @@ const STATIC_ASSETS = [
     "/static/js/page-loader.js",
     "/static/js/pwa-install.js",
     "/static/js/bilimexam.js",
+    "/static/js/bilimgrant.js",
     "/static/js/visitor-counter.js",
     "/static/js/mobile-ux.js",
     "/site.webmanifest",
@@ -34,6 +36,9 @@ const HTML_PAGES = [
     "/itogovaya-ocenka-za-chetvert",
     "/metodika-rascheta-mon-rk",
     "/kalkulator-ekzamena",
+    "/kalkulator-shansov-granta",
+    "/porogovye-bally-granta-ent",
+    "/kombinacii-profilnyh-predmetov-ent",
     "/kak-rasschitat-itogovuyu-otsenku-za-god",
     "/kak-perevesti-procenty-v-otsenku",
     "/perehod-na-12-letku-kazakhstan",
@@ -54,7 +59,7 @@ self.addEventListener("install", event => {
                     )
                 ),
                 ...CDN_ASSETS.map(url =>
-                    fetch(url).then(r => { if (r.ok) cache.put(url, r); }).catch(() => {})
+                    fetch(url).then(r => { if (r.ok) cache.put(url, r); }).catch(() => { })
                 ),
             ])
         ).then(() => self.skipWaiting())

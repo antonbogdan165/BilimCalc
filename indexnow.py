@@ -17,6 +17,9 @@ URLS = [
     f"{SITE_URL}/kak-rasschitat-itogovuyu-otsenku-za-god",
     f"{SITE_URL}/kak-perevesti-procenty-v-otsenku",
     f"{SITE_URL}/perehod-na-12-letku-kazakhstan",
+    f"{SITE_URL}/porogovye-bally-granta-ent",
+    f"{SITE_URL}/kombinacii-profilnyh-predmetov-ent",
+    f"{SITE_URL}/kalkulator-shansov-granta",
 ]
 
 KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")

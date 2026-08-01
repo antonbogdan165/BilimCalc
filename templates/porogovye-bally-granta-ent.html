@@ -1,0 +1,467 @@
+{% extends "base.html" %}
+
+{% block meta_title %}Проходные баллы гранта ЕНТ 2026 — таблица, сроки подачи, вакантные гранты | BilimCalc{% endblock
+%}
+{% block meta_desc %}Пороговые и проходные баллы гранта ЕНТ 2026: IT, медицина, право, педагогика. Сроки подачи
+заявления, алгоритм распределения мест, что делать, если не хватило баллов. Калькулятор шансов.{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}Проходные баллы ЕНТ на грант 2026 — как оценить свои шансы{% endblock %}
+{% block og_desc %}Актуальные пороговые цифры, сроки подачи заявления и что делать, если баллов не хватило.
+Таблица по группам программ.{% endblock %}
+{% block nav_articles %}active{% endblock %}
+{% block mob_articles %}active{% endblock %}
+
+{% block schema_extra %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Проходные баллы ЕНТ на грант и как оценить свои шансы — 2026",
+    "description": "Пороговые баллы НЦТ, прогноз проходных на грант по группам программ, сроки подачи заявления и что делать, если баллов не хватило",
+    "url": "{{ site_url }}/porogovye-bally-granta-ent",
+    "datePublished": "2026-07-31",
+    "dateModified": "2026-08-01",
+    "image": "{{ site_url }}/static/icons/preview.png?v={{ build_time }}",
+    "inLanguage": "ru",
+    "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
+    "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/porogovye-bally-granta-ent" }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "Проходные баллы гранта ЕНТ", "item": "{{ site_url }}/porogovye-bally-granta-ent" }
+    ]
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Можно ли получить грант со средними баллами 70–80?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Хорошие шансы сохраняются на аграрных, ветеринарных и части непрофильных инженерных программ — прогноз проходного там всего 60–65 баллов. На педагогические специальности с таким баллом претендовать нельзя: порог допуска — 75 баллов, а прогноз проходного держится в районе 90–105. На IT, юриспруденцию или медицину пробиться с 70–80 баллами тоже практически невозможно." }
+        },
+        {
+            "@type": "Question",
+            "name": "Как работает сельская квота на грант?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Сельская квота не добавляет баллы к результату. 35% грантов разыгрываются исключительно среди выпускников сельских школ. Исторически проходной балл по квоте на 5–15 пунктов ниже общего конкурса." }
+        },
+        {
+            "@type": "Question",
+            "name": "Имеет ли значение порядок вузов в заявке?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Для факта получения гранта — нет. Бюджет выделяется на образовательную программу. Однако порядок критичен для зачисления: система направит в первый вуз из списка, куда вы проходите по баллам." }
+        },
+        {
+            "@type": "Question",
+            "name": "Какой минимальный балл для поступления в национальный вуз?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Абсолютный минимум для национальных университетов — 65 баллов. Для остальных вузов достаточно 50 баллов, но это не гарантирует грант — реальный проходной зависит от конкуренции." }
+        },
+        {
+            "@type": "Question",
+            "name": "Можно ли получить грант, уже учась платно?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Да. Гранты, которые освобождаются в процессе учёбы (отчисление, академотпуск, отказ обладателя), передаются на конкурсной основе студентам той же группы программ, обучающимся платно — по результатам их ЕНТ или комплексного тестирования." }
+        },
+        {
+            "@type": "Question",
+            "name": "Как быстро оценить свои шансы на грант?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Воспользуйтесь калькулятором шансов BilimGrant — введите пробный балл ЕНТ, выберите специальность и тип вуза. Калькулятор сравнит ваш результат с прогнозным проходным диапазоном и покажет ориентировочную вероятность." }
+        }
+    ]
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .article ul {
+        margin: 12px 0 16px 0;
+        padding-left: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .article ul li {
+        font-size: 15px;
+        line-height: 1.75;
+        color: #b0bec8;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .article ul li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        color: #f59e0b;
+        font-weight: 700;
+        opacity: 0.6;
+    }
+
+    .article ul li strong {
+        color: #e6edf3;
+    }
+
+    .article__note {
+        padding: 12px 14px;
+        background: rgba(245, 158, 11, 0.07);
+        border: 1px solid rgba(245, 158, 11, 0.18);
+        border-radius: 10px;
+        font-size: 14px;
+        color: #b0bec8;
+        line-height: 1.65;
+        margin: 16px 0;
+    }
+
+    .article__note strong {
+        color: #f59e0b;
+    }
+
+    [data-theme="light"] .article ul li {
+        color: #475569;
+    }
+
+    [data-theme="light"] .article ul li strong {
+        color: #0f172a;
+    }
+
+    [data-theme="light"] .article__note {
+        background: rgba(245, 158, 11, 0.06);
+        color: #475569;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="article-wrap">
+    <nav class="breadcrumb" aria-label="Хлебные крошки">
+        <a href="/">Главная</a>
+        <span class="breadcrumb__sep" aria-hidden="true">›</span>
+        <a href="/articles">Статьи</a>
+        <span class="breadcrumb__sep" aria-hidden="true">›</span>
+        <span aria-current="page">Проходные баллы гранта ЕНТ</span>
+    </nav>
+    <div class="article-layout">
+        <article class="article" itemscope itemtype="https://schema.org/Article">
+            <h1 class="article__title" itemprop="headline">
+                Проходные баллы ЕНТ на грант и как оценить свои шансы
+            </h1>
+            <div class="article__meta">
+                <time datetime="2026-08-01" itemprop="dateModified">Август 2026</time>
+                <span class="article__meta-sep">·</span>
+                <span>12 мин чтения</span>
+            </div>
+
+            <a href="/kalkulator-shansov-granta" class="mobile-cta">
+                <div class="mobile-cta__icon">🎯</div>
+                <div class="mobile-cta__body">
+                    <div class="mobile-cta__label">Калькулятор</div>
+                    <div class="mobile-cta__title">Какие шансы на грант?</div>
+                </div>
+                <span class="mobile-cta__arrow">→</span>
+            </a>
+
+            <p class="article__lead">
+                Каждый год тысячи абитуриентов подают документы на грант и получают отказ не потому, что не хватило
+                баллов — а потому, что не разобрались в правилах. Порог участия — это ещё не проходной балл, конкурс
+                идёт отдельно по каждой группе программ, а заявление принимают всего неделю в году. Разбираем
+                актуальные цифры 2026 года, сроки подачи и что делать, если баллов всё же не хватило.
+            </p>
+
+            <div class="article__note">
+                <strong>Коротко:</strong> заявление на грант принимают 13–20 июля 2026 через eGov или приёмную
+                комиссию вуза — можно указать до 4 комбинаций «вуз + специальность». Порог участия — от 50 до 75
+                баллов в зависимости от направления, но это не проходной: реальный конкурс обычно на 10–40 баллов
+                выше порога.
+            </div>
+
+            <h2>Ориентировочные баллы по группам образовательных программ</h2>
+            <p>
+                Национальный центр тестирования (НЦТ) устанавливает <strong>жёсткие пороговые баллы</strong> — минимум,
+                без которого система не допустит вас к конкурсу на грант. Реальный же проходной балл зависит
+                <strong>исключительно от конкуренции</strong> в текущем году.
+            </p>
+
+            <div class="article__example">
+                <table class="article__table">
+                    <thead>
+                        <tr>
+                            <th>Группа образовательных программ</th>
+                            <th>Порог участия</th>
+                            <th>Прогноз проходного на грант</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Информационные технологии</td>
+                            <td><strong>50</strong></td>
+                            <td>95 – 105</td>
+                        </tr>
+                        <tr>
+                            <td>Педагогические науки</td>
+                            <td><strong>75</strong></td>
+                            <td>90 – 105</td>
+                        </tr>
+                        <tr>
+                            <td>Медицина и здравоохранение</td>
+                            <td><strong>70</strong></td>
+                            <td>105 – 115</td>
+                        </tr>
+                        <tr>
+                            <td>Право</td>
+                            <td><strong>75</strong></td>
+                            <td>110 – 118</td>
+                        </tr>
+                        <tr>
+                            <td>Сельское хозяйство и ветеринария</td>
+                            <td><strong>50</strong></td>
+                            <td>60 – 65</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="article__note">
+                <strong>На заметку:</strong> если вы целитесь в национальные университеты, абсолютный минимум —
+                <strong>65 баллов</strong>.
+                Для остальных вузов достаточно <strong>50</strong>, но это лишь допуск к конкурсу, а не гарантия гранта.
+            </div>
+
+            <p>
+                Есть ещё один порог, о котором часто забывают: он действует <strong>по каждому предмету
+                    отдельно</strong>,
+                а не только по сумме баллов. По истории Казахстана, профильным предметам и творческому экзамену нужно
+                набрать <strong>не менее 5 баллов</strong>, а по грамотности чтения и математической грамотности —
+                <strong>не менее 3 баллов</strong>. Если провалить хотя бы один из этих минимумов, к конкурсу на грант
+                не допустят — даже при высоком общем результате.
+            </p>
+
+            <h2>Алгоритм распределения грантов</h2>
+            <p>Гранты распределяет <strong>автоматизированная система</strong>. Вуз не решает, кого брать на бюджет.</p>
+            <ul>
+                <li><strong>Ранжирование.</strong> Все заявки на конкретную группу программ выстраиваются в единый
+                    список от 140 до 50 баллов.</li>
+                <li><strong>Учёт квот.</strong> Из общего объёма мест вычитаются доли для льготных категорий (сельская
+                    квота — 35%, многодетные, сироты). Выпускники с квотой конкурируют только между собой.</li>
+                <li><strong>Обработка приоритетов.</strong> Компьютер проверяет ваш первый выбор. Не хватило баллов
+                    среди конкурентов? Выбываете из этого списка, и заявка автоматически переходит ко второму профилю.
+                </li>
+                <li><strong>Разрешение споров.</strong> При равных баллах на последнее место грант заберёт обладатель
+                    знака «Алтын белгі», победитель международных олимпиад или абитуриент с лучшим аттестатом.</li>
+            </ul>
+
+            <h2>Когда и как подавать заявление на грант в 2026 году</h2>
+            <p>Набрать нужный балл — только половина дела. Заявление на конкурс принимают в строго ограниченное окно,
+                и если его пропустить, пересдать ЕНТ ради гранта в этом же году уже не получится.</p>
+            <ul>
+                <li><strong>Основной приём: 13–20 июля.</strong> Документы подаются через приёмную комиссию вуза,
+                    виртуальную приёмную комиссию или портал eGov / eGov Mobile.</li>
+                <li><strong>До 4 комбинаций в заявке.</strong> Можно указать до четырёх пар «вуз + группа
+                    образовательных программ», если по ним совпадают профильные предметы ЕНТ — это разумный способ
+                    подстраховаться, если основной приоритет слишком конкурентный.</li>
+                <li><strong>Расставляйте приоритеты по убыванию шансов.</strong> Систему интересует порядок: первым
+                    ставьте желаемый, но реалистичный вариант, а не самый престижный вуз «на удачу» — если не
+                    пройдёте по первому приоритету, заявка автоматически уходит по списку дальше.</li>
+                <li><strong>Дополнительные окна через НЦТ.</strong> Помимо летнего приёма, цифровая система
+                    Нацтестцентра принимает заявления также 12–18 августа и 12–18 декабря — это резервные сроки для
+                    отдельных категорий поступающих.</li>
+            </ul>
+
+            <h2>Что делать, если баллов не хватило</h2>
+            <p>Не прошли по конкурсу — это ещё не конец истории с бюджетным местом. Есть три рабочих пути:</p>
+            <ul>
+                <li><strong>Вакантные гранты.</strong> Если обладатель гранта отчисляется, уходит в академотпуск или
+                    сам отказывается от места, грант не пропадает — его на конкурсной основе передают студенту той же
+                    группы программ, который учится <strong>платно</strong>, по результатам его ЕНТ или комплексного
+                    тестирования. Это значит: поступив платником с хорошим баллом, реально получить грант уже в
+                    процессе учёбы.</li>
+                <li><strong>Сокращённые программы для выпускников колледжей.</strong> Если у вас уже есть ТиПО
+                    (техническое и профессиональное образование) по смежному направлению, порог для сокращённых
+                    программ бакалавриата ниже: <strong>25 баллов</strong> в целом, а для педагогических — <strong>35
+                        баллов</strong>, при условии не менее 5 баллов по каждому предмету.</li>
+                <li><strong>Платное обучение с прицелом на грант.</strong> Тот же сертификат ЕНТ действует для
+                    поступления на платное отделение — а дальше можно претендовать на один из вакантных грантов по
+                    итогам года, как описано выше.</li>
+            </ul>
+
+            <h2>Частые вопросы</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Можно ли получить грант со средними баллами (70–80)?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Хорошие шансы сохраняются на аграрных, ветеринарных и части непрофильных инженерных
+                            направлений — прогноз проходного там всего 60–65 баллов. А вот на педагогические
+                            специальности с таким баллом претендовать нельзя: порог допуска к конкурсу — 75 баллов,
+                            а прогноз проходного держится в районе 90–105. На IT, юриспруденцию или медицину пробиться
+                            с 70–80 баллами тоже практически невозможно — прогноз проходного там 95–118 баллов.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Как работает сельская квота?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Она <strong>не добавляет баллы</strong> к вашему результату. 35% грантов разыгрываются
+                            исключительно среди
+                            выпускников сельских школ. Исторически проходной балл по квоте на 5–15 пунктов ниже, чем в
+                            общем конкурсе.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Имеет ли значение порядок вузов в заявке?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Для самого факта получения гранта — нет. Бюджет выделяется на образовательную программу.
+                            Однако порядок критичен для зачисления: система направит вас в первый вуз из вашего списка,
+                            куда вы проходите по баллам.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Какой минимальный балл для поступления в национальный вуз?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Абсолютный минимум для национальных университетов — <strong>65 баллов</strong>. Для
+                            остальных вузов достаточно <strong>50</strong>, но это не гарантирует грант — реальный
+                            проходной зависит от конкуренции.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Как быстро оценить свои шансы?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Воспользуйтесь <a href="/kalkulator-shansov-granta">калькулятором шансов BilimGrant</a> —
+                            введите пробный балл ЕНТ, выберите специальность и тип вуза. Калькулятор сравнит ваш
+                            результат с прогнозным
+                            проходным диапазоном и покажет ориентировочную вероятность.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Можно ли получить грант, уже учась платно?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Да. Гранты, которые освобождаются в процессе учёбы — отчисление, академотпуск, отказ
+                            обладателя — передаются на конкурсной основе студентам той же группы программ,
+                            обучающимся платно, по результатам их ЕНТ или комплексного тестирования.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article__related">
+                <div class="article__related-title">Читайте также</div>
+                <div class="article__related-links">
+                    <a href="/kalkulator-shansov-granta" class="article__related-card">
+                        <span class="article__related-label">Калькулятор</span>
+                        <span class="article__related-text">Какие шансы поступить на бюджет? Калькулятор гранта
+                            ЕНТ</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                    <a href="/metodika-rascheta-mon-rk" class="article__related-card">
+                        <span class="article__related-label">Статья</span>
+                        <span class="article__related-text">Методика расчёта оценок МОН РК</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card">
+                        <span class="article__related-label">Статья</span>
+                        <span class="article__related-text">Как перевести проценты в оценку — таблица и конвертер</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <aside class="article-sidebar">
+            <div class="sidebar-widget sidebar-widget--cta">
+                <div class="sidebar-widget__title">🎯 Калькулятор шансов</div>
+                <p class="sidebar-widget__text">Введи пробный балл ЕНТ — узнай ориентировочную вероятность получения
+                    гранта по выбранной специальности</p>
+                <a href="/kalkulator-shansov-granta" class="btn sidebar-widget__btn"
+                    style="background:#f59e0b;border-color:#f59e0b">Открыть BilimGrant →</a>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">Приём заявлений 2026</div>
+                <div class="sidebar-widget__formula" style="color:#f59e0b">13 – 20 июля</div>
+                <div class="sidebar-widget__note">Через eGov или приёмную комиссию вуза · до 4 комбинаций</div>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">IT — прогноз 2026</div>
+                <div class="sidebar-widget__formula" style="color:#f59e0b">Порог: 50 · Проходной: 95–105</div>
+                <div class="sidebar-widget__note">Нац. вуз: мин. 65 баллов</div>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">Сельская квота</div>
+                <div class="sidebar-widget__formula">35% мест</div>
+                <div class="sidebar-widget__note">Отдельный конкурс, проходной на 5–15 ниже</div>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">Другие статьи</div>
+                <nav class="sidebar-nav">
+                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ Как рассчитать
+                        итоговую оценку за год?</a>
+                    <a href="/perehod-na-12-letku-kazakhstan" class="sidebar-nav__link">→ 12-летнее обучение в
+                        Казахстане? </a>
+                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Как перевести проценты в
+                        оценку?</a>
+                </nav>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.querySelectorAll('.faq-q').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var item = this.closest('.faq-item');
+            var isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(function (i) {
+                i.classList.remove('open');
+                i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+</script>
+{% endblock %}
