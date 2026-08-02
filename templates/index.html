@@ -32,7 +32,7 @@
     "inLanguage": "ru",
     "image": {
         "@type": "ImageObject",
-        "url": "{{ site_url }}/static/icons/preview.png?v={{ build_time }}",
+        "url": "{{ site_url }}/static/icons/preview.webp?v={{ build_time }}",
         "width": 1200,
         "height": 630
     },
@@ -43,8 +43,6 @@
 
 {% block extra_css %}
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" as="script"
-    crossorigin="anonymous">
 {% endblock %}
 
 {% block schema_extra %}

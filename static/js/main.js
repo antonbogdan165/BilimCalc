@@ -1,4 +1,4 @@
-let so   = [];
+let so = [];
 let sors = [];
 const SAVE_KEY = "bilimcalc_v1";
 function getSiteBase() {
@@ -14,7 +14,7 @@ function buildShareURL() {
     if (so.length) params.set("so", so.join(","));
     if (sors.length) params.set("sor", sors.map(p => p[0] + "-" + p[1]).join(","));
     const sochDialed = document.getElementById("sochDialed").value;
-    const sochMax    = document.getElementById("sochMax").value;
+    const sochMax = document.getElementById("sochMax").value;
     if (sochMax && Number(sochMax) > 0) params.set("soch", sochDialed + "-" + sochMax);
     const qs = params.toString();
     return getSiteBase() + (qs ? "?" + qs : "");
@@ -36,16 +36,16 @@ function loadFromURL() {
             const parts = params.get("soch").split("-").map(Number);
             if (parts.length === 2 && parts[1] > 0 && parts[0] <= parts[1]) {
                 document.getElementById("sochDialed").value = parts[0];
-                document.getElementById("sochMax").value    = parts[1];
+                document.getElementById("sochMax").value = parts[1];
             }
         }
         return params.has("so") || params.has("sor") || params.has("soch");
-    } catch (e) {}
+    } catch (e) { }
     return false;
 }
 
 function createChip(text, onDelete) {
-    const el  = document.createElement("div");
+    const el = document.createElement("div");
     el.className = "list-item";
     el.innerHTML = `<span>${text}</span>`;
 
@@ -62,7 +62,7 @@ function createChip(text, onDelete) {
 
 function renderSO() {
     const container = document.getElementById("soList");
-    const empty     = document.getElementById("soEmpty");
+    const empty = document.getElementById("soEmpty");
 
     Array.from(container.children).forEach(c => {
         if (c.id !== "soEmpty") c.remove();
@@ -94,7 +94,7 @@ function renderSO() {
 
 function renderSORS() {
     const container = document.getElementById("sorList");
-    const empty     = document.getElementById("sorEmpty");
+    const empty = document.getElementById("sorEmpty");
 
     Array.from(container.children).forEach(c => {
         if (c.id !== "sorEmpty") c.remove();
@@ -119,7 +119,7 @@ function renderSORS() {
 
 function saveState() {
     const sochDialed = document.getElementById("sochDialed").value;
-    const sochMax    = document.getElementById("sochMax").value;
+    const sochMax = document.getElementById("sochMax").value;
     const soch = (sochMax && Number(sochMax) > 0)
         ? [Number(sochDialed || 0), Number(sochMax)]
         : null;
@@ -135,11 +135,11 @@ function loadState() {
         const raw = localStorage.getItem(SAVE_KEY);
         if (!raw) return;
         const saved = JSON.parse(raw);
-        if (Array.isArray(saved.so))   so   = saved.so.map(Number);
+        if (Array.isArray(saved.so)) so = saved.so.map(Number);
         if (Array.isArray(saved.sors)) sors = saved.sors.map(p => [Number(p[0]), Number(p[1])]);
         if (Array.isArray(saved.soch)) {
             document.getElementById("sochDialed").value = saved.soch[0];
-            document.getElementById("sochMax").value    = saved.soch[1];
+            document.getElementById("sochMax").value = saved.soch[1];
         }
     } catch (e) {
         console.warn("localStorage load failed", e);
@@ -192,7 +192,7 @@ function clearInputError(inputEl) {
 
 function validateSoch() {
     const dialedEl = document.getElementById("sochDialed");
-    const maxEl    = document.getElementById("sochMax");
+    const maxEl = document.getElementById("sochMax");
     const d = Number(dialedEl.value);
     const m = Number(maxEl.value);
 
@@ -200,11 +200,11 @@ function validateSoch() {
     clearInputError(maxEl);
 
     if (!dialedEl.value || !maxEl.value) return true;
-    if (!Number.isFinite(m) || m <= 0)   return true;
+    if (!Number.isFinite(m) || m <= 0) return true;
 
     if (d > m) {
         dialedEl.style.borderColor = "var(--danger)";
-        maxEl.style.borderColor    = "var(--danger)";
+        maxEl.style.borderColor = "var(--danger)";
         showInputError(dialedEl, "Максимум не может быть меньше набранного");
         return false;
     }
@@ -215,7 +215,7 @@ function validateSoch() {
 document.getElementById("addForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const raw = soInput.value.trim();
-    const v   = Number(raw);
+    const v = Number(raw);
     if (raw === "" || !Number.isFinite(v) || v < 1 || v > 10) {
         showInputError(this, "Введите значение от 1 до 10");
         soInput.style.borderColor = "var(--danger)";
@@ -232,7 +232,7 @@ document.getElementById("addForm").addEventListener("submit", function (e) {
 document.getElementById("sorForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const sorDialedEl = document.getElementById("sorDialed");
-    const sorMaxEl    = document.getElementById("sorMax");
+    const sorMaxEl = document.getElementById("sorMax");
     const d = Number(sorDialedEl.value);
     const m = Number(sorMaxEl.value);
 
@@ -243,14 +243,14 @@ document.getElementById("sorForm").addEventListener("submit", function (e) {
 
     if (d > m) {
         sorDialedEl.style.borderColor = "var(--danger)";
-        sorMaxEl.style.borderColor    = "var(--danger)";
+        sorMaxEl.style.borderColor = "var(--danger)";
         showInputError(this, "Максимум не может быть меньше набранного");
         return;
     }
 
     sors.push([Number(d || 0), Number(m)]);
     sorDialedEl.value = "";
-    sorMaxEl.value    = "";
+    sorMaxEl.value = "";
     saveState();
     renderSORS();
     calculate();
@@ -267,9 +267,9 @@ document.getElementById("clearSoBtn").addEventListener("click", () => {
 document.getElementById("clearSorsBtn").addEventListener("click", () => {
     sors = [];
     const sorDialedEl = document.getElementById("sorDialed");
-    const sorMaxEl    = document.getElementById("sorMax");
+    const sorMaxEl = document.getElementById("sorMax");
     sorDialedEl.value = "";
-    sorMaxEl.value    = "";
+    sorMaxEl.value = "";
     clearInputError(sorDialedEl);
     clearInputError(sorMaxEl);
     saveState();
@@ -279,9 +279,9 @@ document.getElementById("clearSorsBtn").addEventListener("click", () => {
 
 document.getElementById("clearSochBtn").addEventListener("click", () => {
     const dialedEl = document.getElementById("sochDialed");
-    const maxEl    = document.getElementById("sochMax");
+    const maxEl = document.getElementById("sochMax");
     dialedEl.value = "";
-    maxEl.value    = "";
+    maxEl.value = "";
     clearInputError(dialedEl);
     clearInputError(maxEl);
     saveState();
@@ -295,9 +295,9 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
 
     hapticReset();
 
-    so   = [];
+    so = [];
     sors = [];
-    ["sochDialed","sochMax","sorDialed","sorMax","soInput"].forEach(id => {
+    ["sochDialed", "sochMax", "sorDialed", "sorMax", "soInput"].forEach(id => {
         const el = document.getElementById(id);
         if (el) { el.value = ""; el.style.borderColor = ""; }
     });
@@ -315,16 +315,16 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
 
     function getShareText() {
         const result = document.getElementById("finalResult").textContent.trim();
-        const badge  = document.getElementById("gradeBadge").textContent.trim();
+        const badge = document.getElementById("gradeBadge").textContent.trim();
         return `Мой итоговый результат: ${result} — ${badge}. Посчитай свою оценку на BilimCalc!`;
     }
 
     function showShareModal() {
         if (document.getElementById("shareModal")) return;
 
-        const text        = getShareText();
-        const url         = buildShareURL();
-        const encodedUrl  = encodeURIComponent(url);
+        const text = getShareText();
+        const url = buildShareURL();
+        const encodedUrl = encodeURIComponent(url);
         const encodedText = encodeURIComponent(text + "\n");
 
         const tgLink = `https://t.me/share/url?url=${encodedUrl}&text=${encodeURIComponent(text)}`;
@@ -392,13 +392,13 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
         document.body.appendChild(modal);
 
         function closeModal() {
-            const box     = modal.querySelector(".share-modal__box");
+            const box = modal.querySelector(".share-modal__box");
             const overlay = modal.querySelector(".share-modal__overlay");
-            box.style.transition     = "transform 0.2s ease, opacity 0.2s ease";
-            box.style.transform      = "translateY(30px)";
-            box.style.opacity        = "0";
+            box.style.transition = "transform 0.2s ease, opacity 0.2s ease";
+            box.style.transform = "translateY(30px)";
+            box.style.opacity = "0";
             overlay.style.transition = "opacity 0.2s ease";
-            overlay.style.opacity    = "0";
+            overlay.style.opacity = "0";
             setTimeout(() => modal.remove(), 220);
         }
 
@@ -412,15 +412,15 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
                 const orig = btn.innerHTML;
                 btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Скопировано!`;
                 btn.style.background = "rgba(46,160,67,0.2)";
-                btn.style.color      = "#3fb950";
+                btn.style.color = "#3fb950";
                 setTimeout(() => { btn.innerHTML = orig; btn.style.background = ""; btn.style.color = ""; }, 2000);
-            }).catch(() => {});
+            }).catch(() => { });
         });
     }
 
     shareBtn.addEventListener("click", async () => {
-        const text      = getShareText();
-        const url       = buildShareURL();
+        const text = getShareText();
+        const url = buildShareURL();
         const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
         if (navigator.share && !isDesktop) {
@@ -437,7 +437,7 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
                 const orig = shareBtn.innerHTML;
                 shareBtn.textContent = "✓ Скопировано!";
                 setTimeout(() => { shareBtn.innerHTML = orig; }, 2000);
-            }).catch(() => {});
+            }).catch(() => { });
         } else {
             showShareModal();
         }
@@ -447,7 +447,7 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
 
 function restrictToDigits(input, maxLen, maxVal, onFull) {
     input.addEventListener("keydown", function (e) {
-        const nav = ["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Enter","Home","End"];
+        const nav = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab", "Enter", "Home", "End"];
         if (nav.includes(e.key) || e.ctrlKey || e.metaKey) return;
         if (!/^\d$/.test(e.key)) { e.preventDefault(); return; }
         if (this.value.length >= maxLen && this.selectionStart === this.selectionEnd) e.preventDefault();
@@ -460,17 +460,17 @@ function restrictToDigits(input, maxLen, maxVal, onFull) {
     });
 }
 
-const soInput         = document.getElementById("soInput");
-const sorDialedInput  = document.getElementById("sorDialed");
-const sorMaxInput     = document.getElementById("sorMax");
+const soInput = document.getElementById("soInput");
+const sorDialedInput = document.getElementById("sorDialed");
+const sorMaxInput = document.getElementById("sorMax");
 const sochDialedInput = document.getElementById("sochDialed");
-const sochMaxInput    = document.getElementById("sochMax");
+const sochMaxInput = document.getElementById("sochMax");
 
 restrictToDigits(soInput, 2, 10);
-restrictToDigits(sorDialedInput,  2, undefined, () => sorMaxInput.focus({ preventScroll: true }));
-restrictToDigits(sorMaxInput,     2);
+restrictToDigits(sorDialedInput, 2, undefined, () => sorMaxInput.focus({ preventScroll: true }));
+restrictToDigits(sorMaxInput, 2);
 restrictToDigits(sochDialedInput, 2, undefined, () => sochMaxInput.focus({ preventScroll: true }));
-restrictToDigits(sochMaxInput,    2);
+restrictToDigits(sochMaxInput, 2);
 
 sorMaxInput.addEventListener("keydown", function (e) {
     if (e.key === "Backspace" && !this.value) {
@@ -493,7 +493,7 @@ function debounce(fn, ms) {
 const debouncedCalculate = debounce(calculate, 250);
 
 document.getElementById("sochDialed").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
-document.getElementById("sochMax").addEventListener("input",    () => { validateSoch(); saveState(); debouncedCalculate(); });
+document.getElementById("sochMax").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
 
 
 function computeParts(soArr, sorsArr, soch) {
@@ -555,17 +555,17 @@ function updateRoundingHint(value) {
     }
 }
 
-let pending      = false;
+let pending = false;
 let pendingAgain = false;
 
 function calculate() {
     if (pending) { pendingAgain = true; return; }
-    pending      = true;
+    pending = true;
     pendingAgain = false;
 
     try {
         const sochDialed = Number(document.getElementById("sochDialed").value);
-        const sochMax    = Number(document.getElementById("sochMax").value);
+        const sochMax = Number(document.getElementById("sochMax").value);
         const soch = (Number.isFinite(sochMax) && sochMax > 0 && sochDialed <= sochMax)
             ? [Number(sochDialed || 0), Number(sochMax)]
             : null;
@@ -573,31 +573,31 @@ function calculate() {
         const { total_so, total_sor, total_soch } = computeParts(so, sors, soch);
         const final_result = computeFinalPct(total_so, total_sor, total_soch);
 
-        const finalEl  = document.getElementById("finalResult");
-        const fill     = document.getElementById("progressFill");
-        const badge    = document.getElementById("gradeBadge");
+        const finalEl = document.getElementById("finalResult");
+        const fill = document.getElementById("progressFill");
+        const badge = document.getElementById("gradeBadge");
         const shareBtn = document.getElementById("shareBtn");
 
-        document.getElementById("breakSo").innerText    = total_so   !== null ? total_so.toFixed(2)   + "%" : "—";
-        document.getElementById("breakSors").innerText  = total_sor  !== null ? total_sor.toFixed(2)  + "%" : "—";
-        document.getElementById("breakSoch").innerText  = total_soch !== null ? total_soch.toFixed(2) + "%" : "—";
-        document.getElementById("breakSoDetails").innerText   = "";
+        document.getElementById("breakSo").innerText = total_so !== null ? total_so.toFixed(2) + "%" : "—";
+        document.getElementById("breakSors").innerText = total_sor !== null ? total_sor.toFixed(2) + "%" : "—";
+        document.getElementById("breakSoch").innerText = total_soch !== null ? total_soch.toFixed(2) + "%" : "—";
+        document.getElementById("breakSoDetails").innerText = "";
         document.getElementById("breakSorsDetails").innerText = "";
         document.getElementById("breakSochDetails").innerText = "";
 
         finalEl.classList.remove("result-danger", "result-warning", "result-good", "result-excellent");
 
         if (final_result !== null) {
-            const pct        = Number(final_result);
+            const pct = Number(final_result);
             const gradeCheck = Math.round(pct);
 
             const startVal = parseFloat(finalEl.innerText) || 0;
-            const t0       = performance.now();
-            const isWhole  = Number.isInteger(pct);
+            const t0 = performance.now();
+            const isWhole = Number.isInteger(pct);
             (function tick(now) {
                 const progress = Math.min((now - t0) / 500, 1);
-                const eased    = 1 - Math.pow(1 - progress, 3);
-                const cur      = startVal + (pct - startVal) * eased;
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const cur = startVal + (pct - startVal) * eased;
                 finalEl.innerText = (isWhole ? Math.round(cur) : cur.toFixed(2)) + "%";
                 if (progress < 1) requestAnimationFrame(tick);
             })(t0);
@@ -609,25 +609,25 @@ function calculate() {
                 fill.style.background = "var(--danger)";
                 chartColor = "#da3633";
                 badge.textContent = "Неудовлетворительно";
-                badge.className   = "grade-badge badge-danger";
+                badge.className = "grade-badge badge-danger";
             } else if (gradeCheck < 65) {
                 finalEl.classList.add("result-warning");
                 fill.style.background = "var(--warning)";
                 chartColor = "#d29922";
                 badge.textContent = "Удовлетворительно";
-                badge.className   = "grade-badge badge-warning";
+                badge.className = "grade-badge badge-warning";
             } else if (gradeCheck < 85) {
                 finalEl.classList.add("result-good");
                 fill.style.background = "var(--success)";
                 chartColor = "#2ea043";
                 badge.textContent = "Хорошо";
-                badge.className   = "grade-badge badge-good";
+                badge.className = "grade-badge badge-good";
             } else {
                 finalEl.classList.add("result-excellent");
                 fill.style.background = "#166534";
                 chartColor = "#166534";
                 badge.textContent = "Отлично 🎉";
-                badge.className   = "grade-badge badge-excellent";
+                badge.className = "grade-badge badge-excellent";
             }
 
             updateRoundingHint(pct);
@@ -635,8 +635,8 @@ function calculate() {
             const hintEl = document.getElementById("formulaHint");
             if (hintEl) {
                 const parts = [];
-                if (total_so   !== null) parts.push("ФО: "  + total_so.toFixed(2));
-                if (total_sor  !== null) parts.push("СОР: " + total_sor.toFixed(2));
+                if (total_so !== null) parts.push("ФО: " + total_so.toFixed(2));
+                if (total_sor !== null) parts.push("СОР: " + total_sor.toFixed(2));
                 if (total_soch !== null) parts.push("СОЧ: " + total_soch.toFixed(2));
                 if (parts.length) {
                     const rawSum = (total_so || 0) + (total_sor || 0) + (total_soch || 0);
@@ -650,9 +650,9 @@ function calculate() {
             if (so.length >= 2) updateTrend();
         } else {
             finalEl.innerText = "—";
-            fill.style.width  = "0%";
+            fill.style.width = "0%";
             badge.textContent = "Нет данных";
-            badge.className   = "grade-badge badge-empty";
+            badge.className = "grade-badge badge-empty";
             updateRoundingHint(null);
             if (shareBtn) shareBtn.style.display = "none";
             const hintEl = document.getElementById("formulaHint");
@@ -680,13 +680,33 @@ function showTrend(visible) {
         btn.title = visible ? "AI-анализ динамики (подробнее)" : "AI-анализ динамики";
     }
     if (!visible && trendChart) {
-        try { trendChart.destroy(); } catch (e) {}
+        try { trendChart.destroy(); } catch (e) { }
         trendChart = null;
-        const acc   = document.getElementById("aiAccuracy");
+        const acc = document.getElementById("aiAccuracy");
         const label = document.getElementById("trendLabel");
-        if (acc)   acc.textContent   = "--%";
+        if (acc) acc.textContent = "--%";
         if (label) label.textContent = "—";
     }
+}
+
+function loadChartJS() {
+    if (window.Chart) return Promise.resolve(window.Chart);
+    if (window._chartLoadPromise) return window._chartLoadPromise;
+    var src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js';
+    window._chartLoadPromise = new Promise(function (resolve, reject) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.async = true;
+        s.crossOrigin = 'anonymous';
+        s.onload = function () { resolve(window.Chart); };
+        s.onerror = function (e) { reject(e); };
+        document.head.appendChild(s);
+        setTimeout(function () {
+            // fallback: if Chart loaded via other means
+            if (window.Chart) resolve(window.Chart);
+        }, 3500);
+    });
+    return window._chartLoadPromise;
 }
 
 function updateTrend() {
@@ -694,6 +714,13 @@ function updateTrend() {
     showTrend(true);
     try {
         const data = calcTrendLine(so);
+        if (typeof Chart === 'undefined') {
+            loadChartJS().then(function () {
+                drawTrend(data.scores, data.predictions, data.accuracy);
+                if (trendChart && trendChart.resize) trendChart.resize();
+            }).catch(function () { });
+            return;
+        }
         drawTrend(data.scores, data.predictions, data.accuracy);
         if (trendChart && trendChart.resize) trendChart.resize();
     } catch (e) {
@@ -702,8 +729,8 @@ function updateTrend() {
 }
 
 function calcTrendLine(scores) {
-    const n     = scores.length;
-    const x     = Array.from({ length: n }, (_, i) => i + 1);
+    const n = scores.length;
+    const x = Array.from({ length: n }, (_, i) => i + 1);
     const xMean = x.reduce((a, b) => a + b, 0) / n;
     const yMean = scores.reduce((a, b) => a + b, 0) / n;
 
@@ -713,11 +740,11 @@ function calcTrendLine(scores) {
         den += (x[i] - xMean) ** 2;
     }
 
-    const slope       = den === 0 ? 0 : num / den;
-    const intercept   = yMean - slope * xMean;
+    const slope = den === 0 ? 0 : num / den;
+    const intercept = yMean - slope * xMean;
     const predictions = x.map(xi => xi * slope + intercept);
 
-    const rmse     = Math.sqrt(predictions.reduce((s, p, i) => s + (scores[i] - p) ** 2, 0) / n);
+    const rmse = Math.sqrt(predictions.reduce((s, p, i) => s + (scores[i] - p) ** 2, 0) / n);
     const accuracy = Math.min(100, Math.max(0, 100 - (rmse / 10) * 100));
 
     return { scores, predictions, accuracy: Math.round(accuracy * 10) / 10, slope };
@@ -732,9 +759,9 @@ function hexToRgba(hex, a) {
 
 function _buildTrendChartConfig(ctx, scores, predictions, color, height) {
     const sg = ctx.createLinearGradient(0, 0, 0, height);
-    sg.addColorStop(0,   hexToRgba(color, 0.32));
+    sg.addColorStop(0, hexToRgba(color, 0.32));
     sg.addColorStop(0.6, hexToRgba(color, 0.06));
-    sg.addColorStop(1,   hexToRgba(color, 0.00));
+    sg.addColorStop(1, hexToRgba(color, 0.00));
 
     const pg = ctx.createLinearGradient(0, 0, 0, height);
     pg.addColorStop(0, "rgba(139,148,158,0.10)");
@@ -785,15 +812,15 @@ function _buildTrendChartConfig(ctx, scores, predictions, color, height) {
             },
             scales: {
                 x: {
-                    grid:   { color: "rgba(255,255,255,0.04)", drawBorder: false },
+                    grid: { color: "rgba(255,255,255,0.04)", drawBorder: false },
                     border: { display: false },
-                    ticks:  { color: "#6e7681", font: { size: 10 }, maxRotation: 0, maxTicksLimit: 6 },
+                    ticks: { color: "#6e7681", font: { size: 10 }, maxRotation: 0, maxTicksLimit: 6 },
                 },
                 y: {
                     min: 1, max: 10,
-                    grid:   { color: "rgba(255,255,255,0.05)", drawBorder: false },
+                    grid: { color: "rgba(255,255,255,0.05)", drawBorder: false },
                     border: { display: false },
-                    ticks:  { color: "#6e7681", font: { size: 10 }, stepSize: 3, maxTicksLimit: 4 },
+                    ticks: { color: "#6e7681", font: { size: 10 }, stepSize: 3, maxTicksLimit: 4 },
                 },
             },
         },
@@ -818,23 +845,23 @@ function drawTrend(scores, predictions, accuracy) {
         return;
     }
 
-    const ctx   = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
     const color = chartColor;
-    const h     = canvas.offsetHeight || 145;
+    const h = canvas.offsetHeight || 145;
 
     if (trendChart) {
         const sg = ctx.createLinearGradient(0, 0, 0, h);
-        sg.addColorStop(0,   hexToRgba(color, 0.32));
+        sg.addColorStop(0, hexToRgba(color, 0.32));
         sg.addColorStop(0.6, hexToRgba(color, 0.06));
-        sg.addColorStop(1,   hexToRgba(color, 0.00));
+        sg.addColorStop(1, hexToRgba(color, 0.00));
 
         const labels = Array.from({ length: scores.length }, (_, i) => "Ур." + (i + 1));
-        trendChart.data.labels                               = labels;
-        trendChart.data.datasets[0].data                    = scores.slice();
-        trendChart.data.datasets[0].borderColor             = color;
-        trendChart.data.datasets[0].backgroundColor         = sg;
-        trendChart.data.datasets[0].pointBackgroundColor    = color;
-        trendChart.data.datasets[1].data                    = predictions.slice();
+        trendChart.data.labels = labels;
+        trendChart.data.datasets[0].data = scores.slice();
+        trendChart.data.datasets[0].borderColor = color;
+        trendChart.data.datasets[0].backgroundColor = sg;
+        trendChart.data.datasets[0].pointBackgroundColor = color;
+        trendChart.data.datasets[1].data = predictions.slice();
         trendChart.update("none");
     } else {
         trendChart = new Chart(ctx, _buildTrendChartConfig(ctx, scores, predictions, color, h));
@@ -844,11 +871,11 @@ function drawTrend(scores, predictions, accuracy) {
 
     const trend = predictions[predictions.length - 1] - predictions[0];
     let trendText;
-    if      (trend >  0.6) trendText = "📈 Отличный рост! Продолжай в том же духе";
-    else if (trend >  0.2) trendText = "📈 Небольшой рост";
+    if (trend > 0.6) trendText = "📈 Отличный рост! Продолжай в том же духе";
+    else if (trend > 0.2) trendText = "📈 Небольшой рост";
     else if (trend < -0.6) trendText = "📉 Оценки снижаются — стоит уделить внимание";
     else if (trend < -0.2) trendText = "📉 Лёгкое снижение";
-    else                   trendText = "📊 Стабильная динамика";
+    else trendText = "📊 Стабильная динамика";
     document.getElementById("trendLabel").textContent = trendText;
 }
 
@@ -859,27 +886,27 @@ function showDetailedAnalysisModal() {
     const data = calcTrendLine(so);
     const { scores, predictions, accuracy, slope } = data;
 
-    const min  = Math.min(...scores);
-    const max  = Math.max(...scores);
-    const avg  = scores.reduce((a, b) => a + b, 0) / scores.length;
+    const min = Math.min(...scores);
+    const max = Math.max(...scores);
+    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
     const vari = scores.reduce((s, v) => s + (v - avg) ** 2, 0) / scores.length;
-    const std  = Math.sqrt(vari);
+    const std = Math.sqrt(vari);
     const next = parseFloat(Math.min(10, Math.max(1, predictions[predictions.length - 1] + (slope || 0))).toFixed(1));
 
     const trend = predictions[predictions.length - 1] - predictions[0];
     let trendEmoji, trendText, trendColor;
-    if      (trend >  0.6) { trendEmoji = "📈"; trendText = "Отличный рост";       trendColor = "#22c55e"; }
-    else if (trend >  0.2) { trendEmoji = "📈"; trendText = "Небольшой рост";      trendColor = "#3fb950"; }
-    else if (trend < -0.6) { trendEmoji = "📉"; trendText = "Снижение оценок";     trendColor = "#ff7070"; }
-    else if (trend < -0.2) { trendEmoji = "📉"; trendText = "Лёгкое снижение";     trendColor = "#e3b341"; }
-    else                   { trendEmoji = "📊"; trendText = "Стабильная динамика"; trendColor = "#58a6ff"; }
+    if (trend > 0.6) { trendEmoji = "📈"; trendText = "Отличный рост"; trendColor = "#22c55e"; }
+    else if (trend > 0.2) { trendEmoji = "📈"; trendText = "Небольшой рост"; trendColor = "#3fb950"; }
+    else if (trend < -0.6) { trendEmoji = "📉"; trendText = "Снижение оценок"; trendColor = "#ff7070"; }
+    else if (trend < -0.2) { trendEmoji = "📉"; trendText = "Лёгкое снижение"; trendColor = "#e3b341"; }
+    else { trendEmoji = "📊"; trendText = "Стабильная динамика"; trendColor = "#58a6ff"; }
 
     let interpretation;
-    if      (trend >  0.6) interpretation = `Оценки уверенно растут. Прогноз на следующую работу: ${next}/10. Продолжай в том же темпе!`;
-    else if (trend >  0.2) interpretation = `Прослеживается позитивная динамика. Прогноз на следующую работу: ${next}/10.`;
+    if (trend > 0.6) interpretation = `Оценки уверенно растут. Прогноз на следующую работу: ${next}/10. Продолжай в том же темпе!`;
+    else if (trend > 0.2) interpretation = `Прослеживается позитивная динамика. Прогноз на следующую работу: ${next}/10.`;
     else if (trend < -0.6) interpretation = `Оценки снижаются. Прогноз на следующую работу: ${next}/10. Стоит уделить внимание учёбе.`;
     else if (trend < -0.2) interpretation = `Небольшое снижение. Прогноз на следующую работу: ${next}/10.`;
-    else                   interpretation = `Результаты стабильны. Прогноз на следующую работу: ${next}/10.`;
+    else interpretation = `Результаты стабильны. Прогноз на следующую работу: ${next}/10.`;
 
     const modal = document.createElement("div");
     modal.id = "trendModal";
@@ -946,21 +973,28 @@ function showDetailedAnalysisModal() {
     document.body.appendChild(modal);
 
     const mc = document.getElementById("trendModalChart");
-    if (mc && typeof Chart !== "undefined") {
-        const ctx2 = mc.getContext("2d");
-        const clr  = chartColor;
-        const h2   = 170;
-        const cfg  = _buildTrendChartConfig(ctx2, scores, predictions, clr, h2);
-        cfg.options.layout.padding = { top: 10, right: 10, bottom: 4, left: 4 };
-        cfg.options.animation.duration = 500;
-        new Chart(ctx2, cfg);
+    if (mc) {
+        (function renderModalChart() {
+            function create() {
+                const ctx2 = mc.getContext("2d");
+                const clr = chartColor;
+                const h2 = 170;
+                const cfg = _buildTrendChartConfig(ctx2, scores, predictions, clr, h2);
+                cfg.options.layout.padding = { top: 10, right: 10, bottom: 4, left: 4 };
+                cfg.options.animation.duration = 500;
+                try { new Chart(ctx2, cfg); } catch (e) { console.warn('chart create failed', e); }
+            }
+            if (typeof Chart === 'undefined') {
+                loadChartJS().then(create).catch(function () { });
+            } else create();
+        })();
     }
 
     function closeModal() {
         const box = modal.querySelector(".tm-box");
-        const ov  = modal.querySelector(".tm-overlay");
-        box.style.cssText  += ";transition:transform 0.18s ease,opacity 0.18s ease;transform:scale(0.95);opacity:0";
-        ov.style.cssText   += ";transition:opacity 0.18s ease;opacity:0";
+        const ov = modal.querySelector(".tm-overlay");
+        box.style.cssText += ";transition:transform 0.18s ease,opacity 0.18s ease;transform:scale(0.95);opacity:0";
+        ov.style.cssText += ";transition:opacity 0.18s ease;opacity:0";
         setTimeout(() => modal.remove(), 200);
     }
 
@@ -983,7 +1017,7 @@ function showDetailedAnalysisModal() {
 
 document.querySelectorAll(".faq-q").forEach(btn => {
     btn.addEventListener("click", function () {
-        const item   = this.closest(".faq-item");
+        const item = this.closest(".faq-item");
         const isOpen = item.classList.contains("open");
         document.querySelectorAll(".faq-item.open").forEach(i => {
             i.classList.remove("open");
@@ -1002,7 +1036,7 @@ document.querySelectorAll(".faq-q").forEach(btn => {
     if (!banner) return;
     if (!navigator.onLine) banner.style.display = "block";
     window.addEventListener("offline", () => banner.style.display = "block");
-    window.addEventListener("online",  () => banner.style.display = "none");
+    window.addEventListener("online", () => banner.style.display = "none");
 })();
 
 

@@ -1,11 +1,13 @@
 import os
 import time
+from html import escape
 from urllib.parse import urlparse
 
-import requests as req_lib
+import requests
 from flask import (
     Flask,
     Response,
+    jsonify,
     redirect,
     render_template,
     request,
@@ -42,15 +44,21 @@ def _canonical_for_path(path):
     return SITE_URL + path.rstrip("/")
 
 
+def _normalize_host(host):
+    if not host:
+        return ""
+    return host.split(":", 1)[0].lower()
+
+
 def _allowed_hosts():
     hosts = {"localhost", "127.0.0.1"}
-    netloc = urlparse(SITE_URL).netloc
-    if netloc:
-        hosts.add(netloc)
-        if netloc.startswith("www."):
-            hosts.add(netloc[4:])
+    host = _normalize_host(urlparse(SITE_URL).netloc)
+    if host:
+        hosts.add(host)
+        if host.startswith("www."):
+            hosts.add(host[4:])
         else:
-            hosts.add("www." + netloc)
+            hosts.add("www." + host)
     return hosts
 
 
@@ -65,12 +73,14 @@ def _sb_headers():
 
 def _is_allowed_origin():
     allowed = _allowed_hosts()
-    if request.host in allowed:
+    if _normalize_host(request.host) in allowed:
         return True
-    origin = request.headers.get("Origin", "")
-    referer = request.headers.get("Referer", "")
-    combined = origin + referer
-    return any(h in combined for h in allowed)
+    for header in ("Origin", "Referer"):
+        value = request.headers.get(header, "")
+        parsed = urlparse(value)
+        if _normalize_host(parsed.netloc) in allowed:
+            return True
+    return False
 
 
 if _limiter_available:
@@ -98,6 +108,8 @@ ARTICLE_ROUTES = {
     "/kalkulator-shansov-granta": "kalkulator-shansov-granta.html",
     "/disable-adblock": "disable-adblock.html",
 }
+
+TEMPLATE_ROUTES = {"/": "index.html", **ARTICLE_ROUTES}
 
 CALC_REDIRECTS = {
     "/kalkulator-sor": "/",
@@ -127,30 +139,47 @@ _SITEMAP_PATHS = [
     ("/perehod-na-12-letku-kazakhstan", "monthly", "0.7"),
 ]
 
-SITEMAP_URLS = [
-    {
-        "loc": SITE_URL + path,
-        "lastmod": SITEMAP_LASTMOD,
-        "changefreq": freq,
-        "priority": pri,
-    }
-    for path, freq, pri in _SITEMAP_PATHS
-]
+
+def _template_lastmod(path):
+    template = TEMPLATE_ROUTES.get(path)
+    if not template:
+        return None
+    template_path = os.path.join(app.template_folder, template)
+    try:
+        timestamp = os.path.getmtime(template_path)
+    except OSError:
+        return None
+    return time.strftime("%Y-%m-%d", time.gmtime(timestamp))
+
+
+def _get_sitemap_urls():
+    urls = []
+    for path, freq, pri in _SITEMAP_PATHS:
+        urls.append(
+            {
+                "loc": SITE_URL + path,
+                "lastmod": _template_lastmod(path) or SITEMAP_LASTMOD,
+                "changefreq": freq,
+                "priority": pri,
+            }
+        )
+    return urls
+
 
 SITEMAP_IMAGES = [
     {
         "loc": SITE_URL + "/",
-        "image": SITE_URL + "/static/icons/preview.png",
+        "image": SITE_URL + "/static/icons/preview.webp",
         "title": "BilimCalc — калькулятор ФО, СОР и СОЧ",
     },
     {
         "loc": SITE_URL + "/kalkulator-ekzamena",
-        "image": SITE_URL + "/static/icons/preview.png",
+        "image": SITE_URL + "/static/icons/preview.webp",
         "title": "BilimExam — итоговая оценка за год",
     },
     {
         "loc": SITE_URL + "/kalkulator-shansov-granta",
-        "image": SITE_URL + "/static/icons/preview.png",
+        "image": SITE_URL + "/static/icons/preview.webp",
         "title": "BilimGrant — калькулятор шансов на грант ЕНТ",
     },
 ]
@@ -246,6 +275,7 @@ def index():
 
 @app.route("/robots.txt")
 def robots():
+    host = urlparse(SITE_URL).netloc
     body = (
         "User-agent: *\n"
         "Allow: /\n"
@@ -269,7 +299,11 @@ def robots():
         "\n"
         f"Sitemap: {SITE_URL}/sitemap.xml\n"
     )
-    return Response(body, mimetype="text/plain")
+    if host:
+        body = f"Host: {host}\n" + body
+    response = Response(body, mimetype="text/plain")
+    response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
 
 
 @app.route("/sitemap.xml")
@@ -283,19 +317,19 @@ def sitemap():
         '        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9',
         '        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">',
     ]
-    for u in SITEMAP_URLS:
+    for u in _get_sitemap_urls():
         img = image_map.get(u["loc"])
         img_block = ""
         if img:
             img_block = (
                 f"<image:image>"
-                f"<image:loc>{img['image']}</image:loc>"
-                f"<image:title>{img['title']}</image:title>"
+                f"<image:loc>{escape(img['image'])}</image:loc>"
+                f"<image:title>{escape(img['title'])}</image:title>"
                 f"</image:image>"
             )
         lines.append(
             f"  <url>"
-            f"<loc>{u['loc']}</loc>"
+            f"<loc>{escape(u['loc'])}</loc>"
             f"<lastmod>{u['lastmod']}</lastmod>"
             f"<changefreq>{u['changefreq']}</changefreq>"
             f"<priority>{u['priority']}</priority>"
@@ -303,7 +337,9 @@ def sitemap():
             f"</url>"
         )
     lines.append("</urlset>")
-    return Response("\n".join(lines), mimetype="application/xml")
+    response = Response("\n".join(lines), mimetype="application/xml")
+    response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
 
 
 @app.route("/feed.xml")
@@ -332,7 +368,9 @@ def rss_feed():
         "  </channel>\n"
         "</rss>"
     )
-    return Response(xml, mimetype="application/xml")
+    response = Response(xml, mimetype="application/rss+xml")
+    response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
 
 
 @app.route("/sw.js")
@@ -404,9 +442,20 @@ def api_visits_increment():
 
 
 def _json(data):
-    from flask import jsonify
-
     return jsonify(data)
+
+
+@app.after_request
+def set_security_headers(response):
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    if SITE_URL.startswith("https://"):
+        response.headers.setdefault(
+            "Strict-Transport-Security",
+            "max-age=31536000; includeSubDomains; preload",
+        )
+    return response
 
 
 def _make_article_view(template, noindex=False):

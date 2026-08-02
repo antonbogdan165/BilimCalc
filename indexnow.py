@@ -23,34 +23,40 @@ URLS = [
 ]
 
 KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")
-
-host = urlparse(SITE_URL).netloc
-
-data = {
-    "host": host,
-    "key": KEY,
-    "urlList": URLS,
-}
-
-body = json.dumps(data).encode("utf-8")
-
 ENDPOINTS = [
     "https://api.indexnow.org/indexnow",
     "https://yandex.com/indexnow",
     "https://www.bing.com/indexnow",
 ]
 
-for endpoint in ENDPOINTS:
-    req = urllib.request.Request(
-        endpoint,
-        data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(req) as response:
-            print(f"[{endpoint}] Статус: {response.status} — OK")
-    except urllib.error.HTTPError as e:
-        print(f"[{endpoint}] Ошибка: {e.code} {e.reason}")
-    except Exception as e:
-        print(f"[{endpoint}] Ошибка: {e}")
+
+def _build_payload():
+    return json.dumps(
+        {
+            "host": urlparse(SITE_URL).netloc,
+            "key": KEY,
+            "urlList": URLS,
+        }
+    ).encode("utf-8")
+
+
+def main():
+    body = _build_payload()
+    for endpoint in ENDPOINTS:
+        req = urllib.request.Request(
+            endpoint,
+            data=body,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req) as response:
+                print(f"[{endpoint}] Статус: {response.status} — OK")
+        except urllib.error.HTTPError as e:
+            print(f"[{endpoint}] Ошибка: {e.code} {e.reason}")
+        except Exception as e:
+            print(f"[{endpoint}] Ошибка: {e}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var brand  = window.__BRAND__ || { name: 'BilimCalc', icon: null };
+    var brand = window.__BRAND__ || { name: 'BilimCalc', icon: null };
     var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
 
     var overlay = document.createElement('div');
@@ -16,23 +16,21 @@
     logo.style.cssText = 'display:flex;align-items:center;gap:10px;animation:ld-pop 0.4s cubic-bezier(.34,1.56,.64,1) both';
 
     if (brand.icon) {
-        // BilimExam и другие страницы с кастомной иконкой
         var iconEl = document.createElement('span');
         iconEl.style.cssText = 'font-size:36px;line-height:1';
         iconEl.textContent = brand.icon;
         logo.appendChild(iconEl);
     } else {
-        // логотип BilimCalc (SVG)
-        var ns  = 'http://www.w3.org/2000/svg';
+        var ns = 'http://www.w3.org/2000/svg';
         var svg = document.createElementNS(ns, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
         svg.setAttribute('width', '36');
         svg.setAttribute('height', '36');
         svg.setAttribute('fill', 'none');
         [
-            { x:'2',  y:'2',  width:'9', height:'9', rx:'2', fill:'#3cb648' },
-            { x:'13', y:'2',  width:'9', height:'9', rx:'2', fill:'#3cb648' },
-            { x:'2',  y:'13', width:'9', height:'9', rx:'2', fill:'#3cb648' },
+            { x: '2', y: '2', width: '9', height: '9', rx: '2', fill: '#3cb648' },
+            { x: '13', y: '2', width: '9', height: '9', rx: '2', fill: '#3cb648' },
+            { x: '2', y: '13', width: '9', height: '9', rx: '2', fill: '#3cb648' },
         ].forEach(function (attrs) {
             var rect = document.createElementNS(ns, 'rect');
             Object.keys(attrs).forEach(function (k) { rect.setAttribute(k, attrs[k]); });
@@ -52,7 +50,7 @@
         'font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;font-size:1.75rem;font-weight:800;' +
         'letter-spacing:-0.03em;color:' + (isDark ? '#fff' : '#0f172a');
 
-    var suffix      = brand.name.replace(/^Bilim/, '');
+    var suffix = brand.name.replace(/^Bilim/, '');
     var accentColor = brand.name === 'BilimExam' ? '#a78bfa' : '#3cb648';
     nameEl.innerHTML = '<span>Bilim</span><span style="color:' + accentColor + '">' + suffix + '</span>';
     logo.appendChild(nameEl);
@@ -98,11 +96,9 @@
         }
     };
 
-    // скрываем после загрузки страницы
     window.addEventListener('load', function () {
         setTimeout(function () { window.PageLoader.hide(); }, 300);
     });
 
-    // страховка — если событие load почему-то не сработало
     setTimeout(function () { window.PageLoader.hide(); }, 2000);
 })();

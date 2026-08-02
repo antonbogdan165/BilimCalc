@@ -1,11 +1,10 @@
 (function () {
     'use strict';
 
-    var DISMISS_KEY   = 'bc_pwa_dismissed';
+    var DISMISS_KEY = 'bc_pwa_dismissed';
     var INSTALLED_KEY = 'bc_pwa_installed';
-    var SHOWN_KEY     = 'bc_pwa_shown_at';
+    var SHOWN_KEY = 'bc_pwa_shown_at';
 
-    // уже запущено как PWA
     if (window.matchMedia('(display-mode: standalone)').matches ||
         window.navigator.standalone === true) {
         localStorage.setItem(INSTALLED_KEY, '1');
@@ -14,11 +13,9 @@
 
     if (localStorage.getItem(INSTALLED_KEY)) return;
 
-    // закрыли баннер менее 3 дней назад — не показываем
     var dismissed = localStorage.getItem(DISMISS_KEY);
     if (dismissed && Date.now() - parseInt(dismissed, 10) < 3 * 24 * 60 * 60 * 1000) return;
 
-    // в этой сессии уже показывали (не чаще раза в 30 минут)
     var shownAt = localStorage.getItem(SHOWN_KEY);
     if (shownAt && Date.now() - parseInt(shownAt, 10) < 30 * 60 * 1000) return;
 
@@ -39,7 +36,7 @@
 
     function isIOS() {
         var ua = navigator.userAgent;
-        var isIpad   = /iPad/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        var isIpad = /iPad/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
         var isIphone = /iPhone|iPod/.test(ua);
         var isSafari = /Safari/.test(ua) && !/Chrome|CriOS|FxiOS|EdgiOS/.test(ua);
         return (isIpad || isIphone) && isSafari;
@@ -74,18 +71,18 @@
             banner.innerHTML =
                 '<div class="pwa-banner__icon">📲</div>' +
                 '<div class="pwa-banner__body">' +
-                    '<div class="pwa-banner__title">Добавить на главный экран</div>' +
-                    '<div class="pwa-banner__sub">Нажми ' +
-                        '<span class="pwa-banner__share-icon">' + IOS_SHARE_SVG + '</span>' +
-                        ' в Safari, затем <strong>«На экран «Домой»»</strong></div>' +
+                '<div class="pwa-banner__title">Добавить на главный экран</div>' +
+                '<div class="pwa-banner__sub">Нажми ' +
+                '<span class="pwa-banner__share-icon">' + IOS_SHARE_SVG + '</span>' +
+                ' в Safari, затем <strong>«На экран «Домой»»</strong></div>' +
                 '</div>' +
                 '<button class="pwa-banner__close" id="pwaBannerClose" aria-label="Закрыть">' + closeIcon + '</button>';
         } else {
             banner.innerHTML =
                 '<div class="pwa-banner__icon">📲</div>' +
                 '<div class="pwa-banner__body">' +
-                    '<div class="pwa-banner__title">Установить приложение</div>' +
-                    '<div class="pwa-banner__sub">Быстрый доступ без браузера, работает офлайн</div>' +
+                '<div class="pwa-banner__title">Установить приложение</div>' +
+                '<div class="pwa-banner__sub">Быстрый доступ без браузера, работает офлайн</div>' +
                 '</div>' +
                 '<button class="pwa-banner__btn" id="pwaBannerInstall">Установить</button>' +
                 '<button class="pwa-banner__close" id="pwaBannerClose" aria-label="Закрыть">' + closeIcon + '</button>';
