@@ -461,7 +461,7 @@ def api_visits_get():
     if not _SUPABASE_URL or not _SUPABASE_KEY:
         return _json({"count": 0})
     try:
-        r = req_lib.get(
+        r = requests.get(
             _SUPABASE_URL + "/rest/v1/visits?id=eq.1&select=count",
             headers=_sb_headers(),
             timeout=5,
@@ -479,7 +479,7 @@ def api_visits_increment():
     if not _SUPABASE_URL or not _SUPABASE_KEY:
         return _json({"count": 0})
     try:
-        r = req_lib.post(
+        r = requests.post(
             _SUPABASE_URL + "/rest/v1/rpc/increment_visits",
             headers=_sb_headers(),
             json={},
