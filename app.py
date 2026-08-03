@@ -31,7 +31,7 @@ _SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 _SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
 _INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")
 
-from config import SITE_URL
+from config import APP_VERSION, SITE_URL
 
 
 def _abs_url(path):
@@ -252,6 +252,7 @@ RSS_ARTICLES = [
 def inject_globals():
     return dict(
         site_url=SITE_URL,
+        app_version=APP_VERSION,
         build_time=BUILD_TIME,
         canonical_url=_canonical_for_path(request.path),
         google_site_verification=os.environ.get(
@@ -276,6 +277,20 @@ def index():
 @app.route("/robots.txt")
 def robots():
     host = urlparse(SITE_URL).netloc
+    ai_agents = [
+        "GPTBot",
+        "ChatGPT-User",
+        "OAI-SearchBot",
+        "ClaudeBot",
+        "anthropic-ai",
+        "Claude-User",
+        "PerplexityBot",
+        "Perplexity-User",
+        "Google-Extended",
+        "Applebot-Extended",
+        "Amazonbot",
+        "YandexRenderResourcesBot",
+    ]
     body = (
         "User-agent: *\n"
         "Allow: /\n"
@@ -297,11 +312,46 @@ def robots():
         "Disallow: /api/\n"
         "Disallow: /disable-adblock\n"
         "\n"
-        f"Sitemap: {SITE_URL}/sitemap.xml\n"
     )
+    for agent in ai_agents:
+        body += (
+            f"User-agent: {agent}\n"
+            "Allow: /\n"
+            "Disallow: /api/\n"
+            "Disallow: /disable-adblock\n"
+            "\n"
+        )
+    body += f"Sitemap: {SITE_URL}/sitemap.xml\n"
     if host:
         body = f"Host: {host}\n" + body
     response = Response(body, mimetype="text/plain")
+    response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
+
+
+@app.route("/llms.txt")
+def llms_txt():
+    lines = [
+        "# BilimCalc",
+        "",
+        "> Бесплатный онлайн-калькулятор ФО, СОР, СОЧ и итоговых оценок для школ Казахстана "
+        "по официальной методике МОН РК. Без регистрации.",
+        "",
+        "## Калькуляторы",
+        f"- [BilimCalc — ФО, СОР, СОЧ]({SITE_URL}/): расчёт итоговой оценки за четверть.",
+        f"- [BilimExam]({SITE_URL}/kalkulator-ekzamena): итоговая оценка за год по формуле 70/30 для 9 и 11 класса.",
+        f"- [BilimGrant]({SITE_URL}/kalkulator-shansov-granta): оценка шансов на грант ЕНТ по пробному баллу.",
+        "",
+        "## Статьи",
+    ]
+    for a in RSS_ARTICLES:
+        lines.append(f"- [{a['title']}]({a['link']}): {a['desc']}")
+    lines.append("")
+    lines.append("## Дополнительно")
+    lines.append(f"- [Полный список статей]({SITE_URL}/articles)")
+    lines.append(f"- [Sitemap]({SITE_URL}/sitemap.xml)")
+    body = "\n".join(lines) + "\n"
+    response = Response(body, mimetype="text/plain; charset=utf-8")
     response.headers["Cache-Control"] = "public, max-age=3600"
     return response
 

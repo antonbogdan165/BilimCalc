@@ -17,6 +17,8 @@
     {% endif %}
     <meta name="language" content="ru">
     <meta http-equiv="content-language" content="ru">
+    <meta name="geo.region" content="KZ">
+    <meta name="geo.placename" content="Kazakhstan">
     <meta name="author" content="Anton Bogdan">
     <meta name="google-site-verification" content="{{ google_site_verification }}">
     <meta name="yandex-verification" content="{{ yandex_verification }}">
@@ -47,7 +49,8 @@
     <meta property="og:title" content="{{ _og_title }}">
     <meta property="og:description" content="{{ _og_desc }}">
     <meta property="og:url" content="{{ _canonical_url }}">
-    <meta property="og:image" content="{% block og_image %}{{ site_url }}/static/icons/preview.webp?v={{ build_time }}{% endblock %}">
+    <meta property="og:image"
+        content="{% block og_image %}{{ site_url }}/static/icons/preview.webp?v={{ build_time }}{% endblock %}">
     <meta property="og:image:width" content="1024">
     <meta property="og:image:height" content="537">
     <meta property="og:image:alt"
@@ -150,6 +153,14 @@
                 "@id": "{{ site_url }}/#organization",
                 "name": "BilimCalc",
                 "url": "{{ site_url }}/",
+                "areaServed": {
+                    "@type": "Country",
+                    "name": "Kazakhstan"
+                },
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "KZ"
+                },
                 "logo": {
                     "@type": "ImageObject",
                     "url": "{{ site_url }}/static/icons/web-app-manifest-512x512.png?v={{ build_time }}",
@@ -162,6 +173,7 @@
                 "@id": "{{ site_url }}/#website",
                 "url": "{{ site_url }}/",
                 "name": "BilimCalc",
+                "inLanguage": "ru",
                 "publisher": {
                     "@id": "{{ site_url }}/#organization"
                 }
@@ -205,16 +217,6 @@
                 </svg>
                 <span class="topbar-mobile-brand__name">Bilim<span>Calc</span></span>
             </a>
-            <a href="https://help.bilimland.kz/l_RUS/knowledge_base/item/354267" target="_blank"
-                rel="noopener noreferrer" class="topbar-official-link">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                </svg>
-                <span>Методика МОН</span>
-            </a>
-
             <a href="/articles" class="topbar-articles-btn {% block nav_articles %}{% endblock %}">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -326,7 +328,7 @@
                 initUi();
             }
             document.addEventListener('click', function (e) {
-                var target = e.target.closest('.mobile-nav__item, .btn, .topbar-official-link, .grade-btn');
+                var target = e.target.closest('.mobile-nav__item, .btn, .grade-btn');
                 if (!target) return;
                 var rect = target.getBoundingClientRect();
                 var ripple = document.createElement('span');
@@ -380,7 +382,8 @@
     </script>
 
     <noscript>
-        <div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt="" loading="lazy" width="1" height="1" decoding="async"/></div>
+        <div><img src="https://mc.yandex.ru/watch/107236685" style="position:absolute; left:-9999px;" alt=""
+                loading="lazy" width="1" height="1" decoding="async" /></div>
     </noscript>
 </body>
 

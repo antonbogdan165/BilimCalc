@@ -702,7 +702,6 @@ function loadChartJS() {
         s.onerror = function (e) { reject(e); };
         document.head.appendChild(s);
         setTimeout(function () {
-            // fallback: if Chart loaded via other means
             if (window.Chart) resolve(window.Chart);
         }, 3500);
     });
@@ -963,8 +962,6 @@ function showDetailedAnalysisModal() {
 [data-theme="light"] .tm-stat__val{color:#0f172a}
 .tm-interpretation{font-size:13px;color:#8b949e;line-height:1.65;text-align:center;margin:0}
 [data-theme="light"] .tm-interpretation{color:#64748b}
-#trendTriggerBtn.trend-btn--active{color:var(--accent);border-color:rgba(88,166,255,0.30);background:rgba(88,166,255,0.08)}
-[data-theme="light"] #trendTriggerBtn.trend-btn--active{color:var(--accent);border-color:rgba(37,99,235,0.28);background:rgba(37,99,235,0.07)}
 @keyframes tmOvIn{from{opacity:0}to{opacity:1}}
 @keyframes tmBxIn{from{opacity:0;transform:scale(0.93) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}`;
         document.head.appendChild(s);
