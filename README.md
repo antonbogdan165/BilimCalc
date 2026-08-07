@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.8.0-22c55e?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.8.3-22c55e?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/python-3.11-3b82f6?style=flat-square&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/flask-3.0-black?style=flat-square&logo=flask" alt="Flask">
   <img src="https://img.shields.io/badge/vercel-deploy-black?style=flat-square&logo=vercel" alt="Vercel">
