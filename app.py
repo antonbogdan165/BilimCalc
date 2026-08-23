@@ -331,7 +331,7 @@ def inject_globals():
         page_meta=page_meta,
         app_strings=COMMON[locale],
         google_site_verification=os.environ.get(
-            "GOOGLE_SITE_VERIFICATION", "0fMbzvCzXupKdMlhlgc1xPnxrAcWKTaLS_zsNe4mDJc"
+            "GOOGLE_SITE_VERIFICATION", "kH-2Ji4B8Ht6iJMVtZw0cJftFvANk8LLFORRc4GEnxU"
         ),
         yandex_verification=os.environ.get("YANDEX_VERIFICATION", "f1fe256acca013a6"),
         ya_ad_block_id=os.environ.get("YA_AD_BLOCK_ID", ""),
