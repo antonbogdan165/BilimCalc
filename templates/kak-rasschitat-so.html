@@ -1,11 +1,10 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}Как рассчитать ФО в школе Казахстана — формула и пример | BilimCalc{% endblock %}
-{% block meta_desc %}Как рассчитать ФО — суммативное оценивание по шкале 1–10. Формула расчёта ФО: (сумма ÷ количество)
-× 2,5. Два примера с числами, методика МОН РК.{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
+{% block meta_desc %}{{ page_meta.meta_desc }}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}Как рассчитать ФО — формула, пример, методика МОН РК{% endblock %}
-{% block og_desc %}Полное руководство по расчёту суммативного оценивания для школ Казахстана.{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -14,13 +13,13 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Как рассчитать ФО в школе Казахстана",
-    "description": "Формула расчёта суммативного оценивания, пример с числами, официальная методика МОН РК",
+    "headline": "{% if locale == 'kk' %}ФО қалай есептеледі — формула және мысал{% else %}Как рассчитать ФО в школе Казахстана{% endif %}",
+    "description": "{% if locale == 'kk' %}Суммативті бағалаудың формуласы, сандық мысал, МОН РК әдістемесі{% else %}Формула расчёта суммативного оценивания, пример с числами, официальная методика МОН РК{% endif %}",
     "url": "{{ site_url }}/kak-rasschitat-so",
     "datePublished": "2025-09-01",
     "dateModified": "2026-05-24",
     "image": "{{ site_url }}/static/icons/preview.webp?v={{ build_time }}",
-    "inLanguage": "ru",
+    "inLanguage": "{{ 'kk' if locale == 'kk' else 'ru' }}",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
     "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/kak-rasschitat-so" }
@@ -31,9 +30,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Как рассчитать ФО", "item": "{{ site_url }}/kak-rasschitat-so" }
+        { "@type": "ListItem", "position": 1, "name": "{{ app_strings.menu_home }}", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "{{ app_strings.all_articles }}", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "{% if locale == 'kk' %}ФО қалай есептеледі{% else %}Как рассчитать ФО{% endif %}", "item": "{{ site_url }}/kak-rasschitat-so" }
     ]
 }
 </script>
@@ -44,111 +43,105 @@
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "Можно ли пересдать ФО?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Чаще всего пересдача ФО не предусмотрена. В редких случаях учитель может дать дополнительное задание." }
+            "name": "{% if locale == 'kk' %}ФО-ны қайта тапсыруға болады ма?{% else %}Можно ли пересдать ФО?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Көп жағдайда ФО-ны қайта тапсыру қарастырылмайды. Сирек жағдайларда мұғалім қосымша тапсырма беруге мүмкіндік береді.{% else %}Чаще всего пересдача ФО не предусмотрена. В редких случаях учитель может дать дополнительное задание.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Сколько ФО ставится за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Точного количества нет — зависит от предмета и программы. Обычно это 12–16 ФО за четверть." }
+            "name": "{% if locale == 'kk' %}Тоқсан ішінде неше ФО қойылады?{% else %}Сколько ФО ставится за четверть?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Дәл саны жоқ — пән мен бағдарламадан тәуелді. Әдетте бір тоқсанға 12–16 ФО қойылады.{% else %}Точного количества нет — зависит от предмета и программы. Обычно это 12–16 ФО за четверть.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Как ФО влияет на итоговую оценку за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "ФО составляет 25% итоговой оценки за четверть. Формула: (среднее всех ФО ÷ 10) × 25." }
+            "name": "{% if locale == 'kk' %}ФО тоқсандық қорытынды бағаға қалай әсер етеді?{% else %}Как ФО влияет на итоговую оценку за четверть?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}ФО тоқсандық қорытынды бағаның 25% құрайды. Формула: (барлық ФО-лардың орташа мәні ÷ 10) × 25.{% else %}ФО составляет 25% итоговой оценки за четверть. Формула: (среднее всех ФО ÷ 10) × 25.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Как рассчитать ФО, если оценок несколько?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Сложи все ФО оценки, раздели на их количество — получишь среднее ФО. Затем: среднее ÷ 10 × 25 = вклад ФО в итоговую оценку за четверть." }
+            "name": "{% if locale == 'kk' %}Егер бірнеше ФО бар болса, оны қалай есептеу керек?{% else %}Как рассчитать ФО, если оценок несколько?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Барлық ФО бағаларын қосып, олардың санына бөліңіз — орташа ФО шығады. Содан кейін: орташа ÷ 10 × 25 = тоқсандық қорытынды бағадағы ФО үлесі.{% else %}Сложи все ФО оценки, раздели на их количество — получишь среднее ФО. Затем: среднее ÷ 10 × 25 = вклад ФО в итоговую оценку за четверть.{% endif %}" }
         }
     ]
 }
 </script>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    .article ul {
-        margin: 12px 0 16px 0;
-        padding-left: 0;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .article ul li {
-        font-size: 15px;
-        line-height: 1.75;
-        color: #b0bec8;
-        padding-left: 20px;
-        position: relative;
-    }
-
-    .article ul li::before {
-        content: '—';
-        position: absolute;
-        left: 0;
-        color: var(--accent);
-        font-weight: 700;
-        opacity: 0.6;
-    }
-
-    .article ul li strong {
-        color: #e6edf3;
-    }
-
-    [data-theme="light"] .article ul li {
-        color: #475569;
-    }
-
-    [data-theme="light"] .article ul li strong {
-        color: #0f172a;
-    }
-
-    [data-theme="light"] .article ul li::before {
-        opacity: 0.5;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="article-wrap">
-    <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <a href="/">Главная</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <a href="/articles">Статьи</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <span aria-current="page">Как рассчитать ФО</span>
-    </nav>
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
             <h1 class="article__title" itemprop="headline">
-                Как рассчитать ФО: формула, пример и методика МОН РК
+                {% if locale == 'kk' %}ФО қалай есептеледі: формула, мысал және МОН ҚР әдістемесі{% else %}Как
+                рассчитать ФО: формула, пример и методика МОН РК{% endif %}
             </h1>
             <div class="article__meta">
                 <time datetime="2026-03-13" itemprop="dateModified">Май 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>7 мин чтения</span>
+                <span>7 {{ app_strings.reading_time_suffix }}</span>
             </div>
-            <a href="/" class="mobile-cta">
+            <a href="{{ locale_home }}" class="mobile-cta">
                 <div class="mobile-cta__icon">🧮</div>
                 <div class="mobile-cta__body">
-                    <div class="mobile-cta__label">Открыть</div>
-                    <div class="mobile-cta__title">Калькулятор оценок</div>
+                    <div class="mobile-cta__label">{% if locale == 'kk' %}Ашу{% else %}Открыть{% endif %}</div>
+                    <div class="mobile-cta__title">{% if locale == 'kk' %}Бағалау калькуляторы{% else %}Калькулятор
+                        оценок{% endif %}</div>
                 </div>
                 <span class="mobile-cta__arrow">→</span>
             </a>
             <p class="article__lead">
+                {% if locale == 'kk' %}
+                <strong>ФО</strong> (суммативтік бағалау) тоқсандық қорытынды бағаның <strong>25%</strong> құрайды ресми
+                <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk">МОН ҚР әдістемесі</a> бойынша. Есептеу формуласы:
+                <strong>(барлық ФО-ның қосындысы ÷ саны) × 2,5</strong>. ФО 1–10 шкаласы бойынша қойылады және тоқсан
+                бойына жинақталады. Есептеуді қадам-қадам екі мысалмен түсіндіреміз және тіпті «кіші» тестің қорытындыға
+                қалай әсер ететінін айқындаймыз.
+                {% else %}
                 <strong>ФО</strong> (суммативное оценивание) составляет <strong>25% итоговой оценки за четверть</strong>
-                по официальной <a href="/metodika-rascheta-mon-rk">методике МОН РК</a>. Формула расчёта: <strong>(сумма
+                по официальной <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk">методике МОН РК</a>. Формула
+                расчёта: <strong>(сумма
                     всех ФО ÷ количество) × 2,5</strong>. ФО выставляется по шкале 1–10 и накапливается в течение
                 четверти. Разберём расчёт по шагам с двумя примерами и объясним, почему даже «маленький» тест влияет на
                 итог.
+                {% endif %}
             </p>
 
-            <h2>Краткий ответ: как рассчитывается ФО</h2>
+            <h2>{% if locale == 'kk' %}Қысқаша жауап: ФО қалай есептеледі{% else %}Краткий ответ: как рассчитывается
+                ФО{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>ФО — бұл тоқсандағы барлық формативтік бағалардың арифметикалық орташасы, 25% салмақпен пайызға
+                аударылған. Алгоритм қарапайым:</p>
+            <ul>
+                <li><strong>Қадам 1:</strong> барлық ФО бағаларын қос (1–10 шкаласы)</li>
+                <li><strong>Қадам 2:</strong> қосындыны бағалар санына бөл — ФО орташасын аласың</li>
+                <li><strong>Қадам 3:</strong> орташаны 2,5-ке көбейт (орташа ÷ 10 × 25-пен бірдей) — бұл ФО-ның
+                    тоқсандық қорытынды бағаға үлесі</li>
+            </ul>
+            <p>Қорытынды бағаның қалған 75%-ы — бұл СОР (25%) және СОЧ (50%). Әрқайсысын қалай есептеу керегін <a
+                    href="{{ locale_prefix }}/kak-rasschitat-sor">СОР қалай есептеледі</a> және <a
+                    href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ қалай есептеледі</a> мақалаларынан оқы.</p>
+
+            <h2>ФО дегеніміз не</h2>
+            <p>ФО — бұл сен тақырыпты немесе бөлімді қаншалықты меңгергеніңді көрсететін суммативтік бағалау.
+                Қазақстан мектептерінде оны жиі «формативті бағалар» деп атайды, дегенмен <a
+                    href="{{ locale_prefix }}/metodika-rascheta-mon-rk">МОН РК әдістемесі</a> бойынша
+                бұл дәл ФО. Мұндай бағалар бақылау, тест, жоба және тексеру жұмыстарынан кейін қойылады. ФО бағасы
+                <strong>1–10</strong> шкаласы бойынша қойылады, мұнда 1 — минималды нәтиже, ал 10 — максималды. Әдетте
+                бір тақырып немесе бөлім бойынша бір немесе бірнеше ФО аласың. Олар тоқсан бойы жинақталып,
+                тоқсандық қорытынды бағаға тікелей әсер етеді.
+            </p>
+            <p>ФО-ның СОР мен СОЧ-тан айырмашылығы — ФО тұрақты түрде, әр тақырып немесе бірнеше сабақтан кейін
+                өткізіледі. Бұл мұғалімге ағымдағы прогресті бақылауға, ал оқушыға тоқсан аяқталуын күтпей-ақ,
+                қай жерде олқылықтар бар екенін түсінуге мүмкіндік береді.</p>
+
+            <h2>ФО есептеу формуласы</h2>
+            <p>ФО тоқсандық қорытынды бағаның 25%-ын алады — бұл Қазақстанның бағалау жүйесіндегі тұрақты салмақ.
+                Қалған пайыздар СОР мен СОЧ-қа тиесілі, бірақ дәл ФО-ны сен ең жиі аласың. Сондықтан кәдімгі
+                бақылау жұмыстарының да маңызы бар.</p>
+            <div class="article__formula">
+                <div class="article__formula-title">ФО формуласы (МОН РК ресми әдістемесі)</div>
+                <div class="article__formula-body">ФО (итогтағы үлес) = (Барлық ФО қосындысы ÷ ФО саны) × 2.5</div>
+            </div>
+            {% else %}
             <p>ФО — это среднее арифметическое всех формативных оценок за четверть, переведённое в процент с весом 25%.
                 Алгоритм прост:</p>
             <ul>
@@ -158,12 +151,14 @@
                     итоговую оценку за четверть</li>
             </ul>
             <p>Остальные 75% итоговой оценки - это СОР (25%) и СОЧ (50%). Про расчёт каждого из них читай в статьях <a
-                    href="/kak-rasschitat-sor">как рассчитать СОР</a> и <a href="/kak-rasschitat-soch">как рассчитать
+                    href="{{ locale_prefix }}/kak-rasschitat-sor">как рассчитать СОР</a> и <a
+                    href="{{ locale_prefix }}/kak-rasschitat-soch">как рассчитать
                     СОЧ</a>.</p>
 
             <h2>Что такое ФО</h2>
             <p>ФО — это суммативное оценивание, которое показывает, как ты усвоил тему или раздел. В школах Казахстана
-                его часто называют «формативные оценки», хотя по <a href="/metodika-rascheta-mon-rk">методике МОН РК</a>
+                его часто называют «формативные оценки», хотя по <a
+                    href="{{ locale_prefix }}/metodika-rascheta-mon-rk">методике МОН РК</a>
                 это именно ФО. Такие оценки ставят после контрольных, тестов, проектов и проверочных работ. ФО оценка
                 выставляется по шкале <strong>1–10</strong>, где 1 — минимальный результат, а 10 — максимальный. Обычно
                 за одну тему или раздел ты получаешь одну или несколько ФО. Они накапливаются в течение четверти и
@@ -180,18 +175,26 @@
                 <div class="article__formula-title">Формула ФО (официальная методика МОН РК)</div>
                 <div class="article__formula-body">ФО (в итоговой оценке) = (Сумма всех ФО ÷ Кол-во ФО) × 2.5</div>
             </div>
+            {% endif %}
 
-            <h2>Пример расчёта № 1 — стандартный</h2>
+            <h2>{% if locale == 'kk' %}Есептеу мысалы № 1 — стандартты{% else %}Пример расчёта № 1 — стандартный{% endif
+                %}</h2>
+            {% if locale == 'kk' %}
+            <p>Тоқсанда бес ФО алдың делік: 7, 8, 9, 6 және 8. Бағаларды қосамыз: 7+8+9+6+8 = 38. Санға бөлеміз:
+                38 ÷ 5 = 7,6. Үлесті есептейміз: 7,6 × 2,5 = <strong>19%</strong>. Осы 19% тоқсандық қорытынды
+                бағаға қосылады.</p>
+            {% else %}
             <p>Представь, что за четверть у тебя пять ФО: 7, 8, 9, 6 и 8. Складываем оценки: 7+8+9+6+8 = 38. Делим на
                 количество: 38 ÷ 5 = 7,6. Считаем вклад: 7,6 × 2,5 = <strong>19%</strong>. Эти 19% идут в итоговую
                 оценку за четверть.</p>
+            {% endif %}
             <div class="article__example">
                 <table class="article__table">
                     <thead>
                         <tr>
-                            <th>ФО оценки</th>
-                            <th>Среднее</th>
-                            <th>Вклад в итог</th>
+                            <th>{% if locale == 'kk' %}ФО бағалары{% else %}ФО оценки{% endif %}</th>
+                            <th>{% if locale == 'kk' %}Орташа{% else %}Среднее{% endif %}</th>
+                            <th>{% if locale == 'kk' %}Қорытындыға үлес{% else %}Вклад в итог{% endif %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -204,48 +207,67 @@
                 </table>
             </div>
 
-            <h2>Пример расчёта № 2 — с низкой оценкой</h2>
+            <h2>{% if locale == 'kk' %}Есептеу мысалы № 2 — төмен бағамен{% else %}Пример расчёта № 2 — с низкой
+                оценкой{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>Тағы бір оқушы тоқсанда алты ФО алды: 9, 10, 8, 3, 9, 8. Төмен «3» бағасы орташаны күрт төмендетеді.
+                Қосынды: 9+10+8+3+9+8 = 47. Орташа: 47 ÷ 6 = 7,83. Үлес: 7,83 × 2,5 ≈ <strong>19,6%</strong>.
+                Салыстырайық: «үштік» болмаса орташа 44 ÷ 5 = 8,8 болар еді, үлесі — 8,8 × 2,5 = 22%. Бір төмен ФО
+                үлесті <strong>2,4%</strong>-ке төмендетті — бұл тоқсандық қорытынды бағаны өзгерте алады.</p>
+            {% else %}
             <p>Другой ученик получил за четверть шесть ФО: 9, 10, 8, 3, 9, 8. Низкая оценка «3» резко тянет среднее
                 вниз. Сумма: 9+10+8+3+9+8 = 47. Среднее: 47 ÷ 6 = 7,83. Вклад: 7,83 × 2,5 ≈ <strong>19,6%</strong>.
                 Сравним: без «тройки» среднее было бы 44 ÷ 5 = 8,8, вклад — 8,8 × 2,5 = 22%. Одна низкая ФО снизила
                 вклад на <strong>2,4%</strong> — а это может изменить итоговую оценку за четверть.</p>
+            {% endif %}
             <div class="article__example">
                 <table class="article__table">
                     <thead>
                         <tr>
-                            <th>Сценарий</th>
-                            <th>Оценки</th>
-                            <th>Среднее</th>
-                            <th>Вклад ФО</th>
+                            <th>{% if locale == 'kk' %}Сценарий{% else %}Сценарий{% endif %}</th>
+                            <th>{% if locale == 'kk' %}Бағалар{% else %}Оценки{% endif %}</th>
+                            <th>{% if locale == 'kk' %}Орташа{% else %}Среднее{% endif %}</th>
+                            <th>{% if locale == 'kk' %}ФО үлесі{% else %}Вклад ФО{% endif %}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>С «тройкой»</td>
+                            <td>{% if locale == 'kk' %}«Үштікпен»{% else %}С «тройкой»{% endif %}</td>
                             <td>9, 10, 8, 3, 9, 8</td>
                             <td>7,83</td>
                             <td>≈ 19,6%</td>
                         </tr>
                         <tr>
-                            <td>Без «тройки»</td>
+                            <td>{% if locale == 'kk' %}«Үштіксіз»{% else %}Без «тройки»{% endif %}</td>
                             <td>9, 10, 8, 9, 8</td>
                             <td>8,8</td>
                             <td>22%</td>
                         </tr>
                         <tr class="article__table-result">
-                            <td colspan="3"><strong>Разница из-за одной оценки</strong></td>
+                            <td colspan="3"><strong>{% if locale == 'kk' %}Бір бағадан пайда болған айырмашылық{% else
+                                    %}Разница из-за одной оценки{% endif %}</strong></td>
                             <td><strong>−2,4%</strong></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h2>Сколько весит ФО в итоговой оценке</h2>
+            <h2>{% if locale == 'kk' %}ФО қорытынды бағада қанша салмақ алады{% else %}Сколько весит ФО в итоговой
+                оценке{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>Қазақстанның бағалау жүйесінде тоқсандық қорытынды баға үш бөліктен тұрады: ФО 25%, СОР 25% және СОЧ
+                50%. Көбісі кішкентай бір ФО бағасы ешнәрсені шешпейді деп ойлайды. Шын мәнінде әрбір төмен баға
+                орташаны төмендетеді. Бұл әсіресе ФО саны аз болғанда байқалады — мысалы, барлығы үшеу болса, бір
+                «екілік» нәтижені қатты құлатады. Үш компоненттің қалай қосылатыны туралы толығырақ <a
+                    href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">тоқсандық қорытынды баға</a> мақаласынан
+                оқы.</p>
+            {% else %}
             <p>Итоговая оценка за четверть в системе оценивания Казахстана состоит из трёх частей: ФО 25%, СОР 25% и СОЧ
                 50%. Многие думают, что одна маленькая ФО оценка ничего не решает. На самом деле каждая низкая оценка
                 тянет среднее вниз. Особенно заметно это при малом количестве ФО — например, если их всего три, одна
                 «двойка» сильно роняет результат. Подробнее о том, как все три компонента складываются в итог, читай в
-                статье <a href="/itogovaya-ocenka-za-chetvert">итоговая оценка за четверть</a>.</p>
+                статье <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">итоговая оценка за четверть</a>.</p>
+            {% endif %}
 
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
@@ -265,122 +287,173 @@
                 </div>
             </div>
 
-            <h2>Как повысить оценку за ФО</h2>
+            <h2>{% if locale == 'kk' %}ФО бағасын қалай арттыруға болады{% else %}Как повысить оценку за ФО{% endif %}
+            </h2>
+            {% if locale == 'kk' %}
+            <p>Біріншіден — әрбір тексеру жұмысына маңызды нәрсе ретінде қара. Тіпті кішкентай тест те ФО болып,
+                есепке кіруі мүмкін. Негізсіз себепсіз жұмыстарды жіберіп алма — өткізіп алынған ФО жиі 0 немесе
+                минималды балл ретінде есептеледі. Екіншіден — мұғалімнен неге балл төмендетілгенін сұра. Көбіне
+                қатені түсініп, оны қайталамауға болады. Үшіншіден — бағаларды <a href="{{ locale_home }}">ФО онлайн
+                    калькуляторы</a> арқылы өз бетінше қадағала — ол ағымдағы ФО деңгейінің тоқсандық қорытынды
+                бағаға қалай әсер ететінін көрсетеді.</p>
+            {% else %}
             <p>Первое — относись к каждой проверочной как к важной. Даже маленький тест может стать ФО и пойти в расчёт.
                 Не пропускай работы без уважительной причины — пропущенная ФО часто засчитывается как 0 или минимальный
                 балл. Второе — спрашивай учителя, за что снижен балл. Часто можно понять ошибку и больше её не
-                повторять. Третье — следи за оценками самостоятельно через <a href="/">калькулятор ФО онлайн</a> — он
+                повторять. Третье — следи за оценками самостоятельно через <a href="{{ locale_home }}">калькулятор ФО
+                    онлайн</a> — он
                 показывает, как текущий уровень ФО влияет на итоговую оценку за четверть.</p>
+            {% endif %}
 
-            <h2>Часто задаваемые вопросы</h2>
+            <h2>{{ app_strings.faq_title }}</h2>
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Можно ли пересдать ФО?</span>
+                        <span>{% if locale == 'kk' %}ФО-ны қайта тапсыруға болады ма?{% else %}Можно ли пересдать ФО?{%
+                            endif %}</span>
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>Чаще всего пересдача ФО не предусмотрена. Формативные оценки в Казахстане используются как
-                            фиксация результата на конкретный момент. В редких случаях учитель может дать дополнительное
-                            задание, но это его решение. Поэтому лучше сразу писать работы на максимум.</p>
+                        <p>{% if locale == 'kk' %}Көп жағдайда ФО-ны қайта тапсыру қарастырылмайды. Формативті бағалар
+                            белгілі бір кезең үшін қойылады, сондықтан ең жоғары балл алуға тырысу керек. Сирек жағдайда
+                            мұғалім қосымша тапсырма бере алады.{% else %}Чаще всего пересдача ФО не предусмотрена.
+                            Формативные оценки в Казахстане используются как фиксация результата на конкретный момент. В
+                            редких случаях учитель может дать дополнительное задание, но это его решение. Поэтому лучше
+                            сразу писать работы на максимум.{% endif %}</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Сколько ФО ставится за четверть?</span>
+                        <span>{% if locale == 'kk' %}Тоқсанға неше ФО қойылады?{% else %}Сколько ФО ставится за
+                            четверть?{% endif %}</span>
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>Точного количества нет, всё зависит от предмета и программы. Обычно это 12–16 ФО за четверть,
-                            иногда больше. Учитель ставит ФО после завершения тем или разделов. Все они учитываются при
-                            расчёте среднего балла.</p>
+                        <p>{% if locale == 'kk' %}Дәл саны пән мен бағдарламаға байланысты. Әдетте бір тоқсанға 12–16 ФО
+                            қойылады, бірақ кейде мектеп немесе пәнге қарай саны көбірек болуы мүмкін.{% else %}Точного
+                            количества нет, всё зависит от предмета и программы. Обычно это 12–16 ФО за четверть, иногда
+                            больше. Учитель ставит ФО после завершения тем или разделов. Все они учитываются при расчёте
+                            среднего балла.{% endif %}</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Как ФО влияет на итоговую оценку?</span>
+                        <span>{% if locale == 'kk' %}ФО тоқсандық қорытынды бағаға қалай әсер етеді?{% else %}Как ФО
+                            влияет на итоговую оценку за четверть?{% endif %}</span>
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>ФО даёт 25% от всей четвертной оценки. Даже если хорошо написаны СОР и СОЧ, слабые ФО могут
-                            снизить итог. Именно поэтому ФО оценка так важна. Чтобы понять влияние заранее, удобно
-                            считать всё через <a href="/">калькулятор ФО онлайн</a>.</p>
+                        <p>{% if locale == 'kk' %}ФО тоқсандық қорытынды бағаның 25%-ын құрайды. Сондықтан тіпті бір
+                            төмен баға орташа нәтижеңді түсіріп, жалпы бағасына әсер етуі мүмкін. Оны алдын ала есептеу
+                            үшін <a href="{{ locale_home }}">калькуляторды</a> пайдаланған дұрыс.{% else %}ФО даёт 25%
+                            от всей четвертной оценки. Даже если хорошо написаны СОР и СОЧ, слабые ФО могут снизить
+                            итог. Именно поэтому ФО оценка так важна. Чтобы понять влияние заранее, удобно считать всё
+                            через <a href="{{ locale_home }}">калькулятор ФО онлайн</a>.{% endif %}</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Что делать, если пропустил ФО по болезни?</span>
+                        <span>{% if locale == 'kk' %}Ауруға байланысты ФО-ны жіберіп алсам не істеу керек?{% else %}Что
+                            делать, если пропустил ФО по болезни?{% endif %}</span>
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>Сразу сообщи учителю и принеси справку о болезни. В этом случае учитель должен дать
-                            возможность написать работу в другой день. Если же пропуск без уважительной причины — оценка
-                            может быть выставлена как минимальная. Всё зависит от внутренних правил школы.</p>
+                        <p>{% if locale == 'kk' %}Мұғалімге дереу хабарласып, ауру туралы анықтама әкелу керек. Бұл
+                            жағдайда жұмыс қайта өткізілуі мүмкін. Егер себепсіз өткізіп алсаңыз, баға ең төменгі
+                            деңгейде қойылуы мүмкін.{% else %}Сразу сообщи учителю и принеси справку о болезни. В этом
+                            случае учитель должен дать возможность написать работу в другой день. Если же пропуск без
+                            уважительной причины — оценка может быть выставлена как минимальная. Всё зависит от
+                            внутренних правил школы.{% endif %}</p>
                     </div>
                 </div>
             </div>
 
             <div class="article__related">
-                <div class="article__related-title">Читайте также</div>
+                <div class="article__related-title">{{ app_strings.read_also }}</div>
                 <div class="article__related-links">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Итоговая
-                            оценка за год: формула 70/30</span><span class="article__related-arrow">→</span></a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Итоговая
-                            оценка за четверть: полный расчёт</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-sor" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Как
-                            рассчитать СОР — полное руководство</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-soch" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Что такое
-                            СОЧ и как считается</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Как
-                            перевести проценты в оценку — таблица</span><span
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god"
+                        class="article__related-card"><span class="article__related-label">{{ app_strings.article_label
+                            }}</span><span class="article__related-text">{% if locale == 'kk' %}Жылдық қорытынды баға:
+                            70/30 формуласы{% else %}Итоговая оценка за год: формула 70/30{% endif %}</span><span
                             class="article__related-arrow">→</span></a>
-                    <a href="/metodika-rascheta-mon-rk" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Официальная
-                            методика расчёта МОН РК</span><span class="article__related-arrow">→</span></a>
-                    <a href="/perehod-na-12-letku-kazakhstan" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">3–8 классы и
-                            12-летнее обучение в Казахстане — правда или фейк</span><span
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}Тоқсандық қорытынды
+                            баға: толық есеп{% else %}Итоговая оценка за четверть: полный расчёт{% endif %}</span><span
                             class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}СОР-ды қалай есептеу
+                            керек — толық нұсқаулық{% else %}Как рассчитать СОР — полное руководство{% endif
+                            %}</span><span class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}СОЧ дегеніміз не және
+                            қалай есептеледі{% else %}Что такое СОЧ и как считается{% endif %}</span><span
+                            class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}Проценттерді бағаларға
+                            қалай аудару — кесте{% else %}Как перевести проценты в оценку — таблица{% endif
+                            %}</span><span class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}МОН РК әдістемесі{% else
+                            %}Официальная методика расчёта МОН РК{% endif %}</span><span
+                            class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/perehod-na-12-letku-kazakhstan" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}Қазақстандағы 12 жыл
+                            оқуға көшу — рас па?{% else %}3–8 классы и 12-летнее обучение в Казахстане — правда или
+                            фейк{% endif %}</span><span class="article__related-arrow">→</span></a>
                 </div>
             </div>
         </article>
         <aside class="article-sidebar">
             <div class="sidebar-widget sidebar-widget--cta">
-                <div class="sidebar-widget__title">Рассчитать онлайн</div>
-                <p class="sidebar-widget__text">Введи свои баллы за СОЧ, СОР и ФО — калькулятор мгновенно покажет
-                    итоговую оценку</p>
-                <a href="/" class="btn sidebar-widget__btn">Открыть калькулятор →</a>
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#3cb648' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    {{ app_strings.sidebar_calc_title }}
+                </div>
+                <p class="sidebar-widget__text">{% if locale == 'kk' %}СОЧ, СОР және ФО баллдарыңды енгіз — калькулятор
+                    тоқсандық қорытынды бағаны бірден көрсетеді{% else %}Введи свои баллы за СОЧ, СОР и ФО — калькулятор
+                    мгновенно покажет
+                    итоговую оценку{% endif %}</p>
+                <a href="{{ locale_home }}" class="btn sidebar-widget__btn">{{ app_strings.sidebar_calc_btn }}</a>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Формула кратко</div>
+                <div class="sidebar-widget__title">{% if locale == 'kk' %}Формула қысқаша{% else %}Формула кратко{%
+                    endif %}</div>
                 <div class="sidebar-widget__formula">(Сумма всех ФО ÷ Кол-во ФО) × 2.5</div>
-                <div class="sidebar-widget__note">ФО = 25% итоговой оценки</div>
+                <div class="sidebar-widget__note">{% if locale == 'kk' %}ФО = тоқсандық қорытынды бағаның 25%{% else
+                    %}ФО = 25% итоговой оценки{% endif %}</div>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Другие статьи</div>
+                <div class="sidebar-widget__title">{{ app_strings.sidebar_other_articles }}</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-sor" class="sidebar-nav__link">→ Как рассчитать СОР</a>
-                    <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Итоговая оценка</a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод процентов</a>
-                    <a href="/metodika-rascheta-mon-rk" class="sidebar-nav__link">→ Методика МОН РК</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}СОР қалай есептеледі{% else %}Как рассчитать СОР{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}СОЧ қалай есептеледі{% else %}Как рассчитать СОЧ{% endif %}</a>
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ {% if locale
+                        == 'kk' %}Тоқсандық қорытынды баға{% else %}Итоговая оценка{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ {% if
+                        locale == 'kk' %}Пайыздарды бағаларға қалай аудару?{% else %}Перевод процентов{% endif %}</a>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="sidebar-nav__link">→ {% if locale ==
+                        'kk' %}МОН РК әдістемесі{% else %}Методика МОН РК{% endif %}</a>
                 </nav>
             </div>
         </aside>

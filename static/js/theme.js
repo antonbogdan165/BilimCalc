@@ -1,45 +1,54 @@
-(function () {
-    var KEY         = 'bilimcalc_theme';
-    var saved       = localStorage.getItem(KEY);
-    var systemDark  = window.matchMedia('(prefers-color-scheme: dark)').matches;
+﻿(function () {
+    'use strict';
 
-    var theme = saved || (systemDark ? 'dark' : 'light');
+    const KEY = 'bilimcalc_theme';
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem(KEY);
+    const theme = savedTheme || (systemPrefersDark.matches ? 'dark' : 'light');
 
     document.documentElement.setAttribute('data-theme', theme);
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        if (!localStorage.getItem(KEY)) {
-            var next = e.matches ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', next);
-            if (window.ThemeToggle) window.ThemeToggle._updateBtn();
-        }
+    systemPrefersDark.addEventListener('change', (event) => {
+        if (localStorage.getItem(KEY)) return;
+        const nextTheme = event.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        if (window.ThemeToggle) window.ThemeToggle._updateBtn();
     });
 
+    const getStrings = () => window.APP_STRINGS || {};
+
     window.ThemeToggle = {
-        get: function () {
+        get() {
             return document.documentElement.getAttribute('data-theme') || 'dark';
         },
-        set: function (t) {
-            document.documentElement.setAttribute('data-theme', t);
-            localStorage.setItem(KEY, t);
+        set(themeValue) {
+            document.documentElement.setAttribute('data-theme', themeValue);
+            localStorage.setItem(KEY, themeValue);
             this._updateBtn();
         },
-        toggle: function () {
+        toggle() {
             this.set(this.get() === 'dark' ? 'light' : 'dark');
         },
-        resetToSystem: function () {
+        resetToSystem() {
             localStorage.removeItem(KEY);
-            var s = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', s);
+            const nextTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', nextTheme);
             this._updateBtn();
         },
-        _updateBtn: function () {
-            var t    = this.get();
-            var icon = document.getElementById('themeIcon');
-            var btn  = document.getElementById('themeBtn');
-            if (icon) icon.textContent = t === 'dark' ? '☀️' : '🌙';
-            if (btn)  btn.title        = t === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему';
+        _updateBtn() {
+            const currentTheme = this.get();
+            const icon = document.getElementById('themeIcon');
+            const btn = document.getElementById('themeBtn');
+            if (icon) icon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+            if (btn) {
+                const strings = getStrings();
+                btn.title = currentTheme === 'dark'
+                    ? strings.theme_light || 'Включить светлую тему'
+                    : strings.theme_dark || 'Включить тёмную тему';
+            }
         },
-        init: function () { this._updateBtn(); }
+        init() {
+            this._updateBtn();
+        }
     };
 })();

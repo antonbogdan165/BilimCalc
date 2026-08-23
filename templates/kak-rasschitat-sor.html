@@ -1,11 +1,10 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}Как рассчитать СОР в школе Казахстана — формула и пример | BilimCalc{% endblock %}
-{% block meta_desc %}Как рассчитать СОР — суммативное оценивание за раздел. Формула МОН РК: среднее процентов СОР ×
-0,25. Два примера с разными максимумами, частые ошибки.{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
+{% block meta_desc %}{{ page_meta.meta_desc }}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}Как рассчитать СОР — формула, пример, методика МОН РК{% endblock %}
-{% block og_desc %}Полное руководство по расчёту суммативного оценивания за раздел для школ Казахстана.{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -14,13 +13,13 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Как рассчитать СОР в школе Казахстана",
-    "description": "Формула расчёта суммативного оценивания за раздел, пошаговый пример, официальная методика МОН РК",
+    "headline": "{% if locale == 'kk' %}СОР қалай есептеледі: формула және әдістемелік түсінік{% else %}Как рассчитать СОР в школе Казахстана{% endif %}",
+    "description": "{% if locale == 'kk' %}Бөлімдік суммативті бағалауды есептеу формуласы, қадамдық мысал, МОН РК әдістемесі{% else %}Формула расчёта суммативного оценивания за раздел, пошаговый пример, официальная методика МОН РК{% endif %}",
     "url": "{{ site_url }}/kak-rasschitat-sor",
     "datePublished": "2025-09-01",
     "dateModified": "2026-05-24",
     "image": "{{ site_url }}/static/icons/preview.webp?v={{ build_time }}",
-    "inLanguage": "ru",
+    "inLanguage": "{{ 'kk' if locale == 'kk' else 'ru' }}",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
     "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/kak-rasschitat-sor" }
@@ -31,9 +30,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Как рассчитать СОР", "item": "{{ site_url }}/kak-rasschitat-sor" }
+        { "@type": "ListItem", "position": 1, "name": "{{ app_strings.menu_home }}", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "{{ app_strings.all_articles }}", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "{% if locale == 'kk' %}СОР қалай есептеледі{% else %}Как рассчитать СОР{% endif %}", "item": "{{ site_url }}/kak-rasschitat-sor" }
     ]
 }
 </script>
@@ -44,111 +43,85 @@
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "Когда проводится СОР в казахстанских школах?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Обычно два СОР за четверть — после завершения крупных разделов программы." }
+            "name": "{% if locale == 'kk' %}СОР Қазақстан мектептерінде қашан өткізіледі?{% else %}Когда проводится СОР в казахстанских школах?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Әдетте тоқсан ішінде екі СОР өткізіледі — үлкен бөлімдер аяқталған соң.{% else %}Обычно два СОР за четверть — после завершения крупных разделов программы.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Можно ли пересдать СОР?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Только с разрешения учителя при наличии уважительной причины." }
+            "name": "{% if locale == 'kk' %}СОР-ті қайта тапсыруға болады ма?{% else %}Можно ли пересдать СОР?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Мұғалімнің рұқсатынсыз емес, негізді себеп болған жағдайда ғана.{% else %}Только с разрешения учителя при наличии уважительной причины.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Сколько весит СОР в итоговой оценке за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "СОР составляет 25% итоговой оценки за четверть." }
+            "name": "{% if locale == 'kk' %}СОР тоқсандық қорытынды бағада қанша салмақ алып жатыр?{% else %}Сколько весит СОР в итоговой оценке за четверть?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}СОР тоқсандық қорытынды бағаның 25% құрайды.{% else %}СОР составляет 25% итоговой оценки за четверть.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Как рассчитать СОР, если максимальные баллы разные?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Считай процент каждого СОР отдельно: набранные ÷ максимум × 100. Потом найди среднее процентов всех СОР. Нельзя просто складывать баллы — это даст ошибку при разных максимумах." }
+            "name": "{% if locale == 'kk' %}Егер максималды баллдар әртүрлі болса, СОР қалай есептеледі?{% else %}Как рассчитать СОР, если максимальные баллы разные?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Әр СОР үшін пайызды жеке есептеңіз: алынған ÷ максимум × 100. Содан кейін барлық СОР пайыздарының орташа мәнін алыңыз. Бірін-бірі қосып, жалпы максимумқа бөлу дұрыс емес.{% else %}Считай процент каждого СОР отдельно: набранные ÷ максимум × 100. Потом найди среднее процентов всех СОР. Нельзя просто складывать баллы — это даст ошибку при разных максимумах.{% endif %}" }
         }
     ]
 }
 </script>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    .article ul {
-        margin: 12px 0 16px 0;
-        padding-left: 0;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .article ul li {
-        font-size: 15px;
-        line-height: 1.75;
-        color: #b0bec8;
-        padding-left: 20px;
-        position: relative;
-    }
-
-    .article ul li::before {
-        content: '—';
-        position: absolute;
-        left: 0;
-        color: var(--accent);
-        font-weight: 700;
-        opacity: 0.6;
-    }
-
-    .article ul li strong {
-        color: #e6edf3;
-    }
-
-    [data-theme="light"] .article ul li {
-        color: #475569;
-    }
-
-    [data-theme="light"] .article ul li strong {
-        color: #0f172a;
-    }
-
-    [data-theme="light"] .article ul li::before {
-        opacity: 0.5;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="article-wrap">
-    <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <a href="/">Главная</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <a href="/articles">Статьи</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <span aria-current="page">Как рассчитать СОР</span>
-    </nav>
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
             <h1 class="article__title" itemprop="headline">
-                Как рассчитать СОР: формула, пример и методика МОН РК
+                {% if locale == 'kk' %}СОР қалай есептеледі: формула, мысал және МОН ҚР әдістемесі{% else %}Как
+                рассчитать СОР: формула, пример и методика МОН РК{% endif %}
             </h1>
             <div class="article__meta">
                 <time datetime="2026-03-13" itemprop="dateModified">Май 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>7 мин чтения</span>
+                <span>7 {{ app_strings.reading_time_suffix }}</span>
             </div>
-            <a href="/" class="mobile-cta">
+            <a href="{{ locale_home }}" class="mobile-cta">
                 <div class="mobile-cta__icon">🧮</div>
                 <div class="mobile-cta__body">
-                    <div class="mobile-cta__label">Открыть</div>
-                    <div class="mobile-cta__title">Калькулятор оценок</div>
+                    <div class="mobile-cta__label">{% if locale == 'kk' %}Ашу{% else %}Открыть{% endif %}</div>
+                    <div class="mobile-cta__title">{% if locale == 'kk' %}Бағалау калькуляторы{% else %}Калькулятор
+                        оценок{% endif %}</div>
                 </div>
                 <span class="mobile-cta__arrow">→</span>
             </a>
             <p class="article__lead">
+                {% if locale == 'kk' %}
+                <strong>СОР</strong> (бөлім бойынша суммативтік бағалау) тоқсандық қорытынды бағаның
+                <strong>25%</strong> құрайды <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk">МОН ҚР ресми
+                    әдістемесі</a> бойынша. Есептеу формуласы: <strong>(СОР1% + СОР2% + ...) ÷ саны × 25%</strong>.
+                Негізгі ереже: әрбір СОР-дың пайызын жеке есептеу керек, содан кейін орташа алынады — әртүрлі
+                максимумдарда баллдарды жай қосуға болмайды. Екі мысалды қарастырамыз және жиі кездесетін қателерді
+                түсіндіреміз.
+                {% else %}
                 <strong>СОР</strong> (суммативное оценивание за раздел) составляет <strong>25% итоговой оценки за
-                    четверть</strong> по <a href="/metodika-rascheta-mon-rk">официальной методике МОН РК</a>. Формула
+                    четверть</strong> по <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk">официальной методике МОН
+                    РК</a>. Формула
                 расчёта: <strong>(СОР1% + СОР2% + ...) ÷ количество × 25%</strong>. Ключевое правило: считать нужно
                 процент каждого СОР отдельно, а потом брать среднее — нельзя просто складывать баллы при разных
                 максимумах. Разбираем два примера и объясняем самые частые ошибки.
+                {% endif %}
             </p>
 
-            <h2>Краткий ответ: как рассчитывается СОР</h2>
+            <h2>{% if locale == 'kk' %}Қысқаша жауап: СОР қалай есептеледі{% else %}Краткий ответ: как рассчитывается
+                СОР{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>СОР тоқсанда 1–2 рет — бағдарламаның әр ірі бөлімі аяқталған соң өткізіледі. Оның қорытынды бағаға
+                үлесін есептеу үшін:</p>
+            <ul>
+                <li><strong>Қадам 1:</strong> әр СОР үшін пайызды есепте: жиналған ÷ максимум × 100</li>
+                <li><strong>Қадам 2:</strong> тоқсандағы барлық СОР пайыздарының орташасын тап</li>
+                <li><strong>Қадам 3:</strong> орташаны 0,25-ке көбейт — бұл СОР үлесі (25%-тан)</li>
+            </ul>
+            <p>Қорытынды бағаның қалған 75%-ы — бұл <a href="{{ locale_prefix }}/kak-rasschitat-so">ФО</a> (25%) және <a
+                    href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ</a> (50%). Үш компоненттің қалай қосылатынын
+                <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">тоқсандық қорытынды баға</a> мақаласынан
+                оқыңыз.
+            </p>
+            {% else %}
             <p>СОР проводится 1–2 раза за четверть - после завершения каждого крупного раздела программы. Чтобы
                 рассчитать его вклад в итоговую оценку:</p>
             <ul>
@@ -156,114 +129,158 @@
                 <li><strong>Шаг 2:</strong> найди среднее всех процентов СОР за четверть</li>
                 <li><strong>Шаг 3:</strong> умножь среднее на 0,25 — это вклад СОР (из 25%)</li>
             </ul>
-            <p>Остальные 75% итоговой оценки — это <a href="/kak-rasschitat-so">ФО</a> (25%) и <a
-                    href="/kak-rasschitat-soch">СОЧ</a> (50%). Как все три компонента складываются — читай в статье <a
-                    href="/itogovaya-ocenka-za-chetvert">итоговая оценка за четверть</a>.</p>
+            <p>Остальные 75% итоговой оценки — это <a href="{{ locale_prefix }}/kak-rasschitat-so">ФО</a> (25%) и <a
+                    href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ</a> (50%). Как все три компонента складываются —
+                читай в статье <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">итоговая оценка за
+                    четверть</a>.</p>
+            {% endif %}
 
-            <h2>Что такое СОР</h2>
+            <h2>{% if locale == 'kk' %}СОР дегеніміз не{% else %}Что такое СОР{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>СОР — бұл бөлім немесе қиылысатын тақырып бойынша суммативтік бағалау, ол оқу материалының белгілі
+                бір блогын қаншалықты меңгергеніңді көрсетеді. Әдетте СОР тоқсанда бірнеше рет, көбіне екі рет
+                өткізіледі, осылайша мұғалім біліміңді объективті бағалай алады. Әрбір СОР тоқсанның бүкіл
+                материалын емес, нақты бір бөлімді тексереді — сондықтан оған дайындалу <a
+                    href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ-қа</a> қарағанда оңайырақ әрі нақтырақ.</p>
+            {% else %}
             <p>СОР — это суммативное оценивание за раздел или сквозную тему, которое показывает, насколько ты усвоил
                 конкретный блок материала. Обычно СОР проводится несколько раз за четверть, чаще всего два раза, чтобы
                 учитель мог объективно оценить твои знания. Каждая СОР проверяет не весь материал за четверть, а
                 конкретный раздел — поэтому готовиться к ней проще и конкретнее, чем к <a
-                    href="/kak-rasschitat-soch">СОЧ</a>.</p>
+                    href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ</a>.</p>
+            {% endif %}
 
-            <h2>Формула расчёта СОР</h2>
-            <p>Чтобы рассчитать СОР, берут проценты по всем СОР за четверть, находят среднее арифметическое и умножают
-                на 0,25. Это зафиксировано в официальной методике расчёта оценок по системе оценивания Казахстана.</p>
+            <h2>{% if locale == 'kk' %}СОР есептеу формуласы{% else %}Формула расчёта СОР{% endif %}</h2>
+            <p>{% if locale == 'kk' %}СОР-ты есептеу үшін барлық СОР-лардың пайызын алып, олардың орташа арифметикалық
+                мәнін табады және 0,25-ке көбейтеді. Бұл формула Қазақстанның ресми бағалау әдістемесіне сәйкес
+                келеді.{% else %}Чтобы рассчитать СОР, берут проценты по всем СОР за четверть, находят среднее
+                арифметическое и умножают на 0,25. Это зафиксировано в официальной методике расчёта оценок по системе
+                оценивания Казахстана.{% endif %}</p>
             <div class="article__formula">
-                <div class="article__formula-title">Формула СОР (официальная методика МОН РК)</div>
-                <div class="article__formula-body">СОР (в итоговой оценке) = (СОР1% + СОР2% + ...) ÷ Кол-во СОР × 25%
+                <div class="article__formula-title">{% if locale == 'kk' %}СОР формуласы (МОН РК ресми әдістемесі){%
+                    else %}Формула СОР (официальная методика МОН РК){% endif %}</div>
+                <div class="article__formula-body">{% if locale == 'kk' %}СОР (итогтағы үлес) = (СОР1% + СОР2% + ...) ÷
+                    СОР саны × 25%{% else %}СОР (в итоговой оценке) = (СОР1% + СОР2% + ...) ÷ Кол-во СОР × 25%{% endif
+                    %}
                 </div>
             </div>
 
-            <h2>Пошаговый пример № 1 — одинаковые максимумы</h2>
-            <p>СОР1: 12 из 15 баллов (80%), СОР2: 9 из 15 баллов (60%). Среднее: (80% + 60%) ÷ 2 = 70%. Вклад в итог:
-                70% × 0,25 = 17,5 из 25.</p>
+            <h2>{% if locale == 'kk' %}Қадамдық мысал № 1 — бірдей максимумдар{% else %}Пошаговый пример № 1 —
+                одинаковые максимумы{% endif %}</h2>
+            <p>{% if locale == 'kk' %}СОР1: 12/15 (80%), СОР2: 9/15 (60%). Орташа: (80% + 60%) ÷ 2 = 70%. Итогтағы үлес:
+                70% × 0,25 = 17,5.%{% else %}СОР1: 12 из 15 баллов (80%), СОР2: 9 из 15 баллов (60%). Среднее: (80% +
+                60%) ÷ 2 = 70%. Вклад в итог: 70% × 0,25 = 17,5 из 25.{% endif %}</p>
             <div class="article__example">
                 <table class="article__table">
                     <thead>
                         <tr>
-                            <th>Параметр</th>
+                            <th>{% if locale == 'kk' %}Параметр{% else %}Параметр{% endif %}</th>
                             <th>СОР 1</th>
                             <th>СОР 2</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Набрано баллов</td>
+                            <td>{% if locale == 'kk' %}Жиналған балл{% else %}Набрано баллов{% endif %}</td>
                             <td>12</td>
                             <td>9</td>
                         </tr>
                         <tr>
-                            <td>Максимум</td>
+                            <td>{% if locale == 'kk' %}Максимум{% else %}Максимум{% endif %}</td>
                             <td>15</td>
                             <td>15</td>
                         </tr>
                         <tr>
-                            <td>Процент</td>
+                            <td>{% if locale == 'kk' %}Пайыз{% else %}Процент{% endif %}</td>
                             <td>80%</td>
                             <td>60%</td>
                         </tr>
                         <tr class="article__table-result">
-                            <td><strong>Средний процент</strong></td>
+                            <td><strong>{% if locale == 'kk' %}Орташа пайыз{% else %}Средний процент{% endif %}</strong>
+                            </td>
                             <td colspan="2"><strong>70%</strong></td>
                         </tr>
                         <tr class="article__table-result">
-                            <td><strong>Вклад в итоговую оценку</strong></td>
+                            <td><strong>{% if locale == 'kk' %}Қорытынды бағаға үлес{% else %}Вклад в итоговую оценку{%
+                                    endif %}</strong></td>
                             <td colspan="2"><strong>70% × 0,25 = 17,5 из 25</strong></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h2>Пошаговый пример № 2 — разные максимумы</h2>
+            <h2>{% if locale == 'kk' %}Қадамдық мысал № 2 — әртүрлі максимумдар{% else %}Пошаговый пример № 2 — разные
+                максимумы{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>Бұл жиі қателесетін маңызды жағдай. СОР1: 20-дан 14 балл, СОР2: 10-нан 8 балл. Егер жай ғана баллдарды
+                қосып, жалпы максимумға бөлсек: 22 ÷ 30 × 100 = 73,3% — бұл <strong>дұрыс емес</strong>.
+                Дұрысы: әр СОР-дың пайызын жеке есептейміз.</p>
+            {% else %}
             <p>Это важный случай, где часто ошибаются. СОР1: 14 из 20 баллов, СОР2: 8 из 10 баллов. Если просто сложить
                 баллы и разделить на суммарный максимум: 22 ÷ 30 × 100 = 73,3% — это <strong>неправильно</strong>.
                 Правильно: считаем процент каждого СОР отдельно.</p>
+            {% endif %}
             <div class="article__example">
                 <table class="article__table">
                     <thead>
                         <tr>
-                            <th>Параметр</th>
+                            <th>{% if locale == 'kk' %}Параметр{% else %}Параметр{% endif %}</th>
                             <th>СОР 1</th>
                             <th>СОР 2</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Набрано баллов</td>
+                            <td>{% if locale == 'kk' %}Жиналған балл{% else %}Набрано баллов{% endif %}</td>
                             <td>14</td>
                             <td>8</td>
                         </tr>
                         <tr>
-                            <td>Максимум</td>
+                            <td>{% if locale == 'kk' %}Максимум{% else %}Максимум{% endif %}</td>
                             <td>20</td>
                             <td>10</td>
                         </tr>
                         <tr>
-                            <td>Процент (отдельно)</td>
+                            <td>{% if locale == 'kk' %}Пайыз (жеке){% else %}Процент (отдельно){% endif %}</td>
                             <td>70%</td>
                             <td>80%</td>
                         </tr>
                         <tr class="article__table-result">
-                            <td><strong>Средний процент (правильно)</strong></td>
+                            <td><strong>{% if locale == 'kk' %}Орташа пайыз (дұрыс){% else %}Средний процент
+                                    (правильно){% endif %}</strong></td>
                             <td colspan="2"><strong>(70 + 80) ÷ 2 = 75%</strong></td>
                         </tr>
                         <tr class="article__table-result">
-                            <td><strong>Вклад в итоговую оценку</strong></td>
+                            <td><strong>{% if locale == 'kk' %}Қорытынды бағаға үлес{% else %}Вклад в итоговую оценку{%
+                                    endif %}</strong></td>
                             <td colspan="2"><strong>75% × 0,25 = 18,75 из 25</strong></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            {% if locale == 'kk' %}
+            <p>Дұрыс емес әдіспен айырмашылық (73,3% vs 75%) — шамамен 2%. Шекаралық мәндерде бұл тоқсандық
+                қорытынды бағаны өзгертуі мүмкін.</p>
+            {% else %}
             <p>Разница с неправильным методом (73,3% vs 75%) — почти 2%. При пограничных значениях это может изменить
                 итоговую оценку за четверть.</p>
+            {% endif %}
 
-            <h2>Сколько весит СОР в итоговой оценке</h2>
+            <h2>{% if locale == 'kk' %}СОР қорытынды бағада қанша салмақ алады{% else %}Сколько весит СОР в итоговой
+                оценке{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>Тоқсандық қорытынды баға үш бөліктен тұрады: ФО 25%, СОР 25% және СОЧ 50%. СОЧ тоқсан соңында
+                өткізіледі және СОР-дан екі есе көп салмаққа ие. Бірақ бұл СОР-ды елемеуге болады дегенді білдірмейді —
+                екі әлсіз СОР қорытындыны айтарлықтай төмендетеді. Толық көрініс алу үшін <a
+                    href="{{ locale_home }}">BilimCalc
+                    калькуляторын</a> пайдаланған ыңғайлы.</p>
+            {% else %}
             <p>Итоговая оценка за четверть состоит из трёх частей: ФО 25%, СОР 25% и СОЧ 50%. СОЧ проводится в конце
                 четверти и весит вдвое больше, чем СОР. Но это не значит, что СОР можно игнорировать — два слабых СОР
-                заметно снижают итог. Чтобы видеть полную картину, удобно использовать <a href="/">калькулятор
+                заметно снижают итог. Чтобы видеть полную картину, удобно использовать <a
+                    href="{{ locale_home }}">калькулятор
                     BilimCalc</a>.</p>
+            {% endif %}
 
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
@@ -283,131 +300,207 @@
                 </div>
             </div>
 
-            <h2>Как повысить оценку за СОР</h2>
+            <h2>{% if locale == 'kk' %}СОР бағасын қалай арттыруға болады{% else %}Как повысить оценку за СОР{% endif %}
+            </h2>
+            {% if locale == 'kk' %}
+            <p>СОР-ты жақсы тапсыру үшін нақты бөлімді қайталаудан баста. Материалды блоктарға бөліп, практикалық
+                тапсырмаларды шеш. Не тексерілетінін дәл білу үшін мұғалімнің бағалау критерийлерін пайдалан.
+                Практика — табыстың кілті: мысалдар мен есептерді шеш, күрделі сәттерді соңғы күнге қалдырма. СОР
+                бойынша қорытынды пайызды біле отырып, оны <a
+                    href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku">проценттерді бағаға қалай аудару</a>
+                мақаласындағы кесте бойынша бағаға оңай аударасың.</p>
+            {% else %}
             <p>Чтобы хорошо сдать СОР, начни с повторения конкретного раздела. Разделяй материал на блоки и решай
                 практические задания. Используй критерии оценивания от учителя, чтобы точно знать, что проверяется.
                 Практика — ключ к успеху: решай примеры и задачи, не оставляй сложные моменты на последний день. Зная
                 итоговый процент за СОР, ты легко переведёшь его в оценку по таблице в статье <a
-                    href="/kak-perevesti-procenty-v-otsenku">как перевести проценты в оценку</a>.</p>
+                    href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku">как перевести проценты в оценку</a>.</p>
+            {% endif %}
 
-            <h2>Частые ошибки при расчёте СОР</h2>
-            <h3>Ошибка 1: Делить сумму баллов на сумму максимумов</h3>
-            <p>Если у тебя два СОР с разными максимумами — нельзя просто складывать баллы. Правильно: считай процент
+            <h2>{% if locale == 'kk' %}СОР есептеудегі жиі кездесетін қателер{% else %}Частые ошибки при расчёте СОР{%
+                endif %}</h2>
+            <h3>{% if locale == 'kk' %}Қате 1: Баллдар қосындысын максимумдар қосындысына бөлу{% else %}Ошибка 1: Делить
+                сумму баллов на сумму максимумов{% endif %}</h3>
+            <p>{% if locale == 'kk' %}Егер саған екі СОР әртүрлі максимуммен берілсе — баллдарды жай ғана қосуға
+                болмайды.
+                Дұрысы: әр СОР-дың пайызын жеке есепте, содан кейін пайыздардың орташасын тап. Бұл әсіресе 10 және 20
+                баллдық СОР кезінде маңызды — қорытындыдағы айырмашылық елеулі болуы мүмкін.{% else %}Если у тебя два
+                СОР с разными максимумами — нельзя просто складывать баллы. Правильно: считай процент
                 каждого СОР отдельно, затем среднее процентов. Это особенно важно при СОР на 10 и 20 баллов — разница в
-                итоге может быть существенной.</p>
-            <h3>Ошибка 2: Игнорировать пропущенный СОР</h3>
-            <p>Пропущенный без уважительной причины СОР засчитывается как 0%. Это резко снижает средний процент. Нужно
-                сразу сообщать учителю и договариваться об индивидуальной сдаче.</p>
+                итоге может быть существенной.{% endif %}</p>
+            <h3>{% if locale == 'kk' %}Қате 2: Өткізіп алған СОР-ды елемеу{% else %}Ошибка 2: Игнорировать пропущенный
+                СОР{% endif %}</h3>
+            <p>{% if locale == 'kk' %}Негізсіз себеппен өткізіп алынған СОР 0% ретінде есептеледі. Бұл орташа пайызды
+                күрт төмендетеді. Мұғалімге дереу хабарлап, жеке тапсыру туралы келісу керек.{% else %}Пропущенный без
+                уважительной причины СОР засчитывается как 0%. Это резко снижает средний процент. Нужно
+                сразу сообщать учителю и договариваться об индивидуальной сдаче.{% endif %}</p>
 
-            <h2>Часто задаваемые вопросы</h2>
+            <h2>{{ app_strings.faq_title }}</h2>
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Когда проводится СОР?</span>
+                        {% if locale == 'kk' %}<span>СОР қашан өткізіледі?</span>{% else %}<span>Когда проводится
+                            СОР?</span>{% endif %}
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>Обычно за четверть проводится две СОР по каждому предмету. Иногда школа может назначить
-                            больше, если тема большая. Следи за расписанием, чтобы не пропустить важный тест.</p>
+                        <p>{% if locale == 'kk' %}Әдетте тоқсанда әр пән бойынша екі СОР өткізіледі. Кейде тақырып үлкен
+                            болса,
+                            мектеп көбірек тағайындай алады. Маңызды тестті өткізіп алмау үшін кестені қадағалап отыр.{%
+                            else %}Обычно за четверть проводится две СОР по каждому предмету. Иногда школа может
+                            назначить
+                            больше, если тема большая. Следи за расписанием, чтобы не пропустить важный тест.{% endif %}
+                        </p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Можно ли пересдать СОР?</span>
+                        {% if locale == 'kk' %}<span>СОР-ды қайта тапсыруға бола ма?</span>{% else %}<span>Можно ли
+                            пересдать СОР?</span>{% endif %}
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>Пропущенный СОР засчитывается только с разрешения учителя. Обычно назначают индивидуальную
+                        <p>{% if locale == 'kk' %}Өткізіп алған СОР тек мұғалімнің рұқсатымен есептеледі. Әдетте жеке
+                            тапсыру
+                            немесе кейінге қалдыру тағайындалады. Нәтиже қорытынды бағада ескерілуі үшін алдын ала
+                            ескерту маңызды.
+                            {% else %}Пропущенный СОР засчитывается только с разрешения учителя. Обычно назначают
+                            индивидуальную
                             сдачу или перенос. Важно предупредить заранее, чтобы результат был учтён в итоговой оценке.
-                        </p>
+                            {% endif %}</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Что делать если пропустил СОР по болезни?</span>
+                        {% if locale == 'kk' %}<span>Ауруға байланысты СОР-ды өткізіп алсам не істеу керек?</span>{%
+                        else %}<span>Что делать если пропустил СОР по болезни?</span>{% endif %}
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>Нужно сразу сообщить учителю и принести справку. Обычно назначается индивидуальная сдача или
+                        <p>{% if locale == 'kk' %}Мұғалімге дереу хабарлап, анықтама әкелу керек. Әдетте жеке тапсыру
+                            немесе
+                            кейінге қалдыру тағайындалады. Тоқсандық қорытынды баға дұрыс есептелуі үшін кешіктірмеу
+                            маңызды.
+                            {% else %}Нужно сразу сообщить учителю и принести справку. Обычно назначается индивидуальная
+                            сдача или
                             перенос. Важно не откладывать, чтобы итоговая оценка за четверть была рассчитана корректно.
-                        </p>
+                            {% endif %}</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Что важнее — СОР или СОЧ?</span>
+                        {% if locale == 'kk' %}<span>Не маңыздырақ — СОР ма, әлде СОЧ па?</span>{% else %}<span>Что
+                            важнее — СОР или СОЧ?</span>{% endif %}
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>По весу важнее <a href="/kak-rasschitat-soch">СОЧ</a> — 50% против 25% у СОР. Но СОР нельзя
+                        <p>{% if locale == 'kk' %}Салмағы бойынша <a
+                                href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ</a> маңыздырақ — 50% СОР-дың
+                            25%-ына қарсы. Бірақ СОР-ды
+                            елемеуге болмайды: бөлімдер бойынша екі әлсіз нәтиже орташа СОР пайызын байқалатындай
+                            төмендетеді.
+                            Бұл әсіресе шекаралық мәндерде маңызды — «4» мен «5» арасындағы айырмашылық
+                            1–2% құраған кезде.{% else %}По весу важнее <a
+                                href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ</a> — 50% против 25% у
+                            СОР. Но СОР нельзя
                             игнорировать: два слабых результата по разделам заметно тянут средний процент СОР вниз.
                             Особенно критично это при пограничных значениях — когда разница между «4» и «5» составляет
-                            1–2%.</p>
+                            1–2%.{% endif %}</p>
                     </div>
                 </div>
             </div>
 
             <div class="article__related">
-                <div class="article__related-title">Читайте также</div>
+                <div class="article__related-title">{{ app_strings.read_also }}</div>
                 <div class="article__related-links">
-                    <a href="/kak-rasschitat-soch" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Как
-                            рассчитать СОЧ — полное руководство</span><span class="article__related-arrow">→</span></a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Итоговая
-                            оценка за четверть</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-so" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Что такое ФО
-                            и как считается</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Как
-                            перевести проценты в оценку — таблица</span><span
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}СОЧ қалай есептеледі —
+                            толық нұсқаулық{% else %}Как рассчитать СОЧ — полное руководство{% endif %}</span><span
                             class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Итоговая
-                            оценка за год: формула 70/30</span><span class="article__related-arrow">→</span></a>
-                    <a href="/metodika-rascheta-mon-rk" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Официальная
-                            методика расчёта МОН РК</span><span class="article__related-arrow">→</span></a>
-                    <a href="/perehod-na-12-letku-kazakhstan" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">3–8 классы и
-                            12-летнее обучение в Казахстане — правда или фейк</span><span
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}Тоқсандық қорытынды
+                            баға{% else %}Итоговая оценка за четверть{% endif %}</span><span
+                            class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-so" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}ФО дегеніміз не және
+                            қалай есептеледі{% else %}Что такое ФО и как считается{% endif %}</span><span
+                            class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}Проценттерді бағаларға
+                            қалай аудару — кесте{% else %}Как перевести проценты в оценку — таблица{% endif
+                            %}</span><span class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god"
+                        class="article__related-card"><span class="article__related-label">{{ app_strings.article_label
+                            }}</span><span class="article__related-text">{% if locale == 'kk' %}Жылдық қорытынды баға:
+                            формула 70/30{% else %}Итоговая оценка за год: формула 70/30{% endif %}</span><span
+                            class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="article__related-card"><span
+                            class="article__related-label">{{ app_strings.article_label }}</span><span
+                            class="article__related-text">{% if locale == 'kk' %}МОН РК ресми
+                            әдістемесі{% else %}Официальная
+                            методика расчёта МОН РК{% endif %}</span><span class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/perehod-na-12-letku-kazakhstan" class="article__related-card"><span
+                            class="article__related-label">{{ app_strings.article_label }}</span><span
+                            class="article__related-text">{% if locale == 'kk' %}3–8 сыныптар мен 12
+                            жылдық оқуға көшу Қазақстанда — шындық па, жалған ба{% else %}3–8 классы и
+                            12-летнее обучение в Казахстане — правда или фейк{% endif %}</span><span
                             class="article__related-arrow">→</span></a>
                 </div>
             </div>
         </article>
         <aside class="article-sidebar">
             <div class="sidebar-widget sidebar-widget--cta">
-                <div class="sidebar-widget__title">Рассчитать онлайн</div>
-                <p class="sidebar-widget__text">Введи свои баллы за СОЧ, СОР и ФО — калькулятор мгновенно покажет
-                    итоговую оценку</p>
-                <a href="/" class="btn sidebar-widget__btn">Открыть калькулятор →</a>
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#3cb648' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    {{ app_strings.sidebar_calc_title }}
+                </div>
+                <p class="sidebar-widget__text">{% if locale == 'kk' %}СОЧ, СОР және ФО баллдарыңды енгіз — калькулятор
+                    тоқсандық
+                    қорытынды бағаны бірден көрсетеді{% else %}Введи свои баллы за СОЧ, СОР и ФО — калькулятор мгновенно
+                    покажет
+                    итоговую оценку{% endif %}</p>
+                <a href="{{ locale_home }}" class="btn sidebar-widget__btn">{{ app_strings.sidebar_calc_btn }}</a>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Формула кратко</div>
+                <div class="sidebar-widget__title">{% if locale == 'kk' %}Формула қысқаша{% else %}Формула кратко{%
+                    endif %}</div>
                 <div class="sidebar-widget__formula">(Сумма % всех СОР ÷ кол-во) × 0,25</div>
-                <div class="sidebar-widget__note">СОР = 25% итоговой оценки</div>
+                <div class="sidebar-widget__note">{% if locale == 'kk' %}СОР = тоқсандық қорытынды бағаның 25%{% else
+                    %}СОР = 25% итоговой оценки{% endif %}</div>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Другие статьи</div>
+                <div class="sidebar-widget__title">{{ app_strings.sidebar_other_articles }}</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-so" class="sidebar-nav__link">→ Как рассчитать ФО</a>
-                    <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Итоговая оценка</a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод процентов</a>
-                    <a href="/metodika-rascheta-mon-rk" class="sidebar-nav__link">→ Методика МОН РК</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-so" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}ФО қалай есептеледі{% else %}Как рассчитать ФО{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}СОЧ қалай есептеледі{% else %}Как рассчитать СОЧ{% endif %}</a>
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ {% if locale
+                        == 'kk' %}Тоқсандық қорытынды баға{% else %}Итоговая
+                        оценка{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ {% if
+                        locale == 'kk' %}Проценттерді бағаға аудару{% else %}Перевод
+                        процентов{% endif %}</a>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="sidebar-nav__link">→ {% if locale ==
+                        'kk' %}МОН РК әдістемесі{% else %}Методика МОН
+                        РК{% endif %}</a>
                 </nav>
             </div>
         </aside>

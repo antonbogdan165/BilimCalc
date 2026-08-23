@@ -1,20 +1,15 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% block head_early %}
 <script>window.__BRAND__ = { name: 'BilimExam', icon: '🎓' };</script>
 {% endblock %}
 
-{% block meta_title %}BilimExam — калькулятор итоговой оценки за год, 9 и 11 класс | Формула 70/30 МОН РК{% endblock %}
-{% block meta_desc %}BilimExam — итоговая оценка за год по формуле 70/30 МОН РК. Введи оценки за четверти и экзамен —
-результат мгновенно. 9 и 11 класс Казахстан.{% endblock %}
-{% block og_title %}BilimExam — итоговая оценка за год (9 и 11 класс Казахстан){% endblock %}
-{% block og_desc %}Калькулятор годовой оценки по формуле 70/30. Введи оценки за четверти и экзамен — получи итог
-мгновенно. МОН РК.{% endblock %}
-{% block og_image_alt %}BilimExam — калькулятор итоговой оценки за год для 9 и 11 класса Казахстана{% endblock %}
-{% block twitter_title %}BilimExam — итоговая оценка за год (9 и 11 класс){% endblock %}
-{% block twitter_desc %}Калькулятор 70/30 для 9 и 11 классов Казахстана. Введи оценки за четверти и экзамен — результат
-мгновенно.{% endblock %}
-{% block twitter_image_alt %}BilimExam — калькулятор итоговой оценки{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
+{% block meta_desc %}{{ page_meta.meta_desc }}{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
+{% block og_image_alt %}{{ page_meta.og_image_alt }}{% endblock %}
+{% block twitter_desc %}{{ page_meta.twitter_desc }}{% endblock %}
 {% block mob_exam %}active{% endblock %}
 
 {% block main_stylesheets %}
@@ -34,13 +29,13 @@
 {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "BilimExam — калькулятор итоговой оценки за год",
-    "alternateName": "Калькулятор годовой оценки 70/30",
+    "name": "{{ 'BilimExam — жылдық қорытынды баға калькуляторы' if locale == 'kk' else 'BilimExam — калькулятор итоговой оценки за год' }}",
+    "alternateName": "{{ 'Жылдық бағасының 70/30 калькуляторы' if locale == 'kk' else 'Калькулятор годовой оценки 70/30' }}",
     "url": "{{ site_url }}/kalkulator-ekzamena",
-    "description": "Калькулятор итоговой оценки за год для 9 и 11 классов Казахстана по формуле МОН РК: годовая оценка × 70% + оценка за экзамен × 30%. Бесплатно, без регистрации.",
+    "description": "{{ '9 және 11 сыныптар үшін МОН РК 70/30 формуласы бойынша жылдық қорытынды баға калькуляторы: жылдық баға × 70% + емтихан баға × 30%. Тегін, тіркеусіз.' if locale == 'kk' else 'Калькулятор итоговой оценки за год для 9 и 11 классов Казахстана по формуле МОН РК: годовая оценка × 70% + оценка за экзамен × 30%. Бесплатно, без регистрации.' }}",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web",
-    "inLanguage": "ru",
+    "inLanguage": "{{ 'kk' if locale == 'kk' else 'ru' }}",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KZT" }
 }
 </script>
@@ -52,8 +47,8 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
-        { "@type": "ListItem", "position": 2, "name": "BilimExam — итоговая оценка за год", "item": "{{ site_url }}/kalkulator-ekzamena" }
+        { "@type": "ListItem", "position": 1, "name": "{{ app_strings.menu_home }}", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "{% if locale == 'kk' %}BilimExam — жылдық қорытынды баға{% else %}BilimExam — итоговая оценка за год{% endif %}", "item": "{{ site_url }}/kalkulator-ekzamena" }
     ]
 }
 </script>
@@ -64,18 +59,18 @@
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "Как рассчитывается итоговая оценка за год в 9 и 11 классе?",
+            "name": "{% if locale == 'kk' %}9 және 11 сыныпта жылдық қорытынды баға қалай есептеледі?{% else %}Как рассчитывается итоговая оценка за год в 9 и 11 классе?{% endif %}",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "По формуле МОН РК: Годовая оценка × 70% + Оценка за экзамен × 30%. Годовая оценка — среднее арифметическое четвертных оценок."
+                "text": "{% if locale == 'kk' %}МОН РК формуласы бойынша: Жылдық баға × 70% + Емтихан бағасы × 30%. Жылдық баға — төрт тоқсанның орташа мәні.{% else %}По формуле МОН РК: Годовая оценка × 70% + Оценка за экзамен × 30%. Годовая оценка — среднее арифметическое четвертных оценок.{% endif %}"
             }
         },
         {
             "@type": "Question",
-            "name": "Что такое формула 70/30?",
+            "name": "{% if locale == 'kk' %}70/30 формуласы дегеніміз не?{% else %}Что такое формула 70/30?{% endif %}",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Формула МОН РК для расчёта итоговой оценки за год: 70% составляет годовая оценка (среднее за четверти), 30% — оценка за итоговый экзамен. Применяется в 9 и 11 классах."
+                "text": "{% if locale == 'kk' %}МОН РК-да жылдық қорытынды баға 70/30 формуласымен есептеледі: 70% жылдық баға, 30% емтихан. Бұл 9 және 11 сыныптарға қолданылады.{% else %}Формула МОН РК для расчёта итоговой оценки за год: 70% составляет годовая оценка (среднее за четверти), 30% — оценка за итоговый экзамен. Применяется в 9 и 11 классах.{% endif %}"
             }
         }
     ]
@@ -84,50 +79,19 @@
 {% endblock %}
 
 {% block topbar %}
-<div id="topbar" class="topbar--exam">
-    <a href="/kalkulator-ekzamena" class="topbar-logo topbar-logo--exam" title="BilimExam">
-        <span style="font-size:20px;line-height:1">🎓</span>
-        <span class="topbar-logo__name">Bilim<span>Exam</span></span>
-    </a>
-
-    <div class="topbar-center">
-        <a href="/kalkulator-ekzamena" class="topbar-mobile-brand topbar-mobile-brand--exam">
-            <span style="font-size:18px;line-height:1">🎓</span>
-            <span class="topbar-mobile-brand__name">Bilim<span>Exam</span></span>
-        </a>
-        <a href="/articles" class="topbar-articles-btn">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-            </svg>
-            <span>Статьи</span>
-        </a>
-    </div>
-
-    <div class="topbar-right">
-        <a href="/" class="topbar-calc-btn" title="BilimCalc — калькулятор четверти">
-            <span class="topbar-calc-btn__icon">
-                <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-                    <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
-                    <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648" />
-                    <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648" />
-                    <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round" />
-                </svg>
-            </span>
-            <span class="topbar-calc-btn__text">Bilim<b>Calc</b></span>
-        </a>
-        <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="Переключить тему">
-            <span id="themeIcon">☀️</span>
-        </button>
-    </div>
-</div>
+{% set variant_class = 'topbar--exam' %}
+{% set show_exam_btn = false %}
+{% set brand_variant = 'calc_button' %}
+{% set logo_width = '14' %}
+{% set logo_height = '14' %}
+{% set active_link = '' %}
+{% include "_topbar.html" with context %}
 {% endblock %}
 
 {% block content %}
 <div id="examSplash">
     <div class="sp-logo">
-        <div class="sp-icon">🎓</div>
+        <div class="sp-icon">{% set color = '#fff' %}{% include "_brand_icon_svg.html" with context %}</div>
         <div class="sp-name">Bilim<span>Exam</span></div>
     </div>
     <div class="sp-bar-wrap">
@@ -136,30 +100,34 @@
 </div>
 
 <div id="offlineBanner" class="offline-banner" style="display:none">
-    ⚠️ Нет подключения к интернету — калькулятор работает офлайн
+    {{ app_strings.offline_banner }}
 </div>
 
 <div class="container" style="padding-top: 72px">
 
     <div class="exam-site-title">
         <div class="exam-site-title__logo">
-            <div class="exam-site-title__bigicon" aria-hidden="true">🎓</div>
+            <div class="exam-site-title__bigicon" aria-hidden="true">{% set color = '#fff' %}{% set width = '24' %}{%
+                set height = '24' %}{% include "_brand_icon_svg.html" with context %}</div>
             <div class="exam-site-title__brand">
                 <span class="exam-site-title__name">Bilim<span>Exam</span></span>
             </div>
         </div>
-        <h1 class="exam-site-title__h1">Калькулятор итоговой оценки за год — 9 и 11 класс Казахстан</h1>
-        <p class="exam-site-title__sub">Формула 70/30 МОН РК: годовая оценка × 70% + экзамен × 30%</p>
+        <h1 class="exam-site-title__h1">{% if locale == 'kk' %}Жылдық қорытынды баға калькуляторы — 9 және 11 сынып
+            Қазақстан{% else %}Калькулятор итоговой оценки за год — 9 и 11 класс Казахстан{% endif %}</h1>
+        <p class="exam-site-title__sub">{% if locale == 'kk' %}МОН РК 70/30 формуласы: жылдық баға × 70% + емтихан ×
+            30%{% else %}Формула 70/30 МОН РК: годовая оценка × 70% + экзамен × 30%{% endif %}</p>
     </div>
 
     <div class="grid">
 
         <div>
             <div class="card reveal">
-                <div class="section-title" style="margin-bottom:13px">Оценки за четверти</div>
+                <div class="section-title" style="margin-bottom:13px">{% if locale == 'kk' %}Тоқсандық бағалар{% else
+                    %}Оценки за четверти{% endif %}</div>
                 <div class="quarter-grid">
                     <div class="quarter-item">
-                        <div class="q-label">1 четверть</div>
+                        <div class="q-label">{% if locale == 'kk' %}1-тоқсан{% else %}1 четверть{% endif %}</div>
                         <div class="grade-picker" data-q="q1">
                             <button class="grade-btn" data-val="2">2</button>
                             <button class="grade-btn" data-val="3">3</button>
@@ -168,7 +136,7 @@
                         </div>
                     </div>
                     <div class="quarter-item">
-                        <div class="q-label">2 четверть</div>
+                        <div class="q-label">{% if locale == 'kk' %}2-тоқсан{% else %}2 четверть{% endif %}</div>
                         <div class="grade-picker" data-q="q2">
                             <button class="grade-btn" data-val="2">2</button>
                             <button class="grade-btn" data-val="3">3</button>
@@ -177,7 +145,7 @@
                         </div>
                     </div>
                     <div class="quarter-item">
-                        <div class="q-label">3 четверть</div>
+                        <div class="q-label">{% if locale == 'kk' %}3-тоқсан{% else %}3 четверть{% endif %}</div>
                         <div class="grade-picker" data-q="q3">
                             <button class="grade-btn" data-val="2">2</button>
                             <button class="grade-btn" data-val="3">3</button>
@@ -186,7 +154,7 @@
                         </div>
                     </div>
                     <div class="quarter-item">
-                        <div class="q-label">4 четверть</div>
+                        <div class="q-label">{% if locale == 'kk' %}4-тоқсан{% else %}4 четверть{% endif %}</div>
                         <div class="grade-picker" data-q="q4">
                             <button class="grade-btn" data-val="2">2</button>
                             <button class="grade-btn" data-val="3">3</button>
@@ -196,17 +164,19 @@
                     </div>
                 </div>
                 <p class="small" style="margin-top:9px;color:var(--muted)">
-                    Можно выбрать только прошедшие четверти — среднее считается по ним
+                    {% if locale == 'kk' %}Тек өткен тоқсандарды таңдауға болады — орташа солар бойынша есептеледі{%
+                    else %}Можно выбрать только прошедшие четверти — среднее считается по ним{% endif %}
                 </p>
 
                 <div class="exam-divider">
                     <div class="exam-divider__line"></div>
-                    <div class="exam-divider__label">Экзамен</div>
+                    <div class="exam-divider__label">{% if locale == 'kk' %}Емтихан{% else %}Экзамен{% endif %}</div>
                     <div class="exam-divider__line"></div>
                 </div>
 
                 <div class="exam-grade-section">
-                    <div class="q-label">Оценка за экзамен</div>
+                    <div class="q-label">{% if locale == 'kk' %}Емтихан бағасы{% else %}Оценка за экзамен{% endif %}
+                    </div>
                     <div class="grade-picker" data-q="exam" style="margin-top:6px">
                         <button class="grade-btn" data-val="2">2</button>
                         <button class="grade-btn" data-val="3">3</button>
@@ -214,7 +184,8 @@
                         <button class="grade-btn" data-val="5">5</button>
                     </div>
                     <p class="small" style="margin-top:7px;color:var(--muted)">
-                        Не знаешь экзамен? Оставь пустым — внизу появятся нужные баллы
+                        {% if locale == 'kk' %}Емтиханды білмесеңіз, бос қалдырыңыз — төменде қажетті баға пайда
+                        болады{% else %}Не знаешь экзамен? Оставь пустым — внизу появятся нужные баллы{% endif %}
                     </p>
                 </div>
             </div>
@@ -222,7 +193,7 @@
             <div style="margin-top:10px">
                 <button class="btn ghost" id="examResetBtn"
                     style="width:100%;color:var(--danger);border-color:rgba(218,54,51,0.22);">
-                    🗑 Сбросить всё
+                    🗑 {% if locale == 'kk' %}Барлығын тазалау{% else %}Сбросить всё{% endif %}
                 </button>
             </div>
         </div>
@@ -233,11 +204,12 @@
                 <div class="grade-badge badge-empty" id="examGradeBadge">Нет данных</div>
 
                 <div id="annualInfoRow" class="info-row" style="display:none;margin-top:11px">
-                    <span class="info-row__label">📅 Годовая оценка</span>
+                    <span class="info-row__label">📅 {% if locale == 'kk' %}Жылдық баға{% else %}Годовая оценка{% endif
+                        %}</span>
                     <span class="info-row__val" id="annualInfoVal">—</span>
                 </div>
                 <div id="examInfoRow" class="info-row" style="display:none">
-                    <span class="info-row__label">📝 Экзамен</span>
+                    <span class="info-row__label">📝 {% if locale == 'kk' %}Емтихан{% else %}Экзамен{% endif %}</span>
                     <span class="info-row__val" id="examInfoVal">—</span>
                 </div>
 
@@ -247,33 +219,37 @@
                     </div>
                     <div class="breakdown">
                         <div class="break-card" style="border-left:2px solid rgba(167,139,250,0.45)">
-                            <span class="break-title">Годовая</span>
+                            <span class="break-title">{% if locale == 'kk' %}Жылдық{% else %}Годовая{% endif %}</span>
                             <span class="break-value" id="bAnnual">—</span>
                         </div>
                         <div class="break-card" style="border-left:2px solid rgba(210,153,34,0.45)">
-                            <span class="break-title">Экзамен</span>
+                            <span class="break-title">{% if locale == 'kk' %}Емтихан{% else %}Экзамен{% endif %}</span>
                             <span class="break-value" id="bExam">—</span>
                         </div>
                         <div class="break-card" style="border-left:2px solid rgba(46,160,67,0.45)">
-                            <span class="break-title">Итог</span>
+                            <span class="break-title">{% if locale == 'kk' %}Қорытынды{% else %}Итог{% endif %}</span>
                             <span class="break-value" id="bFinal">—</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="need-box" id="needBox" style="display:none">
-                    <div class="need-box__title">Нужная оценка за экзамен</div>
+                    <div class="need-box__title">{% if locale == 'kk' %}Емтихан үшін қажет баға{% else %}Нужная оценка
+                        за экзамен{% endif %}</div>
                     <div class="need-grid">
                         <div class="need-item">
-                            <span class="need-item__for">Для «5»</span>
+                            <span class="need-item__for">{% if locale == 'kk' %}«5» үшін{% else %}Для «5»{% endif
+                                %}</span>
                             <span class="need-item__grade ng-5" id="need5">—</span>
                         </div>
                         <div class="need-item">
-                            <span class="need-item__for">Для «4»</span>
+                            <span class="need-item__for">{% if locale == 'kk' %}«4» үшін{% else %}Для «4»{% endif
+                                %}</span>
                             <span class="need-item__grade ng-4" id="need4">—</span>
                         </div>
                         <div class="need-item">
-                            <span class="need-item__for">Для «3»</span>
+                            <span class="need-item__for">{% if locale == 'kk' %}«3» үшін{% else %}Для «3»{% endif
+                                %}</span>
                             <span class="need-item__grade ng-3" id="need3">—</span>
                         </div>
                     </div>
@@ -283,7 +259,8 @@
 
                 <div class="exam-empty-hint" id="examEmptyHint">
                     <span class="exam-empty-hint__arrow">↑</span>
-                    <span>Выбери оценку за 1-ю четверть</span>
+                    <span>{% if locale == 'kk' %}1-тоқсан бағасын таңдаңыз{% else %}Выбери оценку за 1-ю четверть{%
+                        endif %}</span>
                 </div>
 
                 <button id="examShareBtn" class="btn ghost">
@@ -295,7 +272,7 @@
                         <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
                         <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
                     </svg>
-                    Поделиться оценкой
+                    {% if locale == 'kk' %}Бағамен бөлісу{% else %}Поделиться оценкой{% endif %}
                 </button>
             </div>
         </div>
@@ -303,36 +280,43 @@
     </div>
 
     <div class="card" style="margin-top:15px">
-        <h2 style="color:var(--ea);font-size:14px;font-weight:700;margin-bottom:8px;letter-spacing:-0.1px">Как работает
-            расчёт</h2>
+        <h2 style="color:var(--ea);font-size:14px;font-weight:700;margin-bottom:8px;letter-spacing:-0.1px">{% if locale
+            == 'kk' %}Есептеу қалай жұмыс істейді{% else %}Как работает расчёт{% endif %}</h2>
         <p class="small">
-            Итоговая оценка в <strong>9 и 11 классах</strong> по методике МОН РК:
-            <strong>Годовая × 70% + Экзамен × 30%</strong>.
-            Годовая оценка — среднее арифметическое по четвертям.
-            Результат округляется (≥ 0.5 → вверх).
+            {% if locale == 'kk' %}9 және 11 сыныптар үшін МОН РК әдістемесі бойынша қорытынды баға: <strong>Жылдық ×
+                70% + Емтихан × 30%</strong>. Жылдық баға — тоқсандар бойынша орташа арифметикалық. Нәтиже
+            дөңгелектенеді (≥ 0.5 → жоғары).{% else %}Итоговая оценка в <strong>9 и 11 классах</strong> по методике МОН
+            РК: <strong>Годовая × 70% + Экзамен × 30%</strong>. Годовая оценка — среднее арифметическое по четвертям.
+            Результат округляется (≥ 0.5 → вверх).{% endif %}
         </p>
         <p class="small" style="margin-top:6px">
-            Блок «Нужная оценка» показывает, какой балл надо получить на экзамене для «3», «4» или «5».
+            {% if locale == 'kk' %}«Қажетті баға» блогы емтиханда қандай балл алу керектігін көрсетеді: «3», «4» немесе
+            «5».{% else %}Блок «Нужная оценка» показывает, какой балл надо получить на экзамене для «3», «4» или «5».{%
+            endif %}
         </p>
-        <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="art-teaser">
+        <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god" class="art-teaser">
             <div class="art-teaser__icon">70/30</div>
-            <span class="art-teaser__title">Подробная статья — как рассчитать итоговую оценку за год</span>
+            <span class="art-teaser__title">{% if locale == 'kk' %}Жылдық қорытынды бағаны қалай есептеу керек{% else
+                %}Подробная статья — как рассчитать итоговую оценку за год{% endif %}</span>
             <span class="art-teaser__arrow">→</span>
         </a>
-        <a href="/kak-perevesti-procenty-v-otsenku" class="art-teaser" style="margin-top:7px">
+        <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="art-teaser" style="margin-top:7px">
             <div class="art-teaser__icon">%→5</div>
-            <span class="art-teaser__title">Таблица перевода процентов в оценку + пример округления</span>
+            <span class="art-teaser__title">{% if locale == 'kk' %}Проценттерді бағаға аудару кестесі + дөңгелектеу
+                мысалы{% else %}Таблица перевода процентов в оценку + пример округления{% endif %}</span>
             <span class="art-teaser__arrow">→</span>
         </a>
     </div>
 
     <div class="card" style="margin-top:13px">
-        <h2 style="font-size:14px;font-weight:700;margin-bottom:7px">Нужна оценка за четверть?</h2>
+        <h2 style="font-size:14px;font-weight:700;margin-bottom:7px">{% if locale == 'kk' %}Тоқсан үшін баға қажет пе?{%
+            else %}Нужна оценка за четверть?{% endif %}</h2>
         <p class="small" style="margin-bottom:13px">
-            BilimCalc считает итог за четверть по ФО, СОР и СОЧ.
-            Готовую оценку можно сразу использовать здесь.
+            {% if locale == 'kk' %}BilimCalc тоқсандық қорытындыны ФО, СОР және СОЧ бойынша есептейді. Дайын бағаны
+            осында дереу қолдануға болады.{% else %}BilimCalc считает итог за четверть по ФО, СОР и СОЧ. Готовую оценку
+            можно сразу использовать здесь.{% endif %}
         </p>
-        <a href="/" class="official-link" style="text-decoration:none">
+        <a href="{{ locale_home }}" class="official-link" style="text-decoration:none">
             <div class="bilim-logo">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
@@ -343,7 +327,8 @@
             </div>
             <div class="link-text">
                 <span class="link-text-top">BilimCalc</span>
-                <span class="link-text-main">Калькулятор ФО, СОР, СОЧ →</span>
+                <span class="link-text-main">{% if locale == 'kk' %}ФО, СОР, СОЧ калькуляторы →{% else %}Калькулятор ФО,
+                    СОР, СОЧ →{% endif %}</span>
             </div>
         </a>
     </div>
@@ -359,7 +344,8 @@
                     <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener"
                         class="ft-link">GitHub</a>
                     <span class="ft-sep">·</span>
-                    <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank" class="ft-link">Обратная связь</a>
+                    <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank" class="ft-link">{{
+                        app_strings.feedback }}</a>
                 </div>
                 <div class="ft-right">
                     <span class="ft-copy">© <span id="yearExam"></span> BilimExam</span>

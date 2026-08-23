@@ -1,12 +1,11 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}
-{% block meta_desc %}Онлайн калькулятор ФО, СОР и СОЧ для школ Казахстана. Быстрый расчёт итоговой оценки за четверть и
-процента успеваемости. Бесплатно и без регистрации.{% endblock %}
-{% block og_title %}BilimCalc — калькулятор ФО, СОР и СОЧ онлайн{% endblock %}
-{% block og_desc %}Быстрый расчет ФО, СОР и СОЧ. Бесплатно и без регистрации.{% endblock %}
-{% block twitter_image_alt %}BilimCalc — калькулятор оценок для школ Казахстана{% endblock %}
-{% block og_image_alt %}BilimCalc — калькулятор ФО, СОР и СОЧ для школ Казахстана{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
+{% block meta_desc %}{{ page_meta.meta_desc }}{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
+{% block twitter_image_alt %}{{ page_meta.twitter_image_alt }}{% endblock %}
+{% block og_image_alt %}{{ page_meta.og_image_alt }}{% endblock %}
 {% block mob_home %}active{% endblock %}
 
 {% block main_stylesheets %}
@@ -24,12 +23,12 @@
 {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "BilimCalc",
+    "name": "{{ 'BilimCalc' if locale == 'kk' else 'BilimCalc' }}",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web",
     "url": "{{ site_url }}/",
-    "description": "Онлайн-калькулятор для расчёта итоговой оценки по системе ФО, СОР и СОЧ в школах Казахстана",
-    "inLanguage": "ru",
+    "description": "{{ 'Қазақстан мектептері үшін ФО, СОР және СОЧ бойынша онлайн калькулятор' if locale == 'kk' else 'Онлайн-калькулятор для расчёта итоговой оценки по системе ФО, СОР и СОЧ в школах Казахстана' }}",
+    "inLanguage": "{{ 'kk' if locale == 'kk' else 'ru' }}",
     "image": {
         "@type": "ImageObject",
         "url": "{{ site_url }}/static/icons/preview.webp?v={{ build_time }}",
@@ -71,13 +70,19 @@
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "Как рассчитывается итоговая оценка?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Итоговая оценка рассчитывается по методике МОН РК: ФО × 25% + СОР × 25% + СОЧ × 50%." }
+            "name": "{% if locale == 'kk' %}Қорытынды баға қалай есептеледі?{% else %}Как рассчитывается итоговая оценка?{% endif %}",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{% if locale == 'kk' %}Қорытынды баға МОН РК әдістемесі бойынша есептеледі: ФО × 25% + СОР × 25% + СОЧ × 50%.{% else %}Итоговая оценка рассчитывается по методике МОН РК: ФО × 25% + СОР × 25% + СОЧ × 50%.{% endif %}"
+            }
         },
         {
             "@type": "Question",
-            "name": "Что такое ФО, СОР и СОЧ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "ФО — суммативное оценивание по шкале 2–10. СОР — суммативное оценивание за раздел. СОЧ — суммативное оценивание за четверть." }
+            "name": "{% if locale == 'kk' %}ФО, СОР және СОЧ дегеніміз не?{% else %}Что такое ФО, СОР и СОЧ?{% endif %}",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{% if locale == 'kk' %}ФО — 2–10 шкаласындағы суммативті бағалау. СОР — бөлімге арналған суммативті бағалау. СОЧ — тоқсандық қорытынды суммативті бағалау.{% else %}ФО — суммативное оценивание по шкале 2–10. СОР — суммативное оценивание за раздел. СОЧ — суммативное оценивание за четверть.{% endif %}"
+            }
         }
     ]
 }
@@ -87,12 +92,9 @@
 {% block content %}
 <div id="splash">
     <div class="splash-logo">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
-            <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
-            <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648" />
-            <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648" />
-            <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round" />
-        </svg>
+        {% set width = '48' %}
+        {% set height = '48' %}
+        {% include "_bilimcalc_logo_svg.html" with context %}
         <div class="splash-name">Bilim<span>Calc</span></div>
     </div>
     <div class="splash-bar-wrap">
@@ -101,21 +103,19 @@
 </div>
 
 <div id="offlineBanner" class="offline-banner" style="display:none">
-    ⚠️ Нет подключения к интернету — калькулятор работает офлайн
+    {{ app_strings.offline_banner }}
 </div>
 
 <div class="container" style="padding-top: 72px">
     <div class="site-title">
         <div class="site-title__logo">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
-                <rect x="2" y="2" width="9" height="9" rx="2" fill="#3cb648" />
-                <rect x="13" y="2" width="9" height="9" rx="2" fill="#3cb648" />
-                <rect x="2" y="13" width="9" height="9" rx="2" fill="#3cb648" />
-                <path d="M15 18h4M17 16v4" stroke="#3cb648" stroke-width="2.2" stroke-linecap="round" />
-            </svg>
+            {% set width = '36' %}
+            {% set height = '36' %}
+            {% include "_bilimcalc_logo_svg.html" with context %}
             <span class="site-title__name" aria-hidden="true">Bilim<span>Calc</span></span>
         </div>
-        <h1 class="site-title__h1-seo">Калькулятор ФО, СОР и СОЧ для школ Казахстана</h1>
+        <h1 class="site-title__h1-seo">{% if locale == 'kk' %}Қазақстан мектептері үшін ФО, СОР және СОЧ калькуляторы{%
+            else %}Калькулятор ФО, СОР и СОЧ для школ Казахстана{% endif %}</h1>
     </div>
 
     <div class="grid">
@@ -123,36 +123,45 @@
             <div class="card reveal">
                 <div class="m-row">
                     <div class="section-title">ФО</div>
-                    <button class="m-clear-btn" id="clearSoBtn">Очистить</button>
+                    <button class="m-clear-btn" id="clearSoBtn">{% if locale == 'kk' %}Тазалау{% else %}Очистить{% endif
+                        %}</button>
                 </div>
                 <div class="so-row">
                     <form id="addForm">
-                        <input id="soInput" type="text" inputmode="numeric" placeholder="Введите 1–10" maxlength="2"
-                            autocomplete="off">
-                        <button class="btn" type="submit">Добавить</button>
+                        <input id="soInput" type="text" inputmode="numeric"
+                            placeholder="{% if locale == 'kk' %}1–10 енгізіңіз{% else %}Введите 1–10{% endif %}"
+                            maxlength="2" autocomplete="off">
+                        <button class="btn" type="submit">{% if locale == 'kk' %}Қосу{% else %}Добавить{% endif
+                            %}</button>
                     </form>
                 </div>
                 <div class="list" id="soList">
-                    <div class="list-empty" id="soEmpty">Ещё нет оценок ФО</div>
+                    <div class="list-empty" id="soEmpty">{% if locale == 'kk' %}Қазіргі уақытта ФО бағалары жоқ{% else
+                        %}Ещё нет оценок ФО{% endif %}</div>
                 </div>
             </div>
 
             <div class="card reveal" style="margin-top:14px">
                 <div class="m-row">
                     <div class="section-title">СОР</div>
-                    <button class="m-clear-btn" id="clearSorsBtn">Очистить</button>
+                    <button class="m-clear-btn" id="clearSorsBtn">{% if locale == 'kk' %}Тазалау{% else %}Очистить{%
+                        endif %}</button>
                 </div>
                 <div class="sor-row">
                     <form id="sorForm">
-                        <input id="sorDialed" type="text" inputmode="numeric" placeholder="Набрал" maxlength="2"
+                        <input id="sorDialed" type="text" inputmode="numeric"
+                            placeholder="{% if locale == 'kk' %}Алған{% else %}Набрал{% endif %}" maxlength="2"
                             autocomplete="off">
-                        <input id="sorMax" type="text" inputmode="numeric" placeholder="Максимум" maxlength="2"
+                        <input id="sorMax" type="text" inputmode="numeric"
+                            placeholder="{% if locale == 'kk' %}Максимум{% else %}Максимум{% endif %}" maxlength="2"
                             autocomplete="off">
-                        <button class="btn" type="submit">Добавить</button>
+                        <button class="btn" type="submit">{% if locale == 'kk' %}Қосу{% else %}Добавить{% endif
+                            %}</button>
                     </form>
                 </div>
                 <div class="list" id="sorList">
-                    <div class="list-empty" id="sorEmpty">Ещё нет оценок СОР</div>
+                    <div class="list-empty" id="sorEmpty">{% if locale == 'kk' %}Қазіргі уақытта СОР бағалары жоқ{% else
+                        %}Ещё нет оценок СОР{% endif %}</div>
                 </div>
             </div>
 
@@ -163,9 +172,11 @@
                 </div>
                 <div class="soch-row">
                     <div class="soch-inputs">
-                        <input id="sochDialed" type="text" inputmode="numeric" placeholder="Набрал" maxlength="2"
+                        <input id="sochDialed" type="text" inputmode="numeric"
+                            placeholder="{% if locale == 'kk' %}Алған{% else %}Набрал{% endif %}" maxlength="2"
                             autocomplete="off">
-                        <input id="sochMax" type="text" inputmode="numeric" placeholder="Максимум" maxlength="2"
+                        <input id="sochMax" type="text" inputmode="numeric"
+                            placeholder="{% if locale == 'kk' %}Максимум{% else %}Максимум{% endif %}" maxlength="2"
                             autocomplete="off">
                     </div>
                 </div>
@@ -182,7 +193,7 @@
                         <line x1="10" y1="11" x2="10" y2="17" />
                         <line x1="14" y1="11" x2="14" y2="17" />
                     </svg>
-                    Сбросить всё
+                    {% if locale == 'kk' %}Барлығын тазалау{% else %}Сбросить всё{% endif %}
                 </button>
             </div>
         </div>
@@ -192,7 +203,7 @@
                 <div class="result-header">
                     <div class="result-side result-side--left">
                         <button id="shareBtn" class="result-action-btn share-btn" style="display:none;"
-                            title="Поделиться результатом">
+                            title="{% if locale == 'kk' %}Нәтижені бөлісу{% else %}Поделиться результатом{% endif %}">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="18" cy="5" r="3" />
@@ -214,7 +225,7 @@
                     </div>
                 </div>
 
-                <div class="grade-badge badge-empty" id="gradeBadge">Нет данных</div>
+                <div class="grade-badge badge-empty" id="gradeBadge">{{ app_strings.result_no_data }}</div>
 
                 <div class="formula-hint" id="formulaHint" style="display:none;"></div>
 
@@ -227,15 +238,17 @@
                         <span class="trend-sheet-handle"></span>
                         <div class="trend-header">
                             <div class="trend-header-left">
-                                <span>AI-анализ</span>
+                                <span>{% if locale == 'kk' %}AI талдау{% else %}AI-анализ{% endif %}</span>
                                 <span id="aiAccuracy">--%</span>
                             </div>
                             <div style="display:flex;gap:10px">
                                 <div class="t-legend">
-                                    <div class="t-legend-line solid"></div><span>Оценки</span>
+                                    <div class="t-legend-line solid"></div><span>{% if locale == 'kk' %}Бағалар{% else
+                                        %}Оценки{% endif %}</span>
                                 </div>
                                 <div class="t-legend">
-                                    <div class="t-legend-line dashed"></div><span>Тренд</span>
+                                    <div class="t-legend-line dashed"></div><span>{% if locale == 'kk' %}Тренд{% else
+                                        %}Тренд{% endif %}</span>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +258,8 @@
                         <div class="trend-label" id="trendLabel">—</div>
                     </div>
 
-                    <div class="trend-hint">Добавьте 2+ оценок ФО для AI-анализа динамики</div>
+                    <div class="trend-hint">{% if locale == 'kk' %}AI динамикасын талдау үшін 2+ ФО бағасын қосыңыз{%
+                        else %}Добавьте 2+ оценок ФО для AI-анализа динамики{% endif %}</div>
 
                     <div class="breakdown">
                         <div class="break-card" style="border-left:2px solid rgba(88,166,255,0.45)">
@@ -270,135 +284,168 @@
     </div>
 
     <div class="card" style="margin-top:20px">
-        <h2 style="font-size:15px;font-weight:700;margin-bottom:12px">Полезные статьи</h2>
+        <h2 style="font-size:15px;font-weight:700;margin-bottom:12px">{% if locale == 'kk' %}Пайдалы мақалалар{% else
+            %}Полезные статьи{% endif %}</h2>
         <div class="home-articles-list">
-            <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="art-teaser">
+            <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god" class="art-teaser">
                 <div class="art-teaser__icon">70/30</div>
-                <span class="art-teaser__title">Как рассчитать итоговую оценку за год</span>
+                <span class="art-teaser__title">{% if locale == 'kk' %}Жылдық қорытынды бағаны қалай есептеу керек{%
+                    else %}Как рассчитать итоговую оценку за год{% endif %}</span>
                 <span class="art-teaser__arrow">→</span>
             </a>
-            <a href="/perehod-na-12-letku-kazakhstan" class="art-teaser">
+            <a href="{{ locale_prefix }}/perehod-na-12-letku-kazakhstan" class="art-teaser">
                 <div class="art-teaser__icon">12 лет</div>
-                <span class="art-teaser__title">12-летнее обучение в Казахстане?</span>
+                <span class="art-teaser__title">{% if locale == 'kk' %}Қазақстанда 12 жылдық оқу қандай?{% else
+                    %}12-летнее обучение в Казахстане?{% endif %}</span>
                 <span class="art-teaser__arrow">→</span>
             </a>
-            <a href="/porogovye-bally-granta-ent" class="art-teaser">
-                <div class="art-teaser__icon">ЕНТ</div>
-                <span class="art-teaser__title">Проходные баллы ЕНТ на грант</span>
+            <a href="{{ locale_prefix }}/porogovye-bally-granta-ent" class="art-teaser">
+                <div class="art-teaser__icon">{% if locale == 'kk' %}ҰБТ{% else %}ЕНТ{% endif %}</div>
+                <span class="art-teaser__title">{% if locale == 'kk' %}ҰБТ грантына өтетін баллдар{% else %}Проходные
+                    баллы ЕНТ на грант{% endif %}</span>
                 <span class="art-teaser__arrow">→</span>
             </a>
         </div>
-        <a href="/articles" class="btn ghost"
+        <a href="{{ locale_prefix }}/articles" class="btn ghost"
             style="width:100%;margin-top:14px;text-decoration:none;justify-content:center;display:inline-flex;align-items:center;gap:6px">
-            Все статьи →
+            {% if locale == 'kk' %}Барлық мақалалар →{% else %}Все статьи →{% endif %}
         </a>
     </div>
 
-    <a href="/kalkulator-ekzamena" class="card bilimexam-banner"
+    <a href="{{ locale_prefix }}/kalkulator-ekzamena" class="card bilimexam-banner"
         style="margin-top:20px;display:flex;align-items:center;gap:14px;text-decoration:none;padding:16px 20px;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.06);">
         <div
-            style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(167,139,250,0.15);border-radius:10px;font-size:20px">
-            🎓</div>
+            style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(167,139,250,0.15);border-radius:10px">
+            {% set color = '#a78bfa' %}{% include "_brand_icon_svg.html" with context %}
+        </div>
         <div style="flex:1;min-width:0">
             <div class="bilimexam-banner__title" style="font-size:15px;font-weight:800;margin-bottom:2px"><span
                     style="color:#a78bfa">Bilim</span><span style="color:#c4b5fd">Exam</span></div>
-            <div style="font-size:13px;color:var(--muted)">9 и 11 класс · Формула 70/30 · Годовая + экзамен</div>
+            <div style="font-size:13px;color:var(--muted)">{% if locale == 'kk' %}9 және 11 сынып · 70/30 формуласы ·
+                Жылдық + емтихан{% else %}9 и 11 класс · Формула 70/30 · Годовая + экзамен{% endif %}</div>
         </div>
         <div style="color:#a78bfa;font-size:18px;flex-shrink:0;opacity:0.7">→</div>
     </a>
 
-    <a href="/kalkulator-shansov-granta" class="card"
+    <a href="{{ locale_prefix }}/kalkulator-shansov-granta" class="card"
         style="margin-top:20px;display:flex;align-items:center;gap:14px;text-decoration:none;padding:16px 20px;border-color:rgba(245,158,11,0.2);background:rgba(245,158,11,0.06);">
         <div
-            style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(245,158,11,0.15);border-radius:10px;font-size:20px">
-            🎯</div>
+            style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(245,158,11,0.15);border-radius:10px">
+            {% set color = '#f59e0b' %}{% include "_brand_icon_svg.html" with context %}
+        </div>
         <div style="flex:1;min-width:0">
             <div style="font-size:15px;font-weight:800;margin-bottom:2px">
                 <span style="color:#fbbf24">Bilim</span><span style="color:#f59e0b">Grant</span>
             </div>
-            <div style="font-size:13px;color:var(--muted)">Шансы на бюджет · ЕНТ 2026 · Учет квот</div>
+            <div style="font-size:13px;color:var(--muted)">{% if locale == 'kk' %}Жұмысқа грант мүмкіндігі · ҰБТ 2026 ·
+                Квота есебі{% else %}Шансы на бюджет · ЕНТ 2026 · Учет квот{% endif %}</div>
         </div>
         <div style="color:#f59e0b;font-size:18px;flex-shrink:0;opacity:0.7">→</div>
     </a>
 
     <div class="card" style="margin-top:20px">
-        <h2>О проекте</h2>
-        <p class="small" style="margin-top:8px">Сервис создан для того, чтобы ученику не приходилось вручную выводить
-            формулы и считать в обычном калькуляторе, а можно было за пару секунд узнать, какую оценку или процент нужно
-            получить, чтобы выйти на желаемый итог по предмету.</p>
-        <p class="small" style="margin-top:7px">BilimCalc подходит для учеников 5–11 классов, а также для родителей и
-            учителей, которые хотят наглядно оценить текущую успеваемость. Сайт работает бесплатно, без регистрации и
-            доступен с любого устройства.</p>
-        <p class="small" style="margin-top:7px">Проект открытый и учебный. Исходный код доступен на GitHub.</p>
+        <h2>{% if locale == 'kk' %}Жоба туралы{% else %}О проекте{% endif %}</h2>
+        <p class="small" style="margin-top:8px">{% if locale == 'kk' %}Қызмет оқушыға формулаларды қолмен шығармай,
+            кәдімгі калькуляторға тәуелді болмастан, бірнеше секунд ішінде қажетті баллды немесе пайызды анықтауға
+            мүмкіндік береді.{% else %}Сервис создан для того, чтобы ученику не приходилось вручную выводить формулы и
+            считать в обычном калькуляторе, а можно было за пару секунд узнать, какую оценку или процент нужно получить,
+            чтобы выйти на желаемый итог по предмету.{% endif %}</p>
+        <p class="small" style="margin-top:7px">{% if locale == 'kk' %}BilimCalc 5–11 сынып оқушыларына, сондай-ақ
+            ағалар мен ата-аналарға арналған. Сайт тегін, тіркеусіз жұмыс істейді және кез келген құрылғыдан
+            қолжетімді.{% else %}BilimCalc подходит для учеников 5–11 классов, а также для родителей и учителей, которые
+            хотят наглядно оценить текущую успеваемость. Сайт работает бесплатно, без регистрации и доступен с любого
+            устройства.{% endif %}</p>
+        <p class="small" style="margin-top:7px">{% if locale == 'kk' %}Жоба ашық және оқу мақсатында жасалған.
+            Шығарылған код GitHub-та қолжетімді.{% else %}Проект открытый и учебный. Исходный код доступен на GitHub.{%
+            endif %}</p>
     </div>
 
     <div class="card faq-card" style="margin-top:20px">
-        <h2>Часто задаваемые вопросы</h2>
+        <h2>{% if locale == 'kk' %}Жиі қойылатын сұрақтар{% else %}Часто задаваемые вопросы{% endif %}</h2>
         <div class="faq-list">
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
-                    <span>Как рассчитывается итоговая оценка?</span>
+                    <span>{% if locale == 'kk' %}Қорытынды баға қалай есептеледі?{% else %}Как рассчитывается итоговая
+                        оценка?{% endif %}</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </button>
                 <div class="faq-a">
-                    <p>Итоговая оценка рассчитывается по официальной методике МОН РК: <strong>ФО × 25% + СОР × 25% + СОЧ
-                            × 50%</strong>. Если СОЧ не было — сумма ФО и СОР умножается на 2.</p>
+                    <p>{% if locale == 'kk' %}Қорытынды баға МОН РК ресми әдістемесі бойынша есептеледі: <strong>ФО ×
+                            25% + СОР × 25% + СОЧ × 50%</strong>. Егер СОЧ жоқ болса — ФО мен СОР қосындысы 2-ге
+                        көбейтіледі.{% else %}Итоговая оценка рассчитывается по официальной методике МОН РК: <strong>ФО
+                            × 25% + СОР × 25% + СОЧ × 50%</strong>. Если СОЧ не было — сумма ФО и СОР умножается на 2.{%
+                        endif %}</p>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
-                    <span>Что такое ФО, СОР и СОЧ?</span>
+                    <span>{% if locale == 'kk' %}ФО, СОР және СОЧ дегеніміз не?{% else %}Что такое ФО, СОР и СОЧ?{%
+                        endif %}</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </button>
                 <div class="faq-a">
-                    <p><strong>ФО</strong> — суммативное оценивание по шкале 2–10. <strong>СОР</strong> — суммативное
-                        оценивание за раздел. <strong>СОЧ</strong> — суммативное оценивание за четверть.</p>
+                    <p>{% if locale == 'kk' %}<strong>ФО</strong> — 2–10 шкаласындағы суммативтік бағалау.
+                        <strong>СОР</strong> — бөлім бойынша суммативтік бағалау. <strong>СОЧ</strong> — тоқсандық
+                        суммативтік бағалау.{% else %}<strong>ФО</strong> — суммативное оценивание по шкале 2–10.
+                        <strong>СОР</strong> — суммативное оценивание за раздел. <strong>СОЧ</strong> — суммативное
+                        оценивание за четверть.{% endif %}
+                    </p>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
-                    <span>Для каких классов подходит калькулятор?</span>
+                    <span>{% if locale == 'kk' %}Бұл калькулятор қандай сыныптарға жарайды?{% else %}Для каких классов
+                        подходит калькулятор?{% endif %}</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </button>
                 <div class="faq-a">
-                    <p>Калькулятор ФО/СОР/СОЧ подходит для учеников <strong>5–11 классов</strong>. Для расчёта итоговой
-                        годовой оценки (9 и 11 класс) используй отдельный <a href="/kalkulator-ekzamena"
-                            style="color:var(--accent)">калькулятор экзамена</a>.</p>
+                    <p>{% if locale == 'kk' %}ФО/СОР/СОЧ калькуляторы 5–11 сынып оқушыларына арналған. Жылдық қорытынды
+                        бағаны (9 және 11 сынып) есептеу үшін <a href="{{ locale_prefix }}/kalkulator-ekzamena"
+                            style="color:var(--accent)">BilimExam калькуляторын</a> пайдаланыңыз.{% else %}Калькулятор
+                        ФО/СОР/СОЧ подходит для учеников <strong>5–11 классов</strong>. Для расчёта итоговой годовой
+                        оценки (9 и 11 класс) используй отдельный <a href="{{ locale_prefix }}/kalkulator-ekzamena"
+                            style="color:var(--accent)">калькулятор экзамена</a>.{% endif %}</p>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
-                    <span>Что означает AI-анализ и тренд?</span>
+                    <span>{% if locale == 'kk' %}AI талдау және тренд дегеніміз не?{% else %}Что означает AI-анализ и
+                        тренд?{% endif %}</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </button>
                 <div class="faq-a">
-                    <p>При добавлении 2+ оценок ФО строится график динамики. Пунктирная линия — это <strong>линейная
-                            регрессия</strong>: математический тренд, показывающий направление изменения оценок.</p>
+                    <p>{% if locale == 'kk' %}2 және одан көп ФО бағаларын қосқанда динамика графигі жасалады. Нүктелі
+                        сызық — бағалардың өзгеру бағытын көрсететін сызықты регрессия.{% else %}При добавлении 2+
+                        оценок ФО строится график динамики. Пунктирная линия — это <strong>линейная регрессия</strong>:
+                        математический тренд, показывающий направление изменения оценок.{% endif %}</p>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" aria-expanded="false">
-                    <span>Сохраняются ли введённые данные?</span>
+                    <span>{% if locale == 'kk' %}Енгізілген мәліметтер сақтала ма?{% else %}Сохраняются ли введённые
+                        данные?{% endif %}</span>
                     <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </button>
                 <div class="faq-a">
-                    <p>Да. Все данные автоматически сохраняются в памяти браузера (localStorage) и восстанавливаются при
-                        следующем посещении. Данные хранятся только на вашем устройстве.</p>
+                    <p>{% if locale == 'kk' %}Ия. Барлық мәліметтер браузер жадысында (localStorage) сақталады және
+                        келесі келгенде қайта жүктеледі. Мәліметтер тек сіздің құрылғыда қалады.{% else %}Да. Все данные
+                        автоматически сохраняются в памяти браузера (localStorage) и восстанавливаются при следующем
+                        посещении. Данные хранятся только на вашем устройстве.{% endif %}</p>
                 </div>
             </div>
         </div>
@@ -415,7 +462,8 @@
                     <a href="https://github.com/antonbogdan165" target="_blank" rel="noopener"
                         class="ft-link">GitHub</a>
                     <span class="ft-sep">·</span>
-                    <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank" class="ft-link">Обратная связь</a>
+                    <a href="https://forms.gle/nv4VyMMF3iE1KpeY9" target="_blank" class="ft-link">{{
+                        app_strings.feedback }}</a>
                 </div>
                 <div class="ft-right">
                     <span class="ft-copy">© <span id="year"></span> BilimCalc</span>

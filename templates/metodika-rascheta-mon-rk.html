@@ -1,13 +1,9 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}Методика расчёта оценок МОН РК — критериальное оценивание в школах Казахстана | BilimCalc{%
-endblock %}
-{% block meta_desc %}Официальная методика расчёта оценок МОН РК: что такое критериальное оценивание, формула ФО × 25% +
-СОР × 25% + СОЧ × 50%, два примера с числами. Полный разбор.{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}Методика расчёта оценок МОН РК: критериальное оценивание в Казахстане{% endblock %}
-{% block og_desc %}Подробный разбор официальной методики оценивания МОН РК: нормативная база, три вида суммативного
-оценивания, формула итоговой оценки.{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -16,13 +12,13 @@ endblock %}
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Официальная методика расчёта оценок МОН РК",
-    "description": "Критериальное оценивание в школах Казахстана: нормативная база, три вида суммативного оценивания, официальная формула итоговой оценки",
+    "headline": "{% if locale == 'kk' %}МОН РК бағалау есептеу әдістемесі{% else %}Официальная методика расчёта оценок МОН РК{% endif %}",
+    "description": "{% if locale == 'kk' %}Қазақстан мектептеріндегі критериалды бағалау: нормативтік база, үш түрдегі суммативті бағалау, тоқсандық қорытынды бағаның ресми формуласы{% else %}Критериальное оценивание в школах Казахстана: нормативная база, три вида суммативного оценивания, официальная формула итоговой оценки{% endif %}",
     "url": "{{ site_url }}/metodika-rascheta-mon-rk",
     "datePublished": "2025-09-01",
     "dateModified": "2026-05-24",
     "image": "{{ site_url }}/static/icons/preview.webp?v={{ build_time }}",
-    "inLanguage": "ru",
+    "inLanguage": "{{ 'kk' if locale == 'kk' else 'ru' }}",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
     "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/metodika-rascheta-mon-rk" }
@@ -33,9 +29,9 @@ endblock %}
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Методика расчёта МОН РК", "item": "{{ site_url }}/metodika-rascheta-mon-rk" }
+        { "@type": "ListItem", "position": 1, "name": "{{ app_strings.menu_home }}", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "{{ app_strings.all_articles }}", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "{% if locale == 'kk' %}МОН ҚР әдістемесі{% else %}Методика расчёта МОН РК{% endif %}", "item": "{{ site_url }}/metodika-rascheta-mon-rk" }
     ]
 }
 </script>
@@ -46,110 +42,78 @@ endblock %}
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "С какого класса применяется критериальное оценивание в Казахстане?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Критериальное оценивание по методике МОН РК применяется с начальных классов. К средней школе (5–11 класс) система используется в полном объёме по всем основным предметам." }
+            "name": "{% if locale == 'kk' %}Қай сыныптан бастап Қазақстанда критериалды бағалау қолданылады?{% else %}С какого класса применяется критериальное оценивание в Казахстане?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}МОН РК әдістемесі бойынша критериалды бағалау бастауыш сыныптардан енгізіледі. 5–11 сыныптардың орта буынында жүйе барлық негізгі пәндер бойынша толық көлемде қолданылады.{% else %}Критериальное оценивание по методике МОН РК применяется с начальных классов. К средней школе (5–11 класс) система используется в полном объёме по всем основным предметам.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Чем критериальное оценивание отличается от традиционного?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Результат сравнивается с заранее установленными критериями, а не с другими учениками. Итоговая оценка рассчитывается по формуле: ФО × 25% + СОР × 25% + СОЧ × 50%." }
+            "name": "{% if locale == 'kk' %}Критериалды бағалау дәстүрлі бағалаудан немен ерекшеленеді?{% else %}Чем критериальное оценивание отличается от традиционного?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Нәтиже басқа оқушылармен салыстыру негізінде емес, алдын ала анықталған критерийлер бойынша анықталады. Итог бағасы формула бойынша есептеледі: ФО × 25% + СОР × 25% + СОЧ × 50%.{% else %}Результат сравнивается с заранее установленными критериями, а не с другими учениками. Итоговая оценка рассчитывается по формуле: ФО × 25% + СОР × 25% + СОЧ × 50%.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Одинакова ли методика МОН для всех школ Казахстана?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Методика МОН РК обязательна для государственных школ. Большинство частных школ также её придерживаются." }
+            "name": "{% if locale == 'kk' %}МОН әдістемесі барлық мектептер үшін бірдей ме?{% else %}Одинакова ли методика МОН для всех школ Казахстана?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}МОН РК әдістемесі мемлекеттік мектептер үшін міндетті. Көптеген жеке мектептер де осы қағидаларға сүйенеді.{% else %}Методика МОН РК обязательна для государственных школ. Большинство частных школ также её придерживаются.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Какая формула используется в методике МОН РК для расчёта оценки за четверть?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Итог = (среднее ФО ÷ 10 × 25) + (среднее СОР% × 0,25) + (СОЧ% × 0,50). Итоговый процент переводится в оценку: 85–100% → «5», 65–84% → «4», 40–64% → «3»." }
+            "name": "{% if locale == 'kk' %}МОН РК бойынша тоқсандық баға есептелетін формула қандай?{% else %}Какая формула используется в методике МОН РК для расчёта оценки за четверть?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Итог = (орташа ФО ÷ 10 × 25) + (орташа СОР% × 0,25) + (СОЧ% × 0,50). Итогтық процент 85–100% → «5», 65–84% → «4», 40–64% → «3».{% else %}Итог = (среднее ФО ÷ 10 × 25) + (среднее СОР% × 0,25) + (СОЧ% × 0,50). Итоговый процент переводится в оценку: 85–100% → «5», 65–84% → «4», 40–64% → «3».{% endif %}" }
         }
     ]
 }
 </script>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    .article ul {
-        margin: 12px 0 16px 0;
-        padding-left: 0;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .article ul li {
-        font-size: 15px;
-        line-height: 1.75;
-        color: #b0bec8;
-        padding-left: 20px;
-        position: relative;
-    }
-
-    .article ul li::before {
-        content: '—';
-        position: absolute;
-        left: 0;
-        color: var(--accent);
-        font-weight: 700;
-        opacity: 0.6;
-    }
-
-    .article ul li strong {
-        color: #e6edf3;
-    }
-
-    [data-theme="light"] .article ul li {
-        color: #475569;
-    }
-
-    [data-theme="light"] .article ul li strong {
-        color: #0f172a;
-    }
-
-    [data-theme="light"] .article ul li::before {
-        opacity: 0.5;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="article-wrap">
-    <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <a href="/">Главная</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <a href="/articles">Статьи</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <span aria-current="page">Методика расчёта МОН РК</span>
-    </nav>
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
             <h1 class="article__title" itemprop="headline">
-                Официальная методика расчёта оценок МОН РК: полный разбор
+                {% if locale == 'kk' %}МОН ҚР бағалау әдістемесі: толық шолу{% else %}Официальная методика расчёта
+                оценок МОН РК: полный разбор{% endif %}
             </h1>
             <div class="article__meta">
                 <time datetime="2026-03-13" itemprop="dateModified">Май 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>8 мин чтения</span>
+                <span>8 {{ app_strings.reading_time_suffix }}</span>
             </div>
-            <a href="/" class="mobile-cta">
+            <a href="{{ locale_home }}" class="mobile-cta">
                 <div class="mobile-cta__icon">🧮</div>
                 <div class="mobile-cta__body">
-                    <div class="mobile-cta__label">Открыть</div>
-                    <div class="mobile-cta__title">Калькулятор оценок</div>
+                    <div class="mobile-cta__label">{% if locale == 'kk' %}Ашу{% else %}Открыть{% endif %}</div>
+                    <div class="mobile-cta__title">{% if locale == 'kk' %}Бағалау калькуляторы{% else %}Калькулятор
+                        оценок{% endif %}</div>
                 </div>
                 <span class="mobile-cta__arrow">→</span>
             </a>
             <p class="article__lead">
+                {% if locale == 'kk' %}
+                <strong>МОН ҚР әдістемесі</strong> — Қазақстан мектептеріндегі ресми критерийлік бағалау жүйесі. Оған
+                сәйкес тоқсандық қорытынды баға <strong>ФО × 25% + СОР × 25% + СОЧ × 50%</strong> формуласы бойынша
+                есептеледі. Нәтиже 2–5 шкаласы бойынша аударылады: 85–100% → «5», 65–84% → «4», 40–64% → «3». Бұл
+                жүйенің мәнін, оның пайда болуын және оқушы, ата-ана, мұғалімге қалай әсер ететінін қарастырамыз.
+                {% else %}
                 <strong>Методика МОН РК</strong> - это официальная система критериального оценивания в школах
                 Казахстана. По ней итоговая оценка за четверть рассчитывается по формуле: <strong>ФО × 25% + СОР × 25% +
                     СОЧ × 50%</strong>. Результат переводится в оценку 2–5 по шкале: 85–100% → «5», 65–84% → «4», 40–64%
                 → «3». Разбираем, что это за система, откуда она взялась и как работает для ученика, родителя и учителя.
+                {% endif %}
             </p>
 
-            <h2>Краткий ответ: что такое методика МОН РК</h2>
+            <h2>{% if locale == 'kk' %}Қысқаша жауап: МОН ҚР әдістемесі дегеніміз не{% else %}Краткий ответ: что такое
+                методика МОН РК{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>МОН РК бағалау әдістемесі — мемлекеттік мектептер үшін міндетті критериалды бағалау стандарты. Оның
+                негізгі қағидаттары:</p>
+            <ul>
+                <li>Қорытынды баға формула бойынша есептеледі, мұғалімнің жеке пікіріне тәуелді емес</li>
+                <li>Үш түрдегі суммативті бағалау қолданылады: <strong>ФО, СОР, СОЧ</strong>, әрқайсысының салмағы анық
+                </li>
+                <li>Нәтиже бірдей шкала бойынша аударылады: 85% → «5»</li>
+                <li>Бағалау критерийлері алдын ала белгілі — оқушы не үшін ұпай алғанын біледі</li>
+            </ul>
+            {% else %}
             <p>Методика расчёта оценок МОН РК — это стандарт критериального оценивания, обязательный для государственных
                 школ Казахстана. Её главные принципы:</p>
             <ul>
@@ -159,8 +123,22 @@ endblock %}
                 <li>Результат переводится в оценку по единой шкале (85% → «5»)</li>
                 <li>Критерии оценивания известны заранее — ученик знает, за что получает баллы</li>
             </ul>
+            {% endif %}
 
-            <h2>Что такое критериальное оценивание</h2>
+            <h2>{% if locale == 'kk' %}Критериалды бағалау дегеніміз не{% else %}Что такое критериальное оценивание{%
+                endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>Критериалды бағалау — бұл оқу нәтижелері басқа оқушылармен салыстырмай, алдын ала белгіленген критерийлер
+                бойынша бағаланатын жүйе. Бұрын мектептерде дәстүрлі 5 баллдық шкала қолданылып, бағалар көбіне
+                мұғалімнің жеке пікіріне байланысты болатын. Оқушылар жиі не үшін дәл осындай баға алғанын түсінбейтін.
+            </p>
+            <p>Критериалды бағалаудың мәні — әр тапсырма нақты көрсеткіштер бойынша тексеріледі. Бұл стресс деңгейін
+                төмендетеді және оқу жүктемесін жоспарлауға мүмкіндік береді. Оқушылар мен ата-аналар үшін прогресті
+                бақылау оңайырақ, ал мұғалімдер үшін бағаланған нәтижені дәлелдеу жеңілірек болады.</p>
+            <p>Қазақстанда бұл жүйе білім мазмұнын жаңарту негізіне айналды. Ол тікелей байланысты, қалай есептеледі <a
+                    href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">тоқсандық қорытынды баға</a> және жылдық
+                бағалау.</p>
+            {% else %}
             <p>Критериальное оценивание — это система, при которой результаты обучения сравниваются не с другими
                 учениками, а с заранее понятными критериями. Раньше в школах использовалась привычная 5-балльная шкала,
                 где многое зависело от субъективного мнения учителя. Ученики часто не понимали, почему получили именно
@@ -169,15 +147,61 @@ endblock %}
                 снижает стресс и даёт возможность планировать учебную нагрузку. Родителям проще отслеживать прогресс, а
                 учителям — аргументировать выставленные оценки.</p>
             <p>В Казахстане эта система стала основой обновлённого содержания образования. Она напрямую связана с тем,
-                как считается <a href="/itogovaya-ocenka-za-chetvert">итоговая оценка за четверть</a> и год.</p>
+                как считается <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">итоговая оценка за четверть</a>
+                и год.</p>
+            {% endif %}
 
-            <h2>Нормативная база</h2>
+            <h2>{% if locale == 'kk' %}Нормативтік база{% else %}Нормативная база{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>Бағалау жүйесі Қазақстан Республикасының Білім және ғылым министрлігінің ресми құжаттарына негізделген.
+                Әдістеме білім мазмұны жаңартылған кезде кезең-кезеңімен енгізілді. Қазір суммативті бағалау
+                Қазақстандағы барлық оқу деңгейлерінде қолданылады. Ресми нормативтік құжаттар құқықтық ақпараттық
+                базаларда қолжетімді.</p>
+            {% else %}
             <p>Вся система оценивания опирается на официальные документы Министерства образования и науки Республики
                 Казахстан. Методика была внедрена поэтапно вместе с обновлённым содержанием образования. Сегодня
                 суммативное оценивание в Казахстане используется на всех уровнях обучения. Официальные нормативные
                 документы доступны в правовых базах Казахстана.</p>
+            {% endif %}
 
-            <h2>Три вида суммативного оценивания</h2>
+            <h2>{% if locale == 'kk' %}Үш түрдегі суммативті бағалау{% else %}Три вида суммативного оценивания{% endif
+                %}</h2>
+            {% if locale == 'kk' %}
+            <p>Критериалды жүйеде үш негізгі суммативті бағалау түрі қолданылады. Әрқайсысының өз функциясы бар және
+                олар бірге оқушының алған білімін объективті көрсетеді.</p>
+            <div class="article__example">
+                <table class="article__table">
+                    <thead>
+                        <tr>
+                            <th>Түрі</th>
+                            <th>Не тексереді</th>
+                            <th>Қашан</th>
+                            <th>Салмақ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="{{ locale_prefix }}/kak-rasschitat-so"><strong>ФО</strong></a></td>
+                            <td>Тоқсан ішінде жеке тақырыптар</td>
+                            <td>Тұрақты</td>
+                            <td>25%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="{{ locale_prefix }}/kak-rasschitat-sor"><strong>СОР</strong></a></td>
+                            <td>Бағдарламаның ірі бөлімдері</td>
+                            <td>Өткізу кездері: 2–3 рет</td>
+                            <td>25%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="{{ locale_prefix }}/kak-rasschitat-soch"><strong>СОЧ</strong></a></td>
+                            <td>Тоқсанның бүкіл материалын</td>
+                            <td>Тоқсан соңында</td>
+                            <td>50%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
             <p>В критериальной системе используются три основных вида суммативного оценивания. Каждый из них отвечает за
                 свой этап обучения и выполняет отдельную функцию. Вместе они дают объективную картину знаний ученика.
             </p>
@@ -193,19 +217,19 @@ endblock %}
                     </thead>
                     <tbody>
                         <tr>
-                            <td><a href="/kak-rasschitat-so"><strong>ФО</strong></a></td>
+                            <td><a href="{{ locale_prefix }}/kak-rasschitat-so"><strong>ФО</strong></a></td>
                             <td>Отдельные темы в течение четверти</td>
                             <td>Регулярно</td>
                             <td>25%</td>
                         </tr>
                         <tr>
-                            <td><a href="/kak-rasschitat-sor"><strong>СОР</strong></a></td>
+                            <td><a href="{{ locale_prefix }}/kak-rasschitat-sor"><strong>СОР</strong></a></td>
                             <td>Крупные разделы программы</td>
                             <td>2-3 раза за четверть</td>
                             <td>25%</td>
                         </tr>
                         <tr>
-                            <td><a href="/kak-rasschitat-soch"><strong>СОЧ</strong></a></td>
+                            <td><a href="{{ locale_prefix }}/kak-rasschitat-soch"><strong>СОЧ</strong></a></td>
                             <td>Весь материал четверти</td>
                             <td>В конце четверти</td>
                             <td>50%</td>
@@ -213,8 +237,21 @@ endblock %}
                     </tbody>
                 </table>
             </div>
+            {% endif %}
 
-            <h2>Формула итоговой оценки по методике МОН</h2>
+            <h2>{% if locale == 'kk' %}МОН әдістемесі бойынша қорытынды баға формуласы{% else %}Формула итоговой оценки
+                по методике МОН{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>Ресми есептеу формуласы МОН әдістемесінде нақты көрсетілген. Тоқсандық қорытынды баға үш компоненттен
+                құралады — әрқайсысы пайыздарға аударылып, қосылады.</p>
+            <div class="article__formula">
+                <div class="article__formula-title">МОН РК ресми формуласы</div>
+                <div class="article__formula-body">Итог = (среднее ФО ÷ 10 × 25) + (среднее СОР% × 0.25) + (СОЧ% × 0.50)
+                </div>
+            </div>
+            <p>Егер пән бойынша СОЧ өтпесе, оның салмағы қалған компоненттер арасында қайта бөлінеді. Ресми әдістемеге
+                сәйкес жылдам есептеу үшін <a href="{{ locale_home }}">онлайн калькуляторды</a> пайдалану ыңғайлы.</p>
+            {% else %}
             <p>Официальная формула расчёта строго закреплена в методике МОН РК. Итоговая оценка за четверть складывается
                 из трёх компонентов — каждый переводится в проценты и суммируется.</p>
             <div class="article__formula">
@@ -223,7 +260,9 @@ endblock %}
                 </div>
             </div>
             <p>Если по предмету не проводится СОЧ, его вес перераспределяется между оставшимися компонентами. Для
-                быстрого подсчёта по официальной методике удобно использовать <a href="/">калькулятор онлайн</a>.</p>
+                быстрого подсчёта по официальной методике удобно использовать <a href="{{ locale_home }}">калькулятор
+                    онлайн</a>.</p>
+            {% endif %}
 
             <div class="article__weights-inline">
                 <div class="article__weights-labels">
@@ -243,6 +282,28 @@ endblock %}
                 </div>
             </div>
 
+            {% if locale == 'kk' %}
+            <h2>МОН РК әдістемесімен есептеудің екі мысалы</h2>
+            <p><strong>Мысал А — бағасы «4».</strong> 7-сынып оқушысының орыс тілінен орташа ФО = 7/10, орташа СОР =
+                65%, СОЧ = 80%. Есептейміз: 7 ÷ 10 × 25 = 17,5%; 65% × 0,25 = 16,25%; 80% × 0,50 = 40%. Итог: 17,5 +
+                16,25 + 40 = <strong>73,75%</strong> → баға «4» (65–84% диапазонында).</p>
+            <p><strong>Мысал Б — «3» пен «4» арасындағы шек.</strong> 9-сынып оқушысы: орташа ФО = 5/10, орташа СОР =
+                55%, СОЧ = 70%. Есептейміз: 5 ÷ 10 × 25 = 12,5%; 55% × 0,25 = 13,75%; 70% × 0,50 = 35%. Итог: 12,5 +
+                13,75 + 35 = <strong>61,25%</strong> → баға «3» (40–64% диапазонында). «4»-ке көтерілу үшін 3,75%
+                жетіспейді. СОЧ-ты 70%-дан 78%-ға дейін жақсарту 4% қосып, «4»-ке шығарады.</p>
+            <p>Формуланы түсіну алдын ала не жақсарту керектігін есептеуге көмектеседі. Процентті бағаларға аудару
+                шкаласын <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku">мақаладан</a> зерделеңіз.</p>
+
+            <h2>Мұғалімдер мен ата-аналарға жиі қойылатын сұрақтар</h2>
+            <p>Ата-аналар жиі жаңа жүйе бұрынғыдан күрделірек деп қорқады. Шындығында, ол тек егжей-тегжейлі және ашық —
+                барлық бағаларды тексеріп, қайта есептеуге болады. Формуланы білген ата-ана қойылған баға дұрыс па, өзі
+                тексере алады. Сол үшін <a href="{{ locale_home }}">BilimCalc онлайн калькуляторы</a> жасалған.</p>
+            <p>Оқушылар үшін әр бағаның әсерін түсіну маңызды. Суммативті бағалау тоқсан бойы жүргізілген жұмыстың
+                нәтижесіне негізделген, бір ғана бақылау жұмысына емес. Бұл әсіресе 9 және 11 сыныптарда маңызды,
+                өйткені тоқсандық бағалар жылдық бағалау есептеулеріне <a
+                    href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god">70/30 формуласы</a> бойынша
+                кіреді.</p>
+            {% else %}
             <h2>Два примера расчёта по методике МОН РК</h2>
             <p><strong>Пример А — оценка «4».</strong> Ученик 7 класса по русскому языку: среднее ФО = 7/10, средний СОР
                 = 65%, СОЧ = 80%. Считаем: 7 ÷ 10 × 25 = 17,5%; 65% × 0,25 = 16,25%; 80% × 0,50 = 40%. Итог: 17,5 +
@@ -252,20 +313,81 @@ endblock %}
                 = <strong>61,25%</strong> → оценка «3» (диапазон 40–64%). До «4» не хватает 3,75%. Улучшение СОЧ с 70%
                 до 78% дало бы дополнительно 4% → выход на «4».</p>
             <p>Именно понимание формулы позволяет заранее рассчитать, что нужно улучшить. Шкала перевода процентов
-                подробно описана в статье <a href="/kak-perevesti-procenty-v-otsenku">как перевести проценты в
-                    оценку</a>.</p>
+                подробно описана в статье <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku">как перевести
+                    проценты в оценку</a>.</p>
 
             <h2>Частые вопросы учителей и родителей</h2>
             <p>Часто родители переживают, что новая система сложнее старой. На практике она просто более детальная и
                 прозрачная — все оценки можно проверить и пересчитать. Зная формулу, любой родитель может самостоятельно
-                убедиться в правильности выставленной отметки. Именно для этого создан <a href="/">онлайн-калькулятор
-                    BilimCalc</a>.</p>
+                убедиться в правильности выставленной отметки. Именно для этого создан <a
+                    href="{{ locale_home }}">онлайн-калькулятор BilimCalc</a>.</p>
             <p>Ученикам важно понимать влияние каждой оценки. Суммативное оценивание выстроено так, чтобы результат
                 зависел от работы в течение всей четверти, а не от одной контрольной в конце. Особенно это важно в 9 и
                 11 классах, где четвертные оценки участвуют в расчёте итоговой оценки за год по <a
-                    href="/kak-rasschitat-itogovuyu-otsenku-za-god">формуле 70/30</a>.</p>
+                    href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god">формуле 70/30</a>.</p>
+            {% endif %}
 
-            <h2>Часто задаваемые вопросы</h2>
+            <h2>{{ app_strings.faq_title }}</h2>
+            {% if locale == 'kk' %}
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Қай сыныптан бастап жүйе қолданылады?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Критериалды бағалау бастауыш сыныптардан беріледі. Жүйе оқушылардың жас ерекшелігіне қарай
+                            кезең-кезеңімен енгізіледі. Орта мектепте ол толық көлемде қолданылады — ФО, СОР және СОЧ
+                            барлық негізгі пәндерде есептеледі.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Барлық мектептер үшін методика бірдей ме?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>МОН РК әдістемесі мемлекеттік мектептер үшін міндетті. Көптеген жеке мектептер де осы
+                            қағидаларды қолданады. Бұл бағалаудың бірізділігін қамтамасыз етеді және формула мен шкала
+                            барлық жерде ұқсас болуына әкеледі.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Ресми құжаттарды қайдан табуға болады?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Ресми құжаттар білім министрлігінің сайтында және Қазақстанның құқықтық ақпараттық
+                            базаларында жарияланады. Онда бағалау нормативтері мен есептеу формулалары толық
+                            көрсетілген.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Мұғалім қорытынды бағаны өзгерте ала ма?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Жоқ. Тоқсандық қорытынды баға МОН РК формуласымен есептеледі және мұғалімнің субъективті
+                            көзқарасына тәуелді емес. Мұғалім ФО, СОР және СОЧ нәтижелерін белгілейді, ал қорытынды
+                            алгоритм бойынша есептеледі.</p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
@@ -325,60 +447,117 @@ endblock %}
                     </div>
                 </div>
             </div>
+            {% endif %}
 
             <div class="article__related">
-                <div class="article__related-title">Читайте также</div>
+                <div class="article__related-title">{{ app_strings.read_also }}</div>
                 <div class="article__related-links">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Итоговая
-                            оценка за год: формула 70/30</span><span class="article__related-arrow">→</span></a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Итоговая
-                            оценка за четверть: полный расчёт</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-soch" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Как
-                            рассчитать СОЧ — формула и пример</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-sor" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Как
-                            рассчитать СОР — полное руководство</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-so" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Что такое ФО
-                            и как считается</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">Как
-                            перевести проценты в оценку — таблица и конвертер</span><span
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god"
+                        class="article__related-card"><span class="article__related-label">{{ app_strings.article_label
+                            }}</span><span class="article__related-text">{% if locale == 'kk' %}Жылдық қорытынды баға:
+                            70/30 формуласы{% else %}Итоговая оценка за год: формула 70/30{% endif %}</span><span
                             class="article__related-arrow">→</span></a>
-                    <a href="/perehod-na-12-letku-kazakhstan" class="article__related-card"><span
-                            class="article__related-label">Статья</span><span class="article__related-text">3–8 классы и
-                            12-летнее обучение в Казахстане — правда или фейк</span><span
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}Токсандық қорытынды
+                            баға: толық есеп{% else %}Итоговая оценка за четверть: полный расчёт{% endif %}</span><span
                             class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}СОЧ-ты қалай есептеу
+                            керек — формула және мысал{% else %}Как рассчитать СОЧ — формула и пример{% endif
+                            %}</span><span class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}СОР-ды қалай есептеу
+                            керек — толық нұсқаулық{% else %}Как рассчитать СОР — полное руководство{% endif
+                            %}</span><span class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-so" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}ФО деген не және оны
+                            қалай есептеу керек{% else %}Что такое ФО и как считается{% endif %}</span><span
+                            class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}Проценттерді бағаларға
+                            қалай аудару — кесте{% else %}Как перевести проценты в оценку — таблица{% endif
+                            %}</span><span class="article__related-arrow">→</span></a>
+                    <a href="{{ locale_prefix }}/perehod-na-12-letku-kazakhstan" class="article__related-card"><span
+                            class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                            %}</span><span class="article__related-text">{% if locale == 'kk' %}Қазақстанда 12 жыл оқуға
+                            көшу — рас па?{% else %}3–8 классы и 12-летнее обучение в Казахстане — правда или фейк{%
+                            endif %}</span><span class="article__related-arrow">→</span></a>
                 </div>
             </div>
         </article>
         <aside class="article-sidebar">
+            {% if locale == 'kk' %}
             <div class="sidebar-widget sidebar-widget--cta">
-                <div class="sidebar-widget__title">Рассчитать по формуле МОН</div>
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#3cb648' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    {{ app_strings.sidebar_calc_title }}
+                </div>
+                <p class="sidebar-widget__text">Өз бағаларыңызды енгізіп, калькулятор тоқсандық қорытындыны тез
+                    есептейді</p>
+                <a href="{{ locale_home }}" class="btn sidebar-widget__btn">{{ app_strings.sidebar_calc_btn }}</a>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">Формула қысқаша</div>
+                <nav class="sidebar-nav">
+                    <a href="{{ locale_prefix }}/kak-rasschitat-so" class="sidebar-nav__link">→ ФО — 25%</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="sidebar-nav__link">→ СОР — 25%</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="sidebar-nav__link">→ СОЧ — 50%</a>
+                </nav>
+            </div>
+            <div class="sidebar-widget">
+                <div class="sidebar-widget__title">{{ app_strings.sidebar_other_articles }}</div>
+                <nav class="sidebar-nav">
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Тоқсандық
+                        қорытынды баға</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="sidebar-nav__link">→ СОЧ-ты қалай есептеу
+                        керек</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="sidebar-nav__link">→ СОР-ды қалай есептеу
+                        керек</a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→
+                        Проценттерді бағаларға қалай аудару</a>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="sidebar-nav__link">→ МОН РК
+                        әдістемесі</a>
+                </nav>
+            </div>
+            {% else %}
+            <div class="sidebar-widget sidebar-widget--cta">
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#3cb648' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    {{ app_strings.sidebar_calc_title }}
+                </div>
                 <p class="sidebar-widget__text">Введи свои оценки — калькулятор применит официальную методику МОН РК и
                     покажет итог</p>
-                <a href="/" class="btn sidebar-widget__btn">Открыть калькулятор →</a>
+                <a href="{{ locale_home }}" class="btn sidebar-widget__btn">{{ app_strings.sidebar_calc_btn }}</a>
             </div>
             <div class="sidebar-widget">
                 <div class="sidebar-widget__title">Три вида оценивания</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-so" class="sidebar-nav__link">→ ФО — 25%</a>
-                    <a href="/kak-rasschitat-sor" class="sidebar-nav__link">→ СОР — 25%</a>
-                    <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ СОЧ — 50%</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-so" class="sidebar-nav__link">→ ФО — 25%</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="sidebar-nav__link">→ СОР — 25%</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="sidebar-nav__link">→ СОЧ — 50%</a>
                 </nav>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Другие статьи</div>
+                <div class="sidebar-widget__title">{{ app_strings.sidebar_other_articles }}</div>
                 <nav class="sidebar-nav">
-                    <a href="/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Итоговая оценка</a>
-                    <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
-                    <a href="/kak-rasschitat-sor" class="sidebar-nav__link">→ Как рассчитать СОР</a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод процентов</a>
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Итоговая
+                        оценка</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="sidebar-nav__link">→ Как рассчитать СОР</a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод
+                        процентов</a>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="sidebar-nav__link">→ Методика МОН
+                        РК</a>
                 </nav>
             </div>
+            {% endif %}
         </aside>
     </div>
 </div>

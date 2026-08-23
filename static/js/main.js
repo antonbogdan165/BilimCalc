@@ -1,6 +1,7 @@
 let so = [];
 let sors = [];
 const SAVE_KEY = "bilimcalc_v1";
+const i18n = window.__ || function (key, params) { return key; };
 function getSiteBase() {
     return window.location.origin + "/";
 }
@@ -68,11 +69,10 @@ function renderSO() {
         if (c.id !== "soEmpty") c.remove();
     });
 
-    so.forEach(val => {
+    so.forEach((val, idx) => {
         const chip = createChip(val, async () => {
             chip.classList.add("removing");
             await new Promise(r => setTimeout(r, 260));
-            const idx = so.lastIndexOf(val);
             if (idx !== -1) so.splice(idx, 1);
             saveState();
             renderSO();
@@ -126,7 +126,6 @@ function saveState() {
     try {
         localStorage.setItem(SAVE_KEY, JSON.stringify({ so, sors, soch }));
     } catch (e) {
-        console.warn("localStorage save failed", e);
     }
 }
 
@@ -142,7 +141,6 @@ function loadState() {
             document.getElementById("sochMax").value = saved.soch[1];
         }
     } catch (e) {
-        console.warn("localStorage load failed", e);
     }
 }
 
@@ -205,108 +203,135 @@ function validateSoch() {
     if (d > m) {
         dialedEl.style.borderColor = "var(--danger)";
         maxEl.style.borderColor = "var(--danger)";
-        showInputError(dialedEl, "Максимум не может быть меньше набранного");
+        showInputError(dialedEl, i18n('so_error_max'));
         return false;
     }
     return true;
 }
 
 
-document.getElementById("addForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const raw = soInput.value.trim();
-    const v = Number(raw);
-    if (raw === "" || !Number.isFinite(v) || v < 1 || v > 10) {
-        showInputError(this, "Введите значение от 1 до 10");
-        soInput.style.borderColor = "var(--danger)";
-        return;
-    }
-    so.push(v);
-    soInput.value = "";
-    clearInputError(soInput);
-    saveState();
-    renderSO();
-    calculate();
-});
+const addForm = document.getElementById("addForm");
+if (addForm) {
+    addForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!soInput) return;
 
-document.getElementById("sorForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const sorDialedEl = document.getElementById("sorDialed");
-    const sorMaxEl = document.getElementById("sorMax");
-    const d = Number(sorDialedEl.value);
-    const m = Number(sorMaxEl.value);
+        const raw = soInput.value.trim();
+        const v = Number(raw);
+        if (raw === "" || !Number.isFinite(v) || v < 1 || v > 10) {
+            showInputError(this, i18n('so_error_range'));
+            soInput.style.borderColor = "var(--danger)";
+            return;
+        }
 
-    clearInputError(sorDialedEl);
-    clearInputError(sorMaxEl);
-
-    if (!Number.isFinite(m) || m <= 0) return;
-
-    if (d > m) {
-        sorDialedEl.style.borderColor = "var(--danger)";
-        sorMaxEl.style.borderColor = "var(--danger)";
-        showInputError(this, "Максимум не может быть меньше набранного");
-        return;
-    }
-
-    sors.push([Number(d || 0), Number(m)]);
-    sorDialedEl.value = "";
-    sorMaxEl.value = "";
-    saveState();
-    renderSORS();
-    calculate();
-});
-
-document.getElementById("clearSoBtn").addEventListener("click", () => {
-    if (!so.length) return;
-    so = [];
-    saveState();
-    renderSO();
-    calculate();
-});
-
-document.getElementById("clearSorsBtn").addEventListener("click", () => {
-    sors = [];
-    const sorDialedEl = document.getElementById("sorDialed");
-    const sorMaxEl = document.getElementById("sorMax");
-    sorDialedEl.value = "";
-    sorMaxEl.value = "";
-    clearInputError(sorDialedEl);
-    clearInputError(sorMaxEl);
-    saveState();
-    renderSORS();
-    calculate();
-});
-
-document.getElementById("clearSochBtn").addEventListener("click", () => {
-    const dialedEl = document.getElementById("sochDialed");
-    const maxEl = document.getElementById("sochMax");
-    dialedEl.value = "";
-    maxEl.value = "";
-    clearInputError(dialedEl);
-    clearInputError(maxEl);
-    saveState();
-    calculate();
-});
-
-document.getElementById("resetAllBtn").addEventListener("click", () => {
-    if (!so.length && !sors.length &&
-        !document.getElementById("sochDialed").value &&
-        !document.getElementById("sochMax").value) return;
-
-    hapticReset();
-
-    so = [];
-    sors = [];
-    ["sochDialed", "sochMax", "sorDialed", "sorMax", "soInput"].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) { el.value = ""; el.style.borderColor = ""; }
+        so.push(v);
+        soInput.value = "";
+        clearInputError(soInput);
+        saveState();
+        renderSO();
+        calculate();
     });
-    document.querySelectorAll(".input-error-banner").forEach(b => b.remove());
-    saveState();
-    renderSO();
-    renderSORS();
-    calculate();
-});
+}
+
+const sorForm = document.getElementById("sorForm");
+if (sorForm) {
+    sorForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const sorDialedEl = document.getElementById("sorDialed");
+        const sorMaxEl = document.getElementById("sorMax");
+        if (!sorDialedEl || !sorMaxEl) return;
+
+        const d = Number(sorDialedEl.value);
+        const m = Number(sorMaxEl.value);
+
+        clearInputError(sorDialedEl);
+        clearInputError(sorMaxEl);
+
+        if (!Number.isFinite(m) || m <= 0) return;
+
+        if (d > m) {
+            sorDialedEl.style.borderColor = "var(--danger)";
+            sorMaxEl.style.borderColor = "var(--danger)";
+            showInputError(this, i18n('so_error_max'));
+            return;
+        }
+
+        sors.push([Number(d || 0), Number(m)]);
+        sorDialedEl.value = "";
+        sorMaxEl.value = "";
+        saveState();
+        renderSORS();
+        calculate();
+    });
+}
+
+const clearSoBtn = document.getElementById("clearSoBtn");
+if (clearSoBtn) {
+    clearSoBtn.addEventListener("click", () => {
+        if (!so.length) return;
+        so = [];
+        saveState();
+        renderSO();
+        calculate();
+    });
+}
+
+const clearSorsBtn = document.getElementById("clearSorsBtn");
+if (clearSorsBtn) {
+    clearSorsBtn.addEventListener("click", () => {
+        sors = [];
+        const sorDialedEl = document.getElementById("sorDialed");
+        const sorMaxEl = document.getElementById("sorMax");
+        if (sorDialedEl) {
+            sorDialedEl.value = "";
+            clearInputError(sorDialedEl);
+        }
+        if (sorMaxEl) {
+            sorMaxEl.value = "";
+            clearInputError(sorMaxEl);
+        }
+        saveState();
+        renderSORS();
+        calculate();
+    });
+}
+
+const clearSochBtn = document.getElementById("clearSochBtn");
+if (clearSochBtn) {
+    clearSochBtn.addEventListener("click", () => {
+        const dialedEl = document.getElementById("sochDialed");
+        const maxEl = document.getElementById("sochMax");
+        if (dialedEl) dialedEl.value = "";
+        if (maxEl) maxEl.value = "";
+        if (dialedEl) clearInputError(dialedEl);
+        if (maxEl) clearInputError(maxEl);
+        saveState();
+        calculate();
+    });
+}
+
+const resetAllBtn = document.getElementById("resetAllBtn");
+if (resetAllBtn) {
+    resetAllBtn.addEventListener("click", () => {
+        if (!so.length && !sors.length &&
+            !document.getElementById("sochDialed").value &&
+            !document.getElementById("sochMax").value) return;
+
+        hapticReset();
+
+        so = [];
+        sors = [];
+        ["sochDialed", "sochMax", "sorDialed", "sorMax", "soInput"].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) { el.value = ""; el.style.borderColor = ""; }
+        });
+        document.querySelectorAll(".input-error-banner").forEach(b => b.remove());
+        saveState();
+        renderSO();
+        renderSORS();
+        calculate();
+    });
+}
 
 
 (function setupShare() {
@@ -316,130 +341,40 @@ document.getElementById("resetAllBtn").addEventListener("click", () => {
     function getShareText() {
         const result = document.getElementById("finalResult").textContent.trim();
         const badge = document.getElementById("gradeBadge").textContent.trim();
-        return `Мой итоговый результат: ${result} — ${badge}. Посчитай свою оценку на BilimCalc!`;
+        return i18n('share_result', { result: result, badge: badge });
     }
 
-    function showShareModal() {
-        if (document.getElementById("shareModal")) return;
-
-        const text = getShareText();
-        const url = buildShareURL();
-        const encodedUrl = encodeURIComponent(url);
-        const encodedText = encodeURIComponent(text + "\n");
-
-        const tgLink = `https://t.me/share/url?url=${encodedUrl}&text=${encodeURIComponent(text)}`;
-        const waLink = `https://api.whatsapp.com/send?text=${encodedText}${encodedUrl}`;
-        const vkLink = `https://vk.com/share.php?url=${encodedUrl}&title=${encodeURIComponent(text)}`;
-
-        const modal = document.createElement("div");
-        modal.id = "shareModal";
-        modal.innerHTML = `
-            <div class="share-modal__overlay"></div>
-            <div class="share-modal__box">
-                <div class="share-modal__title">Поделиться результатом</div>
-                <div class="share-modal__text">${text}</div>
-                <div class="share-modal__btns">
-                    <a href="${tgLink}" target="_blank" rel="noopener" class="share-modal__btn share-modal__btn--tg">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
-                        Telegram
-                    </a>
-                    <a href="${waLink}" target="_blank" rel="noopener" class="share-modal__btn share-modal__btn--wa">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.117.549 4.107 1.508 5.84L.057 23.928a.5.5 0 0 0 .614.614l6.088-1.451A11.948 11.948 0 0 0 12 24c6.627 0 12-5.374 12-12S18.627 0 12 0m0 21.96a9.923 9.923 0 0 1-5.065-1.381l-.364-.214-3.768.898.915-3.672-.236-.378A9.923 9.923 0 0 1 2.04 12C2.04 6.5 6.5 2.04 12 2.04S21.96 6.5 21.96 12 17.5 21.96 12 21.96"/></svg>
-                        WhatsApp
-                    </a>
-                    <a href="${vkLink}" target="_blank" rel="noopener" class="share-modal__btn share-modal__btn--vk">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.372 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
-                        ВКонтакте
-                    </a>
-                    <button class="share-modal__btn share-modal__btn--copy" id="shareCopyBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        Копировать ссылку
-                    </button>
-                </div>
-                <button class="share-modal__close" id="shareModalClose" aria-label="Закрыть">✕</button>
-            </div>`;
-
-        if (!document.getElementById("shareModalStyles")) {
-            const style = document.createElement("style");
-            style.id = "shareModalStyles";
-            style.textContent = `
-                #shareModal{position:fixed;inset:0;z-index:5000;display:flex;align-items:flex-end;justify-content:center;padding:0 0 env(safe-area-inset-bottom,0px)}
-                .share-modal__overlay{position:absolute;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);animation:smOverlayIn 0.25s ease}
-                .share-modal__box{position:relative;z-index:1;width:100%;max-width:480px;background:#161b22;border:1px solid rgba(255,255,255,0.08);border-radius:20px 20px 0 0;padding:24px 20px 32px;animation:smBoxIn 0.3s cubic-bezier(.34,1.56,.64,1)}
-                [data-theme="light"] .share-modal__box{background:#fff;border-color:rgba(0,0,0,0.1)}
-                .share-modal__title{font-size:15px;font-weight:700;color:#e6edf3;margin-bottom:8px;text-align:center}
-                [data-theme="light"] .share-modal__title{color:#0f172a}
-                .share-modal__text{font-size:13px;color:#8b949e;text-align:center;margin-bottom:20px;line-height:1.5}
-                [data-theme="light"] .share-modal__text{color:#64748b}
-                .share-modal__btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-                .share-modal__btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;border:none;transition:opacity 0.15s,transform 0.1s;-webkit-tap-highlight-color:transparent}
-                .share-modal__btn:active{opacity:0.8;transform:scale(0.97)}
-                .share-modal__btn--tg{background:#2CA5E0;color:#fff}
-                .share-modal__btn--wa{background:#25D366;color:#fff}
-                .share-modal__btn--vk{background:#4C75A3;color:#fff}
-                .share-modal__btn--copy{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:#e6edf3}
-                [data-theme="light"] .share-modal__btn--copy{background:#f1f5f9;border-color:rgba(0,0,0,0.1);color:#0f172a}
-                .share-modal__close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#8b949e;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:background 0.15s;-webkit-tap-highlight-color:transparent}
-                .share-modal__close:hover{background:rgba(255,255,255,0.12);color:#e6edf3}
-                [data-theme="light"] .share-modal__close{background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.1);color:#64748b}
-                @keyframes smOverlayIn{from{opacity:0}to{opacity:1}}
-                @keyframes smBoxIn{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
-                @media(min-width:601px){#shareModal{align-items:center}.share-modal__box{border-radius:20px;max-width:400px}}
-            `;
-            document.head.appendChild(style);
-        }
-
-        document.body.appendChild(modal);
-
-        function closeModal() {
-            const box = modal.querySelector(".share-modal__box");
-            const overlay = modal.querySelector(".share-modal__overlay");
-            box.style.transition = "transform 0.2s ease, opacity 0.2s ease";
-            box.style.transform = "translateY(30px)";
-            box.style.opacity = "0";
-            overlay.style.transition = "opacity 0.2s ease";
-            overlay.style.opacity = "0";
-            setTimeout(() => modal.remove(), 220);
-        }
-
-        document.getElementById("shareModalClose").addEventListener("click", closeModal);
-        modal.querySelector(".share-modal__overlay").addEventListener("click", closeModal);
-
-        document.getElementById("shareCopyBtn").addEventListener("click", () => {
-            navigator.clipboard.writeText(text + " " + url).then(() => {
-                const btn = document.getElementById("shareCopyBtn");
-                if (!btn) return;
-                const orig = btn.innerHTML;
-                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Скопировано!`;
-                btn.style.background = "rgba(46,160,67,0.2)";
-                btn.style.color = "#3fb950";
-                setTimeout(() => { btn.innerHTML = orig; btn.style.background = ""; btn.style.color = ""; }, 2000);
-            }).catch(() => { });
+    function openShareModal() {
+        window.openShareModal({
+            text: getShareText(),
+            url: buildShareURL(),
+            title: i18n('share_modal_title'),
+            channels: ['tg', 'wa', 'vk', 'copy']
         });
     }
 
-    shareBtn.addEventListener("click", async () => {
+    shareBtn.addEventListener('click', async () => {
         const text = getShareText();
         const url = buildShareURL();
-        const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+        const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
 
         if (navigator.share && !isDesktop) {
             try {
-                await navigator.share({ title: "BilimCalc — результат расчёта", text, url });
+                await navigator.share({ title: i18n('share_title_calc'), text, url });
                 return;
             } catch (e) {
-                if (e.name === "AbortError") return;
+                if (e.name === 'AbortError') return;
             }
         }
 
         if (isDesktop) {
-            navigator.clipboard.writeText(text + " " + url).then(() => {
+            navigator.clipboard.writeText(text + ' ' + url).then(() => {
                 const orig = shareBtn.innerHTML;
-                shareBtn.textContent = "✓ Скопировано!";
+                shareBtn.textContent = i18n('copied');
                 setTimeout(() => { shareBtn.innerHTML = orig; }, 2000);
             }).catch(() => { });
         } else {
-            showShareModal();
+            openShareModal();
         }
     });
 })();
@@ -466,11 +401,11 @@ const sorMaxInput = document.getElementById("sorMax");
 const sochDialedInput = document.getElementById("sochDialed");
 const sochMaxInput = document.getElementById("sochMax");
 
-restrictToDigits(soInput, 2, 10);
-restrictToDigits(sorDialedInput, 2, undefined, () => sorMaxInput.focus({ preventScroll: true }));
-restrictToDigits(sorMaxInput, 2);
-restrictToDigits(sochDialedInput, 2, undefined, () => sochMaxInput.focus({ preventScroll: true }));
-restrictToDigits(sochMaxInput, 2);
+if (soInput) restrictToDigits(soInput, 2, 10);
+if (sorDialedInput && sorMaxInput) restrictToDigits(sorDialedInput, 2, undefined, () => sorMaxInput.focus({ preventScroll: true }));
+if (sorMaxInput) restrictToDigits(sorMaxInput, 2);
+if (sochDialedInput && sochMaxInput) restrictToDigits(sochDialedInput, 2, undefined, () => sochMaxInput.focus({ preventScroll: true }));
+if (sochMaxInput) restrictToDigits(sochMaxInput, 2);
 
 sorMaxInput.addEventListener("keydown", function (e) {
     if (e.key === "Backspace" && !this.value) {
@@ -492,8 +427,12 @@ function debounce(fn, ms) {
 
 const debouncedCalculate = debounce(calculate, 250);
 
-document.getElementById("sochDialed").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
-document.getElementById("sochMax").addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
+if (sochDialedInput) {
+    sochDialedInput.addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
+}
+if (sochMaxInput) {
+    sochMaxInput.addEventListener("input", () => { validateSoch(); saveState(); debouncedCalculate(); });
+}
 
 
 function computeParts(soArr, sorsArr, soch) {
@@ -608,25 +547,25 @@ function calculate() {
                 finalEl.classList.add("result-danger");
                 fill.style.background = "var(--danger)";
                 chartColor = "#da3633";
-                badge.textContent = "Неудовлетворительно";
+                badge.textContent = i18n('grade_fail');
                 badge.className = "grade-badge badge-danger";
             } else if (gradeCheck < 65) {
                 finalEl.classList.add("result-warning");
                 fill.style.background = "var(--warning)";
                 chartColor = "#d29922";
-                badge.textContent = "Удовлетворительно";
+                badge.textContent = i18n('grade_pass');
                 badge.className = "grade-badge badge-warning";
             } else if (gradeCheck < 85) {
                 finalEl.classList.add("result-good");
                 fill.style.background = "var(--success)";
                 chartColor = "#2ea043";
-                badge.textContent = "Хорошо";
+                badge.textContent = i18n('grade_good');
                 badge.className = "grade-badge badge-good";
             } else {
                 finalEl.classList.add("result-excellent");
                 fill.style.background = "#166534";
                 chartColor = "#166534";
-                badge.textContent = "Отлично 🎉";
+                badge.textContent = i18n('grade_excellent');
                 badge.className = "grade-badge badge-excellent";
             }
 
@@ -635,9 +574,9 @@ function calculate() {
             const hintEl = document.getElementById("formulaHint");
             if (hintEl) {
                 const parts = [];
-                if (total_so !== null) parts.push("ФО: " + total_so.toFixed(2));
-                if (total_sor !== null) parts.push("СОР: " + total_sor.toFixed(2));
-                if (total_soch !== null) parts.push("СОЧ: " + total_soch.toFixed(2));
+                if (total_so !== null) parts.push(i18n('component_so') + ": " + total_so.toFixed(2));
+                if (total_sor !== null) parts.push(i18n('component_sor') + ": " + total_sor.toFixed(2));
+                if (total_soch !== null) parts.push(i18n('component_soch') + ": " + total_soch.toFixed(2));
                 if (parts.length) {
                     const rawSum = (total_so || 0) + (total_sor || 0) + (total_soch || 0);
                     hintEl.textContent = parts.join(" + ") + " = " + rawSum.toFixed(2) + "%";
@@ -651,7 +590,7 @@ function calculate() {
         } else {
             finalEl.innerText = "—";
             fill.style.width = "0%";
-            badge.textContent = "Нет данных";
+            badge.textContent = i18n('result_no_data');
             badge.className = "grade-badge badge-empty";
             updateRoundingHint(null);
             if (shareBtn) shareBtn.style.display = "none";
@@ -659,7 +598,6 @@ function calculate() {
             if (hintEl) hintEl.textContent = "";
         }
     } catch (e) {
-        console.error("calculate error", e);
     } finally {
         pending = false;
         if (pendingAgain) calculate();
@@ -677,7 +615,7 @@ function showTrend(visible) {
     box.classList.toggle("collapsed", !visible);
     if (btn && window.innerWidth > 600) {
         btn.classList.toggle("trend-btn--active", !!visible);
-        btn.title = visible ? "AI-анализ динамики (подробнее)" : "AI-анализ динамики";
+        btn.title = visible ? i18n('trend_analysis') + " (" + i18n('trend_close') + ")" : i18n('trend_analysis');
     }
     if (!visible && trendChart) {
         try { trendChart.destroy(); } catch (e) { }
@@ -766,7 +704,7 @@ function _buildTrendChartConfig(ctx, scores, predictions, color, height) {
     pg.addColorStop(0, "rgba(139,148,158,0.10)");
     pg.addColorStop(1, "rgba(139,148,158,0.00)");
 
-    const labels = Array.from({ length: scores.length }, (_, i) => "Ур." + (i + 1));
+    const labels = Array.from({ length: scores.length }, (_, i) => i18n('level_short') + (i + 1));
 
     return {
         type: "line",
@@ -836,11 +774,11 @@ function drawTrend(scores, predictions, accuracy) {
             const msg = document.createElement("div");
             msg.className = "chart-offline-msg";
             msg.style.cssText = "display:flex;align-items:center;justify-content:center;height:100%;font-size:12px;color:#8b949e;text-align:center;line-height:1.5;padding:0 12px";
-            msg.textContent = "График доступен при наличии интернета";
+            msg.textContent = i18n('chart_offline');
             container.appendChild(msg);
         }
         document.getElementById("aiAccuracy").textContent = "--%";
-        document.getElementById("trendLabel").textContent = "Нет данных";
+        document.getElementById("trendLabel").textContent = i18n('result_no_data');
         return;
     }
 
@@ -854,7 +792,7 @@ function drawTrend(scores, predictions, accuracy) {
         sg.addColorStop(0.6, hexToRgba(color, 0.06));
         sg.addColorStop(1, hexToRgba(color, 0.00));
 
-        const labels = Array.from({ length: scores.length }, (_, i) => "Ур." + (i + 1));
+        const labels = Array.from({ length: scores.length }, (_, i) => i18n('level_short') + (i + 1));
         trendChart.data.labels = labels;
         trendChart.data.datasets[0].data = scores.slice();
         trendChart.data.datasets[0].borderColor = color;
@@ -870,11 +808,11 @@ function drawTrend(scores, predictions, accuracy) {
 
     const trend = predictions[predictions.length - 1] - predictions[0];
     let trendText;
-    if (trend > 0.6) trendText = "📈 Отличный рост! Продолжай в том же духе";
-    else if (trend > 0.2) trendText = "📈 Небольшой рост";
-    else if (trend < -0.6) trendText = "📉 Оценки снижаются — стоит уделить внимание";
-    else if (trend < -0.2) trendText = "📉 Лёгкое снижение";
-    else trendText = "📊 Стабильная динамика";
+    if (trend > 0.6) trendText = "📈 " + i18n('trend_excellent');
+    else if (trend > 0.2) trendText = "📈 " + i18n('trend_small_up');
+    else if (trend < -0.6) trendText = "📉 " + i18n('trend_decreasing');
+    else if (trend < -0.2) trendText = "📉 " + i18n('trend_light_decrease');
+    else trendText = "📊 " + i18n('trend_stable');
     document.getElementById("trendLabel").textContent = trendText;
 }
 
@@ -894,18 +832,18 @@ function showDetailedAnalysisModal() {
 
     const trend = predictions[predictions.length - 1] - predictions[0];
     let trendEmoji, trendText, trendColor;
-    if (trend > 0.6) { trendEmoji = "📈"; trendText = "Отличный рост"; trendColor = "#22c55e"; }
-    else if (trend > 0.2) { trendEmoji = "📈"; trendText = "Небольшой рост"; trendColor = "#3fb950"; }
-    else if (trend < -0.6) { trendEmoji = "📉"; trendText = "Снижение оценок"; trendColor = "#ff7070"; }
-    else if (trend < -0.2) { trendEmoji = "📉"; trendText = "Лёгкое снижение"; trendColor = "#e3b341"; }
-    else { trendEmoji = "📊"; trendText = "Стабильная динамика"; trendColor = "#58a6ff"; }
+    if (trend > 0.6) { trendEmoji = "📈"; trendText = i18n('trend_label_excellent'); trendColor = "#22c55e"; }
+    else if (trend > 0.2) { trendEmoji = "📈"; trendText = i18n('trend_label_good'); trendColor = "#3fb950"; }
+    else if (trend < -0.6) { trendEmoji = "📉"; trendText = i18n('trend_label_down'); trendColor = "#ff7070"; }
+    else if (trend < -0.2) { trendEmoji = "📉"; trendText = i18n('trend_label_stable'); trendColor = "#e3b341"; }
+    else { trendEmoji = "📊"; trendText = i18n('trend_label_stable'); trendColor = "#58a6ff"; }
 
     let interpretation;
-    if (trend > 0.6) interpretation = `Оценки уверенно растут. Прогноз на следующую работу: ${next}/10. Продолжай в том же темпе!`;
-    else if (trend > 0.2) interpretation = `Прослеживается позитивная динамика. Прогноз на следующую работу: ${next}/10.`;
-    else if (trend < -0.6) interpretation = `Оценки снижаются. Прогноз на следующую работу: ${next}/10. Стоит уделить внимание учёбе.`;
-    else if (trend < -0.2) interpretation = `Небольшое снижение. Прогноз на следующую работу: ${next}/10.`;
-    else interpretation = `Результаты стабильны. Прогноз на следующую работу: ${next}/10.`;
+    if (trend > 0.6) interpretation = i18n('trend_interpretation_high', { next: next });
+    else if (trend > 0.2) interpretation = i18n('trend_interpretation_medium', { next: next });
+    else if (trend < -0.6) interpretation = i18n('trend_interpretation_low', { next: next });
+    else if (trend < -0.2) interpretation = i18n('trend_interpretation_mild', { next: next });
+    else interpretation = i18n('trend_interpretation_stable', { next: next });
 
     const modal = document.createElement("div");
     modal.id = "trendModal";
@@ -914,10 +852,10 @@ function showDetailedAnalysisModal() {
     <div class="tm-header">
         <div class="tm-title">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            AI-анализ динамики
+            ${i18n('trend_analysis')}
         </div>
-        <span class="tm-accuracy">Точность: ${accuracy}%</span>
-        <button class="tm-close" id="trendModalClose" aria-label="Закрыть">✕</button>
+        <span class="tm-accuracy">${i18n('trend_accuracy')}: ${accuracy}%</span>
+        <button class="tm-close" id="trendModalClose" aria-label="${i18n('close')}">✕</button>
     </div>
     <div class="tm-chart-wrap">
         <canvas id="trendModalChart" style="display:block;width:100%;height:100%"></canvas>
@@ -926,12 +864,12 @@ function showDetailedAnalysisModal() {
         ${trendEmoji} ${trendText}
     </div>
     <div class="tm-stats">
-        <div class="tm-stat"><span class="tm-stat__label">Среднее</span><span class="tm-stat__val">${avg.toFixed(1)}</span></div>
-        <div class="tm-stat"><span class="tm-stat__label">Минимум</span><span class="tm-stat__val">${min}</span></div>
-        <div class="tm-stat"><span class="tm-stat__label">Максимум</span><span class="tm-stat__val">${max}</span></div>
-        <div class="tm-stat"><span class="tm-stat__label">Разброс σ</span><span class="tm-stat__val">${std.toFixed(2)}</span></div>
-        <div class="tm-stat"><span class="tm-stat__label">Прогноз</span><span class="tm-stat__val" style="color:${trendColor}">${next}</span></div>
-        <div class="tm-stat"><span class="tm-stat__label">Работ</span><span class="tm-stat__val">${scores.length}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">${i18n('stats_average')}</span><span class="tm-stat__val">${avg.toFixed(1)}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">${i18n('stats_min')}</span><span class="tm-stat__val">${min}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">${i18n('stats_max')}</span><span class="tm-stat__val">${max}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">${i18n('stats_std')}</span><span class="tm-stat__val">${std.toFixed(2)}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">${i18n('stats_forecast')}</span><span class="tm-stat__val" style="color:${trendColor}">${next}</span></div>
+        <div class="tm-stat"><span class="tm-stat__label">${i18n('stats_work_count')}</span><span class="tm-stat__val">${scores.length}</span></div>
     </div>
     <p class="tm-interpretation">${interpretation}</p>
 </div>`;
@@ -1039,9 +977,7 @@ document.querySelectorAll(".faq-q").forEach(btn => {
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js")
-            .then(reg => console.log("SW registered", reg.scope))
-            .catch(err => console.warn("SW registration failed", err));
+        navigator.serviceWorker.register("/sw.js");
     });
 }
 

@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 from html import escape
@@ -23,64 +24,141 @@ except ImportError:
     _limiter_available = False
 
 
+logger = logging.getLogger(__name__)
+
+from config import APP_VERSION, DEFAULT_INDEXNOW_KEY, SITE_URL
+from routes_map import ARTICLE_ROUTES, CALC_REDIRECTS, NOINDEX_ROUTES, TEMPLATE_ROUTES
+
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
-BUILD_TIME = str(int(time.time()))
+secret_key = os.environ.get("SECRET_KEY")
+if secret_key:
+    app.secret_key = secret_key
+else:
+    app.secret_key = os.urandom(24)
+    logger.warning(
+        "SECRET_KEY is not set in environment; using a random volatile app.secret_key value. "
+        "This key will be unstable between app instances."
+    )
+
+build_time_from_env = os.environ.get("BUILD_TIME") or os.environ.get(
+    "VERCEL_GIT_COMMIT_SHA"
+)
+if build_time_from_env:
+    BUILD_TIME = str(build_time_from_env)
+elif APP_VERSION:
+    BUILD_TIME = str(APP_VERSION)
+else:
+    BUILD_TIME = str(int(time.time()))
+
+ROBOTS_USER_AGENTS = (
+    "GPTBot",
+    "ChatGPT-User",
+    "OAI-SearchBot",
+    "ClaudeBot",
+    "anthropic-ai",
+    "Claude-User",
+    "PerplexityBot",
+    "Perplexity-User",
+    "Google-Extended",
+    "Applebot-Extended",
+    "Amazonbot",
+    "YandexRenderResourcesBot",
+)
+ALL_ROBOTS_AGENTS = ("*", "Googlebot", "Bingbot", "YandexBot", *ROBOTS_USER_AGENTS)
 
 _SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 _SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
-_INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")
+_INDEXNOW_KEY = DEFAULT_INDEXNOW_KEY
 
-from config import APP_VERSION, SITE_URL
+from translations import (
+    AVAILABLE_LOCALES,
+    COMMON,
+    LOCALE_NAMES,
+    get_locale_from_path,
+    get_locale_path,
+    get_page_meta,
+)
 
 
-def _abs_url(path):
+def _abs_url(path: str) -> str:
     return SITE_URL + path
 
 
-def _canonical_for_path(path):
-    if not path or path == "/":
+def _canonical_for_path(path: str) -> str:
+    if path in (None, "") or path == "/":
         return SITE_URL + "/"
     return SITE_URL + path.rstrip("/")
 
 
-def _normalize_host(host):
+def _normalize_host(host: str) -> str:
     if not host:
         return ""
     return host.split(":", 1)[0].lower()
 
 
-def _allowed_hosts():
+def _allowed_hosts() -> set[str]:
     hosts = {"localhost", "127.0.0.1"}
-    host = _normalize_host(urlparse(SITE_URL).netloc)
-    if host:
-        hosts.add(host)
-        if host.startswith("www."):
-            hosts.add(host[4:])
-        else:
-            hosts.add("www." + host)
+    site_host = _normalize_host(urlparse(SITE_URL).netloc)
+    if not site_host:
+        return hosts
+
+    hosts.add(site_host)
+    if site_host.startswith("www."):
+        hosts.add(site_host[4:])
+    else:
+        hosts.add("www." + site_host)
     return hosts
 
 
-def _sb_headers():
+def _sb_headers() -> dict[str, str]:
     return {
         "apikey": _SUPABASE_KEY,
-        "Authorization": "Bearer " + _SUPABASE_KEY,
+        "Authorization": f"Bearer {_SUPABASE_KEY}",
         "Content-Type": "application/json",
         "Prefer": "return=representation",
     }
 
 
-def _is_allowed_origin():
+def _is_allowed_origin() -> bool:
     allowed = _allowed_hosts()
     if _normalize_host(request.host) in allowed:
         return True
+
     for header in ("Origin", "Referer"):
-        value = request.headers.get(header, "")
-        parsed = urlparse(value)
-        if _normalize_host(parsed.netloc) in allowed:
+        header_value = request.headers.get(header, "")
+        if not header_value:
+            continue
+
+        if _normalize_host(urlparse(header_value).netloc) in allowed:
             return True
+
     return False
+
+
+def _build_text_response(body: str, mimetype: str) -> Response:
+    response = Response(body, mimetype=mimetype)
+    response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
+
+
+def _supabase_request(method: str, path: str, json_data=None):
+    if not _SUPABASE_URL or not _SUPABASE_KEY:
+        return None
+
+    try:
+        request_func = getattr(requests, method.lower())
+        response = request_func(
+            _SUPABASE_URL + path,
+            headers=_sb_headers(),
+            json=json_data,
+            timeout=5,
+        )
+        return response.json()
+    except (requests.RequestException, ValueError) as exc:
+        logger.warning(
+            "Supabase request failed for %s %s: %s", method.upper(), path, exc
+        )
+        return None
 
 
 if _limiter_available:
@@ -91,34 +169,6 @@ if _limiter_available:
         storage_uri="memory://",
     )
 
-
-ARTICLE_ROUTES = {
-    "/kak-rasschitat-soch": "kak-rasschitat-soch.html",
-    "/kak-rasschitat-sor": "kak-rasschitat-sor.html",
-    "/kak-rasschitat-so": "kak-rasschitat-so.html",
-    "/itogovaya-ocenka-za-chetvert": "itogovaya-ocenka-za-chetvert.html",
-    "/metodika-rascheta-mon-rk": "metodika-rascheta-mon-rk.html",
-    "/kalkulator-ekzamena": "kalkulator-ekzamena.html",
-    "/kak-rasschitat-itogovuyu-otsenku-za-god": "kak-rasschitat-itogovuyu-otsenku-za-god.html",
-    "/kak-perevesti-procenty-v-otsenku": "kak-perevesti-procenty-v-otsenku.html",
-    "/articles": "articles.html",
-    "/perehod-na-12-letku-kazakhstan": "perehod-na-12-letku-kazakhstan.html",
-    "/porogovye-bally-granta-ent": "porogovye-bally-granta-ent.html",
-    "/kombinacii-profilnyh-predmetov-ent": "kombinacii-profilnyh-predmetov-ent.html",
-    "/kalkulator-shansov-granta": "kalkulator-shansov-granta.html",
-    "/disable-adblock": "disable-adblock.html",
-}
-
-TEMPLATE_ROUTES = {"/": "index.html", **ARTICLE_ROUTES}
-
-CALC_REDIRECTS = {
-    "/kalkulator-sor": "/",
-    "/kalkulator-soch": "/",
-    "/kalkulator-so": "/",
-    "/calculator": "/",
-}
-
-NOINDEX_ROUTES = {"/disable-adblock"}
 
 SITEMAP_LASTMOD = "2026-07-31"
 
@@ -154,15 +204,19 @@ def _template_lastmod(path):
 
 def _get_sitemap_urls():
     urls = []
-    for path, freq, pri in _SITEMAP_PATHS:
-        urls.append(
-            {
-                "loc": SITE_URL + path,
-                "lastmod": _template_lastmod(path) or SITEMAP_LASTMOD,
-                "changefreq": freq,
-                "priority": pri,
-            }
-        )
+    for locale in AVAILABLE_LOCALES:
+        for path, freq, pri in _SITEMAP_PATHS:
+            localized_path = "/kk" + path if locale == "kk" and path != "/" else path
+            if locale == "kk" and path == "/":
+                localized_path = "/kk"
+            urls.append(
+                {
+                    "loc": SITE_URL + localized_path,
+                    "lastmod": _template_lastmod(path) or SITEMAP_LASTMOD,
+                    "changefreq": freq,
+                    "priority": pri,
+                }
+            )
     return urls
 
 
@@ -250,11 +304,32 @@ RSS_ARTICLES = [
 
 @app.context_processor
 def inject_globals():
+    locale = get_locale_from_path(request.path)
+    base_path = request.path
+    if locale == "kk":
+        base_path = "/" if request.path == "/kk" else request.path[3:]
+    alternate_urls = {
+        "ru": _abs_url(base_path),
+        "kk": _abs_url("/kk" if base_path == "/" else "/kk" + base_path),
+    }
+    page_meta = get_page_meta(locale, request.path)
+    locale_prefix = "/kk" if locale == "kk" else ""
+    locale_home = "/kk" if locale == "kk" else "/"
     return dict(
         site_url=SITE_URL,
         app_version=APP_VERSION,
         build_time=BUILD_TIME,
+        locale=locale,
+        locale_name=LOCALE_NAMES.get(locale, locale),
+        locale_prefix=locale_prefix,
+        locale_home=locale_home,
+        locale_switch_url=get_locale_path(
+            request.path, "kk" if locale == "ru" else "ru"
+        ),
+        alternate_urls=alternate_urls,
         canonical_url=_canonical_for_path(request.path),
+        page_meta=page_meta,
+        app_strings=COMMON[locale],
         google_site_verification=os.environ.get(
             "GOOGLE_SITE_VERIFICATION", "0fMbzvCzXupKdMlhlgc1xPnxrAcWKTaLS_zsNe4mDJc"
         ),
@@ -276,57 +351,24 @@ def index():
 
 @app.route("/robots.txt")
 def robots():
-    host = urlparse(SITE_URL).netloc
-    ai_agents = [
-        "GPTBot",
-        "ChatGPT-User",
-        "OAI-SearchBot",
-        "ClaudeBot",
-        "anthropic-ai",
-        "Claude-User",
-        "PerplexityBot",
-        "Perplexity-User",
-        "Google-Extended",
-        "Applebot-Extended",
-        "Amazonbot",
-        "YandexRenderResourcesBot",
-    ]
-    body = (
-        "User-agent: *\n"
-        "Allow: /\n"
-        "Disallow: /api/\n"
-        "Disallow: /disable-adblock\n"
-        "\n"
-        "User-agent: Googlebot\n"
-        "Allow: /\n"
-        "Disallow: /api/\n"
-        "Disallow: /disable-adblock\n"
-        "\n"
-        "User-agent: Bingbot\n"
-        "Allow: /\n"
-        "Disallow: /api/\n"
-        "Disallow: /disable-adblock\n"
-        "\n"
-        "User-agent: YandexBot\n"
-        "Allow: /\n"
-        "Disallow: /api/\n"
-        "Disallow: /disable-adblock\n"
-        "\n"
-    )
-    for agent in ai_agents:
-        body += (
-            f"User-agent: {agent}\n"
-            "Allow: /\n"
-            "Disallow: /api/\n"
-            "Disallow: /disable-adblock\n"
-            "\n"
+    rules = []
+    for agent in ALL_ROBOTS_AGENTS:
+        rules.extend(
+            [
+                f"User-agent: {agent}\n",
+                "Allow: /\n",
+                "Disallow: /api/\n",
+                "Disallow: /disable-adblock\n",
+                "\n",
+            ]
         )
-    body += f"Sitemap: {SITE_URL}/sitemap.xml\n"
+
+    body = "".join(rules) + f"Sitemap: {SITE_URL}/sitemap.xml\n"
+    host = urlparse(SITE_URL).netloc
     if host:
         body = f"Host: {host}\n" + body
-    response = Response(body, mimetype="text/plain")
-    response.headers["Cache-Control"] = "public, max-age=3600"
-    return response
+
+    return _build_text_response(body, "text/plain")
 
 
 @app.route("/llms.txt")
@@ -344,16 +386,28 @@ def llms_txt():
         "",
         "## Статьи",
     ]
-    for a in RSS_ARTICLES:
-        lines.append(f"- [{a['title']}]({a['link']}): {a['desc']}")
-    lines.append("")
-    lines.append("## Дополнительно")
-    lines.append(f"- [Полный список статей]({SITE_URL}/articles)")
-    lines.append(f"- [Sitemap]({SITE_URL}/sitemap.xml)")
-    body = "\n".join(lines) + "\n"
-    response = Response(body, mimetype="text/plain; charset=utf-8")
-    response.headers["Cache-Control"] = "public, max-age=3600"
-    return response
+    lines.extend(
+        f"- [{article['title']}]({article['link']}): {article['desc']}"
+        for article in RSS_ARTICLES
+    )
+    lines.extend(
+        [
+            "",
+            "## Дополнительно",
+            f"- [Полный список статей]({SITE_URL}/articles)",
+            f"- [Sitemap]({SITE_URL}/sitemap.xml)",
+        ]
+    )
+    return _build_text_response("\n".join(lines) + "\n", "text/plain; charset=utf-8")
+
+
+def _format_sitemap_image(image_data: dict[str, str]) -> str:
+    return (
+        f"<image:image>"
+        f"<image:loc>{escape(image_data['image'])}</image:loc>"
+        f"<image:title>{escape(image_data['title'])}</image:title>"
+        f"</image:image>"
+    )
 
 
 @app.route("/sitemap.xml")
@@ -367,44 +421,36 @@ def sitemap():
         '        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9',
         '        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">',
     ]
-    for u in _get_sitemap_urls():
-        img = image_map.get(u["loc"])
-        img_block = ""
-        if img:
-            img_block = (
-                f"<image:image>"
-                f"<image:loc>{escape(img['image'])}</image:loc>"
-                f"<image:title>{escape(img['title'])}</image:title>"
-                f"</image:image>"
-            )
+    for url_data in _get_sitemap_urls():
+        image_data = image_map.get(url_data["loc"])
+        image_block = _format_sitemap_image(image_data) if image_data else ""
         lines.append(
             f"  <url>"
-            f"<loc>{escape(u['loc'])}</loc>"
-            f"<lastmod>{u['lastmod']}</lastmod>"
-            f"<changefreq>{u['changefreq']}</changefreq>"
-            f"<priority>{u['priority']}</priority>"
-            f"{img_block}"
+            f"<loc>{escape(url_data['loc'])}</loc>"
+            f"<lastmod>{url_data['lastmod']}</lastmod>"
+            f"<changefreq>{url_data['changefreq']}</changefreq>"
+            f"<priority>{url_data['priority']}</priority>"
+            f"{image_block}"
             f"</url>"
         )
-    lines.append("</urlset>")
-    response = Response("\n".join(lines), mimetype="application/xml")
-    response.headers["Cache-Control"] = "public, max-age=3600"
-    return response
+    return _build_text_response("\n".join(lines), "application/xml")
+
+
+def _format_rss_item(article: dict[str, str]) -> str:
+    return (
+        "    <item>\n"
+        f"      <title><![CDATA[{article['title']}]]></title>\n"
+        f"      <link>{article['link']}</link>\n"
+        f'      <guid isPermaLink="true">{article["link"]}</guid>\n'
+        f"      <description><![CDATA[{article['desc']}]]></description>\n"
+        f"      <pubDate>{article['date']}</pubDate>\n"
+        "    </item>"
+    )
 
 
 @app.route("/feed.xml")
 def rss_feed():
-    items = ""
-    for a in RSS_ARTICLES:
-        items += (
-            f"\n    <item>"
-            f"\n      <title><![CDATA[{a['title']}]]></title>"
-            f"\n      <link>{a['link']}</link>"
-            f'\n      <guid isPermaLink="true">{a["link"]}</guid>'
-            f"\n      <description><![CDATA[{a['desc']}]]></description>"
-            f"\n      <pubDate>{a['date']}</pubDate>"
-            f"\n    </item>"
-        )
+    items = "\n".join(_format_rss_item(article) for article in RSS_ARTICLES)
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
@@ -418,9 +464,7 @@ def rss_feed():
         "  </channel>\n"
         "</rss>"
     )
-    response = Response(xml, mimetype="application/rss+xml")
-    response.headers["Cache-Control"] = "public, max-age=3600"
-    return response
+    return _build_text_response(xml, "application/rss+xml")
 
 
 @app.route("/sw.js")
@@ -458,37 +502,20 @@ def indexnow_key():
 
 @app.route("/api/visits", methods=["GET"])
 def api_visits_get():
-    if not _SUPABASE_URL or not _SUPABASE_KEY:
-        return _json({"count": 0})
-    try:
-        r = requests.get(
-            _SUPABASE_URL + "/rest/v1/visits?id=eq.1&select=count",
-            headers=_sb_headers(),
-            timeout=5,
-        )
-        data = r.json()
-        return _json({"count": data[0]["count"] if data else 0})
-    except Exception:
-        return _json({"count": 0})
+    data = _supabase_request("GET", "/rest/v1/visits?id=eq.1&select=count")
+    count = 0
+    if isinstance(data, list) and data:
+        count = data[0].get("count", 0)
+    return _json({"count": count})
 
 
 @app.route("/api/visits/increment", methods=["POST"])
 def api_visits_increment():
     if not _is_allowed_origin():
         return _json({"count": 0})
-    if not _SUPABASE_URL or not _SUPABASE_KEY:
-        return _json({"count": 0})
-    try:
-        r = requests.post(
-            _SUPABASE_URL + "/rest/v1/rpc/increment_visits",
-            headers=_sb_headers(),
-            json={},
-            timeout=5,
-        )
-        raw = r.json()
-        return _json({"count": raw if isinstance(raw, int) else 0})
-    except Exception:
-        return _json({"count": 0})
+
+    result = _supabase_request("POST", "/rest/v1/rpc/increment_visits", json_data={})
+    return _json({"count": result if isinstance(result, int) else 0})
 
 
 def _json(data):
@@ -498,8 +525,6 @@ def _json(data):
 @app.after_request
 def set_security_headers(response):
     response.headers.setdefault("X-Content-Type-Options", "nosniff")
-    response.headers.setdefault("X-Frame-Options", "DENY")
-    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
     if SITE_URL.startswith("https://"):
         response.headers.setdefault(
             "Strict-Transport-Security",
@@ -524,12 +549,29 @@ def _make_redirect_view(target, route_name):
     return view
 
 
+app.add_url_rule(
+    "/kk",
+    view_func=_make_article_view(TEMPLATE_ROUTES["/"], noindex=False),
+    endpoint="index_kk",
+)
+
 for path, template in ARTICLE_ROUTES.items():
     is_noindex = path in NOINDEX_ROUTES
     app.add_url_rule(path, view_func=_make_article_view(template, noindex=is_noindex))
+    kk_path = "/kk" if path == "/" else "/kk" + path
+    app.add_url_rule(
+        kk_path,
+        view_func=_make_article_view(template, noindex=is_noindex),
+        endpoint=template + "_kk",
+    )
 
 for path, target in CALC_REDIRECTS.items():
     app.add_url_rule(path, view_func=_make_redirect_view(target, path.lstrip("/")))
+    kk_source = "/kk" + path
+    kk_target = "/kk" + target
+    app.add_url_rule(
+        kk_source, view_func=_make_redirect_view(kk_target, "kk_" + path.lstrip("/"))
+    )
 
 
 @app.errorhandler(404)

@@ -1,0 +1,62 @@
+{% set is_home_path = request.path == locale_home or (locale_home != '/' and request.path == locale_home ~ '/') %}
+<div id="topbar" class="{{ variant_class|default('topbar--calc') }}">
+    {% if brand_variant == 'calc_button' %}
+    <a href="{{ locale_home }}" class="topbar-calc-btn" title="{{ app_strings.open_calculator }}">
+        <span class="topbar-calc-btn__icon">
+            {% set width = logo_width|default('13') %}
+            {% set height = logo_height|default('13') %}
+            {% include "_bilimcalc_logo_svg.html" with context %}
+        </span>
+        <span class="topbar-calc-btn__text">Bilim<b>Calc</b></span>
+    </a>
+    {% else %}
+    {% if is_home_path %}
+    <span class="topbar-logo" title="BilimCalc">
+        {% set width = logo_width|default('22') %}
+        {% set height = logo_height|default('22') %}
+        {% include "_bilimcalc_logo_svg.html" with context %}
+        <span class="topbar-logo__name">Bilim<span>Calc</span></span>
+    </span>
+    {% else %}
+    <a class="topbar-logo" href="{{ locale_home }}" title="BilimCalc">
+        {% set width = logo_width|default('22') %}
+        {% set height = logo_height|default('22') %}
+        {% include "_bilimcalc_logo_svg.html" with context %}
+        <span class="topbar-logo__name">Bilim<span>Calc</span></span>
+    </a>
+    {% endif %}
+    {% endif %}
+
+    {% if show_exam_btn %}
+    <a href="{{ locale_prefix }}/kalkulator-ekzamena" class="topbar-exam-btn" title="{{ app_strings.goto_exam }}">
+        <span class="topbar-exam-btn__icon">🎓</span>
+        <span class="topbar-exam-btn__text">{{ app_strings.menu_bilimexam }}</span>
+    </a>
+    {% endif %}
+
+    <div class="topbar-center">
+        <a href="{{ locale_prefix }}/articles"
+            class="topbar-articles-btn{% if active_link %} {{ active_link }}{% endif %}">
+            {% if articles_icon_markup %}
+            {{ articles_icon_markup|safe }}
+            {% else %}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+            </svg>
+            {% endif %}
+            <span>{{ app_strings.menu_articles }}</span>
+        </a>
+    </div>
+
+    <div class="topbar-right">
+        <a href="{{ locale_switch_url }}" class="lang-switch" title="{{ app_strings.switch_to_tooltip }}"
+            onclick="localStorage.setItem('bilimcalc_locale', window.APP_LOCALE === 'ru' ? 'kk' : 'ru')">
+            {{ app_strings.switch_to }}
+        </a>
+        <button id="themeBtn" class="theme-btn" onclick="ThemeToggle.toggle()" title="{{ app_strings.theme_light }}">
+            <span id="themeIcon">☀️</span>
+        </button>
+    </div>
+</div>
