@@ -50,7 +50,7 @@
             wrap.dataset.blockId = slot.blockId;
             wrap.dataset.containerId = 'ya_art_ad_' + slot.idx;
             wrap.innerHTML =
-                '<span class="ya-ad-inline__label">Реклама</span>' +
+                '<span class="ya-ad-inline__label">' + (window.__ ? window.__('ad_label') : 'Реклама') + '</span>' +
                 '<div class="ya-ad-inline__wrap" id="ya_art_ad_' + slot.idx + '"></div>';
 
             if (slot.after.nextSibling) {

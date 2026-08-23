@@ -1,12 +1,10 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}Комбинации профильных предметов ЕНТ 2026 — как выбрать специальность | BilimCalc{% endblock %}
-{% block meta_desc %}Все 12 комбинаций профильных предметов ЕНТ 2026 и специальности, которые они открывают: IT,
-медицина, право, педагогика. Таблица, главное правило выбора и частые ошибки абитуриентов.{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
+{% block meta_desc %}{{ page_meta.meta_desc }}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}Комбинации профильных предметов ЕНТ: как выбрать специальность{% endblock %}
-{% block og_desc %}Таблица «предмет → специальности», главное правило выбора пары и частые ошибки абитуриентов при
-подаче на ЕНТ 2026.{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -15,13 +13,13 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Комбинации профильных предметов ЕНТ: как выбрать специальность",
-    "description": "Все 12 комбинаций профильных предметов ЕНТ 2026, специальности по каждой паре, главное правило выбора и частые ошибки абитуриентов",
+    "headline": "{% if locale == 'kk' %}ҰБТ профильдік пән комбинациялары — мамандықты қалай таңдау керек{% else %}Комбинации профильных предметов ЕНТ — как выбрать специальность 2026{% endif %}",
+    "description": "{% if locale == 'kk' %}2026 жылғы ҰБТ профильдік пәндердің 12 комбинациясы, әр жұп бойынша мамандықтар және таңдау ережелері{% else %}Все 12 комбинаций профильных предметов ЕНТ 2026, специальности по каждой паре и главное правило выбора{% endif %}",
     "url": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent",
-    "datePublished": "2026-08-01",
-    "dateModified": "2026-08-01",
+    "datePublished": "2025-09-01",
+    "dateModified": "2026-05-24",
     "image": "{{ site_url }}/static/icons/preview.webp?v={{ build_time }}",
-    "inLanguage": "ru",
+    "inLanguage": "{{ 'kk' if locale == 'kk' else 'ru' }}",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
     "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent" }
@@ -32,9 +30,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Комбинации профильных предметов ЕНТ", "item": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent" }
+        { "@type": "ListItem", "position": 1, "name": "{{ app_strings.menu_home }}", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "{{ app_strings.all_articles }}", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "{% if locale == 'kk' %}ҰБТ профильдік пән комбинациялары{% else %}Комбинации профильных предметов ЕНТ{% endif %}", "item": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent" }
     ]
 }
 </script>
@@ -45,148 +43,277 @@
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "Можно ли одной парой предметов поступить сразу на несколько разных специальностей?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Да, и это скорее правило, чем исключение. Каждая пара профильных предметов открывает доступ не к одной специальности, а к целой группе образовательных программ — иногда из 10–20 и более направлений. Например, «математика — физика» одновременно ведёт и в инженерию, и в энергетику, и в IT, и в учителя физики." }
+            "name": "{% if locale == 'kk' %}Бір жұп пәнмен бірден бірнеше түрлі мамандыққа түсуге бола ма?{% else %}Можно ли одной парой предметов поступить сразу на несколько разных специальностей?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Иә, және бұл көбіне ереже, ерекшелік емес. Әр профильдік пән жұбы бір ғана мамандыққа емес, 10–20 және одан да көп бағыттан тұратын білім беру бағдарламалары тобына жол ашады. Мысалы, «математика — физика» бір мезгілде инженерияға да, энергетикаға да, IT-ге де, физика мұғалімдігіне де апарады.{% else %}Да, и это скорее правило, чем исключение. Каждая пара профильных предметов открывает доступ не к одной специальности, а к целой группе образовательных программ — иногда из 10–20 и более направлений. Например, «математика — физика» одновременно ведёт и в инженерию, и в энергетику, и в IT, и в учителя физики.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Что делать, если нужная специальность формально относится к паре, которая плохо даётся?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Сначала проверить, нет ли этой же специальности в другой паре — иногда смежные направления пересекаются. Если пересечения нет, стоит честно оценить время на подготовку: профильный предмет весит существенно больше обязательных — 40 заданий и 50 баллов на каждый." }
+            "name": "{% if locale == 'kk' %}Керек мамандық формалды түрде қиын жұпқа жатса, не істеу керек?{% else %}Что делать, если нужная специальность формально относится к паре, которая плохо даётся?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Алдымен сол мамандықтың басқа жұпта бар-жоғын тексеру керек — кейде жақын бағыттар қиылысады. Егер қиылысу болмаса, дайындыққа қанша уақыт барын адал бағалаған жөн: профильдік пән міндетті пәндерден едәуір көп салмаққа ие — әрқайсысы 40 тапсырма және 50 балл.{% else %}Сначала проверить, нет ли этой же специальности в другой паре — иногда смежные направления пересекаются. Если пересечения нет, стоит честно оценить время на подготовку: профильный предмет весит существенно больше обязательных — 40 заданий и 50 баллов на каждый.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Творческий экзамен — это то же самое, что профильный предмет?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Формально да: он занимает место профильной пары для творческих, части педагогических и медицинских специальностей. Разница в форме — это не тестовые задания, а практическое или ситуационное испытание, например решение педагогической ситуации или психометрический экзамен." }
+            "name": "{% if locale == 'kk' %}Шығармашылық емтихан профильдік пәнмен бірдей ме?{% else %}Творческий экзамен — это то же самое, что профильный предмет?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Рәсім бойынша иә: ол шығармашылық, кейбір педагогикалық және медициналық мамандықтар үшін профильдік жұптың орнын алады. Айырмашылығы формасында — бұл тест тапсырмалары емес, практикалық немесе ситуациялық сынақ, мысалы, педагогикалық жағдайды шешу немесе психометрикалық емтихан.{% else %}Формально да: он занимает место профильной пары для творческих, части педагогических и медицинских специальностей. Разница в форме — это не тестовые задания, а практическое или ситуационное испытание, например решение педагогической ситуации или психометрический экзамен.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Если ещё не определился со специальностью, какую пару выбрать с запасом?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Пары с точными науками — математика-физика, математика-информатика — и биология-химия традиционно открывают наибольшее число направлений с высоким конкурсом на гранты. Но это работает только при реальной подготовке по этим предметам, иначе низкий балл сократит шансы сильнее, чем более узкая, но освоенная пара." }
+            "name": "{% if locale == 'kk' %}Мамандықты әлі анықтамаған болсам, қай жұпты «сақтық үшін» таңдау керек?{% else %}Если ещё не определился со специальностью, какую пару выбрать с запасом?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Дәл ғылымдар бойынша жұптар — математика-физика, математика-информатика — және биология-химия дәстүрлі түрде грантқа жоғары бәсекелестігі бар бағыттардың көбін ашады. Бірақ бұл тек осы пәндер бойынша нақты дайындық болғанда ғана жұмыс істейді, әйтпесе төмен балл мүмкіндікті тар, бірақ игерілген жұпқа қарағанда күштірек азайтады.{% else %}Пары с точными науками — математика-физика, математика-информатика — и биология-химия традиционно открывают наибольшее число направлений с высоким конкурсом на гранты. Но это работает только при реальной подготовке по этим предметам, иначе низкий балл сократит шансы сильнее, чем более узкая, но освоенная пара.{% endif %}" }
         }
     ]
 }
 </script>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    .article ul {
-        margin: 12px 0 16px 0;
-        padding-left: 0;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .article ul li {
-        font-size: 15px;
-        line-height: 1.75;
-        color: #b0bec8;
-        padding-left: 20px;
-        position: relative;
-    }
-
-    .article ul li::before {
-        content: '—';
-        position: absolute;
-        left: 0;
-        color: #f59e0b;
-        font-weight: 700;
-        opacity: 0.6;
-    }
-
-    .article ul li strong {
-        color: #e6edf3;
-    }
-
-    .article__note {
-        padding: 12px 14px;
-        background: rgba(245, 158, 11, 0.07);
-        border: 1px solid rgba(245, 158, 11, 0.18);
-        border-radius: 10px;
-        font-size: 14px;
-        color: #b0bec8;
-        line-height: 1.65;
-        margin: 16px 0;
-    }
-
-    .article__note strong {
-        color: #f59e0b;
-    }
-
-    .article__note--warning {
-        background: rgba(218, 54, 51, 0.07);
-        border-color: rgba(218, 54, 51, 0.22);
-    }
-
-    .article__note--warning strong {
-        color: #ff7070;
-    }
-
-    [data-theme="light"] .article ul li {
-        color: #475569;
-    }
-
-    [data-theme="light"] .article ul li strong {
-        color: #0f172a;
-    }
-
-    [data-theme="light"] .article__note {
-        background: rgba(245, 158, 11, 0.06);
-        color: #475569;
-    }
-
-    [data-theme="light"] .article__note--warning {
-        background: rgba(220, 38, 38, 0.05);
-        border-color: rgba(220, 38, 38, 0.2);
-    }
-
-    [data-theme="light"] .article__note--warning strong {
-        color: #dc2626;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="article-wrap">
-    <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <a href="/">Главная</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <a href="/articles">Статьи</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <span aria-current="page">Комбинации профильных предметов ЕНТ</span>
-    </nav>
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
             <h1 class="article__title" itemprop="headline">
-                Комбинации профильных предметов ЕНТ: как выбрать специальность
+                {% if locale == 'kk' %}ҰБТ профильдік пән комбинациялары: мамандықты қалай таңдау керек{% else
+                %}Комбинации профильных предметов ЕНТ: как выбрать специальность{% endif %}
             </h1>
             <div class="article__meta">
                 <time datetime="2026-08-01" itemprop="dateModified">Август 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>9 мин чтения</span>
+                <span>9 {{ app_strings.reading_time_suffix }}</span>
                 <span class="article__meta-sep">·</span>
-                <span>Абитуриенту · ЕНТ 2026</span>
+                <span>{% if locale == 'kk' %}Абитуриент · ҰБТ 2026{% else %}Абитуриенту · ЕНТ 2026{% endif %}</span>
             </div>
 
-            <a href="/porogovye-bally-granta-ent" class="mobile-cta">
+            <a href="{{ locale_prefix }}/porogovye-bally-granta-ent" class="mobile-cta">
                 <div class="mobile-cta__icon">🎯</div>
                 <div class="mobile-cta__body">
-                    <div class="mobile-cta__label">Читайте также</div>
-                    <div class="mobile-cta__title">Проходные баллы гранта ЕНТ 2026</div>
+                    <div class="mobile-cta__label">{% if locale == 'kk' %}Тағы оқыңыз{% else %}Читайте также{% endif %}
+                    </div>
+                    <div class="mobile-cta__title">{% if locale == 'kk' %}ҰБТ грантына өтетін баллдар 2026{% else
+                        %}Проходные баллы гранта ЕНТ 2026{% endif %}</div>
                 </div>
                 <span class="mobile-cta__arrow">→</span>
             </a>
 
             <p class="article__lead">
+                {% if locale == 'kk' %}
+                Әр жылдың сәуір-маусым айларында он мыңдаған түлек ҰБТ бланкісіне отырады, келешек мамандық туралы
+                шешімді шын мәнінде бірнеше ай бұрын — профильдік пән жұптарын таңдаған кезде қабылдайды. 2026 жылғы
+                формат өзгеріссіз: үш міндетті пән және екі профильдік пән, төрт сағат ішінде 120 тапсырма, максимум 140
+                балл. Дәл осы профильдік жұп түйін: бір топ мамандықтарға жол ашып, басқа топтардың есігін жабады.
+                {% else %}
                 Каждый год в апреле–мае десятки тысяч выпускников садятся за бланк ЕНТ, толком не осознавая, что
                 решение о будущей профессии они на самом деле принимают на несколько месяцев раньше — в момент
                 выбора пары профильных предметов. Формат экзамена в 2026 году не изменился: три обязательных предмета
                 и два профильных, всего 120 заданий за четыре часа, максимум 140 баллов. Но именно профильная пара
                 работает как ключ: она открывает доступ к одним группам специальностей и наглухо закрывает другие.
+                {% endif %}
             </p>
 
+            {% if locale == 'kk' %}
+            <div class="article__note">
+                <strong>Қысқаша:</strong> 2026 жылы 12 профильдік пән жұбы бар, және бөлек шығармашылық емтихан
+                өткізіледі. Ең танымал жұп — «математика — физика» (18–19% қатысушылар), екінші орында «биология —
+                химия» (14,5–16,6%), үшінші орында шығармашылық емтихан (12,4%). Бір жыл ішінде бірінші және екінші рет
+                ҰБТ-ны тапсыру арасында жұпты өзгертуге болмайды.
+            </div>
+
+            <h2>Бұл қалай жұмыс істейді</h2>
+            <p>
+                Әр профильдік жұп белгілі бір білім беру бағдарламалары тобына бекітілген — бұл топ ішінде нақты
+                мамандықтар орналасқан. «Математика — физика» жұбы инженерлік, техникалық және IT бағыттарына
+                жол ашады: болашақ инженерлер, мехатроникашылар, энергетиктер, құрылысшылар, технология мамандары және
+                математика мен физика мұғалімдері осы жұпқа қарауы мүмкін. «Биология — химия» жұбы дәстүрлі түрде
+                медицина,
+                фармация және биотехнология бағытында жұмыс істейді, ал шығармашылық емтихан өнер, дизайн, архитектура
+                және
+                педагогика салаларына жол ашады.
+            </p>
+
+            <h2>Кесте: профильдік пәндер → қолжетімді мамандықтар топтары</h2>
+            <div class="article__example">
+                <table class="article__table">
+                    <thead>
+                        <tr>
+                            <th>Профильдік жұп</th>
+                            <th>Қайда апарады (бағыттар мысалдары)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Математика — Физика</td>
+                            <td>Инженерия, IT, энергетика, механика, көлік, құрылыс, металлургия, материалтану,
+                                математика мен физика мұғалімдері</td>
+                        </tr>
+                        <tr>
+                            <td>Математика — Информатика</td>
+                            <td>Ақпараттық технологиялар, киберқауіпсіздік, криптология, информатика мұғалімдері</td>
+                        </tr>
+                        <tr>
+                            <td>Математика — География</td>
+                            <td>Экономика, қаржы, менеджмент, маркетинг, аудит, әлеуметтану, жер ғылымдары</td>
+                        </tr>
+                        <tr>
+                            <td>Биология — Химия</td>
+                            <td>Медицина, стоматология, педиатрия, фармация, мейіргер ісі, ветеринария,
+                                қоғамдық денсаулық сақтау</td>
+                        </tr>
+                        <tr>
+                            <td>Химия — Биология</td>
+                            <td>Химия, химия және биология мұғалімдері, фармацевтикалық өндіріс технологиясы</td>
+                        </tr>
+                        <tr>
+                            <td>Химия — Физика</td>
+                            <td>Химиялық инженерия және технологиялық процестер</td>
+                        </tr>
+                        <tr>
+                            <td>Биология — География</td>
+                            <td>Педагогика мен психология, бастауыш және балабақша оқыту, экология, орман шаруашылығы,
+                                әлеуметтік жұмыс</td>
+                        </tr>
+                        <tr>
+                            <td>Әлем тарихы — География</td>
+                            <td>Тарих, философия, археология, география және гуманитарлық пәндер мұғалімдері</td>
+                        </tr>
+                        <tr>
+                            <td>Әлем тарихы — Құқық негіздері</td>
+                            <td>Құқық, құқық қорғау қызметі</td>
+                        </tr>
+                        <tr>
+                            <td>География — Шетел тілі</td>
+                            <td>Туризм, қонақжайлылық, халықаралық экономикалық қатынастар</td>
+                        </tr>
+                        <tr>
+                            <td>Шетел тілі — Әлем тарихы</td>
+                            <td>Халықаралық қатынастар, аудармашылық, шығыстану, саясаттану,
+                                мәдениеттану, шетел тілі мұғалімдері</td>
+                        </tr>
+                        <tr>
+                            <td>Қазақ/орыс тілі — әдебиет</td>
+                            <td>Филология, кітапхана ісі, тіл мен әдебиет мұғалімдері</td>
+                        </tr>
+                        <tr class="article__table-result">
+                            <td><strong>Шығармашылық емтихан</strong></td>
+                            <td><strong>Өнер, дизайн, музыка, режиссура, архитектура, журналистика, спорт,
+                                    теология</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="article__note">
+                <strong>Ескерту:</strong> әр жұп ішіндегі мамандықтар тізімі жыл сайын жаңарып отырады — соңғы жылдары
+                теміржол көлігі мен технологиялары, магистральдық желілер мен инфрақұрылым, криптология, материал
+                инженериясы және мемлекеттік аудит сияқты бағыттар пайда болды. Актуалды тізім «Әділет» порталында
+                жарияланады.
+            </div>
+
+            <h2>Назар аударыңыз: таңдаудың басты ережесі</h2>
+            <div class="article__note article__note--warning">
+                <strong>⚠️ Бір жыл ішінде бірінші және екінші ҰБТ талпынысы арасында профильдік пән жұбын өзгертуге
+                    болмайды</strong> — жұп тек бір рет өтініш берген кезде таңдалады. Егер «сақтық үшін» оңай жұпты
+                алсаңыз, ал кейін басқа мамандыққа өтуді жоспарласаңыз,
+                сол жылы басқа жұппен қайта тапсыру мүмкін болмайды.
+            </div>
+            <p>
+                Абитуриенттердің ең жиі жіберетін қателігі — жұпты <strong>«пәнге» емес, «мамандыққа» қарай</strong>
+                таңдау.
+                Алдымен 2–3 кандидат мамандықты анықтап, олардың қай жұпқа жататынын қарап шығыңыз, содан кейін ғана
+                қай жұпта балл жинау мүмкін екенін бағалаңыз. «Оңай» жұп бұрынғыдан маңыздырақ болмауы керек — әйтпесе
+                емтиханды жақсы тапсырсаңыз да, тиісті мамандыққа өтпей қалуыңыз мүмкін.
+            </p>
+
+            <h2>{{ app_strings.faq_title }}</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Бір жұп пәнмен бірнеше түрлі мамандыққа түсуге бола ма?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Иә, және бұл құбылыс көп жағдайда қалыпты жағдай. Әр профильдік пән жұбы бір мамандыққа ғана
+                            емес,
+                            10–20 немесе одан да көп білім беру бағдарламалар тобына жол ашады. Мысалы, «математика —
+                            физика» жұбы
+                            инженерлік, энергетикалық, IT және математика мұғалімдігі сияқты бағыттарға бірден жол
+                            ашады.
+                            Сондықтан мамандық толық анықталмаған болса да, ең көп мүмкіндік беретін жұпты таңдау ақылға
+                            қонымды.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Егер керек мамандық формалды түрде қиын жұпқа жатса, не істеу керек?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Алдымен сол мамандықтың басқа жұпта бар-жоғын тексеріңіз — кейде жақын бағыттар бір-бірімен
+                            қиылысады. Егер басқа жұп жоқ болса, дайындыққа қанша уақыт барын адал бағалап, өнімділікке
+                            назар аударыңыз: профильдік пән міндетті пәндерден әлдеқайда көп — әрқайсысы 40 тапсырма мен
+                            50 балл, сондықтан нақты қажетті жұпқа дайындалу көп жағдайда тиімдірек болады.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Шығармашылық емтихан профильдік пәннің орнына ма?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Рәсім бойынша иә: шығармашылық емтихан кейбір шығармашылық, педагогикалық және медициналық
+                            бағыттарда профильдік жұптың орнын алады.
+                            Айырмашылық — бұл тест емес, практикалық немесе ситуациялық тапсырма, мысалы, болашақ
+                            педагог үшін педагогикалық ситуация шешу немесе медициналық бағыт үшін психометрикалық
+                            емтихан.
+                            Нақты форматты алдын ала анықтап алған жөн.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Әлі мамандықты таңдамаған болсам, қай жұпты «сақтық үшін» алған дұрыс?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Әркімге жеке жауап бар, бірақ жалпы логика бар: нақты ғылымдарға негізделген жұптар —
+                            «математика — физика», «математика — информатика» және «биология — химия» — грантқа
+                            мүмкіндік көбірек ашатын бағыттар.
+                            Алайда мұндай жұптарды тек дайындық бар болса ғана таңдау керек: кездейсоқ алынған жұптан
+                            өте төмен балл алу, дайын жұпқа қарағанда мүмкіндікті азайтады.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article__related">
+                <div class="article__related-title">{{ app_strings.read_also }}</div>
+                <div class="article__related-links">
+                    <a href="{{ locale_prefix }}/porogovye-bally-granta-ent" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
+                        <span class="article__related-text">ҰБТ грантына өтетін баллдар 2026 — кесте және өтініш беру
+                            мерзімдері</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                    <a href="{{ locale_prefix }}/kalkulator-shansov-granta" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.calculator_label }}</span>
+                        <span class="article__related-text">Грантқа шансы қандай? BilimGrant калькуляторы</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
+                        <span class="article__related-text">МОН РК бағалау әдістемесі</span>
+                        <span class="article__related-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+            {% else %}
             <div class="article__note">
                 <strong>Коротко:</strong> в 2026 году действует 12 предметных пар плюс отдельно вынесенный творческий
                 экзамен. Самая популярная связка — «математика — физика» (18–19% участников), на втором месте
@@ -298,7 +425,7 @@
                 некуда.
             </p>
 
-            <h2>Часто задаваемые вопросы</h2>
+            <h2>{{ app_strings.faq_title }}</h2>
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
@@ -372,54 +499,70 @@
             </div>
 
             <div class="article__related">
-                <div class="article__related-title">Читайте также</div>
+                <div class="article__related-title">{{ app_strings.read_also }}</div>
                 <div class="article__related-links">
-                    <a href="/porogovye-bally-granta-ent" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
+                    <a href="{{ locale_prefix }}/porogovye-bally-granta-ent" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
                         <span class="article__related-text">Проходные баллы гранта ЕНТ 2026 — таблица и сроки
                             подачи</span>
                         <span class="article__related-arrow">→</span>
                     </a>
-                    <a href="/kalkulator-shansov-granta" class="article__related-card">
-                        <span class="article__related-label">Калькулятор</span>
+                    <a href="{{ locale_prefix }}/kalkulator-shansov-granta" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.calculator_label }}</span>
                         <span class="article__related-text">Какие шансы на грант? Калькулятор BilimGrant</span>
                         <span class="article__related-arrow">→</span>
                     </a>
-                    <a href="/metodika-rascheta-mon-rk" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
                         <span class="article__related-text">Методика расчёта оценок МОН РК</span>
                         <span class="article__related-arrow">→</span>
                     </a>
                 </div>
             </div>
+            {% endif %}
         </article>
 
         <aside class="article-sidebar">
-            <div class="sidebar-widget sidebar-widget--cta">
-                <div class="sidebar-widget__title">🎯 Калькулятор шансов</div>
-                <p class="sidebar-widget__text">Введи пробный балл ЕНТ — узнай ориентировочную вероятность получения
-                    гранта по выбранной специальности</p>
-                <a href="/kalkulator-shansov-granta" class="btn sidebar-widget__btn"
-                    style="background:#f59e0b;border-color:#f59e0b">Открыть BilimGrant →</a>
+            <div class="sidebar-widget sidebar-widget--cta cta-amber">
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#f59e0b' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    {% if locale == 'kk' %}Шанс калькуляторы{% else %}Калькулятор шансов{% endif %}
+                </div>
+                <p class="sidebar-widget__text">{% if locale == 'kk' %}ҰБТ-дағы болжамды баллды енгіз — таңдалған
+                    мамандық бойынша грант алу ықтималдығын анықта{% else %}Введи пробный балл ЕНТ — узнай
+                    ориентировочную вероятность получения гранта по выбранной специальности{% endif %}</p>
+                <a href="{{ locale_prefix }}/kalkulator-shansov-granta" class="btn sidebar-widget__btn"
+                    style="background:#f59e0b;border-color:#f59e0b">{% if locale == 'kk' %}Ашу BilimGrant →{% else
+                    %}Открыть BilimGrant →{% endif %}</a>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Топ-пары ЕНТ 2026</div>
-                <div class="sidebar-widget__formula" style="color:#f59e0b">Матем.-Физика — 18–19%</div>
-                <div class="sidebar-widget__note">Биология-Химия — 14,5–16,6% · Творческий экзамен — 12,4%</div>
+                <div class="sidebar-widget__title">{% if locale == 'kk' %}Үздік Жұптар 2026{% else %}Топ-пары ЕНТ 2026{%
+                    endif %}</div>
+                <div class="sidebar-widget__formula" style="color:#f59e0b">{% if locale == 'kk' %}Матем.-Физика —
+                    18–19%{% else %}Матем.-Физика — 18–19%{% endif %}</div>
+                <div class="sidebar-widget__note">{% if locale == 'kk' %}Биология-Химия — 14,5–16,6% · Шығармашылық
+                    емтихан — 12,4%{% else %}Биология-Химия — 14,5–16,6% · Творческий экзамен — 12,4%{% endif %}</div>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Правило выбора</div>
-                <div class="sidebar-widget__formula">1 пара = 1 год</div>
-                <div class="sidebar-widget__note">Сменить комбинацию между попытками нельзя</div>
+                <div class="sidebar-widget__title">{% if locale == 'kk' %}Таңдау ережесі{% else %}Правило выбора{% endif
+                    %}</div>
+                <div class="sidebar-widget__formula">{% if locale == 'kk' %}1 жұп = 1 жыл{% else %}1 пара = 1 год{%
+                    endif %}</div>
+                <div class="sidebar-widget__note">{% if locale == 'kk' %}Талпыныстар арасында комбинацияны өзгертуге
+                    болмайды{% else %}Сменить комбинацию между попытками нельзя{% endif %}</div>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Другие статьи</div>
+                <div class="sidebar-widget__title">{{ app_strings.sidebar_other_articles }}</div>
                 <nav class="sidebar-nav">
-                    <a href="/porogovye-bally-granta-ent" class="sidebar-nav__link">→ Проходные баллы гранта ЕНТ</a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Как перевести проценты в
-                        оценку?</a>
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ Итоговая оценка за
-                        год (70/30)</a>
+                    <a href="{{ locale_prefix }}/porogovye-bally-granta-ent" class="sidebar-nav__link">→ {% if locale ==
+                        'kk' %}ҰБТ грантына өтетін баллдар{% else %}Проходные баллы гранта ЕНТ{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ {% if
+                        locale == 'kk' %}Проценттерді бағаға қалай аудару{% else %}Как перевести проценты в оценку?{%
+                        endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ {%
+                        if locale == 'kk' %}Жылдық қорытынды бағаны қалай есептеу керек (70/30){% else %}Итоговая оценка
+                        за год (70/30){% endif %}</a>
                 </nav>
             </div>
         </aside>

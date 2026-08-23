@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}Как перевести проценты в оценку — таблица и конвертер | BilimCalc{% endblock %}
-{% block meta_desc %}Таблица перевода процентов в оценку по казахстанской шкале МОН РК: 85–100%=5, 65–84%=4, 40–64%=3. Правило округления: 84,5%→85%→«5». Конвертер онлайн.{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
+{% block meta_desc %}{{ page_meta.meta_desc }}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}Как перевести проценты в оценку — таблица, примеры, конвертер{% endblock %}
-{% block og_desc %}Шкала оценок Казахстан: 85%=5, 65%=4, 40%=3. Правило округления 84,5%→«5». Онлайн-конвертер и таблица граничных значений.{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -13,8 +13,8 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Как перевести проценты в оценку — таблица и конвертер",
-    "description": "Таблица перевода процентов в оценку по казахстанской шкале с примерами округления.",
+    "headline": "{% if locale == 'kk' %}Проценттерді бағаларға қалай аудару — кесте және конвертер{% else %}Как перевести проценты в оценку — таблица и конвертер{% endif %}",
+    "description": "{% if locale == 'kk' %}Қазақстандық шкала бойынша пайыздарды бағаларға аудару кестесі мен дөңгелектеу мысалдары.{% else %}Таблица перевода процентов в оценку по казахстанской шкале с примерами округления.{% endif %}",
     "url": "{{ site_url }}/kak-perevesti-procenty-v-otsenku",
     "inLanguage": "ru",
     "author": { "@type": "Person", "name": "Anton Bogdan" },
@@ -28,9 +28,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Как перевести проценты в оценку", "item": "{{ site_url }}/kak-perevesti-procenty-v-otsenku" }
+        { "@type": "ListItem", "position": 1, "name": "{{ app_strings.menu_home }}", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "{{ app_strings.all_articles }}", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "{% if locale == 'kk' %}Проценттерді бағаларға аудару{% else %}Как перевести проценты в оценку{% endif %}", "item": "{{ site_url }}/kak-perevesti-procenty-v-otsenku" }
     ]
 }
 </script>
@@ -41,28 +41,28 @@
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "84.5% — это какая оценка?",
-            "acceptedAnswer": { "@type": "Answer", "text": "84.5% округляется до 85% (правило: ≥0.5 → вверх), что соответствует оценке «5» (85–100%)." }
+            "name": "{% if locale == 'kk' %}84,5% — бұл қандай баға?{% else %}84,5% — это какая оценка?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}84,5% 85%-ке дейін дөңгелектенеді (ереже: ≥0,5 → жоғары), ол «5» бағасына сәйкес келеді (85–100%).{% else %}84,5% округляется до 85% (правило: ≥0,5 → вверх), что соответствует оценке «5» (85–100%).{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Какой процент нужен на «5» в казахстанской школе?",
-            "acceptedAnswer": { "@type": "Answer", "text": "85% и выше — оценка «5». От 65% до 84% — «4». От 40% до 64% — «3». Ниже 40% — «2»." }
+            "name": "{% if locale == 'kk' %}Қазақстан мектептерінде «5» алу үшін қанша пайыз керек?{% else %}Сколько процентов нужно для «5» в школах Казахстана?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}85% және жоғары — «5». 65–84% — «4». 40–64% — «3». 40%-тан төмен — «2».{% else %}85% и выше — «5». 65–84% — «4». 40–64% — «3». Ниже 40% — «2».{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Ровно 40% — это «2» или «3»?",
-            "acceptedAnswer": { "@type": "Answer", "text": "«3». Граница включительно: 40% попадает в диапазон «удовлетворительно» (40–64%)." }
+            "name": "{% if locale == 'kk' %}Тәулігі 40% — бұл «2» ме әлде «3» па?{% else %}Ровно 40% — это «2» или «3»?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}«3». Шектік мән кіретін: 40% «қанағаттанарлық» диапазонына (40–64%) түседі.{% else %}«3». Граница включительно: 40% попадает в диапазон «удовлетворительно» (40–64%).{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Как перевести итоговый процент четверти в оценку?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Посчитайте итоговый процент по формуле ФО × 25% + СОР × 25% + СОЧ × 50%, округлите результат (≥ 0,5 → вверх) и сравните со шкалой: 85–100% → «5», 65–84% → «4», 40–64% → «3», 0–39% → «2»." }
+            "name": "{% if locale == 'kk' %}Тоқсан соңындағы пайызды қалай бағаға аударуға болады?{% else %}Как перевести итоговый процент за четверть в оценку?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Итоговый процентті ФО × 25% + СОР × 25% + СОЧ × 50% формуласымен есептеп, нәтижені дөңгелетіңіз (≥ 0,5 → жоғары). Одан кейін шкаламен салыстырыңыз: 85–100% → «5», 65–84% → «4», 40–64% → «3», 0–39% → «2».{% else %}Рассчитайте итоговый процент по формуле ФО × 25% + СОР × 25% + СОЧ × 50% и округлите результат (≥ 0,5 → вверх). Затем сравните со шкалой: 85–100% → «5», 65–84% → «4», 40–64% → «3», 0–39% → «2».{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "64,5% — это «3» или «4»?",
-            "acceptedAnswer": { "@type": "Answer", "text": "64,5% округляется до 65% (дробная часть 0,5 ≥ 0,5 → вверх). 65% входит в диапазон «хорошо» (65–84%) — оценка «4»." }
+            "name": "{% if locale == 'kk' %}64,5% — бұл «3» ме әлде «4» ма?{% else %}64,5% — это «3» или «4»?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}64,5% 65%-ке дөңгелектенеді (ондық бөлшек 0,5 ≥ 0,5 → жоғары). 65% «жақсы» (65–84%) диапазонына кіреді — «4» бағасы.{% else %}64,5% округляется до 65% (дробная часть 0,5 ≥ 0,5 → вверх). 65% попадает в диапазон «хорошо» (65–84%) — оценка «4».{% endif %}" }
         }
     ]
 }
@@ -71,365 +71,978 @@
 
 {% block extra_css %}
 <style>
-.grade-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 18px 0 10px;
-    font-size: 15px;
-}
-.grade-table th,
-.grade-table td {
-    padding: 11px 16px;
-    text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.grade-table th {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--muted);
-    background: rgba(255,255,255,0.02);
-}
-.grade-table td:first-child { color: var(--muted); font-size: 13px; }
-.grade-table td:nth-child(2) { font-weight: 700; font-size: 18px; letter-spacing: -0.5px; }
-.grade-table td:last-child { font-size: 13px; color: var(--muted); }
-.grade-table .row-2 td:nth-child(2) { color: var(--danger); }
-.grade-table .row-3 td:nth-child(2) { color: var(--warning); }
-.grade-table .row-4 td:nth-child(2) { color: var(--success); }
-.grade-table .row-5 td:nth-child(2) { color: #22c55e; }
-[data-theme="light"] .grade-table th { background: rgba(0,0,0,0.03); color: #64748b; }
-[data-theme="light"] .grade-table th,
-[data-theme="light"] .grade-table td { border-bottom-color: rgba(0,0,0,0.07); }
-[data-theme="light"] .grade-table td:first-child,
-[data-theme="light"] .grade-table td:last-child { color: #64748b; }
+    .grade-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 18px 0 10px;
+        font-size: 15px;
+    }
 
-.example-box {
-    background: rgba(88,166,255,0.05);
-    border: 1px solid rgba(88,166,255,0.15);
-    border-radius: 12px;
-    padding: 16px 18px;
-    margin: 16px 0;
-}
-.example-box__title {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--accent);
-    margin-bottom: 10px;
-}
-.example-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    line-height: 1.5;
-}
-.example-step:last-child { margin-bottom: 0; }
-.step-num {
-    width: 22px; height: 22px; min-width: 22px;
-    background: rgba(88,166,255,0.2);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 800; color: var(--accent);
-    margin-top: 1px;
-}
-.step-text { color: #c9d1d9; }
-.step-text strong { color: #e6edf3; }
-.step-result {
-    display: inline-block;
-    background: rgba(34,197,94,0.15);
-    border: 1px solid rgba(34,197,94,0.3);
-    color: #4ade80;
-    border-radius: 8px;
-    padding: 2px 10px;
-    font-weight: 700; font-size: 13px; margin-left: 4px;
-}
-.example-box--warning { background: rgba(210,153,34,0.06); border-color: rgba(210,153,34,0.2); }
-.example-box--warning .example-box__title { color: var(--warning); }
-.example-box--warning .step-num { background: rgba(210,153,34,0.15); color: var(--warning); }
+    .grade-table th,
+    .grade-table td {
+        padding: 11px 16px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
 
-.converter-wrap {
-    display: flex; gap: 10px; align-items: center;
-    flex-wrap: wrap; margin: 14px 0 6px;
-}
-.converter-wrap input { width: 120px; flex-shrink: 0; }
-.converter-result {
-    font-size: 28px; font-weight: 800; min-width: 40px;
-    transition: color 0.2s, text-shadow 0.2s;
-}
-.converter-label { font-size: 13px; color: var(--muted); }
-.c-grade-2 { color: var(--danger);  text-shadow: 0 0 20px rgba(218,54,51,0.4); }
-.c-grade-3 { color: var(--warning); text-shadow: 0 0 20px rgba(210,153,34,0.4); }
-.c-grade-4 { color: var(--success); text-shadow: 0 0 20px rgba(46,160,67,0.4); }
-.c-grade-5 { color: #22c55e;        text-shadow: 0 0 20px rgba(34,197,94,0.5); }
-.c-grade-empty { color: var(--muted); }
-.converter-hint { font-size: 12px; color: var(--muted); margin-top: 4px; min-height: 18px; }
+    .grade-table th {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.02);
+    }
 
-[data-theme="light"] .step-text { color: #334155; }
-[data-theme="light"] .step-text strong { color: #0f172a; }
-[data-theme="light"] .example-box { background: rgba(37,99,235,0.04); border-color: rgba(37,99,235,0.15); }
-[data-theme="light"] .example-box--warning { background: rgba(217,119,6,0.04); border-color: rgba(217,119,6,0.18); }
+    .grade-table td:first-child {
+        color: var(--muted);
+        font-size: 13px;
+    }
 
-.article ul {
-    margin: 12px 0 16px 0;
-    padding-left: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-.article ul li {
-    font-size: 15px;
-    line-height: 1.75;
-    color: #b0bec8;
-    padding-left: 20px;
-    position: relative;
-}
-.article ul li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: 700;
-    opacity: 0.6;
-}
-.article ul li strong { color: #e6edf3; }
-[data-theme="light"] .article ul li { color: #475569; }
-[data-theme="light"] .article ul li strong { color: #0f172a; }
-[data-theme="light"] .article ul li::before { opacity: 0.5; }
+    .grade-table td:nth-child(2) {
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.5px;
+    }
 
-@media (max-width: 768px) {
-    .article-layout { display: block !important; grid-template-columns: none !important; }
-    .article-sidebar { display: none !important; }
-    .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .grade-table { min-width: 320px; }
-    .grade-table th, .grade-table td { padding: 9px 12px; font-size: 13px; }
-    .grade-table td:nth-child(2) { font-size: 15px; }
-    .converter-wrap { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .converter-wrap input { width: 100% !important; box-sizing: border-box; }
-    .example-box { padding: 14px; }
-    .example-step { font-size: 13px; }
-    .article-wrap { padding-left: 16px; padding-right: 16px; box-sizing: border-box; }
-    .article { min-width: 0; word-break: break-word; overflow-wrap: break-word; }
-}
+    .grade-table td:last-child {
+        font-size: 13px;
+        color: var(--muted);
+    }
+
+    .grade-table .row-2 td:nth-child(2) {
+        color: var(--danger);
+    }
+
+    .grade-table .row-3 td:nth-child(2) {
+        color: var(--warning);
+    }
+
+    .grade-table .row-4 td:nth-child(2) {
+        color: var(--success);
+    }
+
+    .grade-table .row-5 td:nth-child(2) {
+        color: #22c55e;
+    }
+
+    [data-theme="light"] .grade-table th {
+        background: rgba(0, 0, 0, 0.03);
+        color: #64748b;
+    }
+
+    [data-theme="light"] .grade-table th,
+    [data-theme="light"] .grade-table td {
+        border-bottom-color: rgba(0, 0, 0, 0.07);
+    }
+
+    [data-theme="light"] .grade-table td:first-child,
+    [data-theme="light"] .grade-table td:last-child {
+        color: #64748b;
+    }
+
+    .example-box {
+        background: rgba(88, 166, 255, 0.05);
+        border: 1px solid rgba(88, 166, 255, 0.15);
+        border-radius: 12px;
+        padding: 16px 18px;
+        margin: 16px 0;
+    }
+
+    .example-box__title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+
+    .example-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .example-step:last-child {
+        margin-bottom: 0;
+    }
+
+    .step-num {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        background: rgba(88, 166, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--accent);
+        margin-top: 1px;
+    }
+
+    .step-text {
+        color: #c9d1d9;
+    }
+
+    .step-text strong {
+        color: #e6edf3;
+    }
+
+    .step-result {
+        display: inline-block;
+        background: rgba(34, 197, 94, 0.15);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: #4ade80;
+        border-radius: 8px;
+        padding: 2px 10px;
+        font-weight: 700;
+        font-size: 13px;
+        margin-left: 4px;
+    }
+
+    .example-box--warning {
+        background: rgba(210, 153, 34, 0.06);
+        border-color: rgba(210, 153, 34, 0.2);
+    }
+
+    .example-box--warning .example-box__title {
+        color: var(--warning);
+    }
+
+    .example-box--warning .step-num {
+        background: rgba(210, 153, 34, 0.15);
+        color: var(--warning);
+    }
+
+    .converter-wrap {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 14px 0 6px;
+    }
+
+    .converter-wrap input {
+        width: 120px;
+        flex-shrink: 0;
+    }
+
+    .converter-result {
+        font-size: 28px;
+        font-weight: 800;
+        min-width: 40px;
+        transition: color 0.2s, text-shadow 0.2s;
+    }
+
+    .converter-label {
+        font-size: 13px;
+        color: var(--muted);
+    }
+
+    .c-grade-2 {
+        color: var(--danger);
+        text-shadow: 0 0 20px rgba(218, 54, 51, 0.4);
+    }
+
+    .c-grade-3 {
+        color: var(--warning);
+        text-shadow: 0 0 20px rgba(210, 153, 34, 0.4);
+    }
+
+    .c-grade-4 {
+        color: var(--success);
+        text-shadow: 0 0 20px rgba(46, 160, 67, 0.4);
+    }
+
+    .c-grade-5 {
+        color: #22c55e;
+        text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+    }
+
+    .c-grade-empty {
+        color: var(--muted);
+    }
+
+    .converter-hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+        min-height: 18px;
+    }
+
+    [data-theme="light"] .step-text {
+        color: #334155;
+    }
+
+    [data-theme="light"] .step-text strong {
+        color: #0f172a;
+    }
+
+    [data-theme="light"] .example-box {
+        background: rgba(37, 99, 235, 0.04);
+        border-color: rgba(37, 99, 235, 0.15);
+    }
+
+    [data-theme="light"] .example-box--warning {
+        background: rgba(217, 119, 6, 0.04);
+        border-color: rgba(217, 119, 6, 0.18);
+    }
+
+    .article ul {
+        margin: 12px 0 16px 0;
+        padding-left: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .article ul li {
+        font-size: 15px;
+        line-height: 1.75;
+        color: #b0bec8;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .article ul li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 700;
+        opacity: 0.6;
+    }
+
+    .article ul li strong {
+        color: #e6edf3;
+    }
+
+    [data-theme="light"] .article ul li {
+        color: #475569;
+    }
+
+    [data-theme="light"] .article ul li strong {
+        color: #0f172a;
+    }
+
+    [data-theme="light"] .article ul li::before {
+        opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+        .article-layout {
+            display: block !important;
+            grid-template-columns: none !important;
+        }
+
+        .article-sidebar {
+            display: none !important;
+        }
+
+        .card {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .grade-table {
+            min-width: 320px;
+        }
+
+        .grade-table th,
+        .grade-table td {
+            padding: 9px 12px;
+            font-size: 13px;
+        }
+
+        .grade-table td:nth-child(2) {
+            font-size: 15px;
+        }
+
+        .converter-wrap {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .converter-wrap input {
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        .example-box {
+            padding: 14px;
+        }
+
+        .example-step {
+            font-size: 13px;
+        }
+
+        .article-wrap {
+            padding-left: 16px;
+            padding-right: 16px;
+            box-sizing: border-box;
+        }
+
+        .article {
+            min-width: 0;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="article-wrap">
-    <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <a href="/">Главная</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <a href="/articles">Статьи</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <span aria-current="page">Как перевести проценты в оценку</span>
-    </nav>
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
             <h1 class="article__title" itemprop="headline">
-                Как перевести проценты в оценку: таблица и конвертер
+                {% if locale == 'kk' %}Проценттерді бағаларға аудару: кесте және конвертер{% else %}Как перевести
+                проценты в оценку: таблица и конвертер{% endif %}
             </h1>
             <div class="article__meta">
                 <time datetime="2026-03-13" itemprop="dateModified">Май 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>Таблица · правило округления · примеры · конвертер</span>
+                <span>{% if locale == 'kk' %}Кесте · дөңгелектеу ережесі · мысалдар · конвертер{% else %}Таблица ·
+                    правило округления · примеры · конвертер{% endif %}</span>
             </div>
-            <a href="/" class="mobile-cta">
+            <a href="{{ locale_home }}" class="mobile-cta">
                 <div class="mobile-cta__icon">🧮</div>
                 <div class="mobile-cta__body">
-                    <div class="mobile-cta__label">Открыть</div>
-                    <div class="mobile-cta__title">Калькулятор оценок</div>
+                    <div class="mobile-cta__label">{% if locale == 'kk' %}Ашу{% else %}Открыть{% endif %}</div>
+                    <div class="mobile-cta__title">{% if locale == 'kk' %}Бағалар калькуляторы{% else %}Калькулятор
+                        оценок{% endif %}</div>
                 </div>
                 <span class="mobile-cta__arrow">→</span>
             </a>
             <p class="article__lead">
-                В казахстанских школах перевод процентов в оценку работает по единой шкале <strong>критериального оценивания МОН РК</strong>: <strong>85–100% → «5»</strong>, 65–84% → «4», 40–64% → «3», ниже 40% → «2». Шкала применяется при выставлении <a href="/itogovaya-ocenka-za-chetvert">итоговой оценки за четверть</a>, годовой оценки и на итоговом экзамене. Разбираем таблицу, правило округления и граничные случаи — когда 84,5% это уже «5», а 64,4% — всё ещё «3».
+                {% if locale == 'kk' %}
+                Қазақстан мектептерінде пайыздарды бағаға аудару бірдей <strong>МОН РК критериалды бағалау</strong>
+                шкаласы бойынша жұмыс істейді: <strong>85–100% → «5»</strong>, 65–84% → «4», 40–64% → «3», 40% төмен →
+                «2». Бұл шкала <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">тоқсандық қорытынды баға</a>,
+                жылдық баға және емтихан нәтижесін қоюда қолданылады. Кестені, дөңгелектеу ережесін және шекті
+                жағдайларды қараймыз — 84,5% әлде «5», ал 64,4% әлі «3».
+                {% else %}
+                В казахстанских школах перевод процентов в оценку работает по единой шкале <strong>критериального
+                    оценивания МОН РК</strong>: <strong>85–100% → «5»</strong>, 65–84% → «4», 40–64% → «3», ниже 40% →
+                «2». Шкала применяется при выставлении <a
+                    href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">итоговой оценки за четверть</a>, годовой
+                оценки и на итоговом экзамене. Разбираем таблицу, правило округления и граничные случаи — когда 84,5%
+                это уже «5», а 64,4% — всё ещё «3».
+                {% endif %}
             </p>
 
-            <h2>Краткий ответ: шкала перевода процентов в оценку</h2>
-            <p>По официальной <a href="/metodika-rascheta-mon-rk">методике расчёта МОН РК</a> действует следующая шкала оценок для школ Казахстана (2–11 класс):</p>
+            <h2>{% if locale == 'kk' %}Қысқаша жауап: пайыздарды бағаға аудару шкаласы{% else %}Краткий ответ: шкала
+                перевода процентов в оценку{% endif %}</h2>
+            {% if locale == 'kk' %}
+            <p>Ресми <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk">МОН РК есептеу әдістемесі</a> бойынша
+                Қазақстан мектептері үшін (2–11 сынып) келесі баға шкаласы қолданылады:</p>
             <ul>
-                <li><strong>85–100%</strong> → оценка «5» — «Отлично»</li>
-                <li><strong>65–84%</strong> → оценка «4» — «Хорошо»</li>
-                <li><strong>40–64%</strong> → оценка «3» — «Удовлетворительно»</li>
-                <li><strong>0–39%</strong> → оценка «2» — «Неудовлетворительно»</li>
+                <li><strong>85–100%</strong> → баға «5» — «Өте жақсы»</li>
+                <li><strong>65–84%</strong> → баға «4» — «Жақсы»</li>
+                <li><strong>40–64%</strong> → баға «3» — «Қанағаттанарлық»</li>
+                <li><strong>0–39%</strong> → баға «2» — «Қанағаттанарлықсыз»</li>
             </ul>
-            <p>Граничные значения включительно: ровно 85% → «5», ровно 65% → «4», ровно 40% → «3». Если процент дробный - применяется математическое округление: дробная часть ≥ 0,5 → вверх. Таким образом, 84,5% → 85% → «5».</p>
+            <p>Шектік мәндер кіреді: дәл 85% → «5», дәл 65% → «4», дәл 40% → «3». Егер процент бөлшек болса —
+                математикалық дөңгелектеу қолданылады: бөлшек бөлігі ≥ 0,5 → жоғары. Осылайша, 84,5% → 85% → «5».
+            </p>
 
             <div class="card reveal" style="margin-bottom: 24px;">
-                <div class="section-title">Шкала оценок — Казахстан (2–11 класс)</div>
-                <p class="article__lead">Действует по приказу МОН РК. Применяется при выставлении оценок за четверть, год и экзамен.</p>
-                <table class="grade-table">
-                    <thead><tr><th>Процент (%)</th><th>Оценка</th><th>Словесная</th></tr></thead>
-                    <tbody>
-                        <tr class="row-5"><td>85 – 100</td><td>5</td><td>«Отлично»</td></tr>
-                        <tr class="row-4"><td>65 – 84</td><td>4</td><td>«Хорошо»</td></tr>
-                        <tr class="row-3"><td>40 – 64</td><td>3</td><td>«Удовлетворительно»</td></tr>
-                        <tr class="row-2"><td>0 – 39</td><td>2</td><td>«Неудовлетворительно»</td></tr>
-                    </tbody>
-                </table>
-                <p class="article__lead">Граничные значения включительно: 85% → «5», 65% → «4», 40% → «3».</p>
-            </div>
+                <div class="section-title">Баға шкаласы — Қазақстан (2–11 сынып)</div>
+                <p class="article__lead">МОН РК бұйрығы бойынша қолданылады. Тоқсандық, жылдық және емтихан
+                    бағаларын қою кезінде пайдаланылады.</p>
+                {% else %}
+                <p>По официальной <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk">методике расчёта МОН РК</a>
+                    действует следующая шкала оценок для школ Казахстана (2–11 класс):</p>
+                <ul>
+                    <li><strong>85–100%</strong> → оценка «5» — «Отлично»</li>
+                    <li><strong>65–84%</strong> → оценка «4» — «Хорошо»</li>
+                    <li><strong>40–64%</strong> → оценка «3» — «Удовлетворительно»</li>
+                    <li><strong>0–39%</strong> → оценка «2» — «Неудовлетворительно»</li>
+                </ul>
+                <p>Граничные значения включительно: ровно 85% → «5», ровно 65% → «4», ровно 40% → «3». Если процент
+                    дробный
+                    - применяется математическое округление: дробная часть ≥ 0,5 → вверх. Таким образом, 84,5% → 85% →
+                    «5».
+                </p>
 
-            <h2>Правило округления</h2>
-            <p>Если итоговый процент получается дробным — он округляется по стандартному математическому правилу: <strong>дробная часть ≥ 0,5 → вверх.</strong> Именно поэтому граница — не жёсткие 85%, а <strong>84,5%</strong> тоже даёт «5». Это правило одинаково применяется во всех ситуациях: при расчёте <a href="/itogovaya-ocenka-za-chetvert">итоговой оценки за четверть</a> по системе ФО, СОР и СОЧ, и при переводе результата экзамена в годовую оценку.</p>
-
-            <div class="example-box">
-                <div class="example-box__title">📈 Пример — граница «4»/«5»: 84,5%</div>
-                <div class="example-step"><div class="step-num">1</div><div class="step-text">Исходный процент: <strong>84,5%</strong></div></div>
-                <div class="example-step"><div class="step-num">2</div><div class="step-text">Дробная часть: <strong>0,5 ≥ 0,5</strong> → округляем <strong>вверх</strong> → <strong>85%</strong></div></div>
-                <div class="example-step"><div class="step-num">3</div><div class="step-text">85% попадает в диапазон 85–100% → <span class="step-result">Оценка «5»</span></div></div>
-            </div>
-
-            <div class="example-box example-box--warning" style="margin-top:10px;">
-                <div class="example-box__title">⚠️ Пример — не хватило: 84,4%</div>
-                <div class="example-step"><div class="step-num">1</div><div class="step-text">Исходный процент: <strong>84,4%</strong></div></div>
-                <div class="example-step"><div class="step-num">2</div><div class="step-text">Дробная часть: <strong>0,4 &lt; 0,5</strong> → остаётся → <strong>84%</strong></div></div>
-                <div class="example-step"><div class="step-num">3</div><div class="step-text">84% попадает в диапазон 65–84% → <span class="step-result" style="background:rgba(210,153,34,0.15);border-color:rgba(210,153,34,0.3);color:#e3b341;">Оценка «4»</span></div></div>
-            </div>
-
-            <h2>Два реальных примера расчёта итогового процента</h2>
-            <p>Чтобы перевести результаты в оценку, сначала нужно подсчитать итоговый процент по формуле <strong>ФО × 25% + СОР × 25% + СОЧ × 50%</strong>. Рассмотрим два примера из реальной практики.</p>
-            <p><strong>Пример А.</strong> Ученица по казахскому языку имеет: среднее ФО = 7 из 10, средний СОР = 72%, СОЧ = 76%. Считаем: 7 ÷ 10 × 25 = 17,5%; 72% × 0,25 = 18%; 76% × 0,50 = 38%. Итог: 17,5 + 18 + 38 = <strong>73,5%</strong>. Округление не нужно — 73% попадает в диапазон 65–84% → <strong>оценка «4»</strong>.</p>
-            <p><strong>Пример Б.</strong> Ученик по биологии: среднее ФО = 6 из 10, средний СОР = 58%, СОЧ = 62%. Считаем: 6 ÷ 10 × 25 = 15%; 58% × 0,25 = 14,5%; 62% × 0,50 = 31%. Итог: 15 + 14,5 + 31 = <strong>60,5%</strong>. Округление: 60,5 → 61% → диапазон 40–64% → <strong>оценка «3»</strong>.</p>
-            <p>Чтобы не считать вручную, используй <a href="/">онлайн-калькулятор BilimCalc</a> — он автоматически применяет формулу МОН РК и переводит итог в оценку.</p>
-
-            <h2>Пошаговые примеры граничных значений</h2>
-            <div class="article__example">
-                <table class="article__table">
-                    <thead><tr><th>Исходный %</th><th>После округления</th><th>Оценка</th></tr></thead>
-                    <tbody>
-                        <tr><td>84,5%</td><td>85%</td><td><strong style="color:#22c55e">5</strong></td></tr>
-                        <tr><td>84,4%</td><td>84%</td><td><strong style="color:var(--success)">4</strong></td></tr>
-                        <tr><td>64,5%</td><td>65%</td><td><strong style="color:var(--success)">4</strong></td></tr>
-                        <tr><td>64,4%</td><td>64%</td><td><strong style="color:var(--warning)">3</strong></td></tr>
-                        <tr><td>39,5%</td><td>40%</td><td><strong style="color:var(--warning)">3</strong></td></tr>
-                        <tr><td>39,4%</td><td>39%</td><td><strong style="color:var(--danger)">2</strong></td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Онлайн-конвертер</h2>
-            <p>Введите любой процент — получите оценку мгновенно по казахстанской шкале МОН РК:</p>
-            <div class="converter-wrap">
-                <input type="number" id="pctInput" min="0" max="100" step="0.1" placeholder="Введите %" oninput="convertPct(this.value)">
-                <span style="color:var(--muted);font-size:18px;">%</span>
-                <span style="color:var(--muted);font-size:18px;">→</span>
-                <span class="converter-result c-grade-empty" id="convResult">—</span>
-                <span class="converter-label" id="convLabel"></span>
-            </div>
-            <div class="converter-hint" id="convHint"></div>
-
-            <h2>Таблица граничных значений</h2>
-            <p>Граничные случаи — самые частые источники ошибок. Ниже — полная таблица: какой процент даёт какую оценку с учётом правила округления системы оценивания Казахстана.</p>
-            <div class="card reveal" style="margin-bottom: 24px; overflow-x: auto;">
-                <table class="grade-table" style="min-width:320px">
-                    <thead><tr><th>Процент</th><th>Оценка</th><th>Комментарий</th></tr></thead>
-                    <tbody>
-                        <tr class="row-5"><td>100%</td><td>5</td><td>Максимум</td></tr>
-                        <tr class="row-5"><td>85%</td><td>5</td><td>Минимум для «5»</td></tr>
-                        <tr class="row-5"><td>84,5%</td><td>5</td><td>Округляется до 85%</td></tr>
-                        <tr class="row-4"><td>84,4%</td><td>4</td><td>Уже «4»</td></tr>
-                        <tr class="row-4"><td>65%</td><td>4</td><td>Минимум для «4»</td></tr>
-                        <tr class="row-4"><td>64,5%</td><td>4</td><td>Округляется до 65%</td></tr>
-                        <tr class="row-3"><td>64,4%</td><td>3</td><td>Уже «3»</td></tr>
-                        <tr class="row-3"><td>40%</td><td>3</td><td>Минимум для «3»</td></tr>
-                        <tr class="row-3"><td>39,5%</td><td>3</td><td>Округляется до 40%</td></tr>
-                        <tr class="row-2"><td>39,4%</td><td>2</td><td>Уже «2»</td></tr>
-                        <tr class="row-2"><td>0%</td><td>2</td><td>Не сдал</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Как используется шкала в системе оценивания Казахстана</h2>
-            <p>Шкала перевода процентов в оценку применяется на разных этапах. При расчёте <a href="/itogovaya-ocenka-za-chetvert">итоговой оценки за четверть</a> итоговый процент (сумма вкладов ФО, СОР и СОЧ) переводится в балл 2–5 именно по этой шкале. В 9 и 11 классах годовая оценка берётся уже в баллах и участвует в формуле 70/30. Про это подробнее читай в статье <a href="/kak-rasschitat-itogovuyu-otsenku-za-god">как рассчитать итоговую оценку за год</a>.</p>
-            <p>Шкала также применяется при <a href="/kak-rasschitat-soch">расчёте СОЧ</a>: итоговый процент за работу (набранные ÷ максимум × 100) переводится в балл, который потом взвешивается с коэффициентом 0,5. Аналогично работает <a href="/kak-rasschitat-sor">формула СОР</a>. Понимая шкалу, ты можешь заранее рассчитать, какой результат нужен за каждый компонент, чтобы выйти на нужную оценку за четверть.</p>
-
-            <h2>Часто задаваемые вопросы</h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <button class="faq-q" aria-expanded="false">
-                        <span>84,5% — это «4» или «5»?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><p>Это <strong>«5»</strong>. 84,5% округляется до 85% (дробная часть 0,5 ≥ 0,5 → вверх), а 85% входит в диапазон «отлично» (85–100%). Именно поэтому фактическая нижняя граница оценки «5» — не 85%, а 84,5%.</p></div>
+                <div class="card reveal" style="margin-bottom: 24px;">
+                    <div class="section-title">Шкала оценок — Казахстан (2–11 класс)</div>
+                    <p class="article__lead">Действует по приказу МОН РК. Применяется при выставлении оценок за
+                        четверть,
+                        год и экзамен.</p>
+                    {% endif %}
+                    <table class="grade-table">
+                        <thead>
+                            <tr>
+                                <th>{% if locale == 'kk' %}Пайыз (%){% else %}Процент (%){% endif %}</th>
+                                <th>{% if locale == 'kk' %}Баға{% else %}Оценка{% endif %}</th>
+                                <th>{% if locale == 'kk' %}Сөзбен{% else %}Словесная{% endif %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-5">
+                                <td>85 – 100</td>
+                                <td>5</td>
+                                <td>{% if locale == 'kk' %}«Өте жақсы»{% else %}«Отлично»{% endif %}</td>
+                            </tr>
+                            <tr class="row-4">
+                                <td>65 – 84</td>
+                                <td>4</td>
+                                <td>{% if locale == 'kk' %}«Жақсы»{% else %}«Хорошо»{% endif %}</td>
+                            </tr>
+                            <tr class="row-3">
+                                <td>40 – 64</td>
+                                <td>3</td>
+                                <td>{% if locale == 'kk' %}«Қанағаттанарлық»{% else %}«Удовлетворительно»{% endif %}
+                                </td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>0 – 39</td>
+                                <td>2</td>
+                                <td>{% if locale == 'kk' %}«Қанағаттанарлықсыз»{% else %}«Неудовлетворительно»{% endif
+                                    %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="article__lead">{% if locale == 'kk' %}Шектік мәндер кіреді: 85% → «5», 65% → «4», 40% →
+                        «3».{% else %}Граничные значения включительно: 85% → «5», 65% → «4», 40% → «3».{% endif %}</p>
                 </div>
-                <div class="faq-item">
-                    <button class="faq-q" aria-expanded="false">
-                        <span>64,5% — это «3» или «4»?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><p>Это <strong>«4»</strong>. 64,5% → округляется до 65% → диапазон «хорошо» (65–84%). Аналогично 39,5% → 40% → это уже «3», а не «2».</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-q" aria-expanded="false">
-                        <span>Ровно 40% — это «2» или «3»?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><p>Это <strong>«3»</strong>. Граница включительно: 40% попадает в диапазон «удовлетворительно» (40–64%). Ниже 40% — только начиная с 39% и ниже — это «2».</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-q" aria-expanded="false">
-                        <span>Применяется ли эта шкала везде?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><p>Да — для итоговых оценок за четверть и год по <a href="/metodika-rascheta-mon-rk">методике МОН РК</a>. Некоторые школы могут применять критериальное оценивание с иными критериями — уточни у учителя. Для ЕНТ действует отдельная шкала перевода баллов.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-q" aria-expanded="false">
-                        <span>Как связаны проценты и оценка за год?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><p>В формуле <strong>70/30</strong> итоговый балл за год = годовая оценка × 0,7 + экзамен × 0,3. Результат — это балл (2–5). Но сами четвертные оценки выставляются через проценты и переводятся именно по этой таблице. Подробнее — в статье <a href="/kak-rasschitat-itogovuyu-otsenku-za-god">как рассчитать итоговую оценку за год</a>.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-q" aria-expanded="false">
-                        <span>Как узнать, какой балл за СОЧ нужен для перехода с «3» на «4»?</span>
-                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-a"><p>Зная текущие ФО и СОР, вычти их суммарный вклад из 65% (минимум для «4»). Остаток раздели на 0,5 — это минимальный процент за <a href="/kak-rasschitat-soch">СОЧ</a>. Удобнее всего это рассчитать через <a href="/">калькулятор BilimCalc</a>.</p></div>
-                </div>
-            </div>
 
-            <div class="article__related">
-                <div class="article__related-title">Читайте также</div>
-                <div class="article__related-links">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать итоговую оценку за год — формула 70/30</span><span class="article__related-arrow">→</span></a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Итоговая оценка за четверть — ФО + СОР + СОЧ</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-soch" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать СОЧ — формула и пример</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-sor" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Как рассчитать СОР — полное руководство</span><span class="article__related-arrow">→</span></a>
-                    <a href="/kak-rasschitat-so" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Что такое ФО и как считается</span><span class="article__related-arrow">→</span></a>
-                    <a href="/metodika-rascheta-mon-rk" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">Официальная методика расчёта МОН РК</span><span class="article__related-arrow">→</span></a>
-                    <a href="/perehod-na-12-letku-kazakhstan" class="article__related-card"><span class="article__related-label">Статья</span><span class="article__related-text">3–8 классы и 12-летнее обучение в Казахстане — правда или фейк</span><span class="article__related-arrow">→</span></a>
+                <h2>{% if locale == 'kk' %}Дөңгелектеу ережесі{% else %}Правило округления{% endif %}</h2>
+                {% if locale == 'kk' %}
+                <p>Егер қорытынды процент бөлшек болып шықса — ол стандартты математикалық ереже бойынша дөңгелектенеді:
+                    <strong>бөлшек бөлігі ≥ 0,5 → жоғары.</strong> Дәл сондықтан шекара — қатаң 85% емес, ал
+                    <strong>84,5%</strong> да «5» береді. Бұл ереже барлық жағдайларда бірдей қолданылады: ФО, СОР және
+                    СОЧ жүйесі бойынша <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">тоқсандық қорытынды
+                        бағаны</a> есептеу кезінде де, емтихан нәтижесін жылдық бағаға аудару кезінде де.
+                </p>
+
+                <div class="example-box">
+                    <div class="example-box__title">📈 Мысал — «4»/«5» шекарасы: 84,5%</div>
+                    <div class="example-step">
+                        <div class="step-num">1</div>
+                        <div class="step-text">Бастапқы пайыз: <strong>84,5%</strong></div>
+                    </div>
+                    <div class="example-step">
+                        <div class="step-num">2</div>
+                        <div class="step-text">Бөлшек бөлігі: <strong>0,5 ≥ 0,5</strong> → <strong>жоғары</strong>
+                            дөңгелектейміз → <strong>85%</strong></div>
+                    </div>
+                    <div class="example-step">
+                        <div class="step-num">3</div>
+                        <div class="step-text">85% 85–100% диапазонына түседі → <span class="step-result">Баға
+                                «5»</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <div class="example-box example-box--warning" style="margin-top:10px;">
+                    <div class="example-box__title">⚠️ Мысал — жетпей қалды: 84,4%</div>
+                    <div class="example-step">
+                        <div class="step-num">1</div>
+                        <div class="step-text">Бастапқы пайыз: <strong>84,4%</strong></div>
+                    </div>
+                    <div class="example-step">
+                        <div class="step-num">2</div>
+                        <div class="step-text">Бөлшек бөлігі: <strong>0,4 &lt; 0,5</strong> → өзгеріссіз қалады →
+                            <strong>84%</strong>
+                        </div>
+                    </div>
+                    <div class="example-step">
+                        <div class="step-num">3</div>
+                        <div class="step-text">84% 65–84% диапазонына түседі → <span class="step-result"
+                                style="background:rgba(210,153,34,0.15);border-color:rgba(210,153,34,0.3);color:#e3b341;">Баға
+                                «4»</span></div>
+                    </div>
+                </div>
+
+                <h2>Жалпы пайызды есептеудің екі нақты мысалы</h2>
+                <p>Нәтижелерді бағаға аудару үшін алдымен <strong>ФО ×
+                        25% + СОР × 25% + СОЧ × 50%</strong> формуласы бойынша қорытынды пайызды есептеу керек. Нақты
+                    тәжірибеден екі мысалды қарастырайық.</p>
+                <p><strong>Мысал А.</strong> Қазақ тілінен оқушының көрсеткіштері: орташа ФО = 10-нан 7, орташа СОР =
+                    72%,
+                    СОЧ = 76%. Есептейміз: 7 ÷ 10 × 25 = 17,5%; 72% × 0,25 = 18%; 76% × 0,50 = 38%. Жиыны: 17,5 + 18 +
+                    38 =
+                    <strong>73,5%</strong>. Дөңгелектеу қажет емес — 73% 65–84% диапазонына түседі → <strong>баға
+                        «4»</strong>.
+                </p>
+                <p><strong>Мысал Б.</strong> Биологиядан оқушының көрсеткіштері: орташа ФО = 10-нан 6, орташа СОР = 58%,
+                    СОЧ = 62%. Есептейміз: 6 ÷ 10 × 25 = 15%; 58% × 0,25 = 14,5%; 62% × 0,50 = 31%. Жиыны: 15 + 14,5 +
+                    31 =
+                    <strong>60,5%</strong>. Дөңгелектеу: 60,5 → 61% → 40–64% диапазоны → <strong>баға «3»</strong>.
+                </p>
+                <p>Қолмен есептемеу үшін <a href="{{ locale_home }}">BilimCalc онлайн-калькуляторын</a> пайдалан — ол
+                    МОН РК формуласын автоматты түрде қолданып, қорытындыны бағаға аударады.</p>
+                {% else %}
+                <p>Если итоговый процент получается дробным — он округляется по стандартному математическому правилу:
+                    <strong>дробная часть ≥ 0,5 → вверх.</strong> Именно поэтому граница — не жёсткие 85%, а
+                    <strong>84,5%</strong> тоже даёт «5». Это правило одинаково применяется во всех ситуациях: при
+                    расчёте
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">итоговой оценки за четверть</a> по
+                    системе
+                    ФО, СОР и СОЧ, и при переводе результата экзамена в годовую оценку.
+                </p>
+
+                <div class="example-box">
+                    <div class="example-box__title">📈 Пример — граница «4»/«5»: 84,5%</div>
+                    <div class="example-step">
+                        <div class="step-num">1</div>
+                        <div class="step-text">Исходный процент: <strong>84,5%</strong></div>
+                    </div>
+                    <div class="example-step">
+                        <div class="step-num">2</div>
+                        <div class="step-text">Дробная часть: <strong>0,5 ≥ 0,5</strong> → округляем
+                            <strong>вверх</strong>
+                            → <strong>85%</strong>
+                        </div>
+                    </div>
+                    <div class="example-step">
+                        <div class="step-num">3</div>
+                        <div class="step-text">85% попадает в диапазон 85–100% → <span class="step-result">Оценка
+                                «5»</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-box example-box--warning" style="margin-top:10px;">
+                    <div class="example-box__title">⚠️ Пример — не хватило: 84,4%</div>
+                    <div class="example-step">
+                        <div class="step-num">1</div>
+                        <div class="step-text">Исходный процент: <strong>84,4%</strong></div>
+                    </div>
+                    <div class="example-step">
+                        <div class="step-num">2</div>
+                        <div class="step-text">Дробная часть: <strong>0,4 &lt; 0,5</strong> → остаётся →
+                            <strong>84%</strong>
+                        </div>
+                    </div>
+                    <div class="example-step">
+                        <div class="step-num">3</div>
+                        <div class="step-text">84% попадает в диапазон 65–84% → <span class="step-result"
+                                style="background:rgba(210,153,34,0.15);border-color:rgba(210,153,34,0.3);color:#e3b341;">Оценка
+                                «4»</span></div>
+                    </div>
+                </div>
+
+                <h2>Два реальных примера расчёта
+                    итогового процента</h2>
+                <p>Чтобы перевести результаты в оценку, сначала нужно подсчитать итоговый процент по формуле <strong>ФО
+                        ×
+                        25% + СОР × 25% + СОЧ × 50%</strong>. Рассмотрим два примера из реальной практики.</p>
+                <p><strong>Пример А.</strong> Ученица по казахскому языку имеет: среднее ФО = 7 из 10, средний СОР =
+                    72%,
+                    СОЧ = 76%. Считаем: 7 ÷ 10 × 25 = 17,5%; 72% × 0,25 = 18%; 76% × 0,50 = 38%. Итог: 17,5 + 18 + 38 =
+                    <strong>73,5%</strong>. Округление не нужно — 73% попадает в диапазон 65–84% → <strong>оценка
+                        «4»</strong>.
+                </p>
+                <p><strong>Пример Б.</strong> Ученик по биологии: среднее ФО = 6 из 10, средний СОР = 58%, СОЧ = 62%.
+                    Считаем: 6 ÷ 10 × 25 = 15%; 58% × 0,25 = 14,5%; 62% × 0,50 = 31%. Итог: 15 + 14,5 + 31 =
+                    <strong>60,5%</strong>. Округление: 60,5 → 61% → диапазон 40–64% → <strong>оценка «3»</strong>.
+                </p>
+                <p>Чтобы не считать вручную, используй <a href="{{ locale_home }}">онлайн-калькулятор BilimCalc</a> — он
+                    автоматически применяет формулу МОН РК и переводит итог в оценку.</p>
+                {% endif %}
+
+                <h2>{% if locale == 'kk' %}Шекті мәндерге арналған қадамдық мысалдар{% else %}Пошаговые примеры
+                    граничных
+                    значений{% endif %}</h2>
+                <div class="article__example">
+                    <table class="article__table">
+                        <thead>
+                            <tr>
+                                <th>{% if locale == 'kk' %}Бастапқы %{% else %}Исходный %{% endif %}</th>
+                                <th>{% if locale == 'kk' %}Дөңгелектеуден кейін{% else %}После округления{% endif %}
+                                </th>
+                                <th>{% if locale == 'kk' %}Баға{% else %}Оценка{% endif %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>84,5%</td>
+                                <td>85%</td>
+                                <td><strong style="color:#22c55e">5</strong></td>
+                            </tr>
+                            <tr>
+                                <td>84,4%</td>
+                                <td>84%</td>
+                                <td><strong style="color:var(--success)">4</strong></td>
+                            </tr>
+                            <tr>
+                                <td>64,5%</td>
+                                <td>65%</td>
+                                <td><strong style="color:var(--success)">4</strong></td>
+                            </tr>
+                            <tr>
+                                <td>64,4%</td>
+                                <td>64%</td>
+                                <td><strong style="color:var(--warning)">3</strong></td>
+                            </tr>
+                            <tr>
+                                <td>39,5%</td>
+                                <td>40%</td>
+                                <td><strong style="color:var(--warning)">3</strong></td>
+                            </tr>
+                            <tr>
+                                <td>39,4%</td>
+                                <td>39%</td>
+                                <td><strong style="color:var(--danger)">2</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>{% if locale == 'kk' %}Онлайн-конвертер{% else %}Онлайн-конвертер{% endif %}</h2>
+                <p>{% if locale == 'kk' %}Кез келген пайызды енгіз — Қазақстандық МОН РК шкаласы бойынша бағаны бірден
+                    ал:{% else %}Введите любой процент — получите оценку мгновенно по казахстанской шкале МОН РК:{%
+                    endif %}</p>
+                <div class="converter-wrap">
+                    <input type="number" id="pctInput" min="0" max="100" step="0.1" placeholder="Введите %"
+                        oninput="convertPct(this.value)">
+                    <span style="color:var(--muted);font-size:18px;">%</span>
+                    <span style="color:var(--muted);font-size:18px;">→</span>
+                    <span class="converter-result c-grade-empty" id="convResult">—</span>
+                    <span class="converter-label" id="convLabel"></span>
+                </div>
+                <div class="converter-hint" id="convHint"></div>
+
+                <h2>{% if locale == 'kk' %}Шекті мәндердің кестесі{% else %}Таблица граничных значений{% endif %}</h2>
+                <p>{% if locale == 'kk' %}Шекті жағдайлар — қателердің ең жиі кездесетін көзі. Төменде — қай пайыз
+                    қандай
+                    бағаны беретінін Қазақстанның бағалау жүйесіндегі дөңгелектеу ережесін ескере отырып көрсететін
+                    толық
+                    кесте.{% else %}Граничные случаи — самые частые источники ошибок. Ниже — полная таблица: какой
+                    процент даёт какую оценку
+                    с учётом правила округления системы оценивания Казахстана.{% endif %}</p>
+                <div class="card reveal" style="margin-bottom: 24px; overflow-x: auto;">
+                    <table class="grade-table" style="min-width:320px">
+                        <thead>
+                            <tr>
+                                <th>{% if locale == 'kk' %}Пайыз{% else %}Процент{% endif %}</th>
+                                <th>{% if locale == 'kk' %}Баға{% else %}Оценка{% endif %}</th>
+                                <th>{% if locale == 'kk' %}Түсініктеме{% else %}Комментарий{% endif %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-5">
+                                <td>100%</td>
+                                <td>5</td>
+                                <td>{% if locale == 'kk' %}Максимум{% else %}Максимум{% endif %}</td>
+                            </tr>
+                            <tr class="row-5">
+                                <td>85%</td>
+                                <td>5</td>
+                                <td>{% if locale == 'kk' %}«5» үшін минимум{% else %}Минимум для «5»{% endif %}</td>
+                            </tr>
+                            <tr class="row-5">
+                                <td>84,5%</td>
+                                <td>5</td>
+                                <td>{% if locale == 'kk' %}85%-ке дейін дөңгелектенеді{% else %}Округляется до 85%{%
+                                    endif %}</td>
+                            </tr>
+                            <tr class="row-4">
+                                <td>84,4%</td>
+                                <td>4</td>
+                                <td>{% if locale == 'kk' %}Бұл қазірдің өзінде «4»{% else %}Уже «4»{% endif %}</td>
+                            </tr>
+                            <tr class="row-4">
+                                <td>65%</td>
+                                <td>4</td>
+                                <td>{% if locale == 'kk' %}«4» үшін минимум{% else %}Минимум для «4»{% endif %}</td>
+                            </tr>
+                            <tr class="row-4">
+                                <td>64,5%</td>
+                                <td>4</td>
+                                <td>{% if locale == 'kk' %}65%-ке дейін дөңгелектенеді{% else %}Округляется до 65%{%
+                                    endif %}</td>
+                            </tr>
+                            <tr class="row-3">
+                                <td>64,4%</td>
+                                <td>3</td>
+                                <td>{% if locale == 'kk' %}Бұл қазірдің өзінде «3»{% else %}Уже «3»{% endif %}</td>
+                            </tr>
+                            <tr class="row-3">
+                                <td>40%</td>
+                                <td>3</td>
+                                <td>{% if locale == 'kk' %}«3» үшін минимум{% else %}Минимум для «3»{% endif %}</td>
+                            </tr>
+                            <tr class="row-3">
+                                <td>39,5%</td>
+                                <td>3</td>
+                                <td>{% if locale == 'kk' %}40%-ке дейін дөңгелектенеді{% else %}Округляется до 40%{%
+                                    endif %}</td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>39,4%</td>
+                                <td>2</td>
+                                <td>{% if locale == 'kk' %}Бұл қазірдің өзінде «2»{% else %}Уже «2»{% endif %}</td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>0%</td>
+                                <td>2</td>
+                                <td>{% if locale == 'kk' %}Тапсырмады{% else %}Не сдал{% endif %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>{% if locale == 'kk' %}Баға шкаласы Қазақстандық бағалау жүйесінде қалай қолданылады{% else %}Как
+                    используется шкала в системе оценивания Казахстана{% endif %}</h2>
+                {% if locale == 'kk' %}
+                <p>Проценттерді бағаға аудару шкаласы әртүрлі кезеңдерде қолданылады. <a
+                        href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">Тоқсандық қорытынды бағаны</a> есептеу
+                    кезінде қорытынды пайыз (ФО, СОР және СОЧ үлестерінің қосындысы) дәл осы шкала бойынша 2–5 баллына
+                    аударылады. 9 және 11 сыныптарда жылдық баға баллмен алынып, 70/30 формуласына қатысады. Толығырақ
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god">жылдық қорытынды бағаны қалай
+                        есептеу керек</a> мақаласынан оқы.
+                </p>
+                <p>Шкала сондай-ақ <a href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ есептеу</a> кезінде де
+                    қолданылады:
+                    жұмыс үшін қорытынды пайыз (жиналған ÷ максимум × 100) баллға аударылып, содан кейін 0,5
+                    коэффициентімен өлшенеді. <a href="{{ locale_prefix }}/kak-rasschitat-sor">СОР формуласы</a> да
+                    осылай жұмыс істейді. Шкаланы түсіну арқылы әр компонент бойынша қандай нәтиже қажет екенін алдын
+                    ала есептеп, қажетті тоқсандық бағаға шығуға болады.</p>
+                {% else %}
+                <p>Шкала перевода процентов в оценку применяется на разных этапах. При расчёте <a
+                        href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert">итоговой оценки за четверть</a> итоговый
+                    процент (сумма вкладов ФО, СОР и СОЧ) переводится в балл 2–5 именно по этой шкале. В 9 и 11 классах
+                    годовая оценка берётся уже в баллах и участвует в формуле 70/30. Про это подробнее читай в статье <a
+                        href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god">как рассчитать итоговую
+                        оценку за
+                        год</a>.</p>
+                <p>Шкала также применяется при <a href="{{ locale_prefix }}/kak-rasschitat-soch">расчёте СОЧ</a>:
+                    итоговый
+                    процент за работу (набранные ÷ максимум × 100) переводится в балл, который потом взвешивается с
+                    коэффициентом 0,5. Аналогично работает <a href="{{ locale_prefix }}/kak-rasschitat-sor">формула
+                        СОР</a>.
+                    Понимая шкалу, ты можешь заранее рассчитать, какой результат нужен за каждый компонент, чтобы выйти
+                    на
+                    нужную оценку за четверть.</p>
+                {% endif %}
+
+                <h2>{{ app_strings.faq_title }}</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            {% if locale == 'kk' %}<span>84,5% — бұл «4» ме, әлде «5» ме?</span>{% else %}<span>84,5% —
+                                это «4» или «5»?</span>{% endif %}
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </button>
+                        <div class="faq-a">
+                            <p>{% if locale == 'kk' %}Бұл <strong>«5»</strong>. 84,5% 85%-ке дейін дөңгелектенеді
+                                (бөлшек бөлігі 0,5 ≥ 0,5 → жоғары), ал 85%
+                                «өте жақсы» (85–100%) диапазонына кіреді. Дәл сондықтан «5» бағасының нақты төменгі шегі
+                                85% емес, 84,5%.{% else %}Это <strong>«5»</strong>. 84,5% округляется до 85% (дробная
+                                часть 0,5 ≥ 0,5 → вверх), а 85%
+                                входит в диапазон «отлично» (85–100%). Именно поэтому фактическая нижняя граница оценки
+                                «5»
+                                — не 85%, а 84,5%.{% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            {% if locale == 'kk' %}<span>64,5% — бұл «3» ме, әлде «4» ме?</span>{% else %}<span>64,5% —
+                                это «3» или «4»?</span>{% endif %}
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </button>
+                        <div class="faq-a">
+                            <p>{% if locale == 'kk' %}Бұл <strong>«4»</strong>. 64,5% → 65%-ке дейін дөңгелектенеді →
+                                «жақсы» диапазоны (65–84%). Сол сияқты
+                                39,5% → 40% → бұл қазірдің өзінде «3», «2» емес.{% else %}Это <strong>«4»</strong>.
+                                64,5% → округляется до 65% → диапазон «хорошо» (65–84%). Аналогично
+                                39,5% → 40% → это уже «3», а не «2».{% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            {% if locale == 'kk' %}<span>Дәл 40% — бұл «2» ме, әлде «3» ме?</span>{% else %}<span>Ровно
+                                40% — это «2» или «3»?</span>{% endif %}
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </button>
+                        <div class="faq-a">
+                            <p>{% if locale == 'kk' %}Бұл <strong>«3»</strong>. Шекара кіреді: 40% «қанағаттанарлық»
+                                диапазонына
+                                (40–64%) түседі. 40%-тан төмен — тек 39% және одан төменнен бастап қана — бұл «2».{%
+                                else %}Это <strong>«3»</strong>. Граница включительно: 40% попадает в диапазон
+                                «удовлетворительно»
+                                (40–64%). Ниже 40% — только начиная с 39% и ниже — это «2».{% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            {% if locale == 'kk' %}<span>Бұл шкала барлық жерде қолданыла ма?</span>{% else
+                            %}<span>Применяется ли эта шкала везде?</span>{% endif %}
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </button>
+                        <div class="faq-a">
+                            <p>{% if locale == 'kk' %}Иә — <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk">МОН РК
+                                    әдістемесі</a> бойынша тоқсандық және жылдық қорытынды
+                                бағалар үшін. Кейбір мектептер басқа критерийлермен критериалды бағалауды қолдана алады
+                                — мұғаліммен нақтылаңыз. ҰБТ үшін бөлек баға аудару шкаласы қолданылады.{% else %}Да —
+                                для итоговых оценок за четверть и год по <a
+                                    href="{{ locale_prefix }}/metodika-rascheta-mon-rk">методике МОН РК</a>. Некоторые
+                                школы
+                                могут применять критериальное оценивание с иными критериями — уточни у учителя. Для ЕНТ
+                                действует
+                                отдельная шкала перевода баллов.{% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            <span>{% if locale == 'kk' %}Пайыздар мен жылдық баға қалай байланысады?{% else %}Как
+                                связаны
+                                проценты и оценка за год?{% endif %}</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </button>
+                        <div class="faq-a">
+                            <p>{% if locale == 'kk' %}<strong>70/30</strong> формуласында жылдық қорытынды балл = жылдық
+                                баға × 0,7 + емтихан × 0,3.
+                                Нәтиже — бұл балл (2–5). Бірақ тоқсандық бағалардың өзі проценттер арқылы қойылады және
+                                дәл осы кесте бойынша аударылады. Толығырақ — <a
+                                    href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god">жылдық қорытынды
+                                    бағаны қалай есептеу керек</a> мақаласында.{% else %}В формуле
+                                <strong>70/30</strong> итоговый балл за год = годовая оценка × 0,7 + экзамен × 0,3.
+                                Результат — это балл (2–5). Но сами четвертные оценки выставляются через проценты и
+                                переводятся именно по этой таблице. Подробнее — в статье <a
+                                    href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god">как рассчитать
+                                    итоговую оценку за год</a>.{% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" aria-expanded="false">
+                            <span>{% if locale == 'kk' %}СОЧ-тан «3»-тен «4»-ке өту үшін қанша балл қажет?{% else %}Как
+                                узнать, какой балл за СОЧ нужен для перехода с «3» на «4»?{% endif %}</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </button>
+                        <div class="faq-a">
+                            <p>{% if locale == 'kk' %}Ағымдағы ФО мен СОР-ды біле отырып, олардың жиынтық үлесін 65%-тен
+                                (яғни «4» үшін минимумнан) алып таста. Қалғанын 0,5-ке бөл — бұл <a
+                                    href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ</a>
+                                үшін минималды пайыз. Ең ыңғайлысы — <a href="{{ locale_home }}">BilimCalc
+                                    калькуляторы</a> арқылы есептеу.
+                                {% else %}Зная текущие ФО и СОР, вычти их суммарный вклад из 65% (минимум для «4»).
+                                Остаток раздели на
+                                0,5 — это минимальный процент за <a
+                                    href="{{ locale_prefix }}/kak-rasschitat-soch">СОЧ</a>.
+                                Удобнее всего это рассчитать через <a href="{{ locale_home }}">калькулятор
+                                    BilimCalc</a>.
+                                {% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article__related">
+                    <div class="article__related-title">{{ app_strings.read_also }}</div>
+                    <div class="article__related-links">
+                        <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god"
+                            class="article__related-card"><span class="article__related-label">{{
+                                app_strings.article_label
+                                }}</span><span class="article__related-text">{% if locale == 'kk' %}Жылдық қорытынды
+                                баға:
+                                формула 70/30{% else %}Как рассчитать итоговую оценку за год — формула 70/30{% endif
+                                %}</span><span class="article__related-arrow">→</span></a>
+                        <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="article__related-card"><span
+                                class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                                %}</span><span class="article__related-text">{% if locale == 'kk' %}Тоқсандық қорытынды
+                                баға
+                                — ФО + СОР + СОЧ{% else %}Итоговая оценка за четверть — ФО + СОР + СОЧ{% endif
+                                %}</span><span class="article__related-arrow">→</span></a>
+                        <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="article__related-card"><span
+                                class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                                %}</span><span class="article__related-text">{% if locale == 'kk' %}СОЧ қалай есептеледі
+                                —
+                                формула және мысал{% else %}Как рассчитать СОЧ — формула и пример{% endif %}</span><span
+                                class="article__related-arrow">→</span></a>
+                        <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="article__related-card"><span
+                                class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                                %}</span><span class="article__related-text">{% if locale == 'kk' %}СОР қалай есептеледі
+                                —
+                                толық нұсқаулық{% else %}Как рассчитать СОР — полное руководство{% endif %}</span><span
+                                class="article__related-arrow">→</span></a>
+                        <a href="{{ locale_prefix }}/kak-rasschitat-so" class="article__related-card"><span
+                                class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                                %}</span><span class="article__related-text">{% if locale == 'kk' %}ФО дегеніміз не және
+                                қалай есептеледі{% else %}Что такое ФО и как считается{% endif %}</span><span
+                                class="article__related-arrow">→</span></a>
+                        <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="article__related-card"><span
+                                class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                                %}</span><span class="article__related-text">{% if locale == 'kk' %}МОН РК бағалау
+                                әдістемесі{% else %}Официальная методика расчёта МОН РК{% endif %}</span><span
+                                class="article__related-arrow">→</span></a>
+                        <a href="{{ locale_prefix }}/perehod-na-12-letku-kazakhstan" class="article__related-card"><span
+                                class="article__related-label">{% if locale == 'kk' %}Мақала{% else %}Статья{% endif
+                                %}</span><span class="article__related-text">{% if locale == 'kk' %}3–8 сыныптар мен 12
+                                жылдық оқуға өту Қазақстанда — шындық па?{% else %}3–8 классы и 12-летнее обучение в
+                                Казахстане — правда или фейк{% endif %}</span><span
+                                class="article__related-arrow">→</span></a>
+                    </div>
+                </div>
         </article>
         <aside class="article-sidebar">
             <div class="sidebar-widget sidebar-widget--cta">
-                <div class="sidebar-widget__title">Рассчитать онлайн</div>
-                <p class="sidebar-widget__text">Введи свои баллы за ФО, СОР и СОЧ — калькулятор мгновенно покажет итоговую оценку за четверть</p>
-                <a href="/" class="btn sidebar-widget__btn">Открыть калькулятор →</a>
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#3cb648' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    {{ app_strings.sidebar_calc_title }}
+                </div>
+                <p class="sidebar-widget__text">{% if locale == 'kk' %}ФО, СОР және СОЧ баллдарыңды енгіз — калькулятор
+                    тоқсандық қорытынды бағаны бірден көрсетеді{% else %}Введи свои баллы за ФО, СОР и СОЧ — калькулятор
+                    мгновенно покажет
+                    итоговую оценку за четверть{% endif %}</p>
+                <a href="{{ locale_home }}" class="btn sidebar-widget__btn">{{ app_strings.sidebar_calc_btn }}</a>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Шкала оценок</div>
+                <div class="sidebar-widget__title">{% if locale == 'kk' %}Баға шкаласы{% else %}Шкала оценок{% endif %}
+                </div>
                 <div class="sidebar-widget__formula" style="color:#22c55e">85–100% → 5</div>
                 <div class="sidebar-widget__formula" style="color:var(--success);margin-top:6px">65–84% → 4</div>
                 <div class="sidebar-widget__formula" style="color:var(--warning);margin-top:6px">40–64% → 3</div>
                 <div class="sidebar-widget__formula" style="color:var(--danger);margin-top:6px">0–39% → 2</div>
-                <div class="sidebar-widget__note" style="margin-top:8px">≥ 0,5 → округление вверх</div>
+                <div class="sidebar-widget__note" style="margin-top:8px">{% if locale == 'kk' %}≥ 0,5 → жоғары
+                    дөңгелектеу{% else %}≥ 0,5 → округление вверх{% endif %}</div>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Другие статьи</div>
+                <div class="sidebar-widget__title">{{ app_strings.sidebar_other_articles }}</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ Оценка за год (70/30)</a>
-                    <a href="/itogovaya-ocenka-za-chetvert"             class="sidebar-nav__link">→ Оценка за четверть</a>
-                    <a href="/kak-rasschitat-soch"                      class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
-                    <a href="/kak-rasschitat-sor"                       class="sidebar-nav__link">→ Как рассчитать СОР</a>
-                    <a href="/kak-rasschitat-so"                        class="sidebar-nav__link">→ Как рассчитать ФО</a>
-                    <a href="/metodika-rascheta-mon-rk"                 class="sidebar-nav__link">→ Методика МОН РК</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ {%
+                        if locale == 'kk' %}Жылдық баға (70/30){% else %}Оценка за год (70/30){% endif %}</a>
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ {% if locale
+                        == 'kk' %}Тоқсандық баға{% else %}Оценка за четверть{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}СОЧ қалай есептеледі{% else %}Как рассчитать СОЧ{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}СОР қалай есептеледі{% else %}Как рассчитать СОР{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-so" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}ФО қалай есептеледі{% else %}Как рассчитать ФО{% endif %}</a>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="sidebar-nav__link">→ {% if locale ==
+                        'kk' %}МОН РК әдістемесі{% else %}Методика МОН РК{% endif %}</a>
                 </nav>
             </div>
         </aside>
@@ -439,47 +1052,47 @@
 
 {% block extra_js %}
 <script>
-function convertPct(val) {
-    var resEl   = document.getElementById('convResult');
-    var labelEl = document.getElementById('convLabel');
-    var hintEl  = document.getElementById('convHint');
-    var raw = parseFloat(val);
-    if (isNaN(raw) || val === '') {
-        resEl.textContent = '—'; resEl.className = 'converter-result c-grade-empty';
-        labelEl.textContent = ''; hintEl.textContent = ''; return;
+    function convertPct(val) {
+        var resEl = document.getElementById('convResult');
+        var labelEl = document.getElementById('convLabel');
+        var hintEl = document.getElementById('convHint');
+        var raw = parseFloat(val);
+        if (isNaN(raw) || val === '') {
+            resEl.textContent = '—'; resEl.className = 'converter-result c-grade-empty';
+            labelEl.textContent = ''; hintEl.textContent = ''; return;
+        }
+        var pct = Math.round(raw * 10) / 10;
+        var rounded = Math.round(raw);
+        var grade, label, cls;
+        if (rounded >= 85) { grade = '5'; label = 'Отлично'; cls = 'c-grade-5'; }
+        else if (rounded >= 65) { grade = '4'; label = 'Хорошо'; cls = 'c-grade-4'; }
+        else if (rounded >= 40) { grade = '3'; label = 'Удовлетворительно'; cls = 'c-grade-3'; }
+        else { grade = '2'; label = 'Неудовлетворительно'; cls = 'c-grade-2'; }
+        resEl.textContent = grade; resEl.className = 'converter-result ' + cls;
+        labelEl.textContent = '— ' + label;
+        if (raw !== rounded) {
+            var dir = rounded > raw ? 'вверх' : 'вниз';
+            hintEl.textContent = pct + '% → округление ' + dir + ' → ' + rounded + '%';
+        } else {
+            hintEl.textContent = pct + '% → ' + rounded + '%';
+        }
     }
-    var pct = Math.round(raw * 10) / 10;
-    var rounded = Math.round(raw);
-    var grade, label, cls;
-    if (rounded >= 85)      { grade = '5'; label = 'Отлично';             cls = 'c-grade-5'; }
-    else if (rounded >= 65) { grade = '4'; label = 'Хорошо';              cls = 'c-grade-4'; }
-    else if (rounded >= 40) { grade = '3'; label = 'Удовлетворительно';   cls = 'c-grade-3'; }
-    else                    { grade = '2'; label = 'Неудовлетворительно'; cls = 'c-grade-2'; }
-    resEl.textContent = grade; resEl.className = 'converter-result ' + cls;
-    labelEl.textContent = '— ' + label;
-    if (raw !== rounded) {
-        var dir = rounded > raw ? 'вверх' : 'вниз';
-        hintEl.textContent = pct + '% → округление ' + dir + ' → ' + rounded + '%';
-    } else {
-        hintEl.textContent = pct + '% → ' + rounded + '%';
-    }
-}
 
-var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
 
-document.querySelectorAll('.faq-q').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var item = this.closest('.faq-item');
-        var isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(function(i) {
-            i.classList.remove('open');
-            i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    document.querySelectorAll('.faq-q').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var item = this.closest('.faq-item');
+            var isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(function (i) {
+                i.classList.remove('open');
+                i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) { item.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
         });
-        if (!isOpen) { item.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
     });
-});
 </script>
 {% endblock %}

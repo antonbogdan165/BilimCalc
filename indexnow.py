@@ -1,28 +1,21 @@
 import json
 import os
+import urllib.error
 import urllib.request
 from urllib.parse import urlparse
 
-from config import SITE_URL
+from config import DEFAULT_INDEXNOW_KEY, SITE_URL
+from routes_map import ARTICLE_ROUTES, NOINDEX_ROUTES
 
-URLS = [
-    f"{SITE_URL}/",
-    f"{SITE_URL}/articles",
-    f"{SITE_URL}/kalkulator-ekzamena",
-    f"{SITE_URL}/kak-rasschitat-so",
-    f"{SITE_URL}/kak-rasschitat-sor",
-    f"{SITE_URL}/kak-rasschitat-soch",
-    f"{SITE_URL}/itogovaya-ocenka-za-chetvert",
-    f"{SITE_URL}/metodika-rascheta-mon-rk",
-    f"{SITE_URL}/kak-rasschitat-itogovuyu-otsenku-za-god",
-    f"{SITE_URL}/kak-perevesti-procenty-v-otsenku",
-    f"{SITE_URL}/perehod-na-12-letku-kazakhstan",
-    f"{SITE_URL}/porogovye-bally-granta-ent",
-    f"{SITE_URL}/kombinacii-profilnyh-predmetov-ent",
-    f"{SITE_URL}/kalkulator-shansov-granta",
-]
+URL_PATHS = ["/", "/kk"]
+for path in ARTICLE_ROUTES:
+    if path in NOINDEX_ROUTES:
+        continue
+    URL_PATHS.extend([path, "/kk" + path])
 
-KEY = os.environ.get("INDEXNOW_KEY", "bilimcalc2026key")
+URLS = [SITE_URL + path for path in URL_PATHS]
+
+KEY = DEFAULT_INDEXNOW_KEY
 ENDPOINTS = [
     "https://api.indexnow.org/indexnow",
     "https://yandex.com/indexnow",

@@ -1,4 +1,4 @@
-(function (w, d) {
+﻿(function (window, document) {
   'use strict';
 
   const SESSION_KEY = 'ab_notice_dismissed';
@@ -16,92 +16,107 @@
   const setDismissed = () => {
     try {
       sessionStorage.setItem(SESSION_KEY, '1');
-    } catch {}
+    } catch {
+      // ignore
+    }
   };
 
-  function buildBanner() {
-    const el = d.createElement('div');
+  const translate = (key, fallback) => {
+    const I18N = window.APP_STRINGS || {};
+    if (typeof window.__ === 'function') {
+      return window.__(key);
+    }
+    return I18N[key] || fallback;
+  };
+
+  const buildBanner = () => {
+    const label = translate('disable_adblock_title', 'Запрос на отключение блокировщика рекламы');
+    const heading = translate('disable_adblock_heading', 'Реклама помогает сайту работать бесплатно');
+    const message = translate(
+      'disable_adblock_text',
+      'BilimCalc — бесплатный сервис для учеников Казахстана. Реклама покрывает расходы на хостинг и разработку. Пожалуйста, отключите блокировщик для этого сайта — это займёт 10 секунд 🙂'
+    );
+    const howBtn = translate('disable_adblock_how', 'Как отключить?');
+    const skipBtn = translate('disable_adblock_continue', 'Продолжить');
+    const closeLabel = translate('close', 'Закрыть');
+
+    const el = document.createElement('div');
     el.id = 'adblock-notice';
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-modal', 'false');
-    el.setAttribute(
-      'aria-label',
-      'Запрос на отключение блокировщика рекламы'
-    );
+    el.setAttribute('aria-label', label);
 
-    el.innerHTML =
-      '<span class="abn__icon" aria-hidden="true">🙏</span>' +
-      '<div class="abn__body">' +
-        '<p class="abn__title">Реклама помогает сайту работать бесплатно</p>' +
-        '<p class="abn__text">BilimCalc — бесплатный сервис для учеников Казахстана.' +
-        ' Реклама покрывает расходы на хостинг и разработку.' +
-        ' Пожалуйста, отключите блокировщик для этого сайта — это займёт 10 секунд 🙂</p>' +
-        '<div class="abn__actions">' +
-          '<button class="abn__btn abn__btn--primary" data-abn="how">Как отключить?</button>' +
-          '<button class="abn__btn abn__btn--secondary" data-abn="skip">Продолжить</button>' +
-        '</div>' +
-      '</div>' +
-      '<button class="abn__close" data-abn="close" aria-label="Закрыть">' +
-        '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">' +
-          '<path d="M1 1l8 8M9 1L1 9" stroke="currentColor"' +
-          ' stroke-width="1.8" stroke-linecap="round"/>' +
-        '</svg>' +
-      '</button>';
+    el.innerHTML = `
+      <span class="abn__icon" aria-hidden="true">🙏</span>
+      <div class="abn__body">
+        <p class="abn__title">${heading}</p>
+        <p class="abn__text">${message}</p>
+        <div class="abn__actions">
+          <button class="abn__btn abn__btn--primary" data-abn="how">${howBtn}</button>
+          <button class="abn__btn abn__btn--secondary" data-abn="skip">${skipBtn}</button>
+        </div>
+      </div>
+      <button class="abn__close" data-abn="close" aria-label="${closeLabel}">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+          <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    `;
 
     return el;
-  }
+  };
 
-  function show() {
-    if (isDismissed() || d.getElementById('adblock-notice')) return;
+  const showBanner = () => {
+    if (isDismissed() || document.getElementById('adblock-notice')) return;
 
-    const el = buildBanner();
-    d.body.appendChild(el);
+    const banner = buildBanner();
+    document.body.appendChild(banner);
 
     requestAnimationFrame(() =>
-      requestAnimationFrame(() => el.classList.add('abn--visible'))
+      requestAnimationFrame(() => banner.classList.add('abn--visible'))
     );
 
     const dismiss = () => {
-      el.classList.remove('abn--visible');
+      banner.classList.remove('abn--visible');
       setDismissed();
       setTimeout(() => {
-        if (el.parentNode) el.remove();
+        if (banner.parentNode) banner.parentNode.removeChild(banner);
       }, 420);
     };
 
-    el.addEventListener('click', e => {
-      const btn = e.target.closest('[data-abn]');
-      if (!btn) return;
-      if (btn.dataset.abn === 'how') {
+    banner.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-abn]');
+      if (!button) return;
+      if (button.dataset.abn === 'how') {
         setDismissed();
-        w.location.href = '/disable-adblock';
+        window.location.href = '/disable-adblock';
         return;
       }
       dismiss();
     });
 
-    el.addEventListener('keydown', e => {
-      if (e.key === 'Escape') dismiss();
+    banner.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') dismiss();
     });
-  }
+  };
 
-  function init() {
+  const init = () => {
     if (isDismissed()) return;
-    if (!w.AdblockDetector) {
-      console.warn('[AdblockUI] AdblockDetector not found. Load adblock-detector.js first.');
+    if (!window.AdblockDetector) {
       return;
     }
 
     setTimeout(async () => {
       try {
-        const detected = await w.AdblockDetector.detect();
-        if (detected) setTimeout(show, SHOW_DELAY);
-      } catch (e) {}
+        const detected = await window.AdblockDetector.detect();
+        if (detected) setTimeout(showBanner, SHOW_DELAY);
+      } catch {
+      }
     }, DETECT_DELAY);
-  }
+  };
 
-  if (d.readyState === 'loading') {
-    d.addEventListener('DOMContentLoaded', init, { once: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
     init();
   }

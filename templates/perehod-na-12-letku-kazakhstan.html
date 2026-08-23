@@ -1,12 +1,10 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}3–8 классы переводят на 12-летнее обучение в Казахстане? Правда или фейк (2026){% endblock %}
-{% block meta_desc %}В сети пишут, что 3–8 классы переходят на 12-летнее образование в Казахстане с 2026 года. Разбираем
-источник паники, проверяем факты и объясняем, что реально происходит.{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
+{% block meta_desc %}{{ page_meta.meta_desc }}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}3–8 классы переводят на 12-летку в Казахстане? Правда или фейк — 2026{% endblock %}
-{% block og_desc %}В интернете паника: 3–8 классы переходят на 12-летнее обучение. Разбираем откуда это взялось, что
-сказано в официальных документах и чего ждать реально.{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -15,13 +13,13 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "3–8 классы переводят на 12-летнее обучение в Казахстане? Правда или фейк (2026)",
-    "description": "Разбираем информацию о переходе 3–8 классов на 12-летнее образование в Казахстане. Откуда взялась паника, что говорит официальный документ и что реально меняется.",
+    "headline": "{% if locale == 'kk' %}Қазақстанда 3–8 сыныптар 12 жылдық білімге көшеді ме? Шын ба, жалған ба (2026){% else %}3–8 классы переводят на 12-летнее обучение в Казахстане? Правда или фейк (2026){% endif %}",
+    "description": "{% if locale == 'kk' %}Қазақстанда 3–8 сыныптардың 12 жылдық білімге көшуі туралы ақпаратты талдаймыз. Дүрбелең қайдан шықты, ресми құжат не дейді және нақты не өзгереді.{% else %}Разбираем информацию о переходе 3–8 классов на 12-летнее образование в Казахстане. Откуда взялась паника, что говорит официальный документ и что реально меняется.{% endif %}",
     "url": "{{ site_url }}/perehod-na-12-letku-kazakhstan",
     "datePublished": "2026-03-19",
     "dateModified": "2026-05-24",
     "image": "{{ site_url }}/static/icons/preview.webp?v={{ build_time }}",
-    "inLanguage": "ru",
+    "inLanguage": "{{ 'kk' if locale == 'kk' else 'ru' }}",
     "author": { "@type": "Person", "name": "Anton Bogdan", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
     "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/perehod-na-12-letku-kazakhstan" }
@@ -32,9 +30,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
-        { "@type": "ListItem", "position": 3, "name": "12-летнее образование в Казахстане", "item": "{{ site_url }}/perehod-na-12-letku-kazakhstan" }
+        { "@type": "ListItem", "position": 1, "name": "{{ app_strings.menu_home }}", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "{{ app_strings.all_articles }}", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "{% if locale == 'kk' %}Қазақстандағы 12 жылдық білім{% else %}12-летнее образование в Казахстане{% endif %}", "item": "{{ site_url }}/perehod-na-12-letku-kazakhstan" }
     ]
 }
 </script>
@@ -45,42 +43,42 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Правда ли, что 3–8 классы переходят на 12-летнее обучение?",
+      "name": "{% if locale == 'kk' %}3–8 сыныптар 12 жылдық білімге көшеді дегені рас па?{% else %}Правда ли, что 3–8 классы переходят на 12-летнее обучение?{% endif %}",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Нет. На момент написания этой статьи официального решения о переходе 3–8 классов на 12-летнее обучение в Казахстане не принято. Информация появилась из проекта базового учебного плана, который ещё не был утверждён."
+        "text": "{% if locale == 'kk' %}Жоқ. Осы мақала жазылған сәтте Қазақстанда 3–8 сыныптарды 12 жылдық білімге көшіру туралы ресми шешім қабылданбаған. Ақпарат әлі бекітілмеген негізгі оқу жоспарының жобасынан пайда болды.{% else %}Нет. На момент написания этой статьи официального решения о переходе 3–8 классов на 12-летнее обучение в Казахстане не принято. Информация появилась из проекта базового учебного плана, который ещё не был утверждён.{% endif %}"
       }
     },
     {
       "@type": "Question",
-      "name": "Когда введут 12-летнее образование в Казахстане?",
+      "name": "{% if locale == 'kk' %}Қазақстанда 12 жылдық білім қашан енгізіледі?{% else %}Когда введут 12-летнее образование в Казахстане?{% endif %}",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Точные сроки официально не объявлены. Тема обсуждается уже несколько лет, но конкретного утверждённого плана перехода для 3–8 классов пока нет."
+        "text": "{% if locale == 'kk' %}Нақты мерзімдер ресми жарияланбаған. Тақырып бірнеше жылдан бері талқыланып келеді, бірақ 3–8 сыныптарға арналған бекітілген көшу жоспары әлі жоқ.{% else %}Точные сроки официально не объявлены. Тема обсуждается уже несколько лет, но конкретного утверждённого плана перехода для 3–8 классов пока нет.{% endif %}"
       }
     },
     {
       "@type": "Question",
-      "name": "Почему все говорят про 2026 год?",
+      "name": "{% if locale == 'kk' %}Неге бәрі 2026 жыл туралы айтады?{% else %}Почему все говорят про 2026 год?{% endif %}",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Потому что обсуждался проект базового учебного плана на 2026–2027 учебный год. Некоторые СМИ и TikTok-авторы подали это как уже принятое решение, хотя проект — это лишь рабочий документ для обсуждения."
+        "text": "{% if locale == 'kk' %}Себебі 2026–2027 оқу жылына арналған негізгі оқу жоспарының жобасы талқыланды. Кейбір БАҚ пен TikTok авторлары мұны талқылауға арналған жұмыс құжаты болса да, қазірдің өзінде қабылданған шешім ретінде ұсынды.{% else %}Потому что обсуждался проект базового учебного плана на 2026–2027 учебный год. Некоторые СМИ и TikTok-авторы подали это как уже принятое решение, хотя проект — это лишь рабочий документ для обсуждения.{% endif %}"
       }
     },
     {
       "@type": "Question",
-      "name": "Чем отличается проект учебного плана от официального решения?",
+      "name": "{% if locale == 'kk' %}Оқу жоспарының жобасы ресми шешімнен немен ерекшеленеді?{% else %}Чем отличается проект учебного плана от официального решения?{% endif %}",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Проект — это рабочий документ, который рассматривается и обсуждается. Он может быть изменён, отложен или вовсе не принят. Официальным решением считается только утверждённый приказ Министерства просвещения РК."
+        "text": "{% if locale == 'kk' %}Жоба — бұл қаралып, талқыланатын жұмыс құжаты. Ол өзгертілуі, кейінге қалдырылуы немесе мүлдем қабылданбауы мүмкін. Ресми шешім деп тек Қазақстан Республикасы Оқу-ағарту министрлігінің бекітілген бұйрығы саналады.{% else %}Проект — это рабочий документ, который рассматривается и обсуждается. Он может быть изменён, отложен или вовсе не принят. Официальным решением считается только утверждённый приказ Министерства просвещения РК.{% endif %}"
       }
     },
     {
       "@type": "Question",
-      "name": "Что реально изменится в школах Казахстана в 2026 году?",
+      "name": "{% if locale == 'kk' %}Қазақстан мектептерінде 2026 жылы нақты не өзгереді?{% else %}Что реально изменится в школах Казахстана в 2026 году?{% endif %}",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "В ближайшее время продолжается обновление учебных программ и учебников. Глобальный переход всех классов на 12-летнее обучение пока находится на стадии обсуждения и официально не утверждён."
+        "text": "{% if locale == 'kk' %}Жақын арада оқу бағдарламалары мен оқулықтарды жаңарту жалғасуда. Барлық сыныптарды 12 жылдық білімге жаппай көшіру әлі талқылау сатысында және ресми бекітілмеген.{% else %}В ближайшее время продолжается обновление учебных программ и учебников. Глобальный переход всех классов на 12-летнее обучение пока находится на стадии обсуждения и официально не утверждён.{% endif %}"
       }
     }
   ]
@@ -90,45 +88,266 @@
 
 {% block content %}
 <div class="article-wrap">
-    <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <a href="/">Главная</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <a href="/articles">Статьи</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <span aria-current="page">12-летнее образование</span>
-    </nav>
 
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
 
             <h1 class="article__title" itemprop="headline">
-                3–8 классы переводят на 12-летнее обучение в Казахстане? Это правда или фейк
+                {% if locale == 'kk' %}3–8 сыныптар Қазақстанда 12 жылдық білімге көшеді? Бұл шын ба, жаңалық па?{% else
+                %}3–8 классы переводят на 12-летнее обучение в Казахстане? Это правда или фейк{% endif %}
             </h1>
 
             <div class="article__meta">
                 <time datetime="2026-03-19" itemprop="dateModified">Май 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>6 мин чтения</span>
+                <span>6 {{ app_strings.reading_time_suffix }}</span>
                 <span class="article__meta-sep">·</span>
-                <span>Образование · Факт-чек</span>
+                <span>{% if locale == 'kk' %}Білім · Факт-чек{% else %}Образование · Факт-чек{% endif %}</span>
             </div>
 
-            <a href="/" class="mobile-cta">
+            <a href="{{ locale_home }}" class="mobile-cta">
                 <div class="mobile-cta__icon">🧮</div>
                 <div class="mobile-cta__body">
-                    <div class="mobile-cta__label">Открыть</div>
-                    <div class="mobile-cta__title">Калькулятор оценок</div>
+                    <div class="mobile-cta__label">{% if locale == 'kk' %}Ашу{% else %}Открыть{% endif %}</div>
+                    <div class="mobile-cta__title">{% if locale == 'kk' %}Бағалау калькуляторы{% else %}Калькулятор
+                        оценок{% endif %}</div>
                 </div>
                 <span class="mobile-cta__arrow">→</span>
             </a>
 
             <p class="article__lead">
+                {% if locale == 'kk' %}
+                TikTok-те, ата-ана чаты және жаңалықтар сайттарында кеңінен былай жазады: <strong>Қазақстандағы 3–8
+                    сыныптар 2026 жылдан бастап 12 жылдық білім жүйесіне өтеді</strong>. Көптеген ата-аналар қорқып
+                кетті. Бірақ қобалжымастан бұрын, бұл жаңалықтың артында не тұрғанын анықтап көрейік.
+                {% else %}
                 В TikTok, родительских чатах и новостных сайтах массово пишут:
                 <strong>3–8 классы в Казахстане уже с 2026 года переходят на 12-летнее обучение</strong>.
                 Многие родители в панике. Но прежде чем переживать — давай разберёмся,
                 что на самом деле стоит за этой новостью.
+                {% endif %}
             </p>
 
+            {% if locale == 'kk' %}
+            <div class="factcheck-box factcheck-box--false">
+                <div class="factcheck-box__label">
+                    <span class="factcheck-box__icon">❌</span>
+                    Ресми шешім ЖОҚ
+                </div>
+                <p class="factcheck-box__text">
+                    Мақала жарияланған кезде 3–8 сыныптарды 12 жылдық білімге көшіру ресми түрде
+                    <strong>бекітілмеген</strong>. Бұл жоба қарастырылған, бірақ жоба — заң емес.
+                </p>
+            </div>
+
+            <h2>Бұл ақпарат қайдан шықты?</h2>
+            <p>
+                Паниқа туғызған басты дерек — 2026–2027 оқу жылына арналған негізгі оқу жоспарының жоба нұсқасы.
+                Онда жүйені жаңарту сұрақтары, соның ішінде 12 жылдыққа көшу мүмкіндігі талқыланды.
+            </p>
+            <p>
+                Осыдан «3–8 сыныптар» және «2026 жыл» деген тіркестер тарады.
+                Бірақ көпшілік бұл ақпараттың маңызды бір бөлігін ескермеді:
+            </p>
+
+            <div class="article__formula">
+                <div class="article__formula-title">Маңыздысы</div>
+                <div class="article__formula-body">Оқу жоспарының жобасы ≠ ҚР білім министрлігінің ресми шешімі</div>
+            </div>
+
+            <p>
+                Жоба — бұл талқылауға арналған жұмыс құжаты. Ол өзгертілуі, кейінге қалдырылуы немесе мүлдем
+                қабылданбауы мүмкін. Білім министрлігі бекітілген бұйрық шығармағанға дейін — ешқандай
+                реформа ресми түрде жоқ.
+            </p>
+
+            <h2>Мұндай «жаңалықтар» қалай таралады</h2>
+            <p>
+                Осындай дақпырттар әдетте мынадай қадамдар арқылы тарайды:
+            </p>
+            <div class="article__example">
+                <table class="article__table">
+                    <thead>
+                        <tr>
+                            <th>Қадам</th>
+                            <th>Не болады</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Қоғамдық талқылауға арналған жоба жарияланады</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Бір сайт оны дауысты тақырыппен жариялайды</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>TikTok пен Telegram-дар деректі тексермей көшіреді</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Ата-ана чаттарында «бұл енді шешілді» деп таралады</td>
+                        </tr>
+                        <tr class="article__table-result">
+                            <td colspan="2"><strong>Нәтиже:</strong> қарапайым жоба ресми реформаға айналды</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Мектептерде нақты не өзгереді?</h2>
+            <p>
+                Қазақстан білім жүйесінде өзгерістер жүріп жатыр — бұл шындық.
+                Бірақ қазір 3–8 сыныптарды дереу 12 жылдыққа көшіру туралы әңгіме жоқ:
+            </p>
+            <ul>
+                <li>негізгі пәндердің оқу бағдарламалары жаңартылуда;</li>
+                <li>бірқатар сыныптар үшін жаңа оқулықтар дайындалуда;</li>
+                <li>бағалау жүйесі қайта қаралуда — ФО, СОР және СОЧ тәртібі жетілдіруде;</li>
+                <li>12 жылдық білімге ұзақ мерзімді көшу талқылануда, бірақ нақты мерзімі жоқ.</li>
+            </ul>
+
+            <h2>12 жылдық білім дегеніміз не және неге оны талқылайды?</h2>
+            <p>
+                Қазіргі уақытта Қазақстанда 11 жылдық білім жүйесі (1–11 класс) қолданылады.
+                Көптеген дамыған елдерде 12 немесе 13 жаста оқуды аяқтайды.
+                12 жылдыққа көшу идеясы Қазақстанда он жылдан бері талқыланып келеді.
+            </p>
+            <p>
+                Жақтаушылардың негізгі аргументі — түлектерді халықаралық стандартқа жақын дайындау.
+                Кемшіліктері — оқу бағдарламаларын қайта қарастыру, мұғалімдерді қайта даярлау және шығындар.
+            </p>
+            <p>
+                Сондықтан бұл тақырып жобаларда жиі шығады, бірақ нақты шешім жиі кейінге қалдырылады.
+            </p>
+
+            <h2>Қорытынды — шын ба, әлде фейк?</h2>
+            <div class="article__example">
+                <table class="article__table">
+                    <thead>
+                        <tr>
+                            <th>Мәлімдеме</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12 жылдыққа көшу туралы идея талқыланды</td>
+                            <td><strong style="color:#3fb950">✔ Иә</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Тақырып 2026–2027 оқу жоспары жобасында болды</td>
+                            <td><strong style="color:#3fb950">✔ Иә</strong></td>
+                        </tr>
+                        <tr>
+                            <td>3–8 сыныптар үшін ресми шешім қабылданды</td>
+                            <td><strong style="color:#ff7070">❌ ЖОҚ</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Реформа 2026 жылдан бастап жүргізіледі</td>
+                            <td><strong style="color:#ff7070">❌ Расталмаған</strong></td>
+                        </tr>
+                        <tr class="article__table-result">
+                            <td><strong>Жалпы қорытынды</strong></td>
+                            <td><strong>Артық әңгіме / асыра сілтеу</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>
+                Ұстараудың қажеті жоқ. Тек ҚР Білім және ғылым министрлігінің ресми хабарламаларын бақылаңыз —
+                нақты шешімдер тек сол жерде жарияланады. Қалғанының барлығы — талқылау мен жоба.
+            </p>
+
+            <h2>{{ app_strings.faq_title }}</h2>
+
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>3–8 сыныптар 12 жылдық білімге көшеді ме?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>
+                            Жоқ. 3–8 сыныптар үшін 12 жылдыққа көшу туралы ресми шешім әлі қабылданған жоқ.
+                            Бұл ақпарат — талқылауға арналған жобаға қатысты, бірақ ол бекітілген құжат емес.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>12 жылдық білім қашан енгізіледі?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>
+                            Ресми мерзімдер жоқ. Бұл тақырып талқыланып жатыр, бірақ нақты шешім әлі жарияланбаған.
+                            ҚР білім министрлігінің ресми хабарламаларын қадағалаңыз.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Неге 2026 жыл туралы айтылады?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>
+                            Себебі 2026–2027 оқу жылына арналған оқу жоспарының жобасы талқыланған.
+                            Кейбір БАҚ пен TikTok авторлары оны ресми шешім деп берді, бірақ ол әлі жобалық материал.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Оқу жоспары жобасы ресми шешімнен қалай ерекшеленеді?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>
+                            Жоба — талқылауға арналған құжат, ол өзгертілуі немесе қабылданбауы мүмкін.
+                            Ресми шешім — тек ҚР білім министрлігінің бекіткен бұйрығы.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>2026 жылы мектептерде нақты не өзгереді?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>
+                            Оқу бағдарламалары жаңартылуда және жаңа оқулықтар дайындалып жатыр.
+                            Сонымен қатар бағалау жүйесі де жетілдірілуде — ФО, СОР, СОЧ тәртібі қайта қаралуда.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            {% else %}
             <div class="factcheck-box factcheck-box--false">
                 <div class="factcheck-box__label">
                     <span class="factcheck-box__icon">❌</span>
@@ -167,7 +386,6 @@
             <p>
                 Схема распространения таких слухов всегда одинаковая:
             </p>
-
             <div class="article__example">
                 <table class="article__table">
                     <thead>
@@ -271,7 +489,7 @@
                 Всё остальное — обсуждения и проекты.
             </p>
 
-            <h2>Часто задаваемые вопросы</h2>
+            <h2>{{ app_strings.faq_title }}</h2>
 
             <div class="faq-list">
 
@@ -336,9 +554,9 @@
                     </button>
                     <div class="faq-a">
                         <p>
-                            Проект — это документ, который <strong>рассматривается и обсуждается</strong>.
+                            Проект — это документ, который рассматривается и обсуждается.
                             Его могут изменить, дополнить или вовсе не принять.
-                            Официальным считается только <strong>утверждённый приказ</strong>
+                            Официальным считается только утверждённый приказ
                             Министерства просвещения РК с подписью и регистрацией.
                         </p>
                     </div>
@@ -363,23 +581,27 @@
                 </div>
 
             </div>
-
+            {% endif %}
             <div class="article__related">
-                <div class="article__related-title">Читайте также</div>
+                <div class="article__related-title">{{ app_strings.read_also }}</div>
                 <div class="article__related-links">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Как рассчитать итоговую оценку за год — формула 70/30</span>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
+                        <span class="article__related-text">{% if locale == 'kk' %}Жылдық қорытынды бағаны қалай есептеу
+                            керек — 70/30 формуласы{% else %}Как рассчитать итоговую оценку за год — формула 70/30{%
+                            endif %}</span>
                         <span class="article__related-arrow">→</span>
                     </a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Итоговая оценка за четверть: ФО + СОР + СОЧ</span>
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
+                        <span class="article__related-text">{% if locale == 'kk' %}Тоқсандық қорытынды баға: ФО + СОР +
+                            СОЧ{% else %}Итоговая оценка за четверть: ФО + СОР + СОЧ{% endif %}</span>
                         <span class="article__related-arrow">→</span>
                     </a>
-                    <a href="/metodika-rascheta-mon-rk" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Официальная методика расчёта МОН РК</span>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
+                        <span class="article__related-text">{% if locale == 'kk' %}МОН РК ресми есептеу әдістемесі{%
+                            else %}Официальная методика расчёта МОН РК{% endif %}</span>
                         <span class="article__related-arrow">→</span>
                     </a>
                 </div>
@@ -389,27 +611,47 @@
 
         <aside class="article-sidebar">
             <div class="sidebar-widget sidebar-widget--cta">
-                <div class="sidebar-widget__title">Рассчитать онлайн</div>
-                <p class="sidebar-widget__text">Посчитай итоговую оценку за четверть по системе ФО, СОР и СОЧ прямо
-                    сейчас</p>
-                <a href="/" class="btn sidebar-widget__btn">Открыть калькулятор →</a>
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#3cb648' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    {{ app_strings.sidebar_calc_title }}
+                </div>
+                <p class="sidebar-widget__text">{% if locale == 'kk' %}Тоқсандық қорытынды бағаны ФО, СОР және СОЧ
+                    жүйесі бойынша дәл қазір
+                    есепте{% else %}Посчитай итоговую оценку за четверть по системе ФО, СОР и СОЧ прямо
+                    сейчас{% endif %}</p>
+                <a href="{{ locale_home }}" class="btn sidebar-widget__btn">{{ app_strings.sidebar_calc_btn }}</a>
+            </div>
+            <div class="sidebar-widget sidebar-widget--cta cta-purple">
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#a78bfa' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    BilimExam
+                </div>
+                <p class="sidebar-widget__text">{% if locale == 'kk' %}Жылдық қорытынды баға — 9 және 11 сынып үшін
+                    70/30 формуласы{% else %}Итоговая оценка за год — формула 70/30 для 9 и 11 класса{% endif %}</p>
+                <a href="{{ locale_prefix }}/kalkulator-ekzamena" class="btn sidebar-widget__btn"
+                    style="background:linear-gradient(135deg,#6d28d9,#a78bfa)">{% if locale == 'kk' %}BilimExam ашу →{%
+                    else %}Открыть BilimExam →{% endif %}</a>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">🎓 BilimExam</div>
-                <p class="sidebar-widget__text">Итоговая оценка за год — формула 70/30 для 9 и 11 класса</p>
-                <a href="/kalkulator-ekzamena" class="btn sidebar-widget__btn"
-                    style="background:linear-gradient(135deg,#6d28d9,#a78bfa)">Открыть BilimExam →</a>
-            </div>
-            <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Другие статьи</div>
+                <div class="sidebar-widget__title">{{ app_strings.sidebar_other_articles }}</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ Оценка за год
-                        (70/30)</a>
-                    <a href="/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ Оценка за четверть</a>
-                    <a href="/kak-rasschitat-soch" class="sidebar-nav__link">→ Как рассчитать СОЧ</a>
-                    <a href="/kak-rasschitat-sor" class="sidebar-nav__link">→ Как рассчитать СОР</a>
-                    <a href="/kak-rasschitat-so" class="sidebar-nav__link">→ Как рассчитать ФО</a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Перевод процентов</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→
+                        {% if locale == 'kk' %}Жылдық баға (70/30){% else %}Оценка за год
+                        (70/30){% endif %}</a>
+                    <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="sidebar-nav__link">→ {% if locale
+                        == 'kk' %}Тоқсандық баға{% else %}Оценка за
+                        четверть{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}СОЧ қалай есептеледі{% else %}Как рассчитать СОЧ{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}СОР қалай есептеледі{% else %}Как рассчитать СОР{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-so" class="sidebar-nav__link">→ {% if locale == 'kk'
+                        %}ФО қалай есептеледі{% else %}Как рассчитать ФО{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ {% if
+                        locale == 'kk' %}Проценттерді бағаға аудару{% else %}Перевод
+                        процентов{% endif %}</a>
                 </nav>
             </div>
         </aside>

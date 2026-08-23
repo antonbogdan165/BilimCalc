@@ -1,13 +1,21 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}Статьи — система оценивания в школах Казахстана | BilimCalc{% endblock %}
-{% block meta_desc %}Все статьи BilimCalc: проходные баллы гранта ЕНТ, как рассчитать ФО, СОР, СОЧ, итоговую оценку за
-четверть и год. Официальная методика МОН РК, таблица перевода процентов.{% endblock %}
-{% block og_title %}Статьи о системе оценивания и поступлении в Казахстане — BilimCalc{% endblock %}
-{% block og_desc %}Полный список статей: проходные баллы гранта ЕНТ, ФО, СОР, СОЧ, итоговые оценки, методика МОН РК,
-перевод процентов.{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
+{% block meta_desc %}{{ page_meta.meta_desc }}{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
+
+{% block topbar %}
+{% set variant_class = 'topbar--calc' %}
+{% set show_exam_btn = false %}
+{% set brand_variant = 'calc_button' %}
+{% set logo_width = '13' %}
+{% set logo_height = '13' %}
+{% set active_link = 'active' %}
+{% include "_topbar.html" with context %}
+{% endblock %}
 
 {% block schema_extra %}
 <script type="application/ld+json">
@@ -24,11 +32,23 @@
 {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Статьи о системе оценивания в школах Казахстана",
-    "description": "Подробные руководства по расчёту ФО, СОР, СОЧ и итоговых оценок по методике МОН РК",
+    "name": "{% if locale == 'kk' %}Қазақстан мектептеріндегі бағалау жүйесі туралы мақалалар{% else %}Статьи о системе оценивания в школах Казахстана{% endif %}",
+    "description": "{% if locale == 'kk' %}МОН РК әдістемесі бойынша ФО, СОР, СОЧ және қорытынды бағаларды есептеу жөніндегі толық нұсқаулықтар{% else %}Подробные руководства по расчёту ФО, СОР, СОЧ и итоговых оценок по методике МОН РК{% endif %}",
     "url": "{{ site_url }}/articles",
     "numberOfItems": 10,
     "itemListElement": [
+{% if locale == 'kk' %}
+        { "@type": "ListItem", "position": 1, "url": "{{ site_url }}/porogovye-bally-granta-ent", "name": "ҰБТ грантына өтетін баллдар 2026" },
+        { "@type": "ListItem", "position": 2, "url": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent", "name": "ҰБТ профильдік пән комбинациялары" },
+        { "@type": "ListItem", "position": 3, "url": "{{ site_url }}/kak-rasschitat-itogovuyu-otsenku-za-god", "name": "Жылдық қорытынды бағаны қалай есептеу керек: 70/30 формуласы" },
+        { "@type": "ListItem", "position": 4, "url": "{{ site_url }}/itogovaya-ocenka-za-chetvert", "name": "Тоқсандық қорытынды баға" },
+        { "@type": "ListItem", "position": 5, "url": "{{ site_url }}/kak-rasschitat-soch", "name": "СОЧ қалай есептеледі" },
+        { "@type": "ListItem", "position": 6, "url": "{{ site_url }}/kak-rasschitat-sor", "name": "СОР қалай есептеледі" },
+        { "@type": "ListItem", "position": 7, "url": "{{ site_url }}/kak-rasschitat-so", "name": "ФО қалай есептеледі" },
+        { "@type": "ListItem", "position": 8, "url": "{{ site_url }}/metodika-rascheta-mon-rk", "name": "МОН РК әдістемесі" },
+        { "@type": "ListItem", "position": 9, "url": "{{ site_url }}/kak-perevesti-procenty-v-otsenku", "name": "Проценттерді бағаға аудару" },
+        { "@type": "ListItem", "position": 10, "url": "{{ site_url }}/perehod-na-12-letku-kazakhstan", "name": "Қазақстандағы 12 жылдық білім" }
+{% else %}
         { "@type": "ListItem", "position": 1, "url": "{{ site_url }}/porogovye-bally-granta-ent", "name": "Проходные баллы гранта ЕНТ 2026" },
         { "@type": "ListItem", "position": 2, "url": "{{ site_url }}/kombinacii-profilnyh-predmetov-ent", "name": "Комбинации профильных предметов ЕНТ" },
         { "@type": "ListItem", "position": 3, "url": "{{ site_url }}/kak-rasschitat-itogovuyu-otsenku-za-god", "name": "Итоговая оценка за год: формула 70/30" },
@@ -39,6 +59,7 @@
         { "@type": "ListItem", "position": 8, "url": "{{ site_url }}/metodika-rascheta-mon-rk", "name": "Методика расчёта МОН РК" },
         { "@type": "ListItem", "position": 9, "url": "{{ site_url }}/kak-perevesti-procenty-v-otsenku", "name": "Как перевести проценты в оценку" },
         { "@type": "ListItem", "position": 10, "url": "{{ site_url }}/perehod-na-12-letku-kazakhstan", "name": "12-летнее образование в Казахстане" }
+{% endif %}
     ]
 }
 </script>
@@ -46,49 +67,56 @@
 
 {% block content %}
 <div class="article-wrap">
-    <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <a href="/">Главная</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <span aria-current="page">Статьи</span>
-    </nav>
 
-    <h1 class="article__title" style="margin-bottom: 6px;">Статьи</h1>
+    <h1 class="article__title" style="margin-bottom: 6px;">{% if locale == 'kk' %}Мақалалар{% else %}Статьи{% endif %}
+    </h1>
     <p class="article__lead" style="margin-bottom: 24px;">
-        Подробные руководства по системе оценивания в школах Казахстана —
-        официальная методика МОН РК, формулы и примеры расчётов.
+        {% if locale == 'kk' %}Қазақстан мектептеріндегі бағалау жүйесі туралы толық нұсқаулықтар — ресми МОН РК
+        әдістемесі, формулалар және есептеу мысалдары.{% else %}Подробные руководства по системе оценивания в школах
+        Казахстана — официальная методика МОН РК, формулы и примеры расчётов.{% endif %}
     </p>
 
     <div class="articles-group">
-        <div class="articles-group__label">Поступление и грант ЕНТ</div>
+        <div class="articles-group__label">{% if locale == 'kk' %}Оқу және ҰБТ гранты{% else %}Поступление и грант ЕНТ{%
+            endif %}</div>
         <div class="articles-page-grid">
 
-            <a href="/porogovye-bally-granta-ent" class="apc">
+            <a href="{{ locale_prefix }}/porogovye-bally-granta-ent" class="apc">
                 <div class="apc__icon apc__icon--amber">
-                    <span>ЕНТ</span>
+                    <span>{% if locale == 'kk' %}ҰБТ{% else %}ЕНТ{% endif %}</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Проходные баллы гранта ЕНТ 2026</div>
-                    <div class="apc__desc">Пороговые и проходные баллы по группам программ, алгоритм распределения
-                        грантов, сельская квота и нововведения 2026 года.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}ҰБТ грантына өтетін баллдар 2026{% else %}Проходные
+                        баллы гранта ЕНТ 2026{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Бағалау бағдарламалары бойынша порогтық және өтетін
+                        баллдар, гранттарды бөлу алгоритмі, ауылдық квота және 2026 жылғы жаңалықтар.{% else %}Пороговые
+                        и проходные баллы по группам программ, алгоритм распределения грантов, сельская квота и
+                        нововведения 2026 года.{% endif %}</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">Грант ЕНТ</span>
-                        <span class="apc__tag">Нововведения 2026</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}ҰБТ гранты{% else %}Грант ЕНТ{% endif %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}2026 жылғы жаңалықтар{% else %}Нововведения 2026{%
+                            endif %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
             </a>
 
-            <a href="/kombinacii-profilnyh-predmetov-ent" class="apc">
+            <a href="{{ locale_prefix }}/kombinacii-profilnyh-predmetov-ent" class="apc">
                 <div class="apc__icon apc__icon--amber">
-                    <span>Пары</span>
+                    <span>{% if locale == 'kk' %}Жұптар{% else %}Пары{% endif %}</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Комбинации профильных предметов ЕНТ</div>
-                    <div class="apc__desc">Все 12 пар профильных предметов и специальности, которые они открывают.
-                        Таблица, главное правило выбора и частые ошибки абитуриентов.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}ҰБТ профильдік пән жұптары{% else %}Комбинации
+                        профильных предметов ЕНТ{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Барлық 12 жұп профильдік пән және олар ашатын
+                        мамандықтар. Кесте, негізгі таңдау ережесі және үміткерлердің жиі жіберетін қателері.{% else
+                        %}Все 12 пар профильных предметов и специальности, которые они открывают. Таблица, главное
+                        правило выбора и частые ошибки абитуриентов.{% endif %}</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">Профильные предметы</span>
-                        <span class="apc__tag">Выбор специальности</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Профильдік пәндер{% else %}Профильные предметы{%
+                            endif %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Мамандық таңдау{% else %}Выбор специальности{%
+                            endif %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
@@ -98,36 +126,45 @@
     </div>
 
     <div class="articles-group">
-        <div class="articles-group__label">Итоговые оценки</div>
+        <div class="articles-group__label">{% if locale == 'kk' %}Жиынтық бағалар{% else %}Итоговые оценки{% endif %}
+        </div>
         <div class="articles-page-grid">
 
-            <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="apc">
+            <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god" class="apc">
                 <div class="apc__icon apc__icon--purple">
                     <span>70/30</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Итоговая оценка за год: формула 70/30</div>
-                    <div class="apc__desc">Как рассчитывается итоговая оценка в 9 и 11 классах по методике МОН РК.
-                        Годовая × 70% + экзамен × 30%.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}Жылдық итогтық баға: 70/30 формуласы{% else
+                        %}Итоговая оценка за год: формула 70/30{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}МОН РК әдістемесі бойынша 9 және 11 сыныптарда жылдық
+                        итогтық бағаның қалай есептелетінін түсіндіреміз. Жылдық × 70% + емтихан × 30%.{% else %}Как
+                        рассчитывается итоговая оценка в 9 и 11 классах по методике МОН РК. Годовая × 70% + экзамен ×
+                        30%.{% endif %}</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">9 и 11 класс</span>
-                        <span class="apc__tag">Формула МОН</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}9 және 11 сынып{% else %}9 и 11 класс{% endif
+                            %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}МОН формуласы{% else %}Формула МОН{% endif
+                            %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
             </a>
 
-            <a href="/itogovaya-ocenka-za-chetvert" class="apc">
+            <a href="{{ locale_prefix }}/itogovaya-ocenka-za-chetvert" class="apc">
                 <div class="apc__icon apc__icon--red">
                     <span>ИО</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Итоговая оценка за четверть</div>
-                    <div class="apc__desc">Как рассчитывается итоговая оценка за четверть: ФО + СОР + СОЧ. Формула,
-                        пошаговый пример, переводная шкала.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}Тоқсандық бағалау{% else %}Итоговая оценка за
+                        четверть{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Тоқсандық бағалау қалай есептеледі: ФО + СОР + СОЧ.
+                        Формула, қадамдық мысал, балдарды түрлендіру шкаласы.{% else %}Как рассчитывается итоговая
+                        оценка за четверть: ФО + СОР + СОЧ. Формула, пошаговый пример, переводная шкала.{% endif %}
+                    </div>
                     <div class="apc__tags">
-                        <span class="apc__tag">5–11 класс</span>
-                        <span class="apc__tag">Формула</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}5–11 сынып{% else %}5–11 класс{% endif %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Формула{% else %}Формула{% endif %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
@@ -137,52 +174,61 @@
     </div>
 
     <div class="articles-group">
-        <div class="articles-group__label">Виды оценивания</div>
+        <div class="articles-group__label">{% if locale == 'kk' %}Бағалау түрлері{% else %}Виды оценивания{% endif %}
+        </div>
         <div class="articles-page-grid">
 
-            <a href="/kak-rasschitat-soch" class="apc">
+            <a href="{{ locale_prefix }}/kak-rasschitat-soch" class="apc">
                 <div class="apc__icon apc__icon--green">
                     <span>СОЧ</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Как рассчитать СОЧ</div>
-                    <div class="apc__desc">Суммативное оценивание за четверть: формула расчёта, вес 50% в итоговой
-                        оценке. Пример с числами и советы.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}СОЧ-ты қалай есептеу керек{% else %}Как рассчитать
+                        СОЧ{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Тоқсандық бағалау: есептеу формуласы, итогтық бағадағы
+                        салмағы 50%. Сандармен мысал және кеңестер.{% else %}Суммативное оценивание за четверть: формула
+                        расчёта, вес 50% в итоговой оценке. Пример с числами и советы.{% endif %}</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">СОЧ = 50%</span>
-                        <span class="apc__tag">Итоговая работа</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}СОЧ = 50%{% else %}СОЧ = 50%{% endif %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Итогтық жұмыс{% else %}Итоговая работа{% endif
+                            %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
             </a>
 
-            <a href="/kak-rasschitat-sor" class="apc">
+            <a href="{{ locale_prefix }}/kak-rasschitat-sor" class="apc">
                 <div class="apc__icon apc__icon--yellow">
                     <span>СОР</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Как рассчитать СОР</div>
-                    <div class="apc__desc">Суммативное оценивание за раздел: формула расчёта, вес 25% в итоговой оценке.
-                        Пример с двумя СОР и советы.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}СОР-ды қалай есептеу керек{% else %}Как рассчитать
+                        СОР{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Бөлімдік бағалау: есептеу формуласы, итогтық бағадағы
+                        салмағы 25%. Екі СОР мысалы және кеңестер.{% else %}Суммативное оценивание за раздел: формула
+                        расчёта, вес 25% в итоговой оценке. Пример с двумя СОР и советы.{% endif %}</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">СОР = 25%</span>
-                        <span class="apc__tag">За раздел</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}СОР = 25%{% else %}СОР = 25%{% endif %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Бөлім бойынша{% else %}За раздел{% endif %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
             </a>
 
-            <a href="/kak-rasschitat-so" class="apc">
+            <a href="{{ locale_prefix }}/kak-rasschitat-so" class="apc">
                 <div class="apc__icon apc__icon--blue">
                     <span>ФО</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Как рассчитать ФО</div>
-                    <div class="apc__desc">Суммативное оценивание: формула расчёта, вес 25% в итоговой оценке. Шкала
-                        1–10, пример с несколькими оценками.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}ФО-ны қалай есептеу керек{% else %}Как рассчитать
+                        ФО{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Формативті бағалау: есептеу формуласы, итогтық
+                        бағадағы салмағы 25%. 1–10 шкаласы, бірнеше баға мысалы.{% else %}Суммативное оценивание:
+                        формула расчёта, вес 25% в итоговой оценке. Шкала 1–10, пример с несколькими оценками.{% endif
+                        %}</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">ФО = 25%</span>
-                        <span class="apc__tag">Формативные</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}ФО = 25%{% else %}ФО = 25%{% endif %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Формативті{% else %}Формативные{% endif %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
@@ -192,52 +238,62 @@
     </div>
 
     <div class="articles-group">
-        <div class="articles-group__label">Справочные материалы</div>
+        <div class="articles-group__label">{% if locale == 'kk' %}Анықтамалық материалдар{% else %}Справочные
+            материалы{% endif %}</div>
         <div class="articles-page-grid">
 
-            <a href="/metodika-rascheta-mon-rk" class="apc">
+            <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="apc">
                 <div class="apc__icon apc__icon--slate">
                     <span>МОН</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Методика расчёта МОН РК</div>
-                    <div class="apc__desc">Официальная методика оценивания в казахстанских школах: критериальная
-                        система, нормативная база, три вида оценивания.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}МОН РК есептеу әдістемесі{% else %}Методика расчёта
+                        МОН РК{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Қазақстан мектептеріндегі ресми бағалау әдістемесі:
+                        критериалдық жүйе, нормативтік база, үш бағалау түрі.{% else %}Официальная методика оценивания в
+                        казахстанских школах: критериальная система, нормативная база, три вида оценивания.{% endif %}
+                    </div>
                     <div class="apc__tags">
-                        <span class="apc__tag">Официальная</span>
-                        <span class="apc__tag">МОН РК</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Ресми{% else %}Официальная{% endif %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}МОН РК{% else %}МОН РК{% endif %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
             </a>
 
-            <a href="/kak-perevesti-procenty-v-otsenku" class="apc">
+            <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="apc">
                 <div class="apc__icon apc__icon--slate">
                     <span>%→5</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">Как перевести проценты в оценку</div>
-                    <div class="apc__desc">Таблица перевода процентов в оценку по казахстанской шкале: 85%=5, 65%=4,
-                        40%=3. Правило округления и конвертер.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}Пайыздарды бағаға қалай аударуға болады{% else %}Как
+                        перевести проценты в оценку{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Қазақстандық шкала бойынша пайыздарды бағаға аудару
+                        кестесі: 85%=5, 65%=4, 40%=3. Дөңгелектеу ережесі және конвертер.{% else %}Таблица перевода
+                        процентов в оценку по казахстанской шкале: 85%=5, 65%=4, 40%=3. Правило округления и
+                        конвертер.{% endif %}</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">Шкала оценок</span>
-                        <span class="apc__tag">Конвертер</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Баға шкаласы{% else %}Шкала оценок{% endif
+                            %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Конвертер{% else %}Конвертер{% endif %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
             </a>
 
-            <a href="/perehod-na-12-letku-kazakhstan" class="apc">
+            <a href="{{ locale_prefix }}/perehod-na-12-letku-kazakhstan" class="apc">
                 <div class="apc__icon apc__icon--slate">
                     <span>12 лет</span>
                 </div>
                 <div class="apc__body">
-                    <div class="apc__title">12-летнее образование в Казахстане</div>
-                    <div class="apc__desc">Переход 3–8 классов на 12-летнее обучение в Казахстане — разбираем, правда
-                        это или фейк.</div>
+                    <div class="apc__title">{% if locale == 'kk' %}Қазақстандағы 12 жылдық білім{% else %}12-летнее
+                        образование в Казахстане{% endif %}</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Қазақстанда 3–8 сыныптарды 12 жылдық білімге көшіру —
+                        шындық па, жалған ба, бәрін талқылаймыз.{% else %}Переход 3–8 классов на 12-летнее обучение в
+                        Казахстане — разбираем, правда это или фейк.{% endif %}</div>
                     <div class="apc__tags">
-                        <span class="apc__tag">Образование</span>
-                        <span class="apc__tag">Факт-чек</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Білім{% else %}Образование{% endif %}</span>
+                        <span class="apc__tag">{% if locale == 'kk' %}Факт-чекинг{% else %}Факт-чек{% endif %}</span>
                     </div>
                 </div>
                 <span class="apc__arrow">→</span>
@@ -246,25 +302,44 @@
         </div>
     </div>
 
-    <div class="card" style="margin-top: 32px; text-align: center;">
-        <p style="font-size: 15px; color: var(--muted); margin-bottom: 16px;">
-            Хочешь рассчитать итоговую оценку прямо сейчас?
-        </p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <a href="/" class="btn"
-                style="text-decoration: none; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; padding: 0 24px;">
-                🧮 Калькулятор ФО / СОР / СОЧ
+    <div class="articles-group" style="margin-top: 8px;">
+        <div class="articles-group__label">{% if locale == 'kk' %}Дайын калькуляторлар{% else %}Готовые калькуляторы{%
+            endif %}</div>
+        <div class="articles-page-grid">
+
+            <a href="{{ locale_home }}" class="apc">
+                <div class="apc__icon apc__icon--green">{% set color = '#3cb648' %}{% include "_brand_icon_svg.html"
+                    with context %}</div>
+                <div class="apc__body">
+                    <div class="apc__title">BilimCalc</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}ФО, СОР, СОЧ бойынша тоқсандық баға{% else %}Итоговая
+                        оценка за четверть по ФО, СОР, СОЧ{% endif %}</div>
+                </div>
+                <span class="apc__arrow">→</span>
             </a>
-            <a href="/kalkulator-ekzamena" style="display: inline-flex; align-items: center; gap: 8px; padding: 0 24px; min-height: 46px;
-                      border-radius: 10px; background: rgba(167,139,250,0.10); border: 1px solid rgba(167,139,250,0.28);
-                      color: #a78bfa; text-decoration: none; font-weight: 700; font-size: 14px;">
-                🎓 BilimExam — итоговая за год
+
+            <a href="{{ locale_prefix }}/kalkulator-ekzamena" class="apc">
+                <div class="apc__icon apc__icon--purple">{% set color = '#a78bfa' %}{% include "_brand_icon_svg.html"
+                    with context %}</div>
+                <div class="apc__body">
+                    <div class="apc__title">BilimExam</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}Жыл соңының белгісі{% else %}Итоговая
+                        оценка за год{% endif %}</div>
+                </div>
+                <span class="apc__arrow">→</span>
             </a>
-            <a href="/kalkulator-shansov-granta" style="display: inline-flex; align-items: center; gap: 8px; padding: 0 24px; min-height: 46px;
-                      border-radius: 10px; background: rgba(245,158,11,0.10); border: 1px solid rgba(245,158,11,0.28);
-                      color: #f59e0b; text-decoration: none; font-weight: 700; font-size: 14px;">
-                🎯 BilimGrant — шансы на грант
+
+            <a href="{{ locale_prefix }}/kalkulator-shansov-granta" class="apc">
+                <div class="apc__icon apc__icon--amber">{% set color = '#f59e0b' %}{% include "_brand_icon_svg.html"
+                    with context %}</div>
+                <div class="apc__body">
+                    <div class="apc__title">BilimGrant</div>
+                    <div class="apc__desc">{% if locale == 'kk' %}ЕНТ грантына шансы{% else %}Шансы на грант ЕНТ{% endif
+                        %}</div>
+                </div>
+                <span class="apc__arrow">→</span>
             </a>
+
         </div>
     </div>
 </div>

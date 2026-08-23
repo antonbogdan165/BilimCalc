@@ -1,13 +1,9 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block meta_title %}Проходные баллы гранта ЕНТ 2026 — таблица, сроки подачи, вакантные гранты | BilimCalc{% endblock
-%}
-{% block meta_desc %}Пороговые и проходные баллы гранта ЕНТ 2026: IT, медицина, право, педагогика. Сроки подачи
-заявления, алгоритм распределения мест, что делать, если не хватило баллов. Калькулятор шансов.{% endblock %}
+{% block meta_title %}{{ page_meta.meta_title }}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}Проходные баллы ЕНТ на грант 2026 — как оценить свои шансы{% endblock %}
-{% block og_desc %}Актуальные пороговые цифры, сроки подачи заявления и что делать, если баллов не хватило.
-Таблица по группам программ.{% endblock %}
+{% block og_title %}{{ page_meta.og_title }}{% endblock %}
+{% block og_desc %}{{ page_meta.og_desc }}{% endblock %}
 {% block nav_articles %}active{% endblock %}
 {% block mob_articles %}active{% endblock %}
 
@@ -16,13 +12,13 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Проходные баллы ЕНТ на грант и как оценить свои шансы — 2026",
-    "description": "Пороговые баллы НЦТ, прогноз проходных на грант по группам программ, сроки подачи заявления и что делать, если баллов не хватило",
+    "headline": "{% if locale == 'kk' %}ҰБТ грантына өтетін баллдар — 2026 және мүмкіндіктерді бағалау{% else %}Проходные баллы ЕНТ на грант и как оценить свои шансы — 2026{% endif %}",
+    "description": "{% if locale == 'kk' %}2026 жылғы ҰБТ грантына өтетін болжамдар, НЦТ порогтық баллдары және балл жетпесе не істеу керек{% else %}Прогноз проходных баллов на грант ЕНТ 2026, пороговые баллы НЦТ и что делать, если баллов не хватило{% endif %}",
     "url": "{{ site_url }}/porogovye-bally-granta-ent",
-    "datePublished": "2026-07-31",
-    "dateModified": "2026-08-01",
+    "datePublished": "2025-09-01",
+    "dateModified": "2026-05-24",
     "image": "{{ site_url }}/static/icons/preview.webp?v={{ build_time }}",
-    "inLanguage": "ru",
+    "inLanguage": "{{ 'kk' if locale == 'kk' else 'ru' }}",
     "author": { "@type": "Person", "name": "Anton", "url": "https://github.com/antonbogdan165" },
     "publisher": { "@type": "Organization", "name": "BilimCalc", "logo": { "@type": "ImageObject", "url": "{{ site_url }}/static/icons/favicon-32x32.png?v={{ build_time }}" } },
     "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ site_url }}/porogovye-bally-granta-ent" }
@@ -33,9 +29,9 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "{{ site_url }}/" },
-        { "@type": "ListItem", "position": 2, "name": "Статьи", "item": "{{ site_url }}/articles" },
-        { "@type": "ListItem", "position": 3, "name": "Проходные баллы гранта ЕНТ", "item": "{{ site_url }}/porogovye-bally-granta-ent" }
+        { "@type": "ListItem", "position": 1, "name": "{{ app_strings.menu_home }}", "item": "{{ site_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "{{ app_strings.all_articles }}", "item": "{{ site_url }}/articles" },
+        { "@type": "ListItem", "position": 3, "name": "{% if locale == 'kk' %}ҰБТ грантына өтетін баллдар{% else %}Проходные баллы гранта ЕНТ{% endif %}", "item": "{{ site_url }}/porogovye-bally-granta-ent" }
     ]
 }
 </script>
@@ -46,137 +42,282 @@
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "Можно ли получить грант со средними баллами 70–80?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Хорошие шансы сохраняются на аграрных, ветеринарных и части непрофильных инженерных программ — прогноз проходного там всего 60–65 баллов. На педагогические специальности с таким баллом претендовать нельзя: порог допуска — 75 баллов, а прогноз проходного держится в районе 90–105. На IT, юриспруденцию или медицину пробиться с 70–80 баллами тоже практически невозможно." }
+            "name": "{% if locale == 'kk' %}70–80 баллмен грантқа түсуге бола ма?{% else %}Можно ли получить грант со средними баллами 70–80?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Аграрлық, ветеринарлық және кейбір инженерлік бағыттарда 70–80 баллмен мүмкіндік сақталады — болжамды проходной 60–65 балл. Педагогикалық мамандықтарға 70–80 балл жеткіліксіз: қатысу порогы 75, ал нақты проходной 90–105 балл шамасында. IT, құқық немесе медицинада осындай баллмен грант алу қиын.{% else %}Хорошие шансы сохраняются на аграрных, ветеринарных и части непрофильных инженерных программ — прогноз проходного там всего 60–65 баллов. На педагогические специальности с таким баллом претендовать нельзя: порог допуска — 75 баллов, а прогноз проходного держится в районе 90–105. На IT, юриспруденцию или медицину пробиться с 70–80 баллами тоже практически невозможно.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Как работает сельская квота на грант?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Сельская квота не добавляет баллы к результату. 35% грантов разыгрываются исключительно среди выпускников сельских школ. Исторически проходной балл по квоте на 5–15 пунктов ниже общего конкурса." }
+            "name": "{% if locale == 'kk' %}Грантқа ауылдық квота қалай әсер етеді?{% else %}Как работает сельская квота на грант?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Ауылдық квота нәтижеңе қосымша балл қоспайды. 35% гранттар тек ауылдық мектеп бітірушілер арасында бөлінеді. Қвотадағы өтетін балл әдетте жалпы конкурс деңгейінен 5–15 балл төмен болады.{% else %}Сельская квота не добавляет баллы к результату. 35% грантов разыгрываются исключительно среди выпускников сельских школ. Исторически проходной балл по квоте на 5–15 пунктов ниже общего конкурса.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Имеет ли значение порядок вузов в заявке?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Для факта получения гранта — нет. Бюджет выделяется на образовательную программу. Однако порядок критичен для зачисления: система направит в первый вуз из списка, куда вы проходите по баллам." }
+            "name": "{% if locale == 'kk' %}Қабылдау өтінішіндегі оқу орындарының реті маңызды ма?{% else %}Имеет ли значение порядок вузов в заявке?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Грантты алу фактісі үшін емес, ал оқуға қабылдау үшін маңызды. Жүйе бірінші кезекте бірінші таңдауыңызды қарайды. Егер бірінші орында өтпесеңіз, өтініш автоматты түрде келесі орынға өтеді.{% else %}Для факта получения гранта — нет. Бюджет выделяется на образовательную программу. Однако порядок критичен для зачисления: система направит в первый вуз из списка, куда вы проходите по баллам.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Какой минимальный балл для поступления в национальный вуз?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Абсолютный минимум для национальных университетов — 65 баллов. Для остальных вузов достаточно 50 баллов, но это не гарантирует грант — реальный проходной зависит от конкуренции." }
+            "name": "{% if locale == 'kk' %}Ұлттық университетке қабылдану үшін минималды балл қанша?{% else %}Какой минимальный балл для поступления в национальный вуз?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Ұлттық университеттерге қабылдану үшін абсолютті минимум — 65 балл. Басқа оқу орындары үшін 50 балл жеткілікті, бірақ бұл грант алуды қамтамасыз етпейді — нақты проходной конкурстан тәуелді.{% else %}Абсолютный минимум для национальных университетов — 65 баллов. Для остальных вузов достаточно 50 баллов, но это не гарантирует грант — реальный проходной зависит от конкуренции.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Можно ли получить грант, уже учась платно?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Да. Гранты, которые освобождаются в процессе учёбы (отчисление, академотпуск, отказ обладателя), передаются на конкурсной основе студентам той же группы программ, обучающимся платно — по результатам их ЕНТ или комплексного тестирования." }
+            "name": "{% if locale == 'kk' %}Төлем негізінде оқып жүріп грант алуға бола ма?{% else %}Можно ли получить грант, уже учась платно?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}Иә. Оқудан шығарылған, академиялық демалысқа шыққан немесе грант иесі бас тартқан орындар конкурс негізінде сол бағдарлама тобының төлем негізінде оқитын студенттеріне беріледі — олардың нәтижесі ҰБТ немесе кешенді тест бойынша бағаланады.{% else %}Да. Гранты, которые освобождаются в процессе учёбы (отчисление, академотпуск, отказ обладателя), передаются на конкурсной основе студентам той же группы программ, обучающимся платно — по результатам их ЕНТ или комплексного тестирования.{% endif %}" }
         },
         {
             "@type": "Question",
-            "name": "Как быстро оценить свои шансы на грант?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Воспользуйтесь калькулятором шансов BilimGrant — введите пробный балл ЕНТ, выберите специальность и тип вуза. Калькулятор сравнит ваш результат с прогнозным проходным диапазоном и покажет ориентировочную вероятность." }
+            "name": "{% if locale == 'kk' %}Грантқа шансыңды қалай тез бағалауға болады?{% else %}Как быстро оценить свои шансы на грант?{% endif %}",
+            "acceptedAnswer": { "@type": "Answer", "text": "{% if locale == 'kk' %}BilimGrant калькуляторын қолданып көр — ҰБТ алдын ала баллы мен мамандықты таңда, жүйе сенің баллыңды болжамдық проходной диапазонмен салыстырып, ықтималдықты көрсетеді.{% else %}Воспользуйтесь калькулятором шансов BilimGrant — введите пробный балл ЕНТ, выберите специальность и тип вуза. Калькулятор сравнит ваш результат с прогнозным проходным диапазоном и покажет ориентировочную вероятность.{% endif %}" }
         }
     ]
 }
 </script>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    .article ul {
-        margin: 12px 0 16px 0;
-        padding-left: 0;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .article ul li {
-        font-size: 15px;
-        line-height: 1.75;
-        color: #b0bec8;
-        padding-left: 20px;
-        position: relative;
-    }
-
-    .article ul li::before {
-        content: '—';
-        position: absolute;
-        left: 0;
-        color: #f59e0b;
-        font-weight: 700;
-        opacity: 0.6;
-    }
-
-    .article ul li strong {
-        color: #e6edf3;
-    }
-
-    .article__note {
-        padding: 12px 14px;
-        background: rgba(245, 158, 11, 0.07);
-        border: 1px solid rgba(245, 158, 11, 0.18);
-        border-radius: 10px;
-        font-size: 14px;
-        color: #b0bec8;
-        line-height: 1.65;
-        margin: 16px 0;
-    }
-
-    .article__note strong {
-        color: #f59e0b;
-    }
-
-    [data-theme="light"] .article ul li {
-        color: #475569;
-    }
-
-    [data-theme="light"] .article ul li strong {
-        color: #0f172a;
-    }
-
-    [data-theme="light"] .article__note {
-        background: rgba(245, 158, 11, 0.06);
-        color: #475569;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="article-wrap">
-    <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <a href="/">Главная</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <a href="/articles">Статьи</a>
-        <span class="breadcrumb__sep" aria-hidden="true">›</span>
-        <span aria-current="page">Проходные баллы гранта ЕНТ</span>
-    </nav>
     <div class="article-layout">
         <article class="article" itemscope itemtype="https://schema.org/Article">
             <h1 class="article__title" itemprop="headline">
-                Проходные баллы ЕНТ на грант и как оценить свои шансы
+                {% if locale == 'kk' %}ҰБТ грантына өтетін баллдар және шансыңызды қалай бағалау керек{% else
+                %}Проходные баллы ЕНТ на грант и как оценить свои шансы{% endif %}
             </h1>
             <div class="article__meta">
                 <time datetime="2026-08-01" itemprop="dateModified">Август 2026</time>
                 <span class="article__meta-sep">·</span>
-                <span>12 мин чтения</span>
+                <span>12 {{ app_strings.reading_time_suffix }}</span>
             </div>
 
-            <a href="/kalkulator-shansov-granta" class="mobile-cta">
+            <a href="{{ locale_prefix }}/kalkulator-shansov-granta" class="mobile-cta">
                 <div class="mobile-cta__icon">🎯</div>
                 <div class="mobile-cta__body">
-                    <div class="mobile-cta__label">Калькулятор</div>
-                    <div class="mobile-cta__title">Какие шансы на грант?</div>
+                    <div class="mobile-cta__label">{% if locale == 'kk' %}Калькулятор{% else %}Калькулятор{% endif %}
+                    </div>
+                    <div class="mobile-cta__title">{% if locale == 'kk' %}Грантқа шансы қандай?{% else %}Какие шансы на
+                        грант?{% endif %}</div>
                 </div>
                 <span class="mobile-cta__arrow">→</span>
             </a>
 
             <p class="article__lead">
+                {% if locale == 'kk' %}
+                Әр жыл сайын мыңдаған абитуриент грантқа өтініш береді және балл жетпегендіктен емес, ережелерді толық
+                түсінбегендіктен ретсіз сәттерге тап болады. Қатысу порогы — бұл әлі өтетін балл емес, конкурс әр
+                бағдарлама тобын жеке тұрғыда өтеді, ал өтініш тек бір жылда бір аптаға қабылданады. 2026 жылғы актуалды
+                цифрларды, өтініш берудің мерзімдерін және егер балл әлі жетпесе не істеу керек екенін қарастырамыз.
+                {% else %}
                 Каждый год тысячи абитуриентов подают документы на грант и получают отказ не потому, что не хватило
                 баллов — а потому, что не разобрались в правилах. Порог участия — это ещё не проходной балл, конкурс
                 идёт отдельно по каждой группе программ, а заявление принимают всего неделю в году. Разбираем
                 актуальные цифры 2026 года, сроки подачи и что делать, если баллов всё же не хватило.
+                {% endif %}
             </p>
 
+            {% if locale == 'kk' %}
+            <div class="article__note">
+                <strong>Қысқаша:</strong> 2026 жылы грантқа өтініш 13–20 шілде аралығында қабылданады, eGov арқылы
+                немесе
+                қабылдау комиссиясы арқылы. Бір өтініште 4 «вуз + мамандық» комбинациясын көрсетуге болады. Қатысу
+                порогы 50–75 балл аралығында, бірақ бұл нақты проходной емес — шынайы конкурс әдетте 10–40 балл
+                жоғары болады.
+            </div>
+
+            <h2>Білім беру бағдарламалары топтары бойынша болжамды баллдар</h2>
+            <p>
+                Ұлттық тестілеу орталығы (НЦТ) әр бағдарлама тобы үшін <strong>қатысу порогын</strong> белгілейді — бұл
+                грантқа конкурсқа қатысу үшін ең төменгі деңгей. Нақты проходной балл 2026 жылы
+                <strong>конкуренцияға</strong>
+                байланысты өзгеріп отырады.
+            </p>
+
+            <div class="article__example">
+                <table class="article__table">
+                    <thead>
+                        <tr>
+                            <th>Бағдарлама тобы</th>
+                            <th>Қатысу порогы</th>
+                            <th>Грантқа болжамды проходной</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ақпараттық технологиялар</td>
+                            <td><strong>50</strong></td>
+                            <td>95 – 105</td>
+                        </tr>
+                        <tr>
+                            <td>Педагогика</td>
+                            <td><strong>75</strong></td>
+                            <td>90 – 105</td>
+                        </tr>
+                        <tr>
+                            <td>Медицина және денсаулық сақтау</td>
+                            <td><strong>70</strong></td>
+                            <td>105 – 115</td>
+                        </tr>
+                        <tr>
+                            <td>Құқық</td>
+                            <td><strong>75</strong></td>
+                            <td>110 – 118</td>
+                        </tr>
+                        <tr>
+                            <td>Ауыл шаруашылығы және ветеринария</td>
+                            <td><strong>50</strong></td>
+                            <td>60 – 65</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="article__note">
+                <strong>Ескерту:</strong> ұлттық жоғары оқу орындарына түсу үшін абсолютті минимум — <strong>65
+                    балл</strong>. Басқа оқу орындары үшін 50 балл жеткілікті, бірақ бұл тек конкурсқа қатысу үшін ғана.
+            </div>
+
+            <p>
+                Тағы бір маңызды порог — әр пән бойынша минимум. Тарих, профильдік пәндер мен шығармашылық емтихан
+                үшін кемінде <strong>5 балл</strong>, ал оқу сауаттылығы мен математикалық сауаттылық үшін кемінде
+                <strong>3 балл</strong> қажет. Бір пәннен кем түссеңіз, жалпы нәтиже жоғары болса да, грантқа
+                қатысуға жібермей қалуыңыз мүмкін.
+            </p>
+
+            <h2>Гранттарды қалай бөледі</h2>
+            <p>Гранттарды арнайы <strong>автоматты жүйе</strong> бөледі — университет жеке шешім қабылдамайды.</p>
+            <ul>
+                <li><strong>Рейтингтеу.</strong> Бір бағдарлама тобы бойынша барлық өтініштер 140-тен 50-ге дейінгі
+                    балл бойынша реттеледі.</li>
+                <li><strong>Квоталар.</strong> Жалпы орын көлемінен ауылдық квота (35%), көпбалалы отбасылар, жетімдер
+                    сияқты арнайы санаттарға бөлінген бөлік алынады. Квотадағы талапкерлер өз топтарында ғана
+                    бәсекелеседі.</li>
+                <li><strong>Приоритеттер.</strong> Жүйе бірінші таңдалған нұсқаны қарастырады. Егер бірінші нұсқада балл
+                    жетпесе,
+                    өтініш автоматты түрде келесі таңдауға өтеді.</li>
+                <li><strong>Дауларды шешу.</strong> Соңғы орында тең балл болғанда «Алтын белгі», халықаралық олимпиада
+                    жеңімпазы немесе үздік аттестат алған абитуриент артықшылық алады.</li>
+            </ul>
+
+            <h2>2026 жылы грантқа қалай және қашан өтініш беру керек</h2>
+            <p>Қажетті баллды жинау ғана жеткіліксіз. Өтініш беру терезесін өткізіп алсаңыз, сол жылы қайтадан грантқа
+                түсу мүмкін болмауы мүмкін.</p>
+            <ul>
+                <li><strong>Негізгі қабылдау: 13–20 шілде.</strong> Құжаттарды вузаңның қабылдау комиссиясына,
+                    виртуалды қабылдау комиссиясына немесе eGov/eGov Mobile порталына тапсырасыз.</li>
+                <li><strong>Төрт комбинацияға дейін.</strong> Бір өтінішке төрт «вуз + бағдарлама тобы» комбинациясын
+                    енгізуге болады — бұл негізгі таңдау тым қатты бәсекеге түссе, сақтану жолы.</li>
+                <li><strong>Приоритеттерді дұрыс қой.</strong> Бірінші орынға ең мәртебелі емес, нақты өтуге мүмкіндігің
+                    бар нұсқаны қой. Егер бірінші орынға өтпесең, өтініш автоматты түрде келесі кезекте өңделеді.</li>
+                <li><strong>Қосымша терезелер.</strong> НЦТ жүйесі 12–18 тамыз және 12–18 желтоқсан аралығында
+                    қосымша қабылдау терезелерін ұсынады — бұл арнайы категориядағы талапкерлер үшін резерв.</li>
+            </ul>
+
+            <h2>Балл жетпеген кезде не істеу керек</h2>
+            <p>Конкурстан өте алмасаңыз да, бюджет орны үшін әлі де мүмкіндік бар:</p>
+            <ul>
+                <li><strong>Вакантты гранттар.</strong> Грант иесі оқуды тоқтатқанда немесе академдемалысқа шыққанда
+                    бос орын конкурс негізінде сол бағдарлама тобы бойынша төлем негізінде оқып жатқан талапкерлерге
+                    беріледі.</li>
+                <li><strong>Колледж түлектері үшін қысқартылған бағдарламалар.</strong> Егер сізде ТжКБ дипломы бар
+                    болса,
+                    бакалаврлық қысқартылған бағдарламаға өтініш беру үшін жалпы минимум <strong>25 балл</strong>, ал
+                    педагогикалық бағыттар үшін <strong>35 балл</strong> болады.</li>
+                <li><strong>Төлем негізінде оқып, грантқа тіл қату.</strong> {% if locale == 'kk' %}ҰБТ сертификаты
+                    төлем негізіндегі бөлімге де жарамды. Кейін оқу барысында вакантты грантқа іліну ықтималдығы бар.{%
+                    else %}ЕНТ сертификаты төлем негізіндегі бөлімге де жарамды. Кейін оқу барысында вакантты грантқа
+                    іліну ықтималдығы бар.{% endif %}</li>
+            </ul>
+
+            <h2>Жиі қойылатын сұрақтар</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>70–80 баллмен грантқа түсуге бола ма?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Аграрлық, ветеринарлық және кейбір инженерлік бағыттарда 70–80 баллмен мүмкіндік сақталады —
+                            болжамды проходной 60–65 балл. Педагогикалық мамандықтарға 70–80 балл жеткіліксіз: қатысу
+                            порогы
+                            75, ал нақты проходной 90–105 балл шамасында. IT, құқық немесе медицинада осындай баллмен
+                            грант алу қиын.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Ауылдық квота қалай жұмыс істейді?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Бұл квота балл қоспайды. 35% грант орындары ауылдық мектеп түлектері арасында бөлек конкурсқа
+                            шығарылады. Квотадағы проходной әдетте жалпы конкурстан 5–15 балл төмен болады.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Қабылдау өтінішіндегі оқу орындарының реті маңызды ма?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Грантты алу фактісі үшін емес, ал оқуға қабылдау үшін маңызды. Жүйе бірінші кезекте бірінші
+                            таңдауыңызды қарайды. Егер бірінші орында өтпесеңіз, өтініш автоматты түрде келесі орынға
+                            өтеді.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Ұлттық университетке қанша балл қажет?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Ұлттық университеттер үшін абсолютті минимум — <strong>65 балл</strong>. Басқа оқу орындары
+                            үшін 50
+                            балл жеткілікті, бірақ бұл грантқа толық кепілдік емес — нақты проходной бәсекеге
+                            байланысты.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Шансыымды қалай жылдам бағалауға болады?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p><a href="{{ locale_prefix }}/kalkulator-shansov-granta">BilimGrant шансы калькуляторын</a>
+                            пайдаланыңыз — {% if locale == 'kk' %}ҰБТ баллыңызды{% else %}ЕНТ баллыңызды{% endif %} және
+                            мамандық таңдауыңызды енгізіңіз. Калькулятор сіздің
+                            нәтижені болжамды проходной ауқымымен салыстырып, ықтималдықты көрсетеді.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Төлем негізінде оқып жүріп грантқа түсуге бола ма?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-a">
+                        <p>Иә. Оқу барысында бос грант орындары конкурс негізінде төлем негізінде оқитындар арасында
+                            қайта бөлінеді. Сондықтан жақсы баллмен төлем негізінде түсу де кейін грант алу мүмкіндігін
+                            береді.</p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
             <div class="article__note">
                 <strong>Коротко:</strong> заявление на грант принимают 13–20 июля 2026 через eGov или приёмную
                 комиссию вуза — можно указать до 4 комбинаций «вуз + специальность». Порог участия — от 50 до 75
@@ -342,7 +483,8 @@
                 </div>
                 <div class="faq-item">
                     <button class="faq-q" aria-expanded="false">
-                        <span>Какой минимальный балл для поступления в национальный вуз?</span>
+                        <span>{% if locale == 'kk' %}Ұлттық университетке қабылдану үшін минималды балл қанша?{% else
+                            %}Какой минимальный балл для поступления в национальный вуз?{% endif %}</span>
                         <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
@@ -363,7 +505,8 @@
                         </svg>
                     </button>
                     <div class="faq-a">
-                        <p>Воспользуйтесь <a href="/kalkulator-shansov-granta">калькулятором шансов BilimGrant</a> —
+                        <p>Воспользуйтесь <a href="{{ locale_prefix }}/kalkulator-shansov-granta">калькулятором шансов
+                                BilimGrant</a> —
                             введите пробный балл ЕНТ, выберите специальность и тип вуза. Калькулятор сравнит ваш
                             результат с прогнозным
                             проходным диапазоном и покажет ориентировочную вероятность.</p>
@@ -384,24 +527,29 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
 
             <div class="article__related">
-                <div class="article__related-title">Читайте также</div>
+                <div class="article__related-title">{{ app_strings.read_also }}</div>
                 <div class="article__related-links">
-                    <a href="/kalkulator-shansov-granta" class="article__related-card">
-                        <span class="article__related-label">Калькулятор</span>
-                        <span class="article__related-text">Какие шансы поступить на бюджет? Калькулятор гранта
-                            ЕНТ</span>
+                    <a href="{{ locale_prefix }}/kalkulator-shansov-granta" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.calculator_label }}</span>
+                        <span class="article__related-text">{% if locale == 'kk' %}Бюджетке кәсіпке түсу мүмкіндігін
+                            қалай бағалауға болады? Грант калькуляторы{% else %}Какие шансы поступить на бюджет?
+                            Калькулятор гранта ЕНТ{% endif %}</span>
                         <span class="article__related-arrow">→</span>
                     </a>
-                    <a href="/metodika-rascheta-mon-rk" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Методика расчёта оценок МОН РК</span>
+                    <a href="{{ locale_prefix }}/metodika-rascheta-mon-rk" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
+                        <span class="article__related-text">{% if locale == 'kk' %}МОН РК бағалау әдістемесі{% else
+                            %}Методика расчёта оценок МОН РК{% endif %}</span>
                         <span class="article__related-arrow">→</span>
                     </a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="article__related-card">
-                        <span class="article__related-label">Статья</span>
-                        <span class="article__related-text">Как перевести проценты в оценку — таблица и конвертер</span>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="article__related-card">
+                        <span class="article__related-label">{{ app_strings.article_label }}</span>
+                        <span class="article__related-text">{% if locale == 'kk' %}Проценттерді бағаға қалай аудару —
+                            кесте және конвертер{% else %}Как перевести проценты в оценку — таблица и конвертер{% endif
+                            %}</span>
                         <span class="article__related-arrow">→</span>
                     </a>
                 </div>
@@ -409,37 +557,54 @@
         </article>
 
         <aside class="article-sidebar">
-            <div class="sidebar-widget sidebar-widget--cta">
-                <div class="sidebar-widget__title">🎯 Калькулятор шансов</div>
-                <p class="sidebar-widget__text">Введи пробный балл ЕНТ — узнай ориентировочную вероятность получения
-                    гранта по выбранной специальности</p>
-                <a href="/kalkulator-shansov-granta" class="btn sidebar-widget__btn"
-                    style="background:#f59e0b;border-color:#f59e0b">Открыть BilimGrant →</a>
+            <div class="sidebar-widget sidebar-widget--cta cta-amber">
+                <div class="sidebar-widget__title">
+                    <span class="sidebar-widget__title-icon">{% set color = '#f59e0b' %}{% include
+                        "_brand_icon_svg.html" with context %}</span>
+                    {% if locale == 'kk' %}Грант шансы калькуляторы{% else %}Калькулятор шансов{% endif %}
+                </div>
+                <p class="sidebar-widget__text">{% if locale == 'kk' %}ҰБТ-дағы болжамды баллды енгіз — таңдалған
+                    мамандық бойынша грант алу ықтималдығын анықта{% else %}Введи пробный балл ЕНТ — узнай
+                    ориентировочную вероятность получения гранта по выбранной специальности{% endif %}</p>
+                <a href="{{ locale_prefix }}/kalkulator-shansov-granta" class="btn sidebar-widget__btn"
+                    style="background:#f59e0b;border-color:#f59e0b">{% if locale == 'kk' %}BilimGrant ашу →{% else
+                    %}Открыть BilimGrant →{% endif %}</a>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Приём заявлений 2026</div>
-                <div class="sidebar-widget__formula" style="color:#f59e0b">13 – 20 июля</div>
-                <div class="sidebar-widget__note">Через eGov или приёмную комиссию вуза · до 4 комбинаций</div>
+                <div class="sidebar-widget__title">{% if locale == 'kk' %}2026 жылы өтініш қабылдау{% else %}Приём
+                    заявлений 2026{% endif %}</div>
+                <div class="sidebar-widget__formula" style="color:#f59e0b">{% if locale == 'kk' %}13 – 20 шілде{% else
+                    %}13 – 20 июля{% endif %}</div>
+                <div class="sidebar-widget__note">{% if locale == 'kk' %}eGov немесе вуза қабылдау комиссиясы арқылы · 4
+                    комбинацияға дейін{% else %}Через eGov или приёмную комиссию вуза · до 4 комбинаций{% endif %}</div>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">IT — прогноз 2026</div>
-                <div class="sidebar-widget__formula" style="color:#f59e0b">Порог: 50 · Проходной: 95–105</div>
-                <div class="sidebar-widget__note">Нац. вуз: мин. 65 баллов</div>
+                <div class="sidebar-widget__title">{% if locale == 'kk' %}IT — 2026 болжамы{% else %}IT — прогноз 2026{%
+                    endif %}</div>
+                <div class="sidebar-widget__formula" style="color:#f59e0b">{% if locale == 'kk' %}Порог: 50 · Проходной:
+                    95–105{% else %}Порог: 50 · Проходной: 95–105{% endif %}</div>
+                <div class="sidebar-widget__note">{% if locale == 'kk' %}Ұлттық университет — мин. 65 балл{% else %}Нац.
+                    вуз: мин. 65 баллов{% endif %}</div>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Сельская квота</div>
-                <div class="sidebar-widget__formula">35% мест</div>
-                <div class="sidebar-widget__note">Отдельный конкурс, проходной на 5–15 ниже</div>
+                <div class="sidebar-widget__title">{% if locale == 'kk' %}Ауылдық квота{% else %}Сельская квота{% endif
+                    %}</div>
+                <div class="sidebar-widget__formula">{% if locale == 'kk' %}35% орын{% else %}35% мест{% endif %}</div>
+                <div class="sidebar-widget__note">{% if locale == 'kk' %}Бөлек конкурс, проходной 5–15 балл төмен{% else
+                    %}Отдельный конкурс, проходной на 5–15 ниже{% endif %}</div>
             </div>
             <div class="sidebar-widget">
-                <div class="sidebar-widget__title">Другие статьи</div>
+                <div class="sidebar-widget__title">{{ app_strings.sidebar_other_articles }}</div>
                 <nav class="sidebar-nav">
-                    <a href="/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ Как рассчитать
-                        итоговую оценку за год?</a>
-                    <a href="/perehod-na-12-letku-kazakhstan" class="sidebar-nav__link">→ 12-летнее обучение в
-                        Казахстане? </a>
-                    <a href="/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ Как перевести проценты в
-                        оценку?</a>
+                    <a href="{{ locale_prefix }}/kak-rasschitat-itogovuyu-otsenku-za-god" class="sidebar-nav__link">→ {%
+                        if locale == 'kk' %}Жылдық қорытынды бағаны қалай есептеу керек?{% else %}Как рассчитать
+                        итоговую оценку за год?{% endif %}</a>
+                    <a href="{{ locale_prefix }}/perehod-na-12-letku-kazakhstan" class="sidebar-nav__link">→ {% if
+                        locale == 'kk' %}Қазақстанда 12 жылдық оқуға өту — шындық па?{% else %}12-летнее обучение в
+                        Казахстане?{% endif %}</a>
+                    <a href="{{ locale_prefix }}/kak-perevesti-procenty-v-otsenku" class="sidebar-nav__link">→ {% if
+                        locale == 'kk' %}Проценттерді бағаға қалай аудару?{% else %}Как перевести проценты в оценку?{%
+                        endif %}</a>
                 </nav>
             </div>
         </aside>
