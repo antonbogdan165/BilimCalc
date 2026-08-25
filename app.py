@@ -433,6 +433,7 @@ def sitemap():
             f"{image_block}"
             f"</url>"
         )
+    lines.append("</urlset>")
     return _build_text_response("\n".join(lines), "application/xml")
 
 
