@@ -122,7 +122,7 @@ h1 {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 6px;
     color: var(--muted);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
     padding: 8px 200px;
     cursor: pointer;
@@ -466,7 +466,7 @@ input[type="number"] {
 }
 
 .official-link .link-text-top {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     opacity: 0.82;
     line-height: 1;
@@ -560,7 +560,7 @@ input[type="number"] {
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
 }
 
@@ -641,7 +641,7 @@ input[type="number"] {
 
 .break-title {
     color: var(--muted);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -858,7 +858,7 @@ footer a {
     }
 
     .break-title {
-        font-size: 9px;
+        font-size: 12px;
     }
 
     .t-legend {
@@ -875,7 +875,7 @@ footer a {
     }
 
     .trend-label {
-        font-size: 11px;
+        font-size: 12px;
     }
 
     #aiAccuracy {
@@ -883,7 +883,7 @@ footer a {
     }
 
     .grade-badge {
-        font-size: 11px;
+        font-size: 12px;
         padding: 3px 10px;
         margin-bottom: 8px;
     }
@@ -1091,7 +1091,7 @@ footer a {
     background: rgba(88, 166, 255, 0.10);
     border: 1px solid rgba(88, 166, 255, 0.25);
     color: var(--accent);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     letter-spacing: 0.3px;
 }
@@ -1140,7 +1140,7 @@ footer a {
     .article-card__icon {
         width: 40px;
         height: 40px;
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .article-card__title {
@@ -1211,7 +1211,7 @@ footer a {
     background: var(--danger);
     border-radius: 50%;
     color: #fff;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 800;
     line-height: 1;
 }

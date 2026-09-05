@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--muted, #8b949e);
     text-transform: uppercase;
@@ -53,7 +53,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--muted, #8b949e);
     text-transform: uppercase;
@@ -117,7 +117,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--muted, #8b949e);
     text-transform: uppercase;
@@ -161,7 +161,7 @@
 }
 
 .ya-ad-float__label {
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--muted, #8b949e);
     text-transform: uppercase;
@@ -265,7 +265,7 @@
 .ya-ad-sticky__label {
     display: block;
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--muted, #8b949e);
     text-transform: uppercase;

@@ -200,7 +200,7 @@
 }
 
 .grant-prob-label {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--muted);
     text-transform: uppercase;
@@ -248,7 +248,7 @@
     background: rgba(245, 158, 11, 0.12);
     color: #f59e0b;
     border: 1px solid rgba(245, 158, 11, 0.25);
-    font-size: 11px;
+    font-size: 12px;
     flex-shrink: 0;
 }
 
@@ -322,7 +322,7 @@
 .grant-status {
     display: inline-flex;
     margin: 0;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     padding: 3px 10px;
     border-radius: 99px;
@@ -331,7 +331,7 @@
 
 .grant-delta {
     display: inline-flex;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 5px;
@@ -390,7 +390,7 @@
 
 .grant-label {
     display: block;
-    font-size: 10.5px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--muted);
     text-transform: uppercase;
@@ -492,7 +492,7 @@
 }
 
 .grant-toggle-hint {
-    font-size: 10.5px;
+    font-size: 12px;
     color: var(--muted);
     margin-top: 1px;
 }
@@ -571,7 +571,7 @@
 }
 
 #grantThresholdInfo {
-    font-size: 11.5px;
+    font-size: 12px;
 }
 
 .grant-reset-btn {
@@ -591,7 +591,7 @@
 
 .grant-delta {
     display: inline-flex;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 5px;
@@ -705,7 +705,7 @@
     }
 
     .grant-site-title__sub {
-        font-size: 0.7rem !important;
+        font-size: 12px !important;
     }
 
     .grant-gauge-wrap--desktop {
@@ -721,7 +721,7 @@
     }
 
     .grant-status {
-        font-size: 10px;
+        font-size: 12px;
         padding: 2px 9px;
     }
 
@@ -731,7 +731,7 @@
     }
 
     .grant-info-row {
-        font-size: 11.5px;
+        font-size: 12px;
         padding: 5px 0;
     }
 
