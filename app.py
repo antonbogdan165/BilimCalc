@@ -30,6 +30,7 @@ from config import APP_VERSION, DEFAULT_INDEXNOW_KEY, SITE_URL
 from routes_map import ARTICLE_ROUTES, CALC_REDIRECTS, NOINDEX_ROUTES, TEMPLATE_ROUTES
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 secret_key = os.environ.get("SECRET_KEY")
 if secret_key:
     app.secret_key = secret_key
